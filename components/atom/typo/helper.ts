@@ -1,4 +1,5 @@
-import {TTextSize, TTextWidth} from "@/components/atom/typo/type";
+import {TColor, TTextSize, TTextWidth} from "@/components/atom/typo/type";
+import semantic from "@/shared/color/semanticPalette.module.scss";
 
 export function getElementType(textSize: TTextSize): string {
   switch (textSize) {
@@ -22,10 +23,21 @@ export function getFontSize(textSize: TTextSize, emphasize: boolean): string {
   }
 }
 
-export function getWidth(width: TTextWidth): string {
+export function getWidth(width: TTextWidth | undefined): string {
+  if(width === undefined) return 'auto';
   switch (width) {
     case 'fill': return '100%';
-    case 'hug': return 'auto';
+    case 'hug': return 'max-content';
     default: return `${width}px`;
+  }
+}
+
+export function getColorClass(color: TColor): string {
+  switch (color) {
+    case 'variable': return semantic.onGenericOnGenericVariable;
+    case 'generic': return semantic.onGenericOnGeneric;
+    case 'dim': return semantic.onGenericOnGenericDim;
+    case 'primary': return semantic.onGenericOnGenericPrimary;
+    default: return '';
   }
 }

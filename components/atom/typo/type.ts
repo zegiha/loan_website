@@ -12,11 +12,14 @@ export type TTextWidth =
   'hug' |
   number;
 
+export type TColor = 'generic' | 'variable' | 'dim' | 'primary' | undefined;
+
 export interface ITypo {
-  children: string;
+  children: string | React.ReactNode;
   emphasize?: boolean;
   width?: TTextWidth;
   textOverflowLine?: number;
+  color?: TColor,
   textAlign?: 'start' | 'center' | 'end';
   className?: string;
 }

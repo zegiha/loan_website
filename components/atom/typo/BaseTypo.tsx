@@ -1,5 +1,5 @@
 import {createElement} from "react";
-import {getElementType, getFontSize, getWidth} from "@/components/atom/typo/helper";
+import {getColorClass, getElementType, getFontSize, getWidth} from "@/components/atom/typo/helper";
 import {IBaseTypo} from "@/components/atom/typo/type";
 
 
@@ -8,9 +8,10 @@ export default function BaseTypo({
   textSize,
   emphasize,
   children,
-  width='hug',
+  width,
   textOverflowLine,
   textAlign,
+  color='generic',
   className,
 }:IBaseTypo) {
   return createElement(
@@ -24,8 +25,9 @@ export default function BaseTypo({
         lineClamp: textOverflowLine,
         textOverflow: !!textOverflowLine,
         textAlign: textAlign,
+        wordBreak: 'keep-all',
       },
-      className,
+      className: `${className} ${getColorClass(color)}`,
     },
     children,
   );
