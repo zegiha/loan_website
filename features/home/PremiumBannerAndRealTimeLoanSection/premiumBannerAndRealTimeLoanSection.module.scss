@@ -1,0 +1,19 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.box {
+  padding: 24px;
+  background: semantic.$container-containerLow;
+  border-radius: 12px;
+}
+
+.plusButton {
+  padding: 8px;
+  border-radius: 8px;
+  transition: ani.$leaveTransition;
+  background-color: semantic.$container-containerLow;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerNormal;
+  }
+}
