@@ -1,0 +1,14 @@
+$spacing-values: (
+  32: 32px,
+  24: 24px,
+  16: 16px,
+  12: 12px,
+  8: 8px,
+  4: 4px,
+);
+
+@each $key, $value in $spacing-values {
+  .spacing-#{$key} {
+    gap: $value;
+  }
+}
