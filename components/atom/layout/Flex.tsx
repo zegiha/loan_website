@@ -1,34 +1,33 @@
 import {CSSProperties} from "react";
-import {alignItems, flexDir, justifyContents} from "@/components/atom/layout/typo";
-import {getJustifyContents, proccessJustifyContents} from "@/components/atom/layout/helper";
+import {IFlex} from "@/components/atom/layout/type";
+import {processSortingProp, processWidth} from "@/components/atom/layout/helper";
 
-const Spacing = {
 
-} as const;
-
-interface IFlex {
-  flexDir: flexDir,
-  justifyContents: justifyContents;
-  alignItems: alignItems;
-  wrap: boolean;
-  className: string;
-  children: React.ReactNode;
-}
 
 export default function Flex({
+  width,
   flexDir,
   justifyContents,
   alignItems,
   wrap,
+  gap,
   className,
+  style,
   children
-}) {
-  const style: CSSProperties ={
+}: IFlex) {
+  const genericStyle: CSSProperties = {
+    display: 'flex',
+    width: processWidth(width),
     flexDirection: flexDir === 'row' ? 'row' : 'column',
-    justifyContent: proccessJustifyContents(justifyContents),
-    al
-  }
-  return <div style={}>
+    justifyContent: processSortingProp(justifyContents),
+    alignItems: processSortingProp(alignItems),
+    flexWrap: wrap ? 'wrap' : undefined,
+    gap: gap,
+  };
+  return <div style={{
+    ...genericStyle,
+    ...style
+  }} className={className}>
     {children}
   </div>;
 }
