@@ -1,7 +1,7 @@
-import {Col} from "@/components/atom/layout/Col";
 import DisplaySection from "@/features/home/displaySection/DisplaySection";
 import PremiumBannerAndRealTimeLoanSection
   from "@/features/home/PremiumBannerAndRealTimeLoanSection/PremiumBannerAndRealTimeLoanSection";
+import {Col} from "@/components/atoms/layout";
 
 export default function Home() {
   return (

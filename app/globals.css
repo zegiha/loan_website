@@ -17,3 +17,8 @@ a {
 h1, h2, h3, p {
 	display: inline;
 }
+
+button {
+  outline: none;
+  border: none;
+}

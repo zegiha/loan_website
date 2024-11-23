@@ -1,6 +1,6 @@
-import {Col} from "@/components/atom/layout/Col";
 import style from './section.module.scss';
-import semantic from '@/shared/color/semanticPalette.module.scss'
+import {Col} from "@/components/atoms/layout";
+import {semantic} from "@/shared/color";
 
 export default function Section({backgroundColor, children}: {backgroundColor?: 'surface' | 'surfaceDim', children: React.ReactNode}) {
   return (

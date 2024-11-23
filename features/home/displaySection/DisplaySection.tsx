@@ -1,9 +1,8 @@
-import {Col} from "@/components/atom/layout/Col";
-import Row from "@/components/atom/layout/Row";
-import Typo from "@/components/atom/typo/Typo";
-import semantic from "@/shared/color/semanticPalette.module.scss";
+import Typo from "@/components/atoms/typo/Typo";
 import style from "./display.module.scss";
 import Image from "next/image";
+import {Col, Row} from "@/components/atoms/layout";
+import {semantic} from "@/shared/color";
 
 export default function DisplaySection() {
   return (
