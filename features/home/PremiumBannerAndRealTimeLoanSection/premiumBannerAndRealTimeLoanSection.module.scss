@@ -2,9 +2,16 @@
 @use '/shared/constants/animation.module' as ani;
 
 .box {
+  position: relative;
   padding: 24px;
   background: semantic.$container-containerLow;
   border-radius: 12px;
+}
+.bigBox {
+  width: calc((100% - 24px) / 3 * 2);
+}
+.smallBox {
+  flex: 1;
 }
 
 .plusButton {
@@ -17,3 +24,14 @@
     background-color: semantic.$container-containerNormal;
   }
 }
+
+.locationChip {
+  padding: 4px 8px;
+  border-radius: 24px;
+  background-color: semantic.$container-containerHigh;
+}
+
+.realTimeLoanContainer {
+  overflow: hidden;
+}
+

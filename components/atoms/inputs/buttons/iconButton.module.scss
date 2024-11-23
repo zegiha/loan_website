@@ -1,0 +1,26 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.iconButtonPadding4 {
+  padding: 4px;
+  border-radius: 6px;
+  background: none;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+    cursor: pointer;
+  }
+}
+
+.iconButtonPadding8 {
+  padding: 8px;
+  border-radius: 8px;
+  background: none;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+    cursor: pointer;
+  }
+}
