@@ -15,6 +15,7 @@ export default function Flex({
   style,
   children,
   ref,
+  onClick,
 }: IFlex) {
   const genericStyle: CSSProperties = {
     display: 'flex',
@@ -32,6 +33,7 @@ export default function Flex({
     }}
     className={className}
     ref={ref}
+    onClick={onClick}
   >
     {children}
   </div>;

@@ -19,7 +19,8 @@ export default function PremiumBanner({cardNumber}: {cardNumber: number}) {
         modules={[Navigation, Autoplay]}
         loop
         autoplay={{
-          delay: 3000,
+          delay: 2000,
+          pauseOnMouseEnter: true,
         }}
         spaceBetween={24}
         slidesPerGroup={cardNumber}
