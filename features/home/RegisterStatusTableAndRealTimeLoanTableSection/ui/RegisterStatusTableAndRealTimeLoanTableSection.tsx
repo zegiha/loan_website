@@ -25,7 +25,7 @@ export default function RegisterStatusTableAndRealTimeLoanTableSection() {
           gap={24}
         >
           <Typo.Body emphasize>
-            대출업체 등록 현황
+            실시간 대출 문의글
           </Typo.Body>
           <RealTimeLoanTable/>
         </Col>

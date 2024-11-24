@@ -4,6 +4,8 @@ import "./globals.css";
 import '@/shared/swiper/swiperStyle.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import style from './home.module.scss';
+import Footer from "@/components/organisms/layout/footer/Footer";
 
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2'});
 
@@ -23,7 +25,10 @@ export default function RootLayout({
       <link rel="icon" href="./favicon.ico"/>
     </head>
     <body className={`${wantedSans.className}`}>
-    {children}
+    <div className={style.container}>
+      {children}
+      <Footer/>
+    </div>
     </body>
     </html>
   );
