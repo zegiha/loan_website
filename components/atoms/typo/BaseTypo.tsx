@@ -1,8 +1,7 @@
 import {createElement} from "react";
-import {getColorClass, getElementType, getFontSize, getWidth} from "@/components/atoms/typo/helper";
+import {getColorClass, getElementType, getFontSize, getWidthByStyle} from "@/components/atoms/typo/helper";
 import {IBaseTypo} from "@/components/atoms/typo/type";
-
-
+import style from './typo.module.scss';
 
 export default function BaseTypo({
   textSize,
@@ -21,13 +20,12 @@ export default function BaseTypo({
         fontSize: getFontSize(textSize, !!emphasize),
         lineHeight: '145%',
         fontWeight: emphasize ? 600 : 400,
-        width: getWidth(width),
-        lineClamp: textOverflowLine,
-        textOverflow: !!textOverflowLine,
         textAlign: textAlign,
+        justifyContent: textAlign,
         wordBreak: 'keep-all',
+        ...getWidthByStyle(width),
       },
-      className: `${className} ${getColorClass(color)}`,
+      className: `${className} ${getColorClass(color)} ${textOverflowLine === 1 ? style.overflowLine1 : textOverflowLine === 2 ? style.overflowLine2 : ''}`,
     },
     children,
   );
