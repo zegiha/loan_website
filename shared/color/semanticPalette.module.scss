@@ -132,6 +132,7 @@ $layer-modalBackground: rgba(palette.$gray800, 0.64);
 
 .outlineDefault {
   border-color: $outline-default;
+  background-color: $outline-default;
 }
 
 .outlinePrimary {
