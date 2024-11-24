@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import style from './home.module.scss';
 import Footer from "@/components/organisms/layout/footer/Footer";
+import Header from "@/components/organisms/layout/Header/Header";
 
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2'});
 
@@ -26,6 +27,7 @@ export default function RootLayout({
     </head>
     <body className={`${wantedSans.className}`}>
     <div className={style.container}>
+      <Header/>
       {children}
       <Footer/>
     </div>
