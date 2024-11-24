@@ -4,6 +4,8 @@ import {
   PremiumBannerAndRealTimeLoanSection,
   MainRegisteredCompanySection,
 } from "@/features/home";
+import RegisterStatusTableAndRealTimeLoanTableSection
+  from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTableAndRealTimeLoanTableSection";
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
       <DisplaySection/>
       <PremiumBannerAndRealTimeLoanSection/>
       <MainRegisteredCompanySection/>
+      <RegisterStatusTableAndRealTimeLoanTableSection/>
     </Col>
   );
 }

@@ -1,0 +1,37 @@
+import Section from "@/components/molecules/section/Section";
+import {Col, Row} from "@/components/atoms/layout";
+import Typo from "@/components/atoms/typo/Typo";
+import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTable";
+import RealTimeLoanTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RealTimeLoanTable";
+
+export default function RegisterStatusTableAndRealTimeLoanTableSection() {
+  return (
+    <Section backgroundColor={'surface'}>
+      <Row
+        width={'fill'}
+        gap={24}
+      >
+        <Col
+          width={'fill'}
+          gap={24}
+        >
+          <Typo.Body emphasize>
+            대출업체 등록 현황
+          </Typo.Body>
+          <RegisterStatusTable/>
+        </Col>
+        <Col
+          width={'fill'}
+          gap={24}
+        >
+          <Typo.Body emphasize>
+            대출업체 등록 현황
+          </Typo.Body>
+          <RealTimeLoanTable/>
+        </Col>
+      </Row>
+    </Section>
+  );
+}
+
+
