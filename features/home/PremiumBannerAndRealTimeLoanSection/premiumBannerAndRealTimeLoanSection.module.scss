@@ -39,6 +39,15 @@
 .realTimeLoanWrapper {
   transition: all 0.1s linear;
 }
-.test {
-  transition: all 0s;
+
+.realTimeLoan {
+  background-color: semantic.$container-containerLow;
+  padding: 4px;
+  cursor: pointer;
+  transition: ani.$leaveTransition;
+  border-radius: 6px;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerNormal;
+  }
 }

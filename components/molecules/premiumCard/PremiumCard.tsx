@@ -2,6 +2,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import style from './premiumCard.module.scss';
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import {semantic} from "@/shared/color";
+import {LocationIcon} from "@/components/atoms/icons";
 
 export default function PremiumCard() {
   return (
@@ -14,7 +15,11 @@ export default function PremiumCard() {
           무서류 저신용자 상관없음 무서류
         </Typo.Contents>
         <Row gap={4} alignItems={'center'}>
-          <div style={{width: 20, height: 20}} className={semantic.containerContainerHighest}/>
+          <LocationIcon
+            size={20}
+            color={'dim'}
+            fill
+          />
           <Typo.Contents color={'dim'}>
             전국
           </Typo.Contents>
