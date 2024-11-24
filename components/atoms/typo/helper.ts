@@ -1,5 +1,6 @@
 import {TColor, TTextSize, TTextWidth} from "@/components/atoms/typo/type";
 import semantic from "@/shared/color/semanticPalette.module.scss";
+import {CSSProperties} from "react";
 
 export function getElementType(textSize: TTextSize): string {
   switch (textSize) {
@@ -23,12 +24,14 @@ export function getFontSize(textSize: TTextSize, emphasize: boolean): string {
   }
 }
 
-export function getWidth(width: TTextWidth | undefined): string {
-  if(width === undefined) return 'auto';
+export function getWidthByStyle(width: TTextWidth | undefined): CSSProperties {
+  if(width === undefined) return {width: 'auto'};
   switch (width) {
-    case 'fill': return '100%';
-    case 'hug': return 'max-content';
-    default: return `${width}px`;
+    case 'fill': return {
+      flex: '1 0 0',
+    };
+    case 'hug': return {width: 'max-content'};
+    default: return {width: `${width}px`};
   }
 }
 
