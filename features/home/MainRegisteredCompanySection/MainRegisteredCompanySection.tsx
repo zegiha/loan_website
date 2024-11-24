@@ -1,23 +1,18 @@
 import Section from "@/components/molecules/section/Section";
-import {Col} from "@/components/atoms/layout";
 import CompanyCard from "@/components/molecules/companyCard/CompanyCard";
 import style from './mainRegisteredCompanySection.module.scss'
 
 export default function MainRegisteredCompanySection() {
   return (
     <Section backgroundColor={'surfaceDim'}>
-      <Col alignItems={'center'} width={'fill'}>
-        <Col width={'fill'} gap={24} style={{maxWidth: 1440}}>
-          <div className={style.companyCardGrid}>
-            {getDummies(12).map((v, i) => (
-              <CompanyCard
-                key={i}
-                {...v}
-              />
-            ))}
-          </div>
-        </Col>
-      </Col>
+      <div className={style.companyCardGrid}>
+        {getDummies(12).map((v, i) => (
+          <CompanyCard
+            key={i}
+            {...v}
+          />
+        ))}
+      </div>
     </Section>
   );
 }

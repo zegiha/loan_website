@@ -15,10 +15,17 @@ export default function Section({
     <Col
       ref={ref}
       width={'fill'}
+      alignItems={'center'}
       gap={24}
       className={`${style.section} ${backgroundColor === 'surface' ? semantic.surfaceSurface : semantic.surfaceSurfaceDim}`}
     >
-      {children}
+      <Col
+        width={'fill'}
+        gap={24}
+        style={{maxWidth: 1440}}
+      >
+        {children}
+      </Col>
     </Col>
   );
 }
