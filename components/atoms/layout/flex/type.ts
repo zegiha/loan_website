@@ -27,7 +27,7 @@ export interface IRowAndCol {
   style?: CSSProperties;
   children: React.ReactNode;
   ref?: React.MutableRefObject<HTMLDivElement | null>;
-  onClick?: () => {};
+  onClick?: () => void;
 }
 
 export interface IFlex extends IRowAndCol {
