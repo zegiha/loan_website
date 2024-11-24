@@ -1,8 +1,17 @@
 @use '/shared/color/semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
-.iconButtonPadding4 {
-  padding: 4px;
+.iconButton28, .iconButton40 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconButton28 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
   border-radius: 6px;
   background: none;
   transition: ani.$leaveTransition;
@@ -13,8 +22,9 @@
   }
 }
 
-.iconButtonPadding8 {
-  padding: 8px;
+.iconButton40 {
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   background: none;
   transition: ani.$leaveTransition;
