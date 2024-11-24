@@ -3,6 +3,7 @@ import style from "./display.module.scss";
 import Image from "next/image";
 import {Col, Row} from "@/components/atoms/layout";
 import {semantic} from "@/shared/color";
+import {LocationIcon} from "@/components/atoms/icons";
 
 export default function DisplaySection() {
   return (
@@ -112,7 +113,11 @@ function TopADCard() {
       </Row>
       <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
         <Row gap={4} alignItems={'center'}>
-          <div style={{width: 20, height: 20, background: 'gray'}}/>
+          <LocationIcon
+            color={'dim'}
+            size={20}
+            fill
+          />
           <Typo.Contents color={'dim'}>
             전국
           </Typo.Contents>
