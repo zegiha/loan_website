@@ -34,8 +34,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
 
   return (
     <Section backgroundColor={'surfaceDim'}>
-      <Col alignItems={'center'} width={'fill'}>
-        <Row width={'fill'} gap={24} style={{maxWidth: 1440}}>
+        <Row width={'fill'} gap={24}>
           <Box ref={premiumBannerRef} className={style.bigBox}>
             <Typo.SubBody emphasize color={'variable'}>
               <span className={semantic.onGenericOnGenericPrimary}>
@@ -51,7 +50,6 @@ export default function PremiumBannerAndRealTimeLoanSection() {
             <RealTimeLoanSection bannerHeight={bannerHeight ?? 0}/>
           </Box>
         </Row>
-      </Col>
     </Section>
   );
 }
