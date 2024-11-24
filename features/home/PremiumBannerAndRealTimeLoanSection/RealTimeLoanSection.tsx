@@ -6,6 +6,7 @@ import style from "@/features/home/PremiumBannerAndRealTimeLoanSection/premiumBa
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
 import React from "react";
+import {PlusIcon} from "@/components/atoms/icons";
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   return (
@@ -19,10 +20,10 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
           건
         </Typo.SubBody>
         <BaseButton
-          className={`${iconButton.iconButtonPadding8}`}
+          className={`${iconButton.iconButton40}`}
           onClick={() => {}}
         >
-          <div style={{width: 24, height: 24, background: 'grey'}} />
+          <PlusIcon/>
         </BaseButton>
       </Row>
       <Col width={'fill'} className={style.realTimeLoanContainer}>
@@ -54,7 +55,7 @@ function RealTimeLoan() {
       gap={12}
       alignItems={'center'}
       width={'fill'}
-      style={{padding: '4px 0', cursor: 'pointer'}}
+      className={style.realTimeLoan}
     >
       <Row
         gap={8}
@@ -66,7 +67,7 @@ function RealTimeLoan() {
             서울
           </Typo.Contents>
         </div>
-        <Typo.Contents width={'fill'}>
+        <Typo.Contents width={'fill'} textOverflowLine={1}>
           대학생 등록금 제출
         </Typo.Contents>
       </Row>

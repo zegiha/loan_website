@@ -43,7 +43,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
               </span>
               대부업체
             </Typo.SubBody>
-            <PremiumBanner cardNumber={3} />
+            <PremiumBanner defaultCardNumber={3} />
           </Box>
           <Box className={style.smallBox} inlineStyle={{
             height: `${bannerHeight}px`,

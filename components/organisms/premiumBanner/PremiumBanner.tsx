@@ -3,15 +3,48 @@
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Autoplay} from "swiper/modules";
 import PremiumCard from "@/components/molecules/premiumCard/PremiumCard";
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/atoms/inputs";
 import {Col, Row} from "@/components/atoms/layout";
+import {ArrowIcon} from "@/components/atoms/icons";
 
-export default function PremiumBanner({cardNumber}: {cardNumber: number}) {
+export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: number}) {
   const swiperRef = useRef<SwiperType>();
+  const [cardNumber, setCardNumber] = useState(defaultCardNumber);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (wrapperRef.current) {
+        const width = wrapperRef.current.offsetWidth;
+
+        if (width > 538 && cardNumber !== defaultCardNumber) {
+          setCardNumber(defaultCardNumber);
+        } else if (378 < width && width <= 538 && cardNumber !== 2) {
+          setCardNumber(2);
+        } else if (width <= 378 && cardNumber !== 1) {
+          setCardNumber(1);
+        }
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [defaultCardNumber, cardNumber]);
+
   return (
-    <Col gap={12} width={'fill'} alignItems={'center'}>
+    <Col
+      ref={wrapperRef}
+      gap={12}
+      width={'fill'}
+      alignItems={'center'}
+    >
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -25,6 +58,9 @@ export default function PremiumBanner({cardNumber}: {cardNumber: number}) {
         spaceBetween={24}
         slidesPerGroup={cardNumber}
         slidesPerView={cardNumber}
+        style={{
+          paddingLeft: 1,
+        }}
       >
         {Array.from({length: 20}, (_, index) => index + 1).map((_, i) => (
           <SwiperSlide key={i}>
@@ -34,16 +70,23 @@ export default function PremiumBanner({cardNumber}: {cardNumber: number}) {
       </Swiper>
       <Row gap={8}>
         <BaseButton
-          className={`${iconButton.iconButtonPadding4}`}
+          className={`${iconButton.iconButton28}`}
           onClick={() => {swiperRef.current?.slidePrev(240)}}
         >
-          <div style={{width: 20, height: 20, background: 'grey'}} />
+          <ArrowIcon
+            size={20}
+            color={'dim'}
+            deg={180}
+          />
         </BaseButton>
         <BaseButton
-          className={`${iconButton.iconButtonPadding4}`}
+          className={`${iconButton.iconButton28}`}
           onClick={() => {swiperRef.current?.slideNext(240)}}
         >
-          <div style={{width: 20, height: 20, background: 'grey'}} />
+          <ArrowIcon
+            size={20}
+            color={'dim'}
+          />
         </BaseButton>
       </Row>
     </Col>
