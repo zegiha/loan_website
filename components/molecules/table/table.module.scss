@@ -1,0 +1,20 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.tableHead {
+  padding: 12px 16px;
+  border-bottom: 1px solid semantic.$outline-default;
+
+}
+
+.tableRow {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: semantic.$container-containerLow;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+    cursor: pointer;
+  }
+}
