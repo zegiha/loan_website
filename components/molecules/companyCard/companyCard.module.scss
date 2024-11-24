@@ -9,6 +9,7 @@
   &:hover {
     transition: ani.$onTransition;
     background-color: sematic.$container-containerHigh;
+    cursor: pointer;
   }
 }
 
