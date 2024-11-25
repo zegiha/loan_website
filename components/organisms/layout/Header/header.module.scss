@@ -16,11 +16,24 @@
   align-items: center;
   transition: ani.$leaveTransition;
 }
+
 .bigContainer {
   opacity: 1;
-  transform: translateY(0);
   background-color: semantic.$container-containerLow;
+  animation: shownBigContainer 0.3s;
+  animation-fill-mode: forwards;
 }
+@keyframes shownBigContainer {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .bigContainerHidden {
   animation: hiddenBigContainer 0.3s;
   animation-fill-mode: forwards;
