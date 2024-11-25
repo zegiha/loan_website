@@ -6,6 +6,7 @@
   padding: 12px 40px;
   height: 49px;
   background-color: semantic.$container-containerLow;
+  border-bottom: 1px solid semantic.$outline-default;
 }
 .navigation {
   transition: ani.$leaveTransition;
