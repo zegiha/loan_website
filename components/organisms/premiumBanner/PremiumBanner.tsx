@@ -8,6 +8,7 @@ import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
+import getPremiumCards from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getPrimiumCards";
 
 export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: number}) {
   const swiperRef = useRef<SwiperType>();
@@ -62,9 +63,9 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
           paddingLeft: 1,
         }}
       >
-        {Array.from({length: 20}, (_, index) => index + 1).map((_, i) => (
+        {getPremiumCards().map((v, i) => (
           <SwiperSlide key={i}>
-            <PremiumCard/>
+            <PremiumCard {...v} />
           </SwiperSlide>
         ))}
       </Swiper>

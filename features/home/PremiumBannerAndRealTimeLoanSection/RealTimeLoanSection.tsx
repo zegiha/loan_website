@@ -7,6 +7,8 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
 import React from "react";
 import {PlusIcon} from "@/components/atoms/icons";
+import getRealTimeLoans from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getRealTimeLoans";
+import {TRealTimeLoan} from "@/features/home/PremiumBannerAndRealTimeLoanSection/type";
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   return (
@@ -38,18 +40,22 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
             pauseOnMouseEnter: true,
           }}
         >
-          {Array.from({length: 12}).map(((_, i) => (
+          {getRealTimeLoans().map((v, i) => (
             <SwiperSlide key={i}>
-              <RealTimeLoan/>
+              <RealTimeLoan {...v}/>
             </SwiperSlide>
-          )))}
+          ))}
         </Swiper>
       </Col>
     </>
   );
 }
 
-function RealTimeLoan() {
+function RealTimeLoan({
+  title,
+  location,
+  createdAt
+}: TRealTimeLoan) {
   return (
     <Row
       gap={12}
@@ -64,15 +70,15 @@ function RealTimeLoan() {
       >
         <div className={`${style.locationChip}`}>
           <Typo.Contents color={'dim'}>
-            서울
+            {location}
           </Typo.Contents>
         </div>
         <Typo.Contents width={'fill'} textOverflowLine={1}>
-          대학생 등록금 제출
+          {title}
         </Typo.Contents>
       </Row>
       <Typo.Caption color={'dim'}>
-        2024.11.19
+        {createdAt}
       </Typo.Caption>
     </Row>
   );
