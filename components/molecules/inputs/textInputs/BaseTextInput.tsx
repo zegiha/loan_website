@@ -45,13 +45,7 @@ export default function BaseTextInput({
       `}
       onClick={() => inputRef.current?.focus()}
     >
-      {PlaceholderIcon && (
-        <div key={`${isActive}`} style={{height: 24}} className={
-          isActive ? style.hidePlaceholderIcon : style.placeholderIcon
-        }>
-          {PlaceholderIcon}
-        </div>
-      )}
+      {PlaceholderIcon && PlaceholderIcon}
       <input
         ref={inputRef}
         type="text"

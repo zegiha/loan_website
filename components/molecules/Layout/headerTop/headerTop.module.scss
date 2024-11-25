@@ -1,0 +1,66 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.bigContainer, .bigContainerHidden {
+  width: 100%;
+  padding: 24px 40px;
+  border-bottom: 1px solid semantic.$outline-default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: ani.$leaveTransition;
+}
+
+.bigContainer {
+  opacity: 1;
+  background-color: semantic.$container-containerLow;
+  animation: shownBigContainer 0.3s;
+  animation-fill-mode: forwards;
+}
+@keyframes shownBigContainer {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bigContainerHidden {
+  animation: hiddenBigContainer 0.3s;
+  animation-fill-mode: forwards;
+}
+@keyframes hiddenBigContainer {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    background-color: semantic.$container-containerLow;
+  }
+  99% {
+    opacity: 0;
+    transform: translateY(-50px);
+    background-color: semantic.$container-containerLow;
+  }
+  100% {
+    transform: translateY(-1000px);
+    display: none;
+  }
+}
+
+.bigWrapper {
+  max-width: 1440px;
+}
+
+.topIconNavigation {
+  padding: 8px;
+  border-radius: 10px;
+  background-color: semantic.$container-containerLow;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+    cursor: pointer;
+  }
+}
