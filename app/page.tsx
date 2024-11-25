@@ -1,3 +1,5 @@
+'use server'
+
 import {Col} from "@/components/atoms/layout";
 import {
   DisplaySection,
@@ -7,7 +9,7 @@ import {
 import RegisterStatusTableAndRealTimeLoanTableSection
   from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTableAndRealTimeLoanTableSection";
 
-export default function Home() {
+export default async function Home() {
   return (
     <Col style={{width: '100%'}}>
       <DisplaySection/>

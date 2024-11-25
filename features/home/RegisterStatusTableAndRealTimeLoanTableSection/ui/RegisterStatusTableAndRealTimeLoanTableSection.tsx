@@ -1,10 +1,11 @@
+'use server'
 import Section from "@/components/molecules/section/Section";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTable";
 import RealTimeLoanTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RealTimeLoanTable";
 
-export default function RegisterStatusTableAndRealTimeLoanTableSection() {
+export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
   return (
     <Section backgroundColor={'surface'}>
       <Row

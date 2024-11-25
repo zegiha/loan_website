@@ -1,11 +1,18 @@
+'use server'
+
 import Typo from "@/components/atoms/typo/Typo";
 import style from "./display.module.scss";
 import Image from "next/image";
 import {Col, Row} from "@/components/atoms/layout";
 import {semantic} from "@/shared/color";
 import {LocationIcon} from "@/components/atoms/icons";
+import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
+import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
+import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
 
-export default function DisplaySection() {
+export default async function DisplaySection() {
+  const {totalLoanCompany, cumlativeVisiter, realTimeLoan} = await getWebStatus();
+  const topAds = await getTopAds();
   return (
     <Col className={style.displaySectionContainer} alignItems="center">
       <div className={style.displaySectionBackgroundBlur}/>
@@ -38,41 +45,37 @@ export default function DisplaySection() {
             </Typo.Body>
           </Col>
           <Col alignItems={'end'} gap={12}>
-            <Row
-              style={{padding: '16px 32px', borderRadius: 12}}
-              className={semantic.primaryPrimaryNormal}
-            >
-              <Typo.Title emphasize className={semantic.primaryOnPrimary}>
-                지금 대출 문의하기
-              </Typo.Title>
-            </Row>
+            <LoanQuestionButton/>
             <Row gap={24}>
               <RealTime
                 label={'총 등록 업체'}
-                contents={'19개'}
+                contents={`${totalLoanCompany}개`}
               />
               <RealTime
                 label={'누적 방문자'}
-                contents={'4599명'}
+                contents={`${cumlativeVisiter}명`}
               />
               <RealTime
                 label={'실시간 대출 문의'}
-                contents={'35개'}
+                contents={`${realTimeLoan}개`}
               />
             </Row>
           </Col>
         </Row>
         <div className={style.test}>
-          <TopADCard/>
-          <TopADCard/>
-          <TopADCard/>
+          {topAds.map((v, i) => (
+            <TopADCard
+              key={i}
+              {...v}
+            />
+          ))}
         </div>
       </Col>
     </Col>
   );
 }
 
-function RealTime({contents, label}: {contents: string, label: string}) {
+async function RealTime({contents, label}: {contents: string, label: string}) {
   return (
     <Col gap={4} alignItems={'center'}>
       <Typo.Title emphasize>{contents}</Typo.Title>
@@ -81,30 +84,39 @@ function RealTime({contents, label}: {contents: string, label: string}) {
   );
 }
 
-function TopADCard() {
+async function TopADCard({
+  title,
+  contents,
+  name,
+  location,
+  imgUrl
+}: ITopAd) {
   return (
     <Col gap={12} className={style.topAdCardContainer}>
       <Row gap={24} alignItems={'center'} width={'fill'}>
         <Col gap={12}>
           <Col gap={4}>
             <Typo.Body color={'variable'} emphasize>
-              <span className={semantic.onGenericOnGenericPrimary}>
-                {'TOP 메인 '}
-              </span>
-              광고주를 모십니다!
+              {title.map((v, i) => {
+                if(v.type === 'primary') {
+                  return <span key={i} className={semantic.onGenericOnGenericPrimary}>
+                    {v.contents}
+                  </span>
+                }
+                return v.contents
+              })}
             </Typo.Body>
             <Typo.Contents color={'dim'}>
-              TOP 메인 광고주를 모십니다!
-              1670-2962로 문의주세요!
+              {contents}
             </Typo.Contents>
           </Col>
           <Typo.SubBody emphasize>
-            넷프로 대출
+            {name}
           </Typo.SubBody>
         </Col>
         <div className={style.topAdCardImageContainer}>
           <Image
-            src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlROcXWBsxzaZwXERUSfV6eD92_-KLFAvjbg&s'}
+            src={imgUrl}
             alt={'TOP AD Card 이미지'}
             fill={true}
             className={style.topAdCardImage}
@@ -119,7 +131,7 @@ function TopADCard() {
             fill
           />
           <Typo.Contents color={'dim'}>
-            전국
+            {location}
           </Typo.Contents>
         </Row>
         <Typo.Contents emphasize color={'variable'}>
