@@ -1,0 +1,18 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.container {
+  position: relative;
+  padding: 12px 40px;
+  height: 49px;
+  background-color: semantic.$container-containerLow;
+}
+.navigation {
+  transition: ani.$leaveTransition;
+  &:hover {
+    position: relative;
+    transition: ani.$onTransition;
+    color: semantic.$onGeneric-onGenericPrimary;
+    cursor: pointer;
+  }
+}
