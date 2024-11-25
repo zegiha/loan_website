@@ -1,7 +1,7 @@
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {semantic} from "@/shared/color";
-import {BaseButton, iconButton} from "@/components/atoms/inputs";
+import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import style from "@/features/home/PremiumBannerAndRealTimeLoanSection/premiumBannerAndRealTimeLoanSection.module.scss";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
