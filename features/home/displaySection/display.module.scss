@@ -69,3 +69,15 @@
   border-radius: 12px;
   object-fit: cover;
 }
+
+.loanQuestionButton {
+  padding: 16px 32px;
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: semantic.$primary-primaryNormal;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$primary-primaryHigh;
+  }
+}

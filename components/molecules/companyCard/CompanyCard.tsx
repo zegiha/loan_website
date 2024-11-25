@@ -1,3 +1,5 @@
+'use server'
+
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import style from './companyCard.module.scss';
 import Image from "next/image";
@@ -16,7 +18,7 @@ interface ICompanyCard{
   name: string;
 }
 
-export default function CompanyCard({
+export default async function CompanyCard({
   type,
   imgUrl,
   variableTitle,

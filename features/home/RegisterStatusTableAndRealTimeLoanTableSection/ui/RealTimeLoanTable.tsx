@@ -1,3 +1,4 @@
+'use server'
 import Table from "@/components/organisms/table/Table";
 import TableHead from "@/components/molecules/table/TableHead";
 import Typo from "@/components/atoms/typo/Typo";
@@ -5,7 +6,7 @@ import {TRealTimeLoan} from "@/features/home/RegisterStatusTableAndRealTimeLoanT
 import getRealTimeLoan from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/api/getRealTimeLoan";
 import TableRow from "@/components/molecules/table/TableRow";
 
-export default function RealTimeLoanTable() {
+export default async function RealTimeLoanTable() {
   return (
     <Table
       head={<RealTimeLoanTableHead/>}
@@ -20,7 +21,7 @@ export default function RealTimeLoanTable() {
   );
 }
 
-function RealTimeLoanTableHead() {
+async function RealTimeLoanTableHead() {
   return <TableHead>
     <Typo.Contents width={70}>
       지역
@@ -34,7 +35,7 @@ function RealTimeLoanTableHead() {
   </TableHead>
 }
 
-function RealTimeLoanTableRow({
+async function RealTimeLoanTableRow({
   location,
   title,
   writedTime,

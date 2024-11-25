@@ -1,3 +1,4 @@
+'use server'
 import Table from "@/components/organisms/table/Table";
 import getRegisterStatus from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/api/getRegisterStatus";
 import TableHead from "@/components/molecules/table/TableHead";
@@ -5,7 +6,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import TableRow from "@/components/molecules/table/TableRow";
 import {TRegisterStatus} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
 
-export default function RegisterStatusTable() {
+export default async function RegisterStatusTable() {
   return (
     <Table
       head={<RegisterStatusTableHead/>}
@@ -20,7 +21,7 @@ export default function RegisterStatusTable() {
   );
 }
 
-function RegisterStatusTableHead() {
+async function RegisterStatusTableHead() {
   return <TableHead>
     <Typo.Contents width={70}>
       지역
@@ -33,7 +34,7 @@ function RegisterStatusTableHead() {
     </Typo.Contents>
   </TableHead>
 }
-function RegisterStatusTableRow({
+async function RegisterStatusTableRow({
   location,
   title,
   companyName,
