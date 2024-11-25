@@ -3,16 +3,25 @@ import style from './premiumCard.module.scss';
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import {semantic} from "@/shared/color";
 import {LocationIcon} from "@/components/atoms/icons";
+import {TPremiumCard} from "@/features/home/PremiumBannerAndRealTimeLoanSection/type";
 
-export default function PremiumCard() {
+export default function PremiumCard({
+  title,
+  location,
+  name
+}: TPremiumCard) {
   return (
     <Col gap={12} width={'fill'} className={style.premiumCardContainer}>
       <Col gap={4} width={'fill'}>
         <Typo.Contents emphasize color={'variable'}>
-          <span className={semantic.onGenericOnGenericPrimary}>
-            {'저신용자 상관없음 '}
-          </span>
-          무서류 저신용자 상관없음 무서류
+          {title.map((v, i) => {
+            if(v.type === 'primary') return (
+              <span key={i} className={semantic.onGenericOnGenericPrimary}>
+                {v.contents}
+              </span>
+            );
+            return v.contents
+          })}
         </Typo.Contents>
         <Row gap={4} alignItems={'center'}>
           <LocationIcon
@@ -21,14 +30,14 @@ export default function PremiumCard() {
             fill
           />
           <Typo.Contents color={'dim'}>
-            전국
+            {location}
           </Typo.Contents>
         </Row>
       </Col>
       <Divider/>
       <Row gap={12} width={'fill'}>
         <Typo.Contents color={'dim'} width={'fill'}>
-          스피드 대출
+          {name}
         </Typo.Contents>
         <Typo.Contents color={'dim'}>
           자세히보기

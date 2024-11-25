@@ -22,24 +22,30 @@ export default function HeaderBottom() {
   return (
     <Row
       width={'fill'}
-      justifyContents={'space-between'}
-      alignItems={'center'}
+      justifyContents={'center'}
       className={style.container}
     >
-      {items.map((v, i) => (
-        <Row
-          key={i}
-          gap={16}
-          alignItems={'center'}
-        >
-          {v.map((v, i) => (
-            <NavigationItem
-              key={i}
-              {...v}
-            />
-          ))}
-        </Row>
-      ))}
+      <Row
+        width={'fill'}
+        justifyContents={'space-between'}
+        alignItems={'center'}
+        className={style.wrapper}
+      >
+        {items.map((v, i) => (
+          <Row
+            key={i}
+            gap={16}
+            alignItems={'center'}
+          >
+            {v.map((v, i) => (
+              <NavigationItem
+                key={i}
+                {...v}
+              />
+            ))}
+          </Row>
+        ))}
+      </Row>
     </Row>
   );
 }
