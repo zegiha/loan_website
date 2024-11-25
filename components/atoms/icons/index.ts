@@ -6,6 +6,7 @@ import CompanyIcon from "@/components/atoms/icons/CompanyIcon";
 import CampaignIcon from "@/components/atoms/icons/CampaignIcon";
 import ClockIcon from "@/components/atoms/icons/ClockIcon";
 import WarningIcon from "@/components/atoms/icons/WarningIcon";
+import SearchIcon from "@/components/atoms/icons/SearchIcon";
 
 export {
   LocationIcon,
@@ -16,4 +17,5 @@ export {
   CampaignIcon,
   ClockIcon,
   WarningIcon,
+  SearchIcon,
 }

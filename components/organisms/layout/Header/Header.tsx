@@ -5,9 +5,10 @@ import style from './header.module.scss';
 import Image from "next/image";
 import LogoImage from '@/public/assets/colorLogo.png';
 import Typo from "@/components/atoms/typo/Typo";
-import {CampaignIcon, ClockIcon, CompanyIcon, WarningIcon} from "@/components/atoms/icons";
+import {CampaignIcon, ClockIcon, CompanyIcon, SearchIcon, WarningIcon} from "@/components/atoms/icons";
 import {IIcon} from "@/components/atoms/icons/BaseIcon";
 import {useEffect, useRef, useState} from "react";
+import {BaseTextInput} from "@/components/molecules/inputs";
 
 type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings';
 interface ITopIconNavigation {
@@ -17,8 +18,6 @@ interface ITopIconNavigation {
 }
 
 export default function Header() {
-  const bigHeaderRef = useRef<HTMLDivElement | null>(null);
-
   const [currentScrollYState, setCurrnetScrollYState] = useState<number>(0);
   const prevScrollYRef = useRef<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(true);
@@ -66,6 +65,9 @@ export default function Header() {
     }
   }, [currentScrollYState]);
 
+  const [searchText, setSearchText] = useState('');
+  const [companySearchText, setCompanySearchText] = useState('');
+
   return (
     <Col width={'fill'} className={style.allContainer}>
       {(
@@ -87,18 +89,24 @@ export default function Header() {
               justifyContents={'center'}
               alignItems={'center'}
             >
-              <div style={{
-                width: '100%',
-                maxWidth: 440,
-                height: 50,
-                background: 'red',
-              }}/>
-              <div style={{
-                width: '100%',
-                maxWidth: 280,
-                height: 50,
-                background: 'red',
-              }}/>
+              <BaseTextInput
+                width={'fill'}
+                maxWidth={440}
+                size={'big'}
+                placeholder={'검색어를 입력해주세요'}
+                PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
+                value={searchText}
+                onChangeAction={(e) => {setSearchText(e.target.value)}}
+              />
+              <BaseTextInput
+                width={'fill'}
+                maxWidth={280}
+                size={'big'}
+                placeholder={'업체를 검색해주세요'}
+                PlaceholderIcon={<CompanyIcon size={24} color={'dim'}/>}
+                value={companySearchText}
+                onChangeAction={(e) => {setCompanySearchText(e.target.value)}}
+              />
             </Row>
             <Row gap={16}>
               {topIconNavigation.map((v, i) => (
