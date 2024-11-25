@@ -29,11 +29,11 @@ export default function useHeaderTopAnimation() {
     }
   }, []);
   useEffect(() => {
-    if(visibleRef.current && currentScrollYState - prevScrollYRef.current > 50) {
+    if(visibleRef.current && currentScrollYState - prevScrollYRef.current > 100) {
       setIsVisible(false);
       visibleRef.current = false;
       prevScrollYRef.current -= 136;
-    } else if(!visibleRef.current && currentScrollYState - prevScrollYRef.current < -50) {
+    } else if(!visibleRef.current && currentScrollYState - prevScrollYRef.current < -100) {
       setIsVisible(true);
       visibleRef.current = true;
       prevScrollYRef.current += 136;
