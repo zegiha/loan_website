@@ -1,0 +1,70 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.container48, .container36 {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 0 12px;
+  background-color: semantic.$container-containerNormal;
+  border: 1px solid semantic.$outline-default;
+  border-radius: 8px;
+  transition: ani.$leaveTransition;
+}
+
+.container36 {
+  height: 36px;
+  &>input::placeholder {
+    font-size: 14px;
+  }
+  &>input {
+    font-size: 14px;
+  }
+}
+.container48 {
+  height: 48px;
+  &>input::placeholder {
+    font-size: 16px;
+  }
+  &>input {
+    font-size: 16px;
+  }
+}
+
+.activeContainer {
+  transition: ani.$onTransition;
+  border-color: semantic.$outline-active;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: semantic.$onGeneric-onGenericVariable;
+  &::placeholder{
+    color: semantic.$onGeneric-onGenericDim;
+  }
+}
+
+.placeholderIcon {
+  animation: showPlaceholderIcon 0.18s;
+  animation-fill-mode: forwards;
+}
+.hidePlaceholderIcon {
+  animation: showPlaceholderIcon 0.18s;
+  animation-direction: reverse;
+  animation-fill-mode: forwards;
+}
+@keyframes showPlaceholderIcon {
+  0% {
+    opacity: 0;
+    transform: translateX(2px) translateY(2px);
+    display: none;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
