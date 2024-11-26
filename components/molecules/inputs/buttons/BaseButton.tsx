@@ -14,6 +14,7 @@ export default function BaseButton({
   return <button
     className={`${className}`}
     disabled={disabled}
+    style={{cursor: 'pointer'}}
     onClick={() => onClick()}
   >
     {children}
