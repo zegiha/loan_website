@@ -1,10 +1,9 @@
 'use server'
-import Table from "@/components/organisms/table/Table";
 import getRegisterStatus from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/api/getRegisterStatus";
-import TableHead from "@/components/molecules/table/TableHead";
 import Typo from "@/components/atoms/typo/Typo";
-import TableRow from "@/components/molecules/table/TableRow";
 import {TRegisterStatus} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
+import {Table} from "@/components/organisms";
+import {TableHead, TableRow} from "@/components/molecules";
 
 export default async function RegisterStatusTable() {
   return (

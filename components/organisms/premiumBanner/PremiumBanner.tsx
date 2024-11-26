@@ -2,13 +2,13 @@
 
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Autoplay} from "swiper/modules";
-import PremiumCard from "@/components/molecules/premiumCard/PremiumCard";
 import {useEffect, useRef, useState} from "react";
 import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
 import getPremiumCards from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getPrimiumCards";
+import {PremiumCard} from "@/components/molecules";
 
 export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: number}) {
   const swiperRef = useRef<SwiperType>();
