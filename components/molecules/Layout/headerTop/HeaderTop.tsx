@@ -16,10 +16,10 @@ interface ITopIconNavigation {
 }
 
 const topIconNavigation: Array<ITopIconNavigation> = [
-  {icon: 'company', label: '업체 로그인', onClick: () => console.log('haha')},
-  {icon: 'adContact', label: '광고 문의', onClick: () => console.log('haha')},
-  {icon: 'recentlySeenCompany', label: '최근 본 업체', onClick: () => console.log('haha')},
-  {icon: 'warnings', label: '주의 사항', onClick: () => console.log('haha')},
+  {icon: 'company', label: '업체 로그인', onClick: () => console.log('헤더 업체로그인')},
+  {icon: 'adContact', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
+  {icon: 'recentlySeenCompany', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
+  {icon: 'warnings', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
 ];
 
 export default function HeaderTop({isVisible}: {isVisible: boolean}) {

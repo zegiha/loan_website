@@ -1,10 +1,9 @@
 'use server'
-import Table from "@/components/organisms/table/Table";
-import TableHead from "@/components/molecules/table/TableHead";
 import Typo from "@/components/atoms/typo/Typo";
 import {TRealTimeLoan} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
 import getRealTimeLoan from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/api/getRealTimeLoan";
-import TableRow from "@/components/molecules/table/TableRow";
+import {Table} from "@/components/organisms";
+import {TableHead, TableRow} from "@/components/molecules";
 
 export default async function RealTimeLoanTable() {
   return (

@@ -1,9 +1,9 @@
 'use server'
-import Section from "@/components/molecules/section/Section";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTable";
 import RealTimeLoanTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RealTimeLoanTable";
+import {Section} from "@/components/molecules";
 
 export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
   return (

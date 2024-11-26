@@ -1,3 +1,5 @@
+'use client'
+
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {semantic} from "@/shared/color";

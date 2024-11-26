@@ -1,7 +1,8 @@
+'use server'
 import {Row} from "@/components/atoms/layout";
 import style from './table.module.scss';
 
-export default function TableHead({children}: {children: React.ReactNode}) {
+export default async function TableHead({children}: {children: React.ReactNode}) {
   return (
     <Row
       width={'fill'}

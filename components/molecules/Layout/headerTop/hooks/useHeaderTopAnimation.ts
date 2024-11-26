@@ -22,18 +22,27 @@ export default function useHeaderTopAnimation() {
         }
       }
     }
+    const handleScrollend = () => {
+      const currentScrollY = window.scrollY;
+      if(currentScrollY === 0) {
+        setIsVisible(true);
+        visibleRef.current = true;
+        prevScrollYRef.current += 136;
+      }
+    }
 
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scrollend', handleScrollend);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     }
   }, []);
   useEffect(() => {
-    if(visibleRef.current && currentScrollYState - prevScrollYRef.current > 100) {
+    if(visibleRef.current && currentScrollYState - prevScrollYRef.current > 200) {
       setIsVisible(false);
       visibleRef.current = false;
       prevScrollYRef.current -= 136;
-    } else if(!visibleRef.current && currentScrollYState - prevScrollYRef.current < -100) {
+    } else if(!visibleRef.current && currentScrollYState - prevScrollYRef.current < -200) {
       setIsVisible(true);
       visibleRef.current = true;
       prevScrollYRef.current += 136;

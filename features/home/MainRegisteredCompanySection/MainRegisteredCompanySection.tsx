@@ -1,14 +1,13 @@
 'use server'
 
-import Section from "@/components/molecules/section/Section";
-import CompanyCard from "@/components/molecules/companyCard/CompanyCard";
-import style from './mainRegisteredCompanySection.module.scss'
 import getCompanyWithImage from "@/features/home/MainRegisteredCompanySection/api/getCompanyWithImage";
+import {CompanyCardGrid} from "@/components/organisms";
+import {CompanyCard, Section} from "@/components/molecules";
 
 export default async function MainRegisteredCompanySection() {
   return (
     <Section backgroundColor={'surfaceDim'}>
-      <div className={style.companyCardGrid}>
+      <CompanyCardGrid>
         {getCompanyWithImage(12).map((v, i) => (
           <CompanyCard
             key={i}
@@ -16,7 +15,7 @@ export default async function MainRegisteredCompanySection() {
             {...v}
           />
         ))}
-      </div>
+      </CompanyCardGrid>
     </Section>
   );
 }
