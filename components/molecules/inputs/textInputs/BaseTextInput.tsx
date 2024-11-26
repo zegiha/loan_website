@@ -57,7 +57,7 @@ export default function BaseTextInput({
         onFocus={() => setIsActive(true)}
         onBlur={() => setIsActive(false)}
       />
-      {TypingIcon && isActive && TypingIcon}
+      {TypingIcon && value !== '' && TypingIcon}
     </div>
   );
 }
