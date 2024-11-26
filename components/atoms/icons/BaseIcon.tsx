@@ -1,7 +1,8 @@
-import {CSSProperties} from "react";
+import {CSSProperties} from "react"
 import {semantic} from "@/shared/color";
+import transitionStyle from './baseIcon.module.scss';
 
-type color = 'dim' | 'normal' | 'variable' | 'primary';
+type color = 'dim' | 'normal' | 'variable' | 'primary' | 'none';
 interface IBaseIcon extends IIcon{
   iconKey: string;
 }
@@ -23,10 +24,11 @@ export default function BaseIcon({
     fontSize: size,
     fontVariationSettings: `'FILL' ${fill ? '1' : '0'}, 'wght' 300`,
     transform: `rotate(${deg}deg)`,
+    color: color === 'none' ? 'transparent' : undefined,
   }
   return (
     <div
-      className={`material-symbols-rounded ${getColor(color)}`}
+      className={`material-symbols-rounded ${getColor(color)} ${transitionStyle.transition}`}
       style={style}
     >
       {iconKey}
