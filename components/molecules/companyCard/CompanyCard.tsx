@@ -6,13 +6,14 @@ import Image from "next/image";
 import Typo from "@/components/atoms/typo/Typo";
 import {semantic} from "@/shared/color";
 import {LocationIcon, PhoneIcon} from "@/components/atoms/icons";
+import {TPrimaryAndGenericColorString} from "@/shared/type";
 
 interface ICompanyCard{
   type: 'image' | 'vipText' | 'text';
 
   imgUrl?: string;
   variableTitle?: string;
-  title: string | Array<{type: 'primary' | 'variable', data: string}>;
+  title: string | TPrimaryAndGenericColorString;
   phone: string;
   location: string;
   name: string;
@@ -79,10 +80,10 @@ export default async function CompanyCard({
             title.map((v, i) => {
              if(v.type === 'primary') {
                return <span key={i} className={semantic.onGenericOnGenericPrimary}>
-                 {v.data}
+                 {v.contents}
                </span>
              }
-             return v.data;
+             return v.contents;
             })
           )}
         </Typo.Contents>

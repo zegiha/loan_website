@@ -11,7 +11,7 @@ import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
 import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
 
 export default async function DisplaySection() {
-  const {totalLoanCompany, cumlativeVisiter, realTimeLoan} = await getWebStatus();
+  const {totalLoanCompany, cumulativeVisiter, realTimeLoan} = await getWebStatus();
   const topAds = await getTopAds();
   return (
     <Col className={style.displaySectionContainer} alignItems="center">
@@ -53,7 +53,7 @@ export default async function DisplaySection() {
               />
               <RealTime
                 label={'누적 방문자'}
-                contents={`${cumlativeVisiter}명`}
+                contents={`${cumulativeVisiter}명`}
               />
               <RealTime
                 label={'실시간 대출 문의'}

@@ -1,7 +1,9 @@
+import {TPrimaryAndGenericColorString} from "@/shared/type";
+
 export interface ICompanyWithImage {
   imgUrl: string;
   variableTitle: string;
-  title: string | Array<{type: 'primary' | 'variable', data: string}>;
+  title: TPrimaryAndGenericColorString | string;
   phone: string;
   location: string;
   name: string;

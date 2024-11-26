@@ -7,5 +7,5 @@ export type TRegisterStatus = shareType & {
   companyName: string;
 }
 export type TRealTimeLoan = shareType & {
-  writedTime: string;
+  createdTime: string;
 }
