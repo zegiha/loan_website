@@ -25,7 +25,15 @@ export default function BaseTypo({
         wordBreak: 'keep-all',
         ...getWidthByStyle(width),
       },
-      className: `${className} ${getColorClass(color)} ${textOverflowLine === 1 ? style.overflowLine1 : textOverflowLine === 2 ? style.overflowLine2 : ''}`,
+      className: `
+      ${className}
+      ${style.textTransision}
+      ${getColorClass(color)}
+      ${textOverflowLine === 1 ?
+        style.overflowLine1 :
+        textOverflowLine === 2 ?
+          style.overflowLine2 : ''}
+      `,
     },
     children,
   );

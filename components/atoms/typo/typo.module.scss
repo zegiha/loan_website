@@ -1,3 +1,5 @@
+@use '/shared/constants/animation.module' as ani;
+
 .overflowLine1, .overflowLine2 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -11,4 +13,8 @@
 
 .overflowLine2 {
   -webkit-line-clamp: 2;
+}
+
+.textTransision {
+  transition: ani.$leaveTransition;
 }

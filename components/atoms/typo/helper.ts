@@ -41,6 +41,8 @@ export function getColorClass(color: TColor): string {
     case 'generic': return semantic.onGenericOnGeneric;
     case 'dim': return semantic.onGenericOnGenericDim;
     case 'primary': return semantic.onGenericOnGenericPrimary;
+    case 'onPrimary': return semantic.primaryOnPrimary;
+    case 'onPrimaryDim': return semantic.primaryOnPrimaryDim;
     default: return '';
   }
 }
