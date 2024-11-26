@@ -1,0 +1,31 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.sectionTitle {
+  position: relative;
+  cursor: pointer;
+}
+
+.accordionContainer {
+  position: absolute;
+  right: -4px;
+  top: calc(100%);
+  padding: 4px;
+}
+
+.accordionWrapper {
+  padding: 8px;
+  border: 1px solid semantic.$outline-default;
+  border-radius: 10px;
+  background-color: semantic.$container-containerLow;
+}
+
+.accordion {
+  padding: 4px;
+  border-radius: 6px;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+  }
+}
