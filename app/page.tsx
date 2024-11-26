@@ -11,7 +11,7 @@ import RegisterStatusTableAndRealTimeLoanTableSection
 
 export default async function Home() {
   return (
-    <Col style={{width: '100%'}}>
+    <Col width={'fill'}>
       <DisplaySection/>
       <PremiumBannerAndRealTimeLoanSection/>
       <MainRegisteredCompanySection/>
