@@ -12,7 +12,14 @@ export type TTextWidth =
   'hug' |
   number;
 
-export type TColor = 'generic' | 'variable' | 'dim' | 'primary' | undefined;
+export type TColor =
+  'generic' |
+  'variable' |
+  'dim' |
+  'primary' |
+  'onPrimary' |
+  'onPrimaryDim' |
+  undefined;
 
 export interface ITypo {
   children: string | React.ReactNode;
