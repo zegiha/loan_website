@@ -37,7 +37,7 @@ async function RealTimeLoanTableHead() {
 async function RealTimeLoanTableRow({
   location,
   title,
-  writedTime,
+  createdTime,
 }: TRealTimeLoan) {
   return <TableRow>
     <Typo.Contents width={70}>
@@ -47,7 +47,7 @@ async function RealTimeLoanTableRow({
       {title}
     </Typo.Contents>
     <Typo.Contents width={60} color={'dim'}>
-      {writedTime}
+      {createdTime}
     </Typo.Contents>
   </TableRow>;
 }
