@@ -20,7 +20,7 @@ export default function CategoryToggleButton({
     className={`${
       active ? style.activeContainer : style.container
     } ${style.transition}`}
-    onClick={onClick}
+    onClick={() => onClick()}
   >
     <Col alignItems={'center'}>
       <Typo.Contents emphasize color={active ? 'onPrimary' : 'variable'}>
