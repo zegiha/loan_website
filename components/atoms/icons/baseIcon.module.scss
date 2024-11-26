@@ -1,0 +1,5 @@
+@use '/shared/constants/animation.module' as ani;
+
+.transition {
+  transition: ani.$leaveTransition;
+}
