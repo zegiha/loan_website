@@ -20,11 +20,11 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
       if (wrapperRef.current) {
         const width = wrapperRef.current.offsetWidth;
 
-        if (width > 538 && cardNumber !== defaultCardNumber) {
+        if (width > 538 && cardNumber !== defaultCardNumber && defaultCardNumber > 2) {
           setCardNumber(defaultCardNumber);
-        } else if (378 < width && width <= 538 && cardNumber !== 2) {
+        } else if (378 < width && width <= 538 && cardNumber !== 2 && defaultCardNumber > 2) {
           setCardNumber(2);
-        } else if (width <= 378 && cardNumber !== 1) {
+        } else if (width <= 378 && cardNumber !== 1 && defaultCardNumber > 1) {
           setCardNumber(1);
         }
       }
