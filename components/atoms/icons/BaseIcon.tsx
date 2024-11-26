@@ -25,6 +25,7 @@ export default function BaseIcon({
     fontVariationSettings: `'FILL' ${fill ? '1' : '0'}, 'wght' 300`,
     transform: `rotate(${deg}deg)`,
     color: color === 'none' ? 'transparent' : undefined,
+    userSelect: 'none',
   }
   return (
     <div

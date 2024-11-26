@@ -11,6 +11,7 @@ export default function BaseTypo({
   textOverflowLine,
   textAlign,
   color='generic',
+  userSelect='none',
   className,
 }:IBaseTypo) {
   return createElement(
@@ -23,6 +24,7 @@ export default function BaseTypo({
         textAlign: textAlign,
         justifyContent: textAlign,
         wordBreak: 'keep-all',
+        userSelect: userSelect,
         ...getWidthByStyle(width),
       },
       className: `
