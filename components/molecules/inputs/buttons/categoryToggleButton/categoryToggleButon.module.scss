@@ -1,0 +1,20 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.container, .activeContainer {
+  padding: 8px;
+  border-radius: 8px;
+}
+.container {
+  background-color: semantic.$container-containerNormal;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+  }
+}
+.activeContainer {
+  background-color: semantic.$primary-primaryNormal;
+}
+.transition {
+  transition: ani.$leaveTransition;
+}
