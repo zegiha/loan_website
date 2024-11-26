@@ -11,7 +11,7 @@ export default function PremiumCard({
   name
 }: TPremiumCard) {
   return (
-    <Col gap={12} width={'fill'} className={style.premiumCardContainer}>
+    <Col gap={12} className={style.premiumCardContainer}>
       <Col gap={4} width={'fill'}>
         <Typo.Contents emphasize color={'variable'}>
           {title.map((v, i) => {
