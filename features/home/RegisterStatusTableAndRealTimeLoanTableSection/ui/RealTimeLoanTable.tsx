@@ -1,7 +1,7 @@
 'use server'
 import Typo from "@/components/atoms/typo/Typo";
 import {TRealTimeLoan} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
-import getRealTimeLoan from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/api/getRealTimeLoan";
+import getRealTimeLoan from "@/shared/api/getRealTimeLoan";
 import {Table} from "@/components/organisms";
 import {TableHead, TableRow} from "@/components/molecules";
 

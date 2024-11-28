@@ -5,6 +5,7 @@ type shareType = {
 
 export type TRegisterStatus = shareType & {
   companyName: string;
+  loanLimit: string | undefined;
 }
 export type TRealTimeLoan = shareType & {
   createdTime: string;

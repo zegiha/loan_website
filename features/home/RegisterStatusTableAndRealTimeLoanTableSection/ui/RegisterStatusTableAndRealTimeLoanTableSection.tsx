@@ -3,11 +3,11 @@ import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTable";
 import RealTimeLoanTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RealTimeLoanTable";
-import {Section} from "@/components/molecules";
+import {SectionServer} from "@/components/molecules";
 
 export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
   return (
-    <Section backgroundColor={'surface'}>
+    <SectionServer backgroundColor={'surface'}>
       <Row
         width={'fill'}
         gap={24}
@@ -31,7 +31,7 @@ export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
           <RealTimeLoanTable/>
         </Col>
       </Row>
-    </Section>
+    </SectionServer>
   );
 }
 

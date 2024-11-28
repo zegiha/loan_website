@@ -1,3 +1,4 @@
+'use server'
 import {Col, Row} from "@/components/atoms/layout";
 import style from './footer.module.scss';
 import Image from "next/image";
@@ -5,7 +6,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import LogoImage from '@/public/assets/noColorLogo.png';
 import {semantic} from "@/shared/color";
 
-export default function Footer() {
+export default async function Footer() {
   return (
     <Col width={'fill'} alignItems={'center'}>
       <Row

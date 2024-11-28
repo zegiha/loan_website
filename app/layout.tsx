@@ -4,6 +4,7 @@ import "./globals.css";
 import '@/shared/swiper/swiperStyle.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import style from './home.module.scss';
 import Footer from "@/components/organisms/layout/footer/Footer";
 import Header from "@/components/organisms/layout/Header/Header";

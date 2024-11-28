@@ -1,13 +1,20 @@
-'use server'
+'use client'
 
 import {Col} from "@/components/atoms/layout";
-import PremiumBannerAndCategories
-  from "@/features/loanByLocation/premiumBannerAndCategories/PremiumBannerAndCategories";
+import {useState} from "react";
+import {
+  PremiumBannerAndCategoriesSelectionSection,
+  RegisteredCompanyCardSection,
+  RegisteredCompanyTableSection
+} from "@/features/loanByLocation";
 
-export default async function LoanByLocation() {
+export default function LoanByLocation() {
+  const [activeCategories, setActiveCategories] = useState<Set<string>>(new Set);
   return (
     <Col width={'fill'}>
-      <PremiumBannerAndCategories/>
+      <PremiumBannerAndCategoriesSelectionSection setActiveCategoriesAction={setActiveCategories}/>
+      <RegisteredCompanyCardSection activeCategories={activeCategories}/>
+      <RegisteredCompanyTableSection activeCategories={activeCategories}/>
     </Col>
   );
 }

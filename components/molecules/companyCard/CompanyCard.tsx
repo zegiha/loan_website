@@ -1,5 +1,3 @@
-'use server'
-
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import style from './companyCard.module.scss';
 import Image from "next/image";
@@ -8,7 +6,7 @@ import {semantic} from "@/shared/color";
 import {LocationIcon, PhoneIcon} from "@/components/atoms/icons";
 import {TPrimaryAndGenericColorString} from "@/shared/type";
 
-interface ICompanyCard{
+export interface ICompanyCard{
   type: 'image' | 'vipText' | 'text';
 
   imgUrl?: string;
@@ -19,7 +17,7 @@ interface ICompanyCard{
   name: string;
 }
 
-export default async function CompanyCard({
+export default function CompanyCard({
   type,
   imgUrl,
   variableTitle,

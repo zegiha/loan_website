@@ -1,7 +1,7 @@
 'use client'
 
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Navigation, Autoplay} from "swiper/modules";
+import {Autoplay} from "swiper/modules";
 import {useEffect, useRef, useState} from "react";
 import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
@@ -50,7 +50,7 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        modules={[Navigation, Autoplay]}
+        modules={[Autoplay]}
         loop
         autoplay={{
           delay: 2000,

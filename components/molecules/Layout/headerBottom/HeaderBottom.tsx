@@ -1,7 +1,6 @@
 import {Row} from "@/components/atoms/layout";
 import style from './headerBottom.module.scss';
 import Typo from "@/components/atoms/typo/Typo";
-import {useEffect, useState} from "react";
 
 const items =  [
   [

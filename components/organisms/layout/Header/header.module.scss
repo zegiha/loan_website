@@ -6,20 +6,10 @@
   top: 0;
   left: 0;
   z-index: 100;
+  transition: ani.$leaveTransition;
 }
 
-.headerBottom {
-  width: 100%;
-  animation: headerBottom 0.8s;
-}
-@keyframes headerBottom {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1;
-  }
+.translate {
+  transition: ani.$onTransition;
+  top: calc(-138px);
 }

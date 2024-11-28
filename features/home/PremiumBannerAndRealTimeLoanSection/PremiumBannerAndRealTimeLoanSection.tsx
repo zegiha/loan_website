@@ -7,7 +7,7 @@ import {Col, Row} from "@/components/atoms/layout";
 import RealTimeLoanSection from "@/features/home/PremiumBannerAndRealTimeLoanSection/RealTimeLoanSection";
 import style from './premiumBannerAndRealTimeLoanSection.module.scss';
 import {PremiumBanner} from "@/components/organisms";
-import {Section} from "@/components/molecules";
+import Section from "@/components/molecules/section/Section";
 
 export default function PremiumBannerAndRealTimeLoanSection() {
   const premiumBannerRef = useRef<HTMLDivElement | null>(null);
