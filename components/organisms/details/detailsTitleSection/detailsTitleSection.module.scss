@@ -1,0 +1,13 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.backButtonContainer {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: semantic.$container-containerLow;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+  }
+}
