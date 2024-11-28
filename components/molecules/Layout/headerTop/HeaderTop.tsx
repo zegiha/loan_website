@@ -28,7 +28,7 @@ export default function HeaderTop({isVisible}: {isVisible: boolean}) {
   const [companySearchText, setCompanySearchText] = useState('');
 
   return (
-    <div className={isVisible ? style.bigContainer : style.bigContainerHidden}>
+    <div className={style.bigContainer}>
       <Row
         width={'fill'}
         alignItems={'center'}

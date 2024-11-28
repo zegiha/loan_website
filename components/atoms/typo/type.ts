@@ -28,6 +28,7 @@ export interface ITypo {
   textOverflowLine?: number;
   color?: TColor,
   textAlign?: 'start' | 'center' | 'end';
+  userSelect?: 'none' | 'auto';
   className?: string;
 }
 

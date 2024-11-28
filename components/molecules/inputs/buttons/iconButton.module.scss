@@ -6,14 +6,11 @@
   justify-content: center;
   align-items: center;
 }
-.iconButton28 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.iconButton28, .iconButton28Active {
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background: none;
+  background: semantic.$container-containerLow;
   transition: ani.$leaveTransition;
   &:hover {
     transition: ani.$onTransition;
@@ -21,12 +18,15 @@
     cursor: pointer;
   }
 }
+.iconButton28Active {
+  background-color: semantic.$container-containerHigh;
+}
 
 .iconButton40 {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: none;
+  background: semantic.$container-containerLow;
   transition: ani.$leaveTransition;
   &:hover {
     transition: ani.$onTransition;

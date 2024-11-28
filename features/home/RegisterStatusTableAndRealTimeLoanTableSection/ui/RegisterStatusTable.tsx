@@ -1,5 +1,5 @@
 'use server'
-import getRegisterStatus from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/api/getRegisterStatus";
+import getRegisterCompany from "@/shared/api/getRegisterCompany";
 import Typo from "@/components/atoms/typo/Typo";
 import {TRegisterStatus} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
 import {Table} from "@/components/organisms";
@@ -10,7 +10,7 @@ export default async function RegisterStatusTable() {
     <Table
       head={<RegisterStatusTableHead/>}
     >
-      {getRegisterStatus().map((v, i) => (
+      {getRegisterCompany().map((v, i) => (
         <RegisterStatusTableRow
           key={i}
           {...v}
@@ -28,7 +28,7 @@ async function RegisterStatusTableHead() {
     <Typo.Contents width={'fill'}>
       제목
     </Typo.Contents>
-    <Typo.Contents width={92}>
+    <Typo.Contents width={100}>
       업체명
     </Typo.Contents>
   </TableHead>
@@ -45,7 +45,7 @@ async function RegisterStatusTableRow({
     <Typo.Contents width={'fill'} textOverflowLine={1}>
       {title}
     </Typo.Contents>
-    <Typo.Contents width={92} color={'dim'} textOverflowLine={1}>
+    <Typo.Contents width={100} color={'dim'} textOverflowLine={1}>
       {companyName}
     </Typo.Contents>
   </TableRow>

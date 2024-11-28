@@ -1,7 +1,6 @@
-'use server'
 import {Col} from "@/components/atoms/layout";
 
-export default async function Table({
+export default function Table({
   head,
   children,
   className,

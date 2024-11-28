@@ -1,14 +1,15 @@
 'use server'
 
-import getCompanyWithImage from "@/features/home/MainRegisteredCompanySection/api/getCompanyWithImage";
+import getRegisteredCompanyWithImage from "@/shared/api/getRegisteredCompanyWithImage";
 import {CompanyCardGrid} from "@/components/organisms";
-import {CompanyCard, Section} from "@/components/molecules";
+import {CompanyCard, SectionServer} from "@/components/molecules";
+import Section from "@/components/molecules/section/Section";
 
 export default async function MainRegisteredCompanySection() {
   return (
     <Section backgroundColor={'surfaceDim'}>
       <CompanyCardGrid>
-        {getCompanyWithImage(12).map((v, i) => (
+        {getRegisteredCompanyWithImage(12).map((v, i) => (
           <CompanyCard
             key={i}
             type={'image'}
