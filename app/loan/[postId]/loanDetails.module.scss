@@ -1,0 +1,7 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+
+.imgContainer {
+  padding: 12px;
+  background-color: semantic.$container-containerNormal;
+  border-radius: 10px;
+}
