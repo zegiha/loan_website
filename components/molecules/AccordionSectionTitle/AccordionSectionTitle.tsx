@@ -1,3 +1,5 @@
+'use client';
+
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {ArrowIcon} from "@/components/atoms/icons";
@@ -10,7 +12,7 @@ interface IAccordionSectionTitle {
   accordionData: Array<string>;
   activeAccordion: string;
   measurement: string;
-  onAccordionActiveChange: (activeData: string) => void;
+  onAccordionActiveChangeAction: (activeData: string) => void;
   lastComment?: string;
 }
 
@@ -19,7 +21,7 @@ export default function AccordionSectionTitle({
   accordionData,
   activeAccordion,
   measurement,
-  onAccordionActiveChange,
+  onAccordionActiveChangeAction,
   lastComment
 }: IAccordionSectionTitle) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -72,8 +74,8 @@ export default function AccordionSectionTitle({
                 width={'fill'}
                 justifyContents={'space-between'}
                 className={style.accordion}
-                onClick={(e) => {
-                  onAccordionActiveChange(v)
+                onClick={() => {
+                  onAccordionActiveChangeAction(v)
                 }}
               >
                 <Typo.Contents emphasize={v === activeAccordion}>
