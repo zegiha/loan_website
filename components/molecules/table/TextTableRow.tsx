@@ -1,7 +1,6 @@
-'use server'
 import {Row} from "@/components/atoms/layout";
 
-export default async function TextTableRow({children}: {children: React.ReactNode}) {
+export default function TextTableRow({children}: {children: React.ReactNode}) {
   return (
     <Row
       width={'fill'}
