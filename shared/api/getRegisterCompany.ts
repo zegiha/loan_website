@@ -1,4 +1,4 @@
-import {TRegisterStatus} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
+import {TRegisterStatus} from "@/shared/type";
 
 export default function getRegisterCompany(dataLength: number | undefined = 15, filter?: Array<string>, loanLimit?: boolean): Array<TRegisterStatus> {
   const dummy:TRegisterStatus = {
