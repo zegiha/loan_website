@@ -29,6 +29,7 @@ button {
 
 img {
 	user-select: none;
+  object-fit: cover;
 }
 input::placeholder {
 	user-select: none;
