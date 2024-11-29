@@ -1,9 +1,9 @@
 'use server'
 import Typo from "@/components/atoms/typo/Typo";
-import {TRealTimeLoan} from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/type";
 import getRealTimeLoan from "@/shared/api/getRealTimeLoan";
 import {Table} from "@/components/organisms";
 import {TableHead, TableRow} from "@/components/molecules";
+import {TRealTimeLoan} from "@/shared/type";
 
 export default async function RealTimeLoanTable() {
   return (
@@ -37,7 +37,7 @@ async function RealTimeLoanTableHead() {
 async function RealTimeLoanTableRow({
   location,
   title,
-  createdTime,
+  createdAt,
 }: TRealTimeLoan) {
   return <TableRow>
     <Typo.Contents width={70}>
@@ -47,7 +47,7 @@ async function RealTimeLoanTableRow({
       {title}
     </Typo.Contents>
     <Typo.Contents width={60} color={'dim'}>
-      {createdTime}
+      {createdAt}
     </Typo.Contents>
   </TableRow>;
 }

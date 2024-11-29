@@ -9,8 +9,8 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
 import React from "react";
 import {PlusIcon} from "@/components/atoms/icons";
-import getRealTimeLoans from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getRealTimeLoans";
 import {TRealTimeLoan} from "@/features/home/PremiumBannerAndRealTimeLoanSection/type";
+import getRealTimeLoan from "@/shared/api/getRealTimeLoan";
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   return (
@@ -42,7 +42,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
             pauseOnMouseEnter: true,
           }}
         >
-          {getRealTimeLoans().map((v, i) => (
+          {getRealTimeLoan().map((v, i) => (
             <SwiperSlide key={i}>
               <RealTimeLoan {...v}/>
             </SwiperSlide>
@@ -79,7 +79,7 @@ function RealTimeLoan({
           {title}
         </Typo.Contents>
       </Row>
-      <Typo.Caption color={'dim'}>
+      <Typo.Caption color={'dim'} isPre>
         {createdAt}
       </Typo.Caption>
     </Row>

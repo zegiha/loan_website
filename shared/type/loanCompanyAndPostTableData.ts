@@ -8,5 +8,5 @@ export type TRegisterStatus = shareType & {
   loanLimit: string | undefined;
 }
 export type TRealTimeLoan = shareType & {
-  createdTime: string;
+  createdAt: string;
 }
