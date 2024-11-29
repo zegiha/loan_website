@@ -1,5 +1,5 @@
 'use client'
-import {SectionServer} from "@/components/molecules";
+import {Section} from "@/components/molecules";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {PremiumBanner} from "@/components/organisms";
@@ -49,7 +49,7 @@ export default function PremiumBannerAndCategoriesSelectionSection({
   }, [categories]);
 
   return (
-    <SectionServer>
+    <Section>
       <Row gap={24} width={'fill'}>
         <Col gap={24} className={style.smallBox}>
           <Typo.SubBody color={'variable'} emphasize>
@@ -95,7 +95,7 @@ export default function PremiumBannerAndCategoriesSelectionSection({
           </Row>
         </Col>
       </Row>
-    </SectionServer>
+    </Section>
   );
 }
 

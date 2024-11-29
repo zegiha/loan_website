@@ -29,7 +29,7 @@ export default function RegisteredCompanyCardSection({
         accordionData={contentsNumberData}
         activeAccordion={activeContentsNumber}
         measurement={'개'}
-        onAccordionActiveChange={(newContentsNumber) => setActiveContentsNumber(newContentsNumber)}
+        onAccordionActiveChangeAction={(newContentsNumber) => setActiveContentsNumber(newContentsNumber)}
         lastComment={'( 최대 )'}
       />
       <CompanyCardGrid>
