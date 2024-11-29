@@ -1,3 +1,5 @@
+'use client'
+
 import {DetailsContentsSection} from "@/components/organisms";
 import Typo from "@/components/atoms/typo/Typo";
 
@@ -9,5 +11,6 @@ export default function AdditionalExplain({
       <Typo.Contents width={'fill'} isPre>
         {contents}
       </Typo.Contents>
-    </DetailsContentsSection>  );
+    </DetailsContentsSection>
+  );
 }
