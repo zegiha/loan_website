@@ -4,6 +4,8 @@ import Table from "@/components/organisms/table/Table";
 import DetailsTitleSection from "@/components/organisms/details/detailsTitleSection/DetailsTitleSection";
 import DetailsContentsSection from "@/components/organisms/details/detailsContentsSection/DetailsContentsSection";
 import TextTable from "@/components/organisms/table/TextTable";
+import SwiperPaginationAndNavigation
+  from "@/components/organisms/swiperPaginationAndNavigation/SwiperPaginationAndNavigation";
 
 export {
   CompanyCardGrid,
@@ -12,4 +14,5 @@ export {
   DetailsTitleSection,
   DetailsContentsSection,
   TextTable,
+  SwiperPaginationAndNavigation,
 }
