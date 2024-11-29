@@ -5,6 +5,7 @@ import style from './typo.module.scss';
 
 export default function BaseTypo({
   textSize,
+  isPre,
   emphasize,
   children,
   width,
@@ -15,7 +16,7 @@ export default function BaseTypo({
   className,
 }:IBaseTypo) {
   return createElement(
-    getElementType(textSize),
+    isPre ? 'pre' : getElementType(textSize),
     {
       style: {
         fontSize: getFontSize(textSize, !!emphasize),

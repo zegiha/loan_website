@@ -23,6 +23,7 @@ export type TColor =
 
 export interface ITypo {
   children: string | React.ReactNode;
+  isPre?: boolean;
   emphasize?: boolean;
   width?: TTextWidth;
   textOverflowLine?: number;
