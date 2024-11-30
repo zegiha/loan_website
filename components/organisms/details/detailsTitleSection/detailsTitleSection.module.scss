@@ -11,3 +11,34 @@
     background-color: semantic.$container-containerHigh;
   }
 }
+
+.warningContainer {
+  width: 100%;
+  max-width: 1136px;
+  padding: 24px;
+  border-radius: 18px;
+  background-color: semantic.$container-containerLow;
+}
+
+.warningNumberingBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: semantic.$container-containerNormal;
+  border-radius: 24px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: semantic.$primary-primaryNormal;
+  border-radius: 8px;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+  background-color: semantic.$primary-primaryHigh;
+  }
+}
