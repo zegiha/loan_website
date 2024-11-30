@@ -9,6 +9,7 @@ import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
 import getPremiumCards from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getPrimiumCards";
 import {PremiumCard} from "@/components/molecules";
+import Link from "next/link";
 
 export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: number}) {
   const swiperRef = useRef<SwiperType>();
@@ -65,7 +66,9 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
       >
         {getPremiumCards().map((v, i) => (
           <SwiperSlide key={i}>
-            <PremiumCard {...v} />
+            <Link href={`/loan/${v.name}`}>
+              <PremiumCard {...v}/>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

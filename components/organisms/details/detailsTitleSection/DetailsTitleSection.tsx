@@ -10,6 +10,7 @@ import {TPrimaryAndGenericColorString} from "@/shared/type";
 import {semantic} from "@/shared/color";
 import {useState} from "react";
 import Modal from "@/components/molecules/modal/Modal";
+import {useRouter} from "next/navigation";
 
 interface ILoanDetailsTitleSectionProps {
   type: 'loan'| 'post';
@@ -17,12 +18,14 @@ interface ILoanDetailsTitleSectionProps {
 }
 
 export default function DetailsTitleSection({type, title}: ILoanDetailsTitleSectionProps) {
-  const [isOpenWarning, setIsOpenWarning] = useState<boolean>(false);
+  const [isOpenWarning, setIsOpenWarning] = useState<boolean>(false)
+  const router = useRouter()
+
   return (
     <Section backgroundColor={'surface'}>
       <BaseButton
         className={style.backButtonContainer}
-        onClick={() => console.log('back')}
+        onClick={() => router.back()}
       >
         <Row gap={12} alignItems={'center'}>
           <ArrowIcon color={'dim'} deg={180}/>
