@@ -1,0 +1,34 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+
+.modalContainer, .modalWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  background-color: semantic.$layer-modalBackground;
+}
+.modalWrapper {
+  width: 100%;
+  height: 100%;
+
+  animation: openModal 0.2s ease-in-out;
+}
+@keyframes openModal {
+  0% {
+    opacity: 0.3;
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
