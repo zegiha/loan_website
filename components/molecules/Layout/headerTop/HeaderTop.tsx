@@ -7,6 +7,7 @@ import {IIcon} from "@/components/atoms/icons/BaseIcon";
 import Typo from "@/components/atoms/typo/Typo";
 import {useState} from "react";
 import style from './headerTop.module.scss';
+import Link from "next/link";
 
 type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings';
 interface ITopIconNavigation {
@@ -22,7 +23,7 @@ const topIconNavigation: Array<ITopIconNavigation> = [
   {icon: 'warnings', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
 ];
 
-export default function HeaderTop({isVisible}: {isVisible: boolean}) {
+export default function HeaderTop() {
 
   const [searchText, setSearchText] = useState('');
   const [companySearchText, setCompanySearchText] = useState('');
@@ -34,12 +35,14 @@ export default function HeaderTop({isVisible}: {isVisible: boolean}) {
         alignItems={'center'}
         className={style.bigWrapper}
       >
-        <Image
-          src={LogoImage}
-          alt={'로고 이미지'}
-          width={213}
-          height={45}
-        />
+        <Link href={'/'}>
+          <Image
+            src={LogoImage}
+            alt={'로고 이미지'}
+            width={213}
+            height={45}
+          />
+        </Link>
         <Row
           width={'fill'}
           gap={8}

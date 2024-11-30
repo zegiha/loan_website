@@ -1,11 +1,12 @@
 import {Row} from "@/components/atoms/layout";
 import style from './headerBottom.module.scss';
 import Typo from "@/components/atoms/typo/Typo";
+import {usePathname, useRouter} from "next/navigation";
 
 const items =  [
   [
-    {domain: '/loan/list/location', name: '지역별 업체 찾기'},
-    {domain: '/loan/list/production', name: '상품별 업체 찾기'},
+    {domain: '/loan/location', name: '지역별 업체 찾기'},
+    {domain: '/loan/product', name: '상품별 업체 찾기'},
     {domain: '/search', name: '맞춤 검색'},
     {domain: '/realtime/loan/post/list', name: '실시간 대출 문의'},
   ],
@@ -18,6 +19,8 @@ const items =  [
 ];
 
 export default function HeaderBottom() {
+  const router = useRouter()
+  const pathName = usePathname()
   return (
     <Row
       width={'fill'}
@@ -39,7 +42,9 @@ export default function HeaderBottom() {
             {v.map((v, i) => (
               <NavigationItem
                 key={i}
-                {...v}
+                isActive={pathName === v.domain}
+                onClick={() => router.push(v.domain)}
+                name={v.name}
               />
             ))}
           </Row>
@@ -49,13 +54,11 @@ export default function HeaderBottom() {
   );
 }
 
-function NavigationItem({domain, name}: {domain: string, name: string}) {
+function NavigationItem({onClick, name, isActive}: {onClick: () => void, name: string, isActive: boolean}) {
   return (
-    <span
-      onClick={() => {
-      }}
-    >
+    <span onClick={onClick}>
       <Typo.SubBody
+        color={isActive ? 'primary' : undefined}
         className={style.navigation}
       >
         {name}

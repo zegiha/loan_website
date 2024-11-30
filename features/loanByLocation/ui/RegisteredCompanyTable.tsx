@@ -1,5 +1,6 @@
 import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
+import Link from "next/link";
 
 export function RegisteredCompanyTableHead() {
   return <TableHead>
@@ -29,18 +30,20 @@ export function RegisteredCompanyTableRow({
   title: string,
   name: string,
 }) {
-  return <TableRow>
-    <Typo.Contents width={60}>
-      {location}
-    </Typo.Contents>
-    <Typo.Contents width={80}>
-      {loanLimit}
-    </Typo.Contents>
-    <Typo.Contents width={'fill'} textOverflowLine={1}>
-      {title}
-    </Typo.Contents>
-    <Typo.Contents width={100} textOverflowLine={1}>
-      {name}
-    </Typo.Contents>
-  </TableRow>
+  return <Link href={`/loan/${name}`}>
+    <TableRow>
+      <Typo.Contents width={60}>
+        {location}
+      </Typo.Contents>
+      <Typo.Contents width={80}>
+        {loanLimit}
+      </Typo.Contents>
+      <Typo.Contents width={'fill'} textOverflowLine={1}>
+        {title}
+      </Typo.Contents>
+      <Typo.Contents width={100} textOverflowLine={1}>
+        {name}
+      </Typo.Contents>
+    </TableRow>
+  </Link>
 }
