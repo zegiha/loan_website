@@ -13,7 +13,7 @@ export default function Modal({
 }) {
   return isOpen ? createPortal(
     <div className={style.modalContainer} onClick={() => setIsOpen(false)}>
-      <div className={style.modalWrapper}>
+      <div className={style.modalWrapper} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
