@@ -59,22 +59,24 @@ export default function DetailsTitleSection({type, title}: ILoanDetailsTitleSect
         )}
       </Row>
       <Modal isOpen={isOpenWarning} setIsOpen={setIsOpenWarning}>
-        <Col width={'fill'} gap={24} className={style.warningContainer}>
-          <Typo.Body emphasize>
-            대출 시 주의사항
-          </Typo.Body>
-          <WarningModalContents/>
-          <Row width={'fill'} justifyContents={'center'}>
-            <BaseButton
-              className={style.submitButton}
-              onClick={() => setIsOpenWarning(false)}
-            >
-              <Typo.Contents emphasize color={'onPrimary'}>
-                전부 확인하신 후 눌러주세요
-              </Typo.Contents>
-            </BaseButton>
-          </Row>
-        </Col>
+        <div onClick={e => e.stopPropagation()}>
+          <Col width={'fill'} gap={24} className={style.warningContainer}>
+            <Typo.Body emphasize>
+              대출 시 주의사항
+            </Typo.Body>
+            <WarningModalContents/>
+            <Row width={'fill'} justifyContents={'center'}>
+              <BaseButton
+                className={style.submitButton}
+                onClick={() => setIsOpenWarning(false)}
+              >
+                <Typo.Contents emphasize color={'onPrimary'}>
+                  전부 확인하신 후 눌러주세요
+                </Typo.Contents>
+              </BaseButton>
+            </Row>
+          </Col>
+        </div>
       </Modal>
     </Section>
   );
