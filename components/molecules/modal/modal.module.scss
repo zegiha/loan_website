@@ -17,9 +17,6 @@
   background-color: semantic.$layer-modalBackground;
 }
 .modalWrapper {
-  width: 100%;
-  height: 100%;
-
   animation: openModal 0.2s ease-in-out;
 }
 @keyframes openModal {
