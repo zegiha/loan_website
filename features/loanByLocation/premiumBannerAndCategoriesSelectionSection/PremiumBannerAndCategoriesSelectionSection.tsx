@@ -11,6 +11,8 @@ import CloseIcon from "@/components/atoms/icons/CloseIcon";
 import CategoryToggleButton, {
   TCategory
 } from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
+import useCategoryToggleButtons
+  from "@/components/molecules/inputs/buttons/categoryToggleButton/useCategoryToggleButtons";
 
 const CATEGORIES: Array<TCategory> = [
   { label: "전체", subLabel: 16804, active: true },
@@ -37,17 +39,7 @@ export default function PremiumBannerAndCategoriesSelectionSection({
   setActiveCategoriesAction
 }: {setActiveCategoriesAction: React.Dispatch<React.SetStateAction<Set<string>>>}) {
   const [locationSearch, setLocationSearch] = useState<string>('');
-  const [categories, setCategories] = useState<Array<TCategory>>([...CATEGORIES]);
-
-  useEffect(() => {
-    const newActiveCategories: Set<string> = new Set();
-    categories.forEach((v) => {
-      if(v.active) {
-        newActiveCategories.add(v.label)
-      }
-    })
-    setActiveCategoriesAction(new Set(newActiveCategories));
-  }, [categories]);
+  const [categories, setCategories] = useCategoryToggleButtons(CATEGORIES, setActiveCategoriesAction);
 
   return (
     <Section>
