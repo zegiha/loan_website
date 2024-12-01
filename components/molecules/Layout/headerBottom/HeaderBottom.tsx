@@ -7,8 +7,8 @@ const items =  [
   [
     {domain: '/loan/location', name: '지역별 업체 찾기'},
     {domain: '/loan/product', name: '상품별 업체 찾기'},
-    {domain: '/search', name: '맞춤 검색'},
     {domain: '/realtime/loan/post/list', name: '실시간 대출 문의'},
+    {domain: '/search', name: '맞춤 검색'},
   ],
   [
     {domain: '/search/scam', name: '사기 번호 조회'},
