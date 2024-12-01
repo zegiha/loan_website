@@ -10,6 +10,8 @@ import {CloseIcon} from "@/components/atoms/icons";
 import React, {useEffect, useState} from "react";
 import style from './premiumBannerAndProductCategoriesSelectionSection.module.scss';
 import {TCategory} from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
+import useCategoryToggleButtons
+  from "@/components/molecules/inputs/buttons/categoryToggleButton/useCategoryToggleButtons";
 
 const CATEGORIES: Array<TCategory> = [
   {label: '전체', subLabel: 2037, active: true},
@@ -46,18 +48,7 @@ export default function PremiumBannerAndProductCategoriesSelectionSection({
   setActiveCategoriesAction
 }: {setActiveCategoriesAction: React.Dispatch<React.SetStateAction<Set<string>>>}) {
   const [productSearch, setProductSearch] = useState<string>('');
-  const [categories, setCategories] = useState<Array<TCategory>>([...CATEGORIES]);
-
-  useEffect(() => {
-    const newActiveCategories: Set<string> = new Set();
-    categories.forEach((v) => {
-      if(v.active) {
-        newActiveCategories.add(v.label)
-      }
-    })
-    setActiveCategoriesAction(new Set(newActiveCategories));
-  }, [categories]);
-
+  const [categories, setCategories] = useCategoryToggleButtons(CATEGORIES, setActiveCategoriesAction)
   return (
     <Section>
       <Row gap={24} width={'fill'}>
