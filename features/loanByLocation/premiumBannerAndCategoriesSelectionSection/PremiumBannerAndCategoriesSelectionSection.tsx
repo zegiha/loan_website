@@ -8,41 +8,42 @@ import style from './premiumBannerAndCategoriesSelectionSection.module.scss';
 import {BaseTextInput} from "@/components/molecules/inputs";
 import React, {useEffect, useState} from "react";
 import CloseIcon from "@/components/atoms/icons/CloseIcon";
-import CategoryToggleButton from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
+import CategoryToggleButton, {
+  TCategory
+} from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
 
-type TCategory = {location: string, registeredNumber: number, active: boolean};
 const CATEGORIES: Array<TCategory> = [
-  { location: "전체", registeredNumber: 16804, active: true },
-  { location: "서울", registeredNumber: 421, active: false },
-  { location: "경기", registeredNumber: 853, active: false },
-  { location: "인천", registeredNumber: 712, active: false },
-  { location: "대전", registeredNumber: 328, active: false },
-  { location: "대구", registeredNumber: 467, active: false },
-  { location: "부산", registeredNumber: 902, active: false },
-  { location: "광주", registeredNumber: 194, active: false },
-  { location: "울산", registeredNumber: 375, active: false },
-  { location: "세종", registeredNumber: 283, active: false },
-  { location: "강원", registeredNumber: 612, active: false },
-  { location: "충북", registeredNumber: 158, active: false },
-  { location: "충남", registeredNumber: 789, active: false },
-  { location: "전북", registeredNumber: 443, active: false },
-  { location: "전남", registeredNumber: 534, active: false },
-  { location: "경북", registeredNumber: 691, active: false },
-  { location: "경남", registeredNumber: 824, active: false },
-  { location: "제주", registeredNumber: 267, active: false },
+  { label: "전체", subLabel: 16804, active: true },
+  { label: "서울", subLabel: 421, active: false },
+  { label: "경기", subLabel: 853, active: false },
+  { label: "인천", subLabel: 712, active: false },
+  { label: "대전", subLabel: 328, active: false },
+  { label: "대구", subLabel: 467, active: false },
+  { label: "부산", subLabel: 902, active: false },
+  { label: "광주", subLabel: 194, active: false },
+  { label: "울산", subLabel: 375, active: false },
+  { label: "세종", subLabel: 283, active: false },
+  { label: "강원", subLabel: 612, active: false },
+  { label: "충북", subLabel: 158, active: false },
+  { label: "충남", subLabel: 789, active: false },
+  { label: "전북", subLabel: 443, active: false },
+  { label: "전남", subLabel: 534, active: false },
+  { label: "경북", subLabel: 691, active: false },
+  { label: "경남", subLabel: 824, active: false },
+  { label: "제주", subLabel: 267, active: false },
 ];
 
 export default function PremiumBannerAndCategoriesSelectionSection({
   setActiveCategoriesAction
 }: {setActiveCategoriesAction: React.Dispatch<React.SetStateAction<Set<string>>>}) {
   const [locationSearch, setLocationSearch] = useState<string>('');
-  const [categories, setCategories] = useState<Array<{location: string, registeredNumber: number, active: boolean}>>([...CATEGORIES]);
+  const [categories, setCategories] = useState<Array<TCategory>>([...CATEGORIES]);
 
   useEffect(() => {
     const newActiveCategories: Set<string> = new Set();
     categories.forEach((v) => {
       if(v.active) {
-        newActiveCategories.add(v.location)
+        newActiveCategories.add(v.label)
       }
     })
     setActiveCategoriesAction(new Set(newActiveCategories));
@@ -85,11 +86,16 @@ export default function PremiumBannerAndCategoriesSelectionSection({
           <Row width={'fill'} gap={12} wrap>
             {categories.map((v, i) => (
               <CategoryToggleButton
-                key={v.location}
-                onClick={() => handleCategoryButton(i, v, setCategories)}
+                key={v.label}
+                handleCategoryButtonValues={{
+                  i,
+                  v,
+                  setCategories,
+                  defaultValue: CATEGORIES
+                }}
                 active={v.active}
-                contents={v.location}
-                subContents={`${v.registeredNumber}개`}
+                contents={v.label}
+                subContents={`${v.subLabel}개`}
               />
             ))}
           </Row>
@@ -99,35 +105,3 @@ export default function PremiumBannerAndCategoriesSelectionSection({
   );
 }
 
-function handleCategoryButton(
-  i: number,
-  v: TCategory,
-  setCategories: React.Dispatch<React.SetStateAction<Array<TCategory>>>,
-) {
-  if(i === 0) {
-    if(!v.active) {
-      setCategories([...CATEGORIES]);
-    }
-  } else {
-    setCategories(prev => {
-      const newState = [...prev.map(
-        (item, index) =>
-          index === i ?
-            {...item, active: !item.active} :
-            index === 0 ?
-              {...item, active: false} :
-              item
-      )];
-      let cnt = 0;
-      newState.forEach((v) => {
-        if(v.active) {
-          cnt++
-        }
-      })
-      if(cnt === 0) {
-        return [...CATEGORIES]
-      }
-      else return [...newState]
-    })
-  }
-}
