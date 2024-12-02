@@ -2,6 +2,7 @@
 
 import {ChangeEvent, useRef, useState} from "react";
 import style from './baseTextInput.module.scss';
+import {semantic} from "@/shared/color";
 
 interface IBaseTextInput {
   width?: 'fill' | number;
@@ -9,7 +10,7 @@ interface IBaseTextInput {
   placeholder: string;
   PlaceholderIcon?: React.ReactNode;
   TypingIcon?: React.ReactNode;
-  selectType?: Array<{active: boolean, contents: string}>;
+  SelectType?: React.ReactNode;
   size: 'normal' | 'big';
   value: string;
   onChangeAction: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -23,7 +24,7 @@ export default function BaseTextInput({
   placeholder,
   PlaceholderIcon,
   TypingIcon,
-  selectType,
+  SelectType,
   size='normal',
   value,
   onChangeAction,
@@ -46,6 +47,10 @@ export default function BaseTextInput({
       onClick={() => inputRef.current?.focus()}
     >
       {PlaceholderIcon && PlaceholderIcon}
+      {SelectType && <>
+        {SelectType}
+        <div className={semantic.outlineDefault} style={{width: 1, height: 20}}/>
+      </>}
       <input
         ref={inputRef}
         type="text"
