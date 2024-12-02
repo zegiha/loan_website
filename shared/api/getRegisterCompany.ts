@@ -13,3 +13,15 @@ export default function getRegisterCompany(dataLength: number | undefined = 15, 
   }
   return res;
 }
+
+export function formatRegisteredCompany (
+  rawData: Array<TRegisterStatus>,
+  contentsNumberPerSlide: number
+): Array<Array<TRegisterStatus>> {
+  const res: Array<Array<TRegisterStatus>> = [];
+  for(let i = 0; i < rawData.length; i++) {
+    if(i % contentsNumberPerSlide === 0) res.push([]);
+    res[res.length-1].push(rawData[i]);
+  }
+  return res;
+}

@@ -7,8 +7,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {Section, AccordionSectionTitle} from "@/components/molecules";
 import {BaseTextInput} from "@/components/molecules/inputs";
 import {SwiperPaginationAndNavigation, Table} from "@/components/organisms";
-import {TRegisterStatus} from "@/shared/type";
-import getRegisterCompany from "@/shared/api/getRegisterCompany";
+import getRegisterCompany, {formatRegisteredCompany} from "@/shared/api/getRegisterCompany";
 import {semantic} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import {SwiperSlide} from "swiper/react";
@@ -24,19 +23,11 @@ export default function RegisteredCompanyTableSection({
                                                       }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('5')
 
-  const formatRegisteredCompany = (rawData: Array<TRegisterStatus>): Array<Array<TRegisterStatus>> => {
-    const res: Array<Array<TRegisterStatus>> = [];
-    for(let i = 0; i < rawData.length; i++) {
-      if(i % Number(activeContentsNumber) === 0) res.push([]);
-      res[res.length-1].push(rawData[i]);
-    }
-    return res;
-  }
-  const [registeredCompanyData, setRegisteredCompanyData] = useState(formatRegisteredCompany(getRegisterCompany(60, Array.from(activeCategories), true)));
+  const [registeredCompanyData, setRegisteredCompanyData] = useState(formatRegisteredCompany(getRegisterCompany(60, Array.from(activeCategories), true), Number(activeContentsNumber)));
   const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
-    setRegisteredCompanyData([...formatRegisteredCompany(getRegisterCompany(60, Array.from(activeContentsNumber), true))])
+    setRegisteredCompanyData([...formatRegisteredCompany(getRegisterCompany(60, Array.from(activeContentsNumber), true), Number(activeContentsNumber))])
   }, [activeContentsNumber]);
 
   return (
