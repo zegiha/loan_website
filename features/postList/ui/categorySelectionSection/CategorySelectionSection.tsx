@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Section} from "@/components/molecules";
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import {TCategory} from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
