@@ -1,0 +1,16 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.addPostButton {
+  display: flex;
+  padding: 8px 12px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  background-color: semantic.$primary-primaryNormal;
+  transition: ani.$leaveTransition;
+  &:hover {
+    background-color: semantic.$primary-primaryHigh;
+    transition: ani.$onTransition;
+  }
+}
