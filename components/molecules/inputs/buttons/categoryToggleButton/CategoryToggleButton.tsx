@@ -2,25 +2,70 @@ import {BaseButton} from "@/components/molecules/inputs";
 import style from './categoryToggleButon.module.scss';
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
+import React from "react";
 
 interface IToggleButton {
   active?: boolean;
   contents: string;
   subContents: string;
-  onClick: () => void;
+  handleCategoryButtonValues: IHandleCategoryButton
 }
+
+interface IHandleCategoryButton {
+  i: number,
+  v: TCategory,
+  setCategories: React.Dispatch<React.SetStateAction<Array<TCategory>>>,
+  defaultValue: Array<TCategory>
+}
+
+export type TCategory = {label: string, subLabel: number, active: boolean};
+
+function handleCategoryButton({
+  i,
+  v,
+  setCategories,
+  defaultValue,
+}: IHandleCategoryButton) {
+  if(i === 0) {
+    if(!v.active) {
+      setCategories([...defaultValue]);
+    }
+  } else {
+    setCategories(prev => {
+      const newState = [...prev.map(
+        (item, index) =>
+          index === i ?
+            {...item, active: !item.active} :
+            index === 0 ?
+              {...item, active: false} :
+              item
+      )];
+      let cnt = 0;
+      newState.forEach((v) => {
+        if(v.active) {
+          cnt++
+        }
+      })
+      if(cnt === 0) {
+        return [...defaultValue]
+      }
+      else return [...newState]
+    })
+  }
+}
+
 
 export default function CategoryToggleButton({
   active=false,
   contents,
   subContents,
-  onClick
+  handleCategoryButtonValues
 }: IToggleButton) {
   return <BaseButton
     className={`${
       active ? style.activeContainer : style.container
     } ${style.transition}`}
-    onClick={() => onClick()}
+    onClick={() => handleCategoryButton({...handleCategoryButtonValues})}
   >
     <Col alignItems={'center'}>
       <Typo.Contents emphasize color={active ? 'onPrimary' : 'variable'}>
