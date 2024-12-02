@@ -1,0 +1,13 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+
+.bigBox, .smallBox {
+  padding: 24px;
+  background-color: semantic.$container-containerLow;
+  border-radius: 12px;
+}
+.bigBox {
+  width: calc((100% - 24px) / 3 * 2);
+}
+.smallBox {
+  width: calc((100% - 24px) / 3);
+}
