@@ -7,6 +7,7 @@ import {BaseButton, BaseTextInput} from "@/components/molecules/inputs";
 import SearchTypeTextInput from "@/components/molecules/inputs/textInputs/searchTypeTextInput/SearchTypeTextInput";
 import style from './loanPostTableSection.module.scss'
 import {PlusIcon} from "@/components/atoms/icons";
+import PostTable from "@/features/postList/ui/loanPostTableSection/PostTable";
 
 const accordionData = ['10', '15', '20', '30']
 const SEARCHTYPE = ['제목 및 내용', '제목', '내용', '금액']
@@ -99,6 +100,7 @@ export default function LoanPostTableSection({
             </Typo.Contents>
           </BaseButton>
         </Row>
+        <PostTable key={`${activeAccordionNumber}`} dataNumber={Number(activeAccordionNumber)}/>
       </Col>
     </Section>
   );

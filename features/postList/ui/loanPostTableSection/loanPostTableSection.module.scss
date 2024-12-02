@@ -14,3 +14,14 @@
     transition: ani.$onTransition;
   }
 }
+
+.notificationRow {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: semantic.$primaryContainer-primaryContainerLow;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$primaryContainer-primaryContainerNormal;
+    cursor: pointer;
+  }}
