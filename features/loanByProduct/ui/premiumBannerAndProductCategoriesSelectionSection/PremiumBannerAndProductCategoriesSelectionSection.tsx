@@ -7,7 +7,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {PremiumBanner} from "@/components/organisms";
 import {BaseTextInput, CategoryToggleButton} from "@/components/molecules/inputs";
 import {CloseIcon} from "@/components/atoms/icons";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import style from './premiumBannerAndProductCategoriesSelectionSection.module.scss';
 import {TCategory} from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
 import useCategoryToggleButtons

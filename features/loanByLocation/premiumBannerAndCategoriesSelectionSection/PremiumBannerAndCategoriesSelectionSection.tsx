@@ -6,7 +6,7 @@ import {PremiumBanner} from "@/components/organisms";
 import {semantic} from "@/shared/color";
 import style from './premiumBannerAndCategoriesSelectionSection.module.scss';
 import {BaseTextInput} from "@/components/molecules/inputs";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import CloseIcon from "@/components/atoms/icons/CloseIcon";
 import CategoryToggleButton, {
   TCategory

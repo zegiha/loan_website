@@ -55,7 +55,7 @@ export default function SearchTypeTextInput({
       {isOpen && (
         <Row className={style.accordionContainer}>
           <Col className={style.accordionWrapper} gap={8} width={160}>
-            {searchType.map((v, i) => (
+            {searchType.map((v) => (
             <Row
               key={v}
               width={'fill'}
