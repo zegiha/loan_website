@@ -70,7 +70,7 @@ export default function CompanyCard({
           )}
           <Typo.Contents
             color={type === 'vipText' ? 'variable' : 'dim'}
-            textAlign={'center'}
+            textAlign={type === 'text' ? 'start' : 'center'}
             className={type === 'image' ? style.imgTitle : undefined}
             textOverflowLine={2}
           >
@@ -88,12 +88,14 @@ export default function CompanyCard({
             )}
           </Typo.Contents>
         </Col>
-        <div style={{
-          width: '100%',
-          padding: type === 'image' ? '0 16px' : '0',
-        }}>
-          <Divider/>
-        </div>
+        {type !== 'text' && (
+          <div style={{
+            width: '100%',
+            padding: type === 'image' ? '0 16px' : '0',
+          }}>
+            <Divider/>
+          </div>
+        )}
         <Col
           gap={8}
           width={'fill'}

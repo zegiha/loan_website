@@ -1,4 +1,5 @@
 type shareType = {
+  id: string;
   location: string;
   title: string;
 }
