@@ -17,6 +17,7 @@ export default function getLoanPostList(dataNumberPerArray: number, allDataNumbe
 function getDummies(n: number, isNotification?: boolean) {
   const dummy: ILoanPost = {
     type: '신용',
+    postId: 'postId',
     title: '200 대출 문의드립니다',
     location: '인천',
     createdAt: '20분 전',
@@ -24,6 +25,7 @@ function getDummies(n: number, isNotification?: boolean) {
   }
   const notificationDummy: ILoanPost = {
     type: '공지',
+    postId: 'postId',
     title: '(필독)대출직거래시 주의사항 및 예방안내',
     location: '',
     createdAt: '',

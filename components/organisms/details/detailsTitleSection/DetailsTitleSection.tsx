@@ -15,9 +15,14 @@ import {useRouter} from "next/navigation";
 interface ILoanDetailsTitleSectionProps {
   type: 'loan'| 'post';
   title: TPrimaryAndGenericColorString;
+  createdAt?: string;
 }
 
-export default function DetailsTitleSection({type, title}: ILoanDetailsTitleSectionProps) {
+export default function DetailsTitleSection({
+  type,
+  title,
+  createdAt
+}: ILoanDetailsTitleSectionProps) {
   const [isOpenWarning, setIsOpenWarning] = useState<boolean>(false)
   const router = useRouter()
 
@@ -61,6 +66,11 @@ export default function DetailsTitleSection({type, title}: ILoanDetailsTitleSect
           </BaseButton>
         )}
       </Row>
+      {type === 'post' && (
+        <Typo.SubBody color={'dim'}>
+          {createdAt}
+        </Typo.SubBody>
+      )}
       <Modal isOpen={isOpenWarning} setIsOpen={setIsOpenWarning}>
         <div onClick={e => e.stopPropagation()}>
           <Col width={'fill'} gap={24} className={style.warningContainer}>
