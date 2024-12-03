@@ -6,6 +6,7 @@ import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import {ILoanPost} from "@/shared/type/loanPost";
 import style from './loanPostTableSection.module.scss'
+import Link from "next/link";
 
 export default function PostTable({dataNumber}: {dataNumber: number}) {
   const [postList, setPostList] = useState(
@@ -39,16 +40,19 @@ function LoanPostTableHead() {
 }
 function LoanPostTableRow({
   type,
+  postId,
   location,
   title,
   createdAt,
   viewCount
 }: ILoanPost) {
-  return <TableRow className={type === '공지' ? style.notificationRow : undefined}>
-    <Typo.Contents width={30} color={type === '공지' ? 'primary' : 'generic'}>{type}</Typo.Contents>
-    <Typo.Contents width={70}>{location}</Typo.Contents>
-    <Typo.Contents width={'fill'} isPre>{title}</Typo.Contents>
-    <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
-    <Typo.Contents width={60} isPre>{viewCount}</Typo.Contents>
-  </TableRow>
+  return <Link href={`/post/${postId}`} style={{ width: "100%" }}>
+    <TableRow className={type === '공지' ? style.notificationRow : undefined}>
+      <Typo.Contents width={30} color={type === '공지' ? 'primary' : 'generic'}>{type}</Typo.Contents>
+      <Typo.Contents width={70}>{location}</Typo.Contents>
+      <Typo.Contents width={'fill'} isPre>{title}</Typo.Contents>
+      <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
+      <Typo.Contents width={60} isPre>{viewCount}</Typo.Contents>
+    </TableRow>
+  </Link>
 }
