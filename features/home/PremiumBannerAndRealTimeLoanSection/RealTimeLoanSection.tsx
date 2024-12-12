@@ -65,23 +65,18 @@ function RealTimeLoan({
       width={'fill'}
       className={style.realTimeLoan}
     >
-      <Row
-        gap={8}
-        alignItems={'center'}
-        width={'fill'}
-      >
-        <div className={`${style.locationChip}`}>
-          <Typo.Contents color={'dim'}>
-            {location}
-          </Typo.Contents>
-        </div>
-        <Typo.Contents width={'fill'} textOverflowLine={1}>
-          {title}
+      <div className={`${style.locationChip}`}>
+        <Typo.Contents color={'dim'}>
+          {location}
         </Typo.Contents>
-      </Row>
-      <Typo.Caption color={'dim'} isPre>
+      </div>
+      <Typo.Contents width={'fill'} textOverflowLine={1} isPre>
+        {title}
+      </Typo.Contents>
+      <Typo.Caption color={'dim'} width={'hug'} isPre>
         {createdAt}
       </Typo.Caption>
     </Row>
-  );
+)
+  ;
 }

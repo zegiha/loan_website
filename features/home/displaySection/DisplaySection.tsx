@@ -24,7 +24,13 @@ export default async function DisplaySection() {
           />
       </div>
       <Col className={style.displaySectionWrapper} gap={32}>
-        <Row justifyContents={'space-between'} alignItems={'center'} style={{width: '100%'}}>
+        <Row
+          justifyContents={'space-between'}
+          alignItems={'center'}
+          gap={24}
+          width={'fill'}
+          className={style.topSection}
+        >
           <Col style={{gap: 4}}>
             <Typo.Display emphasize color={'variable'}>
             {'정식 등록 '}
@@ -44,7 +50,7 @@ export default async function DisplaySection() {
               실시간 대출문의를 등록하시면 빠른 상담이 가능합니다.
             </Typo.Body>
           </Col>
-          <Col alignItems={'end'} gap={12}>
+          <Col gap={12} className={style.buttonSection}>
             <LoanQuestionButton/>
             <Row gap={24}>
               <RealTime
@@ -93,7 +99,7 @@ async function TopADCard({
 }: ITopAd) {
   return (
     <Col gap={12} className={style.topAdCardContainer}>
-      <Row gap={24} alignItems={'center'} width={'fill'}>
+      <Row gap={24} alignItems={'center'} width={'fill'} className={style.topAdTitleSection}>
         <Col gap={12}>
           <Col gap={4}>
             <Typo.Body color={'variable'} emphasize>

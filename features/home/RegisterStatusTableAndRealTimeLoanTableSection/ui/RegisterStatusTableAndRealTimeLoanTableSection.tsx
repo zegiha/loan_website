@@ -4,6 +4,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTable";
 import RealTimeLoanTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RealTimeLoanTable";
 import {Section} from "@/components/molecules";
+import style from './style.module.scss';
 
 export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
   return (
@@ -11,6 +12,7 @@ export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
       <Row
         width={'fill'}
         gap={24}
+        className={style.container}
       >
         <Col
           width={'fill'}
