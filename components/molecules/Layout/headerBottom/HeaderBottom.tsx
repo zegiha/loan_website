@@ -8,10 +8,10 @@ const items =  [
     {domain: '/loan/location', name: '지역별 업체 찾기'},
     {domain: '/loan/product', name: '상품별 업체 찾기'},
     {domain: '/post/list', name: '실시간 대출 문의'},
-    {domain: '/search', name: '맞춤 검색'},
+    // {domain: '/search', name: '맞춤 검색'},
   ],
   [
-    {domain: '/search/scam', name: '사기 번호 조회'},
+    // {domain: '/search/scam', name: '사기 번호 조회'},
     {domain: '/search/registered_company', name: '정식 업체 조회'},
     {domain: '/user_guied', name: '이용안내'},
     {domain: '/customer_service_center', name: '고객센터'}
@@ -54,7 +54,7 @@ export default function HeaderBottom() {
   );
 }
 
-function NavigationItem({onClick, name, isActive}: {onClick: () => void, name: string, isActive: boolean}) {
+export function NavigationItem({onClick, name, isActive}: {onClick: () => void, name: string, isActive: boolean}) {
   return (
     <span onClick={onClick}>
       <Typo.SubBody
