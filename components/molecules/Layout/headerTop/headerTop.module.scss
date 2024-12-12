@@ -9,6 +9,9 @@
   flex-direction: column;
   align-items: center;
   transition: ani.$leaveTransition;
+  @media (max-width: 840px) {
+    padding: 20px;
+  }
 }
 
 .bigContainer {
@@ -67,10 +70,21 @@
 
 .modalHeader {
   position: absolute;
+  top: 0;
   width: 100%;
-  height: 100%;
-  padding: 16px;
+  padding: 24px 40px;
   background-color: semantic.$surface-surface;
+  animation: modalHeader 0.3s ease-in-out;
+  @keyframes modalHeader {
+    0% {
+      opacity: 0;
+      transform: translateY(-32%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 .modalHeader_item {
@@ -82,5 +96,12 @@
     transition: ani.$onTransition;
     background-color: semantic.$container-containerHigh;
     cursor: pointer;
+  }
+}
+
+.inputWrapper {
+  max-width: 440px;
+  @media (max-width: 600px) {
+    display: none !important;
   }
 }

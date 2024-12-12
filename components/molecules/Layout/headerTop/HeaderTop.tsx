@@ -17,6 +17,8 @@ import React, {useEffect, useState} from "react";
 import style from './headerTop.module.scss';
 import Link from "next/link";
 import Modal from "@/components/molecules/modal/Modal";
+import {NavigationItem} from "@/components/molecules/Layout/headerBottom/HeaderBottom";
+import {usePathname, useRouter} from "next/navigation";
 
 type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings';
 interface ITopIconNavigation {
@@ -30,6 +32,21 @@ const topIconNavigation: Array<ITopIconNavigation> = [
   {icon: 'adContact', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
   {icon: 'recentlySeenCompany', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
   {icon: 'warnings', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
+];
+
+const items =  [
+  [
+    {domain: '/loan/location', name: '지역별 업체 찾기'},
+    {domain: '/loan/product', name: '상품별 업체 찾기'},
+    {domain: '/post/list', name: '실시간 대출 문의'},
+    // {domain: '/search', name: '맞춤 검색'},
+  ],
+  [
+    // {domain: '/search/scam', name: '사기 번호 조회'},
+    {domain: '/search/registered_company', name: '정식 업체 조회'},
+    {domain: '/user_guied', name: '이용안내'},
+    {domain: '/customer_service_center', name: '고객센터'}
+  ]
 ];
 
 export default function HeaderTop() {
@@ -71,17 +88,19 @@ export default function HeaderTop() {
           justifyContents={'center'}
           alignItems={'center'}
         >
-          <BaseTextInput
-            width={'fill'}
-            maxWidth={440}
-            size={'big'}
-            placeholder={'검색어를 입력해주세요'}
-            PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
-            value={searchText}
-            onChangeAction={(e) => {
-              setSearchText(e.target.value)
-            }}
-          />
+          <Row width={'fill'} className={style.inputWrapper}>
+            <BaseTextInput
+              width={'fill'}
+              maxWidth={440}
+              size={'big'}
+              placeholder={'검색어를 입력해주세요'}
+              PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
+              value={searchText}
+              onChangeAction={(e) => {
+                setSearchText(e.target.value)
+              }}
+            />
+          </Row>
           {/*<BaseTextInput*/}
           {/*  width={'fill'}*/}
           {/*  maxWidth={280}*/}
@@ -99,6 +118,7 @@ export default function HeaderTop() {
             {topIconNavigation.map((v, i) => (
               <TopIconNavigation
                 key={i}
+                size={48}
                 {...v}
               />
             ))}
@@ -119,6 +139,8 @@ function ModalHeader({
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const pathname = usePathname()
+  const router = useRouter()
   const [modalHeader, setModalHeader] = useState(false);
   return (
     <>
@@ -126,16 +148,18 @@ function ModalHeader({
         <MenuIcon color={'dim'} size={32}/>
       </Row>
       <Modal isOpen={modalHeader}>
-        <Col gap={24} className={style.modalHeader}>
+        <Col gap={32} className={style.modalHeader}>
           <Col gap={16} width={'fill'}>
-            <Row justifyContents={'space-between'} width={'fill'}>
-              <Image
-                src={LogoImage}
-                alt={'로고 이미지'}
-                width={213}
-                height={45}
-              />
-              <Row className={style.topIconNavigation}>
+            <Row justifyContents={'end'} width={'fill'}>
+              {/*<Image*/}
+              {/*  src={LogoImage}*/}
+              {/*  alt={'로고 이미지'}*/}
+              {/*  width={213}*/}
+              {/*  height={45}*/}
+              {/*/>*/}
+              <Row className={style.topIconNavigation} onClick={() => {
+                setModalHeader(false);
+              }}>
                 <CloseIcon/>
               </Row>
             </Row>
@@ -150,18 +174,39 @@ function ModalHeader({
               }}
             />
           </Col>
-          <Col gap={8} width={'fill'}>
-            <Row width={'fill'} className={style.modalHeader_item}>
-              <Typo.Contents>
-                test
-              </Typo.Contents>
-            </Row>
+          <Col gap={24} width={'fill'}>
+            <Col gap={12} width={'fill'}>
+              {topIconNavigation.map((v, i) => (
+                <Row
+                  key={i}
+                  width={'fill'}
+                  alignItems={'center'}
+                  gap={4}
+                  className={style.modalHeader_item}
+                >
+                  <TopIcon icon={v.icon} size={20}/>
+                  <Typo.Contents color={'dim'}>
+                    {v.label}
+                  </Typo.Contents>
+                </Row>
+              ))}
+            </Col>
             <Divider/>
-            <Row width={'fill'} className={style.modalHeader_item}>
-              <Typo.Contents>
-                test
-              </Typo.Contents>
-            </Row>
+            <Col gap={8} width={'fill'}>
+              {items.map((v) => (
+                v.map((v2) => (
+                  <Link key={`${v2.domain}`} href={v2.domain} className={style.modalHeader_item} style={{width: '100%'}}>
+                    <NavigationItem
+                      isActive={pathname === v2.domain}
+                      onClick={() => {
+                        router.push(v2.domain)
+                      }}
+                      name={v2.name}
+                    />
+                  </Link>
+                ))
+              ))}
+            </Col>
           </Col>
         </Col>
       </Modal>
@@ -169,16 +214,15 @@ function ModalHeader({
   )
 }
 
+interface ITopIconNavigationProps extends ITopIconNavigation {
+  size: number
+}
 function TopIconNavigation({
   icon,
   label,
+  size,
   onClick
-}: ITopIconNavigation) {
-  const iconProps: IIcon = {
-    color: 'dim',
-    size: 48,
-    fill: false,
-  }
+}: ITopIconNavigationProps) {
   return (
     <Col
       gap={4}
@@ -186,6 +230,24 @@ function TopIconNavigation({
       className={style.topIconNavigation}
       onClick={() => onClick()}
     >
+      <TopIcon
+        icon={icon}
+        size={size}
+      />
+      <Typo.Contents color={'dim'} width={'hug'}>
+        {label}
+      </Typo.Contents>
+    </Col>
+  );
+}
+function TopIcon({icon, size}: {icon: 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings', size: number}) {
+  const iconProps: IIcon = {
+    color: 'dim',
+    size: size,
+    fill: false,
+  }
+  return (
+    <>
       {
         icon === 'company' ?
           <CompanyIcon
@@ -201,9 +263,6 @@ function TopIconNavigation({
                 {...iconProps}
               />
       }
-      <Typo.Contents color={'dim'} width={'hug'}>
-        {label}
-      </Typo.Contents>
-    </Col>
+    </>
   );
 }

@@ -6,6 +6,9 @@
   padding: 12px 40px;
   background-color: semantic.$container-containerLow;
   border-bottom: 1px solid semantic.$outline-default;
+  @media (max-width: 840px) {
+    display: none !important;
+  }
 }
 .wrapper{
   position: relative;
