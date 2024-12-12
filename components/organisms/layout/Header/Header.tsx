@@ -9,7 +9,7 @@ export default function Header() {
   const {isVisible} = useHeaderTopAnimation();
   return (
     <Col width={'fill'} className={`${style.allContainer} ${isVisible ? '' : style.translate}`}>
-      <HeaderTop isVisible={isVisible} />
+      <HeaderTop/>
       <HeaderBottom/>
     </Col>
   );

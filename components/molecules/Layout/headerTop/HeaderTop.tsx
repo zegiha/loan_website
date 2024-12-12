@@ -1,13 +1,22 @@
-import {Col, Row} from "@/components/atoms/layout";
+import {Col, Divider, Row} from "@/components/atoms/layout";
 import Image from "next/image";
 import LogoImage from "@/public/assets/colorLogo.png";
 import {BaseTextInput} from "@/components/molecules/inputs";
-import {CampaignIcon, ClockIcon, CompanyIcon, SearchIcon, WarningIcon} from "@/components/atoms/icons";
+import {
+  CampaignIcon,
+  ClockIcon,
+  CloseIcon,
+  CompanyIcon,
+  MenuIcon,
+  SearchIcon,
+  WarningIcon
+} from "@/components/atoms/icons";
 import {IIcon} from "@/components/atoms/icons/BaseIcon";
 import Typo from "@/components/atoms/typo/Typo";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import style from './headerTop.module.scss';
 import Link from "next/link";
+import Modal from "@/components/molecules/modal/Modal";
 
 type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings';
 interface ITopIconNavigation {
@@ -24,15 +33,28 @@ const topIconNavigation: Array<ITopIconNavigation> = [
 ];
 
 export default function HeaderTop() {
-
   const [searchText, setSearchText] = useState('');
-  const [companySearchText, setCompanySearchText] = useState('');
+  // const [companySearchText, setCompanySearchText] = useState('');
+
+  const [tabletHeader, setTabletHeader] = useState(false);
+  const [modalHeader, setModalHeader] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTabletHeader(window.innerWidth < 920);
+    };
+
+    handleResize(); // 초기 실행
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className={style.bigContainer}>
       <Row
         width={'fill'}
         alignItems={'center'}
+        gap={16}
         className={style.bigWrapper}
       >
         <Link href={'/'}>
@@ -60,29 +82,91 @@ export default function HeaderTop() {
               setSearchText(e.target.value)
             }}
           />
-          <BaseTextInput
-            width={'fill'}
-            maxWidth={280}
-            size={'big'}
-            placeholder={'업체를 검색해주세요'}
-            PlaceholderIcon={<CompanyIcon size={24} color={'dim'}/>}
-            value={companySearchText}
-            onChangeAction={(e) => {
-              setCompanySearchText(e.target.value)
-            }}
-          />
+          {/*<BaseTextInput*/}
+          {/*  width={'fill'}*/}
+          {/*  maxWidth={280}*/}
+          {/*  size={'big'}*/}
+          {/*  placeholder={'업체를 검색해주세요'}*/}
+          {/*  PlaceholderIcon={<CompanyIcon size={24} color={'dim'}/>}*/}
+          {/*  value={companySearchText}*/}
+          {/*  onChangeAction={(e) => {*/}
+          {/*    setCompanySearchText(e.target.value)*/}
+          {/*  }}*/}
+          {/*/>*/}
         </Row>
-        <Row gap={16}>
-          {topIconNavigation.map((v, i) => (
-            <TopIconNavigation
-              key={i}
-              {...v}
-            />
-          ))}
-        </Row>
+        {!tabletHeader && (
+          <Row gap={16} className={style.iconNavigationContainer}>
+            {topIconNavigation.map((v, i) => (
+              <TopIconNavigation
+                key={i}
+                {...v}
+              />
+            ))}
+          </Row>
+        )}
+        {tabletHeader && (
+          <ModalHeader searchText={searchText} setSearchText={setSearchText}/>
+        )}
       </Row>
     </div>
   );
+}
+
+function ModalHeader({
+  searchText,
+  setSearchText,
+}: {
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  const [modalHeader, setModalHeader] = useState(false);
+  return (
+    <>
+      <Row className={style.topIconNavigation} onClick={() => setModalHeader(true)}>
+        <MenuIcon color={'dim'} size={32}/>
+      </Row>
+      <Modal isOpen={modalHeader}>
+        <Col gap={24} className={style.modalHeader}>
+          <Col gap={16} width={'fill'}>
+            <Row justifyContents={'space-between'} width={'fill'}>
+              <Image
+                src={LogoImage}
+                alt={'로고 이미지'}
+                width={213}
+                height={45}
+              />
+              <Row className={style.topIconNavigation}>
+                <CloseIcon/>
+              </Row>
+            </Row>
+            <BaseTextInput
+              width={'fill'}
+              size={'big'}
+              placeholder={'검색어를 입력해주세요'}
+              PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
+              value={searchText}
+              onChangeAction={(e) => {
+                setSearchText(e.target.value)
+              }}
+            />
+          </Col>
+          <Col gap={8} width={'fill'}>
+            <Row width={'fill'} className={style.modalHeader_item}>
+              <Typo.Contents>
+                test
+              </Typo.Contents>
+            </Row>
+            <Divider/>
+            <Row width={'fill'} className={style.modalHeader_item}>
+              <Typo.Contents>
+                test
+              </Typo.Contents>
+            </Row>
+          </Col>
+        </Col>
+      </Modal>
+    </>
+  )
 }
 
 function TopIconNavigation({

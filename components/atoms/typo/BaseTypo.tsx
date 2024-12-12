@@ -27,6 +27,7 @@ export default function BaseTypo({
         wordBreak: 'keep-all',
         userSelect: userSelect,
         ...getWidthByStyle(width),
+        whiteSpace: isPre ? 'pre-wrap' : undefined,
       },
       className: `
       ${className}
