@@ -1,0 +1,5 @@
+.wrapper {
+  @media (max-width: 600px) {
+    flex-direction: column !important;
+  }
+}

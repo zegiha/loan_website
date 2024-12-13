@@ -32,17 +32,17 @@ export default async function DisplaySection() {
           className={style.topSection}
         >
           <Col style={{gap: 4}}>
-            <Typo.Display emphasize color={'variable'}>
+            <Typo.Header isPre emphasize color={'variable'}>
             {'정식 등록 '}
             <span className={semantic.onGenericOnGenericPrimary}>
               대부업체
             </span>
-              {'가 '}
+              {'가\n'}
               <span className={semantic.onGenericOnGenericPrimary}>
               한 곳
             </span>
               에!
-            </Typo.Display>
+            </Typo.Header>
             <Typo.Body>
               대출문의 회원가입 없이 무료로 이용가능합니다.
             </Typo.Body>
@@ -84,8 +84,8 @@ export default async function DisplaySection() {
 async function RealTime({contents, label}: {contents: string, label: string}) {
   return (
     <Col gap={4} alignItems={'center'}>
-      <Typo.Title emphasize>{contents}</Typo.Title>
-      <Typo.Body>{label}</Typo.Body>
+      <Typo.Body emphasize>{contents}</Typo.Body>
+      <Typo.SubBody>{label}</Typo.SubBody>
     </Col>
   );
 }
