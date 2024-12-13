@@ -1,13 +1,24 @@
-import {Col, Row} from "@/components/atoms/layout";
+import {Col, Divider, Row} from "@/components/atoms/layout";
 import Image from "next/image";
 import LogoImage from "@/public/assets/colorLogo.png";
 import {BaseTextInput} from "@/components/molecules/inputs";
-import {CampaignIcon, ClockIcon, CompanyIcon, SearchIcon, WarningIcon} from "@/components/atoms/icons";
+import {
+  CampaignIcon,
+  ClockIcon,
+  CloseIcon,
+  CompanyIcon,
+  MenuIcon,
+  SearchIcon,
+  WarningIcon
+} from "@/components/atoms/icons";
 import {IIcon} from "@/components/atoms/icons/BaseIcon";
 import Typo from "@/components/atoms/typo/Typo";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import style from './headerTop.module.scss';
 import Link from "next/link";
+import Modal from "@/components/molecules/modal/Modal";
+import {NavigationItem} from "@/components/molecules/Layout/headerBottom/HeaderBottom";
+import {usePathname, useRouter} from "next/navigation";
 
 type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings';
 interface ITopIconNavigation {
@@ -23,16 +34,44 @@ const topIconNavigation: Array<ITopIconNavigation> = [
   {icon: 'warnings', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
 ];
 
-export default function HeaderTop() {
+const items =  [
+  [
+    {domain: '/loan/location', name: '지역별 업체 찾기'},
+    {domain: '/loan/product', name: '상품별 업체 찾기'},
+    {domain: '/post/list', name: '실시간 대출 문의'},
+    // {domain: '/search', name: '맞춤 검색'},
+  ],
+  [
+    // {domain: '/search/scam', name: '사기 번호 조회'},
+    {domain: '/search/registered_company', name: '정식 업체 조회'},
+    {domain: '/user_guied', name: '이용안내'},
+    {domain: '/customer_service_center', name: '고객센터'}
+  ]
+];
 
+export default function HeaderTop() {
   const [searchText, setSearchText] = useState('');
-  const [companySearchText, setCompanySearchText] = useState('');
+  // const [companySearchText, setCompanySearchText] = useState('');
+
+  const [tabletHeader, setTabletHeader] = useState(false);
+  const [modalHeader, setModalHeader] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTabletHeader(window.innerWidth < 920);
+    };
+
+    handleResize(); // 초기 실행
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className={style.bigContainer}>
       <Row
         width={'fill'}
         alignItems={'center'}
+        gap={16}
         className={style.bigWrapper}
       >
         <Link href={'/'}>
@@ -49,52 +88,141 @@ export default function HeaderTop() {
           justifyContents={'center'}
           alignItems={'center'}
         >
-          <BaseTextInput
-            width={'fill'}
-            maxWidth={440}
-            size={'big'}
-            placeholder={'검색어를 입력해주세요'}
-            PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
-            value={searchText}
-            onChangeAction={(e) => {
-              setSearchText(e.target.value)
-            }}
-          />
-          <BaseTextInput
-            width={'fill'}
-            maxWidth={280}
-            size={'big'}
-            placeholder={'업체를 검색해주세요'}
-            PlaceholderIcon={<CompanyIcon size={24} color={'dim'}/>}
-            value={companySearchText}
-            onChangeAction={(e) => {
-              setCompanySearchText(e.target.value)
-            }}
-          />
-        </Row>
-        <Row gap={16}>
-          {topIconNavigation.map((v, i) => (
-            <TopIconNavigation
-              key={i}
-              {...v}
+          <Row width={'fill'} className={style.inputWrapper}>
+            <BaseTextInput
+              width={'fill'}
+              maxWidth={440}
+              size={'big'}
+              placeholder={'검색어를 입력해주세요'}
+              PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
+              value={searchText}
+              onChangeAction={(e) => {
+                setSearchText(e.target.value)
+              }}
             />
-          ))}
+          </Row>
+          {/*<BaseTextInput*/}
+          {/*  width={'fill'}*/}
+          {/*  maxWidth={280}*/}
+          {/*  size={'big'}*/}
+          {/*  placeholder={'업체를 검색해주세요'}*/}
+          {/*  PlaceholderIcon={<CompanyIcon size={24} color={'dim'}/>}*/}
+          {/*  value={companySearchText}*/}
+          {/*  onChangeAction={(e) => {*/}
+          {/*    setCompanySearchText(e.target.value)*/}
+          {/*  }}*/}
+          {/*/>*/}
         </Row>
+        {!tabletHeader && (
+          <Row gap={16} className={style.iconNavigationContainer}>
+            {topIconNavigation.map((v, i) => (
+              <TopIconNavigation
+                key={i}
+                size={48}
+                {...v}
+              />
+            ))}
+          </Row>
+        )}
+        {tabletHeader && (
+          <ModalHeader searchText={searchText} setSearchText={setSearchText}/>
+        )}
       </Row>
     </div>
   );
 }
 
+function ModalHeader({
+  searchText,
+  setSearchText,
+}: {
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const [modalHeader, setModalHeader] = useState(false);
+  return (
+    <>
+      <Row className={style.topIconNavigation} onClick={() => setModalHeader(true)}>
+        <MenuIcon color={'dim'} size={32}/>
+      </Row>
+      <Modal isOpen={modalHeader}>
+        <Col gap={32} className={style.modalHeader}>
+          <Col gap={16} width={'fill'}>
+            <Row justifyContents={'end'} width={'fill'}>
+              {/*<Image*/}
+              {/*  src={LogoImage}*/}
+              {/*  alt={'로고 이미지'}*/}
+              {/*  width={213}*/}
+              {/*  height={45}*/}
+              {/*/>*/}
+              <Row className={style.topIconNavigation} onClick={() => {
+                setModalHeader(false);
+              }}>
+                <CloseIcon/>
+              </Row>
+            </Row>
+            <BaseTextInput
+              width={'fill'}
+              size={'big'}
+              placeholder={'검색어를 입력해주세요'}
+              PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
+              value={searchText}
+              onChangeAction={(e) => {
+                setSearchText(e.target.value)
+              }}
+            />
+          </Col>
+          <Col gap={24} width={'fill'}>
+            <Col gap={12} width={'fill'}>
+              {topIconNavigation.map((v, i) => (
+                <Row
+                  key={i}
+                  width={'fill'}
+                  alignItems={'center'}
+                  gap={4}
+                  className={style.modalHeader_item}
+                >
+                  <TopIcon icon={v.icon} size={20}/>
+                  <Typo.Contents color={'dim'}>
+                    {v.label}
+                  </Typo.Contents>
+                </Row>
+              ))}
+            </Col>
+            <Divider/>
+            <Col gap={8} width={'fill'}>
+              {items.map((v) => (
+                v.map((v2) => (
+                  <Link key={`${v2.domain}`} href={v2.domain} className={style.modalHeader_item} style={{width: '100%'}}>
+                    <NavigationItem
+                      isActive={pathname === v2.domain}
+                      onClick={() => {
+                        router.push(v2.domain)
+                      }}
+                      name={v2.name}
+                    />
+                  </Link>
+                ))
+              ))}
+            </Col>
+          </Col>
+        </Col>
+      </Modal>
+    </>
+  )
+}
+
+interface ITopIconNavigationProps extends ITopIconNavigation {
+  size: number
+}
 function TopIconNavigation({
   icon,
   label,
+  size,
   onClick
-}: ITopIconNavigation) {
-  const iconProps: IIcon = {
-    color: 'dim',
-    size: 48,
-    fill: false,
-  }
+}: ITopIconNavigationProps) {
   return (
     <Col
       gap={4}
@@ -102,6 +230,24 @@ function TopIconNavigation({
       className={style.topIconNavigation}
       onClick={() => onClick()}
     >
+      <TopIcon
+        icon={icon}
+        size={size}
+      />
+      <Typo.Contents color={'dim'} width={'hug'}>
+        {label}
+      </Typo.Contents>
+    </Col>
+  );
+}
+function TopIcon({icon, size}: {icon: 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings', size: number}) {
+  const iconProps: IIcon = {
+    color: 'dim',
+    size: size,
+    fill: false,
+  }
+  return (
+    <>
       {
         icon === 'company' ?
           <CompanyIcon
@@ -117,9 +263,6 @@ function TopIconNavigation({
                 {...iconProps}
               />
       }
-      <Typo.Contents color={'dim'} width={'hug'}>
-        {label}
-      </Typo.Contents>
-    </Col>
+    </>
   );
 }

@@ -8,6 +8,7 @@ import ClockIcon from "@/components/atoms/icons/ClockIcon";
 import WarningIcon from "@/components/atoms/icons/WarningIcon";
 import SearchIcon from "@/components/atoms/icons/SearchIcon";
 import CloseIcon from "@/components/atoms/icons/CloseIcon";
+import MenuIcon from "@/components/atoms/icons/MenuIcon";
 
 export {
   LocationIcon,
@@ -20,4 +21,5 @@ export {
   WarningIcon,
   SearchIcon,
   CloseIcon,
+  MenuIcon,
 }

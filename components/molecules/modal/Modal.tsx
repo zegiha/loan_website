@@ -8,7 +8,7 @@ export default function Modal({
   children
 }: {
   isOpen: boolean,
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>,
   children: ReactNode
 }) {
   const lockScroll = () => {
@@ -35,7 +35,7 @@ export default function Modal({
     }
   }, [isOpen]);
   return isOpen ? createPortal(
-    <div className={style.modalContainer} onClick={() => setIsOpen(false)}>
+    <div className={style.modalContainer} onClick={() => setIsOpen && setIsOpen(false)}>
       {children}
     </div>
     , document.getElementById('modal-root') as HTMLElement) : <></>;

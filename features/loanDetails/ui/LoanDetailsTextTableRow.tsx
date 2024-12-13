@@ -6,7 +6,7 @@ export default function LoanDetailsTextTableRow({
   contents
 }: {title: string, contents: string}) {
   return <TextTableRow>
-    <Typo.Contents width={120} color={'dim'}>
+    <Typo.Contents width={64} color={'dim'}>
       {title}
     </Typo.Contents>
     <Typo.Contents width={'fill'}>

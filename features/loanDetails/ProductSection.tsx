@@ -1,6 +1,7 @@
 import {DetailsContentsSection, TextTable} from "@/components/organisms";
 import {Row} from "@/components/atoms/layout";
 import LoanDetailsTextTableRow from "@/features/loanDetails/ui/LoanDetailsTextTableRow";
+import style from './productionSection.module.scss'
 
 export default function ProductSection({
   contents
@@ -9,7 +10,7 @@ export default function ProductSection({
 }) {
   return (
     <DetailsContentsSection subTitle={'상품'}>
-      <Row gap={16} width={'fill'}>
+      <Row gap={16} width={'fill'} className={style.wrapper}>
         <TextTable>
           {contents.map((v, i) => (
             i < 5 && (

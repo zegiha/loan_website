@@ -34,7 +34,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
 
   return (
     <Section backgroundColor={'surfaceDim'}>
-      <Row width={'fill'} gap={24}>
+      <Row width={'fill'} gap={24} className={style.allSection}>
         <Box ref={premiumBannerRef} className={style.bigBox}>
           <Typo.SubBody emphasize color={'variable'}>
             <span className={semantic.onGenericOnGenericPrimary}>

@@ -25,3 +25,9 @@
     background-color: semantic.$primaryContainer-primaryContainerNormal;
     cursor: pointer;
   }}
+
+.topTableControlSection {
+  @media (max-width: 500px) {
+    flex-direction: column-reverse !important;
+  }
+}
