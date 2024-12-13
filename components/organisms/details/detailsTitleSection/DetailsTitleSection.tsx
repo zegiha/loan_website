@@ -42,7 +42,7 @@ export default function DetailsTitleSection({
           대출정보를 보고 연락했다고 하시면 대출이 더욱 쉬워집니다!
         </Typo.Contents>
       )}
-      <Row width={'fill'} gap={16}>
+      <Row width={'fill'} gap={24} className={style.button_and_title_container}>
         <Typo.Title emphasize width={'fill'} textOverflowLine={2}>
           {title.map((v, i) => (
             v.type === 'primary' ? (
@@ -72,22 +72,24 @@ export default function DetailsTitleSection({
         </Typo.SubBody>
       )}
       <Modal isOpen={isOpenWarning} setIsOpen={setIsOpenWarning}>
-        <div onClick={e => e.stopPropagation()}>
+        <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}} onClick={e => e.stopPropagation()}>
           <Col width={'fill'} gap={24} className={style.warningContainer}>
-            <Typo.Body emphasize>
-              대출 시 주의사항
-            </Typo.Body>
-            <WarningModalContents/>
-            <Row width={'fill'} justifyContents={'center'}>
-              <BaseButton
-                className={style.submitButton}
-                onClick={() => setIsOpenWarning(false)}
-              >
-                <Typo.Contents emphasize color={'onPrimary'}>
-                  전부 확인하신 후 눌러주세요
-                </Typo.Contents>
-              </BaseButton>
-            </Row>
+            <Col width={'fill'} gap={24} className={style.warningWrapper}>
+              <Typo.Body emphasize>
+                대출 시 주의사항
+              </Typo.Body>
+              <WarningModalContents/>
+              <Row width={'fill'} justifyContents={'center'}>
+                <BaseButton
+                  className={style.submitButton}
+                  onClick={() => setIsOpenWarning(false)}
+                >
+                  <Typo.Contents emphasize color={'onPrimary'}>
+                    전부 확인하신 후 눌러주세요
+                  </Typo.Contents>
+                </BaseButton>
+              </Row>
+            </Col>
           </Col>
         </div>
       </Modal>
@@ -110,7 +112,7 @@ function WarningModalContents() {
   return (
     <Col width={'fill'} gap={12}>
       {warningModalContentsData.map((v, i) => (
-        <Row key={i} gap={8} alignItems={'center'}>
+        <Row key={i} gap={8} alignItems={'start'}>
           <div className={style.warningNumberingBox}>
             <Typo.Contents>{i + 1}</Typo.Contents>
           </div>

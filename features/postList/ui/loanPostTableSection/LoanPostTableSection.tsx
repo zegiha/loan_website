@@ -68,7 +68,7 @@ export default function LoanPostTableSection({
         lastComment={'( 최대 )'}
       />
       <Col width={'fill'} gap={12}>
-        <Row width={'fill'} gap={16}>
+        <Row width={'fill'} gap={16} className={style.topTableControlSection}>
           <Row width={'fill'}>
             <BaseTextInput
               placeholder={'검색어를 입력해주세요'}
@@ -94,7 +94,7 @@ export default function LoanPostTableSection({
             <Typo.Contents
               emphasize
               color={'onPrimary'}
-              isPre
+              isPre={'nowrap'}
             >
               글 작성하기
             </Typo.Contents>

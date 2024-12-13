@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Col, Row} from "@/components/atoms/layout";
 import {CloseIcon} from "@/components/atoms/icons";
 import Typo from "@/components/atoms/typo/Typo";
@@ -39,8 +39,26 @@ export default function RegisteredCompanyTableSection({
     setRegisteredCompanyData([...formatRegisteredCompany(getRegisterCompany(60, Array.from(activeContentsNumber), true))])
   }, [activeContentsNumber]);
 
+
+  const [visible_company_name, set_visible_company_name] = useState<boolean>(false)
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  const handleResize = () => {
+    if(ref.current) {
+      set_visible_company_name(ref.current.offsetWidth > 600);
+    }
+  }
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, []);
+
   return (
-    <Section backgroundColor={'surface'}>
+    <Section backgroundColor={'surface'} ref={ref}>
       <AccordionSectionTitle
         title={
           <Typo.Body emphasize color={'variable'}>
@@ -80,7 +98,7 @@ export default function RegisteredCompanyTableSection({
           {registeredCompanyData.map((v, i) => (
             <SwiperSlide key={`${i}-slide`}>
               <Table
-                head={<RegisteredCompanyTableHead/>}
+                head={<RegisteredCompanyTableHead visible_company_name={visible_company_name}/>}
               >
                 {v.map((contents, index) => (
                   <RegisteredCompanyTableRow
@@ -89,6 +107,7 @@ export default function RegisteredCompanyTableSection({
                     loanLimit={contents.loanLimit ?? '상담 후 결정'}
                     location={contents.location}
                     title={contents.title}
+                    visible_company_name={visible_company_name}
                   />
                 ))}
               </Table>

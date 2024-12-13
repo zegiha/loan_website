@@ -16,7 +16,7 @@ export default function RegisterStatusTable() {
 
   const handleResize = () => {
     if(ref.current) {
-      set_visible_company_name(ref.current.offsetWidth > 500);
+      set_visible_company_name(ref.current.offsetWidth > 600);
     }
   }
 

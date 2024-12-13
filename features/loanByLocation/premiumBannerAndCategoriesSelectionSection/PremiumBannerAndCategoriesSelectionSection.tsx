@@ -43,7 +43,7 @@ export default function PremiumBannerAndCategoriesSelectionSection({
 
   return (
     <Section>
-      <Row gap={24} width={'fill'}>
+      <Row gap={24} width={'fill'} className={style.allSection}>
         <Col gap={24} className={style.smallBox}>
           <Typo.SubBody color={'variable'} emphasize>
             <span className={semantic.onGenericOnGenericPrimary}>
@@ -51,7 +51,7 @@ export default function PremiumBannerAndCategoriesSelectionSection({
             </span>
             대부업체
           </Typo.SubBody>
-          <PremiumBanner defaultCardNumber={1}/>
+          <PremiumBanner defaultCardNumber={3}/>
         </Col>
         <Col gap={16} className={style.bigBox}>
           <BaseTextInput

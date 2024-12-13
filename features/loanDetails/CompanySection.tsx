@@ -19,7 +19,7 @@ export default function CompanySection({
 
   return (
     <DetailsContentsSection subTitle={'업체'}>
-      <Row gap={16} width={'fill'}>
+      <Row gap={16} width={'fill'} className={style.wrapper}>
         <TextTable>
           {contents.map((v, i) => (
             i < 3 && <LoanDetailsTextTableRow key={`${i}-first`} {...v}/>
@@ -40,7 +40,7 @@ export default function CompanySection({
         </div>
       </Row>
       <Modal isOpen={isOpenImgModal} setIsOpen={setIsOpenImgModal}>
-        <div style={{position: 'relative', height: '100%'}} onClick={e => e.stopPropagation()}>
+        <div style={{position: 'relative', height: '100%', width: '100%'}} onClick={e => e.stopPropagation()}>
           <Col alignItems={'end'} gap={8} style={{height:'100%'}}>
             <BaseButton className={style.imgModalCloseButton} onClick={() => setIsOpenImgModal(false)}>
               <CloseIcon size={24} color={'white'}/>

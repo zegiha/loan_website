@@ -29,8 +29,7 @@
 }
 
 .modalImgContainer {
-  width: auto;
-  height: 100%;
+  width: 100%;
   aspect-ratio: 210/297;
   padding: 16px;
   background-color: semantic.$container-containerLow;
@@ -42,4 +41,10 @@
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.wrapper {
+  @media (max-width: 600px) {
+    flex-direction: column !important;
+  }
 }
