@@ -27,7 +27,7 @@ export default function BaseTypo({
         wordBreak: 'keep-all',
         userSelect: userSelect,
         ...getWidthByStyle(width),
-        whiteSpace: isPre ? 'pre-wrap' : undefined,
+        whiteSpace: isPre === undefined ? undefined : typeof isPre === "boolean" || isPre === 'wrap' ? 'pre-wrap' : 'pre'
       },
       className: `
       ${className}
