@@ -43,7 +43,7 @@ export default function SearchTypeTextInput({
         onClick={() => setIsOpen(true)}
         style={{cursor: 'pointer'}}
       >
-        <Text color={'dim'} isPre>
+        <Text color={'dim'} isPre={'nowrap'}>
           {active}
         </Text>
         <ArrowIcon

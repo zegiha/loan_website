@@ -11,9 +11,9 @@ export default function LoanQuestionButton() {
       onClick={() => console.log('홈에 지금 대출 문의하기 눌림')}
       className={style.loanQuestionButton}
     >
-      <Typo.Title emphasize className={semantic.primaryOnPrimary}>
+      <Typo.Body emphasize className={semantic.primaryOnPrimary}>
         지금 대출 문의하기
-      </Typo.Title>
+      </Typo.Body>
     </BaseButton>
   );
 }
