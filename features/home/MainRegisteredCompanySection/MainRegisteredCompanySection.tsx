@@ -3,7 +3,7 @@
 import getRegisteredCompanyWithImage from "@/shared/api/getRegisteredCompanyWithImage";
 import {CompanyCardGrid} from "@/components/organisms";
 import {CompanyCard} from "@/components/molecules";
-import Section from "@/components/molecules/section/Section";
+import Section from "@/components/molecules/Layout/section/Section";
 
 export default async function MainRegisteredCompanySection() {
   return (
