@@ -6,7 +6,7 @@ import AccordionSectionTitle from "@/components/molecules/AccordionSectionTitle/
 import {CompanyCardGrid} from "@/components/organisms";
 import getRegisteredCompanyWithImage from "@/shared/api/getRegisteredCompanyWithImage";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
-import Section from "@/components/molecules/section/Section";
+import Section from "@/components/molecules/Layout/section/Section";
 
 const contentsNumberData = ['10', '20', '30', '60']
 
