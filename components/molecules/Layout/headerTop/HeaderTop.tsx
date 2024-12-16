@@ -96,8 +96,8 @@ export default function HeaderTop() {
               placeholder={'검색어를 입력해주세요'}
               PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
               value={searchText}
-              onChangeAction={(e) => {
-                setSearchText(e.target.value)
+              onChangeAction={(v) => {
+                setSearchText(v)
               }}
             />
           </Row>
@@ -169,8 +169,8 @@ function ModalHeader({
               placeholder={'검색어를 입력해주세요'}
               PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
               value={searchText}
-              onChangeAction={(e) => {
-                setSearchText(e.target.value)
+              onChangeAction={(v) => {
+                setSearchText(v)
               }}
             />
           </Col>

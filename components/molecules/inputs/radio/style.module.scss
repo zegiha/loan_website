@@ -1,0 +1,28 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.radio {
+  appearance: none;
+
+  width: 20px;
+  height: 20px;
+  border: 4px solid semantic.$outline-default;
+  border-radius: 50%;
+
+  transition: ani.$leaveTransition;
+
+  cursor: pointer;
+}
+.radio:hover {
+  box-shadow: 0 0 4px semantic.$primary-primaryNormal;
+}
+.radio:checked {
+  border-color: semantic.$primary-primaryNormal;
+  transition: ani.$onTransition;
+}
+
+.container:hover {
+  &>.radio {
+    box-shadow: 0 0 4px semantic.$primary-primaryNormal;
+  }
+}

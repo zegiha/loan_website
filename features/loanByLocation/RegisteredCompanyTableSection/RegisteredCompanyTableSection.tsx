@@ -91,7 +91,7 @@ export default function RegisteredCompanyTableSection({
               />
             </div>}
             value={search}
-            onChangeAction={(e) => setSearch(e.target.value)}
+            onChangeAction={(v) => setSearch(v)}
           />
         </Row>
         <SwiperPaginationAndNavigation>

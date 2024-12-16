@@ -11,8 +11,10 @@ import React from "react";
 import {PlusIcon} from "@/components/atoms/icons";
 import {TRealTimeLoan} from "@/features/home/PremiumBannerAndRealTimeLoanSection/type";
 import getRealTimeLoan from "@/shared/api/getRealTimeLoan";
+import {useRouter} from "next/navigation";
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
+  const router = useRouter()
   return (
     <>
       <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
@@ -25,7 +27,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
         </Typo.SubBody>
         <BaseButton
           className={`${iconButton.iconButton40}`}
-          onClick={() => {}}
+          onClick={() => router.push('/post/create')}
         >
           <PlusIcon/>
         </BaseButton>
