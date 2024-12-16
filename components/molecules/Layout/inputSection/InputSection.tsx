@@ -17,11 +17,9 @@ export default function InputSection({
     >
       <Col gap={16} width={'fill'} style={{maxWidth: 320}}>
         <Typo.Body emphasize color={'variable'}>{title}</Typo.Body>
-        <Form action={''} style={{width: '100%'}}>
-          <Col gap={16}>
-            {children}
-          </Col>
-        </Form>
+        <Col gap={16} width={'fill'}>
+          {children}
+        </Col>
       </Col>
     </Col>
   );

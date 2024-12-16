@@ -79,8 +79,8 @@ export default function PremiumBannerAndProductCategoriesSelectionSection({
               <CloseIcon size={20} color={'dim'}/>
             </div>
             }
-            onChangeAction={(e) => {
-              setProductSearch(e.target.value);
+            onChangeAction={(v) => {
+              setProductSearch(v);
             }}
           />
           <Row width={'fill'} gap={12} wrap>
