@@ -6,7 +6,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  padding: 0 12px;
+  padding: 8px 12px;
   background-color: semantic.$container-containerNormal;
   border: 1px solid semantic.$outline-default;
   border-radius: 8px;
@@ -15,19 +15,19 @@
 
 .container36 {
   height: 36px;
-  &>input::placeholder {
+  &>input, textarea::placeholder {
     font-size: 14px;
   }
-  &>input {
+  &>input, textarea {
     font-size: 14px;
   }
 }
 .container48 {
   height: 48px;
-  &>input::placeholder {
+  &>input, textarea::placeholder {
     font-size: 16px;
   }
-  &>input {
+  &>input, textarea {
     font-size: 16px;
   }
 }
@@ -46,6 +46,7 @@
   &::placeholder{
     color: semantic.$onGeneric-onGenericDim;
   }
+  resize: none;
 }
 
 .placeholderIcon {

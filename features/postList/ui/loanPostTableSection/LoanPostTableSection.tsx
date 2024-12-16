@@ -1,13 +1,14 @@
 import {AccordionSectionTitle, Section} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import {semantic} from "@/shared/color";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseButton, BaseTextInput} from "@/components/molecules/inputs";
 import SearchTypeTextInput from "@/components/molecules/inputs/textInputs/searchTypeTextInput/SearchTypeTextInput";
 import style from './loanPostTableSection.module.scss'
 import {PlusIcon} from "@/components/atoms/icons";
 import PostTable from "@/features/postList/ui/loanPostTableSection/PostTable";
+import {useRouter} from "next/navigation";
 
 const accordionData = ['10', '15', '20', '30']
 const SEARCHTYPE = ['제목 및 내용', '제목', '내용', '금액']
@@ -40,6 +41,9 @@ export default function LoanPostTableSection({
     })
     return res;
   }
+
+  const router = useRouter()
+
   return (
     <Section backgroundColor={'surface'}>
       <AccordionSectionTitle
@@ -74,7 +78,7 @@ export default function LoanPostTableSection({
               placeholder={'검색어를 입력해주세요'}
               size={'normal'}
               value={search}
-              onChangeAction={(e) => setSearch(e.target.value)}
+              onChangeAction={(v) => setSearch(v)}
               SelectType={<SearchTypeTextInput
                 size={'normal'}
                 active={activeSearchType}
@@ -85,7 +89,7 @@ export default function LoanPostTableSection({
           </Row>
           <BaseButton
             className={style.addPostButton}
-            onClick={() => console.log('add post')}
+            onClick={() => router.push('/post/create')}
           >
             <PlusIcon
               size={24}
