@@ -1,0 +1,13 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+
+.chip {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: semantic.$primaryContainer-primaryContainerNormal;
+}
+
+.responsive {
+  @media(max-width: 640px) {
+    flex-direction: column !important;
+  }
+}
