@@ -24,14 +24,15 @@ type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'war
 interface ITopIconNavigation {
   icon: TTopIconNavigation,
   label: string,
+  domain: string,
   onClick: () => void,
 }
 
 const topIconNavigation: Array<ITopIconNavigation> = [
-  {icon: 'company', label: '업체 로그인', onClick: () => console.log('헤더 업체로그인')},
-  {icon: 'adContact', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
-  {icon: 'recentlySeenCompany', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
-  {icon: 'warnings', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
+  {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => console.log('헤더 업체로그인')},
+  {icon: 'adContact', domain: '', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
+  {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
+  {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
 ];
 
 const items =  [
@@ -54,7 +55,6 @@ export default function HeaderTop() {
   // const [companySearchText, setCompanySearchText] = useState('');
 
   const [tabletHeader, setTabletHeader] = useState(false);
-  const [modalHeader, setModalHeader] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -177,18 +177,22 @@ function ModalHeader({
           <Col gap={24} width={'fill'}>
             <Col gap={12} width={'fill'}>
               {topIconNavigation.map((v, i) => (
-                <Row
-                  key={i}
-                  width={'fill'}
-                  alignItems={'center'}
-                  gap={4}
-                  className={style.modalHeader_item}
-                >
-                  <TopIcon icon={v.icon} size={20}/>
-                  <Typo.Contents color={'dim'}>
-                    {v.label}
-                  </Typo.Contents>
-                </Row>
+                <Link href={v.domain} key={i} style={{width: '100%'}}>
+                  <Row
+                    width={'fill'}
+                    alignItems={'center'}
+                    gap={4}
+                    className={pathname === v.domain ?
+                      style.modalHeader_item_active :
+                      style.modalHeader_item
+                    }
+                  >
+                    <TopIcon icon={v.icon} size={20}/>
+                    <Typo.Contents color={'dim'}>
+                      {v.label}
+                    </Typo.Contents>
+                  </Row>
+                </Link>
               ))}
             </Col>
             <Divider/>
@@ -221,23 +225,26 @@ function TopIconNavigation({
   icon,
   label,
   size,
-  onClick
+  onClick,
+  domain
 }: ITopIconNavigationProps) {
   return (
-    <Col
-      gap={4}
-      alignItems={'center'}
-      className={style.topIconNavigation}
-      onClick={() => onClick()}
-    >
-      <TopIcon
-        icon={icon}
-        size={size}
-      />
-      <Typo.Contents color={'dim'} width={'hug'}>
-        {label}
-      </Typo.Contents>
-    </Col>
+    <Link href={domain}>
+      <Col
+        gap={4}
+        alignItems={'center'}
+        className={style.topIconNavigation}
+        onClick={() => onClick()}
+      >
+        <TopIcon
+          icon={icon}
+          size={size}
+        />
+        <Typo.Contents color={'dim'} width={'hug'}>
+          {label}
+        </Typo.Contents>
+      </Col>
+    </Link>
   );
 }
 function TopIcon({icon, size}: {icon: 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings', size: number}) {

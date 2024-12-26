@@ -87,7 +87,7 @@
   }
 }
 
-.modalHeader_item {
+.modalHeader_item, .modalHeader_item_active {
   padding: 8px;
   border-radius: 6px;
   background-color: semantic.$container-containerLow;
@@ -97,6 +97,9 @@
     background-color: semantic.$container-containerHigh;
     cursor: pointer;
   }
+}
+.modalHeader_item_active {
+  background-color: semantic.$container-containerHigh;
 }
 
 .inputWrapper {
