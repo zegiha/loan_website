@@ -13,3 +13,34 @@
     transition: ani.$onTransition;
   }
 }
+
+
+.primary_button44 {
+  width: 100%;
+  background-color: semantic.$primary-primaryNormal;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$primary-primaryHigh;
+  }
+}
+
+.primary_button36 {
+  width: 100%;
+  background-color: semantic.$primary-primaryNormal;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$primary-primaryHigh;
+  }
+}
