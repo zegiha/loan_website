@@ -19,8 +19,10 @@ import Link from "next/link";
 import Modal from "@/components/molecules/modal/Modal";
 import {NavigationItem} from "@/components/molecules/Layout/headerBottom/HeaderBottom";
 import {usePathname, useRouter} from "next/navigation";
+import {use_auth_store} from "@/shared/store/authStore";
+import Account_circle from "@/components/atoms/icons/Account_circle";
 
-type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings';
+type TTopIconNavigation = 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings' | 'account_circle';
 interface ITopIconNavigation {
   icon: TTopIconNavigation,
   label: string,
@@ -29,10 +31,11 @@ interface ITopIconNavigation {
 }
 
 const topIconNavigation: Array<ITopIconNavigation> = [
-  {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => console.log('헤더 업체로그인')},
+  {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => {}},
   {icon: 'adContact', domain: '', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
   {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
   {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
+  {icon: 'account_circle', domain: '/my', label: '마이페이지', onClick: () => {}}
 ];
 
 const items =  [
@@ -142,6 +145,7 @@ function ModalHeader({
   const pathname = usePathname()
   const router = useRouter()
   const [modalHeader, setModalHeader] = useState(false);
+  const {isLogin} = use_auth_store();
   return (
     <>
       <Row className={style.topIconNavigation} onClick={() => setModalHeader(true)}>
@@ -177,22 +181,25 @@ function ModalHeader({
           <Col gap={24} width={'fill'}>
             <Col gap={12} width={'fill'}>
               {topIconNavigation.map((v, i) => (
-                <Link href={v.domain} key={i} style={{width: '100%'}}>
-                  <Row
-                    width={'fill'}
-                    alignItems={'center'}
-                    gap={4}
-                    className={pathname === v.domain ?
-                      style.modalHeader_item_active :
-                      style.modalHeader_item
-                    }
-                  >
-                    <TopIcon icon={v.icon} size={20}/>
-                    <Typo.Contents color={'dim'}>
-                      {v.label}
-                    </Typo.Contents>
-                  </Row>
-                </Link>
+                !(v.domain === '/login' && isLogin) ? !(v.domain === '/my' && !isLogin) ? (
+                  <Link href={v.domain} key={i} style={{width: '100%'}}>
+                    <Row
+                      width={'fill'}
+                      alignItems={'center'}
+                      gap={4}
+                      className={pathname === v.domain ?
+                        style.modalHeader_item_active :
+                        style.modalHeader_item
+                      }
+                    >
+                      <TopIcon icon={v.icon} size={20}/>
+                      <Typo.Contents color={'dim'}>
+                        {v.label}
+                      </Typo.Contents>
+                    </Row>
+                  </Link>
+                ) : <div key={i} style={{display: 'none'}}></div>
+                  : <div key={i} style={{display: 'none'}}></div>
               ))}
             </Col>
             <Divider/>
@@ -228,6 +235,9 @@ function TopIconNavigation({
   onClick,
   domain
 }: ITopIconNavigationProps) {
+  const {isLogin} = use_auth_store();
+  if(isLogin && domain === '/login') return <></>
+  if(!isLogin && domain === '/my') return <></>
   return (
     <Link href={domain}>
       <Col
@@ -247,7 +257,7 @@ function TopIconNavigation({
     </Link>
   );
 }
-function TopIcon({icon, size}: {icon: 'company' | 'adContact' | 'recentlySeenCompany' | 'warnings', size: number}) {
+function TopIcon({icon, size}: {icon: TTopIconNavigation, size: number}) {
   const iconProps: IIcon = {
     color: 'dim',
     size: size,
@@ -265,10 +275,13 @@ function TopIcon({icon, size}: {icon: 'company' | 'adContact' | 'recentlySeenCom
             /> : icon === 'recentlySeenCompany' ?
               <ClockIcon
                 {...iconProps}
-              /> :
-              <WarningIcon
-                {...iconProps}
-              />
+              /> : icon === 'warnings' ?
+                <WarningIcon
+                  {...iconProps}
+                /> :
+                  <Account_circle
+                    {...iconProps}
+                  />
       }
     </>
   );

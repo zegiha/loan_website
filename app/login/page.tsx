@@ -6,11 +6,13 @@ import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
 import {useRouter} from "next/navigation";
+import {use_auth_store} from "@/shared/store/authStore";
 
 export default function Login() {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter();
+  const {setIsLogin} = use_auth_store();
 
   const loginAction = () => {
     if(!id) {
@@ -19,6 +21,7 @@ export default function Login() {
       if(!password) {
         alert('비밀번호를 입력해주세요')
       } else {
+        setIsLogin(true);
         router.push('/');
       }
     }
