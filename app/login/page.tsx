@@ -7,6 +7,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
 import {useRouter} from "next/navigation";
 import {use_auth_store} from "@/shared/store/authStore";
+import {login_action} from "@/shared/api/login_action";
 
 export default function Login() {
   const [id, setId] = useState('')
@@ -14,13 +15,14 @@ export default function Login() {
   const router = useRouter();
   const {setIsLogin} = use_auth_store();
 
-  const loginAction = () => {
+  const loginAction = async () => {
     if(!id) {
       alert('아이디를 입력해주세요')
     } else {
       if(!password) {
         alert('비밀번호를 입력해주세요')
       } else {
+        await login_action(id, password);
         setIsLogin(true);
         router.push('/');
       }
