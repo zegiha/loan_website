@@ -4,6 +4,9 @@
 .sidebar_container {
   display: flex;
   width: calc((100% - 24px) / 4.5);
+  @media(max-width: 840px) {
+    display: none;
+  }
 }
 
 .sidebar_item, .sidebar_item_active {
@@ -45,4 +48,16 @@
 .contents_container {
   display: flex;
   width: calc((100% - 24px) / 4.5 * 3.5);
+  @media(max-width: 840px) {
+    width: 100%;
+  }
+}
+
+.topbar_container {
+  display: none !important;
+  width: 100%;
+  border-bottom: 1px solid semantic.$outline-default;
+  @media(max-width: 840px) {
+    display: flex !important;
+  }
 }
