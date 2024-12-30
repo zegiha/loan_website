@@ -1,0 +1,48 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.sidebar_container {
+  display: flex;
+  width: calc((100% - 24px) / 4.5);
+}
+
+.sidebar_item, .sidebar_item_active {
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: semantic.$container-containerLow;
+  transition: ani.$leaveTransition;
+  cursor: pointer;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+  }
+}
+
+.sidebar_item_active {
+  cursor: default;
+  background-color: semantic.$primary-primaryNormal;
+  &>p {
+    color: semantic.$primary-onPrimary;
+  }
+  &:hover {
+    background-color: semantic.$primary-primaryNormal;
+  }
+}
+
+.sidebar_item_red {
+  cursor: default;
+  background-color: semantic.$error-error;
+  &>p {
+    color: semantic.$error-onError;
+  }
+  &:hover {
+    background-color: semantic.$error-error;
+  }
+}
+
+.contents_container {
+  display: flex;
+  width: calc((100% - 24px) / 4.5 * 3.5);
+}
