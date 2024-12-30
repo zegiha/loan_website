@@ -1,0 +1,12 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+
+.table {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid semantic.$outline-default;
+}
+
+.table_row {
+  padding: 8px 16px;
+  border-radius: 6px;
+}
