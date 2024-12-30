@@ -182,7 +182,7 @@ function ModalHeader({
             <Col gap={12} width={'fill'}>
               {topIconNavigation.map((v, i) => (
                 !(v.domain === '/login' && isLogin) ? !(v.domain === '/my' && !isLogin) ? (
-                  <Link href={v.domain} key={i} style={{width: '100%'}}>
+                  <Link href={v.domain} key={i} style={{width: '100%'}} onClick={() => setModalHeader(false)}>
                     <Row
                       width={'fill'}
                       alignItems={'center'}
@@ -206,7 +206,7 @@ function ModalHeader({
             <Col gap={8} width={'fill'}>
               {items.map((v) => (
                 v.map((v2) => (
-                  <Link key={`${v2.domain}`} href={v2.domain} className={style.modalHeader_item} style={{width: '100%'}}>
+                  <Link key={`${v2.domain}`} href={v2.domain} className={style.modalHeader_item} style={{width: '100%'}} onClick={() => setModalHeader(false)}>
                     <NavigationItem
                       isActive={pathname === v2.domain}
                       onClick={() => {
