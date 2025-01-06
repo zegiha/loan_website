@@ -1,12 +1,15 @@
 @use '/shared/color/semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
-.grayButton44 {
+.grayButton44, .grayButton44_fill {
   height: 44px;
   padding: 12px;
   background-color: semantic.$container-containerHigh;
   border-radius: 10px;
   border: 1px solid semantic.$outline-default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: ani.$leaveTransition;
   &:hover {
     background-color: semantic.$container-containerHighest;
@@ -14,6 +17,9 @@
   }
 }
 
+.grayButton44_fill {
+  width: 100%;
+}
 
 .primary_button44 {
   width: 100%;

@@ -1,0 +1,128 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.img_desc_container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 100%;
+  @media (max-width: 840px) {
+    flex-direction: column;
+  }
+}
+
+.img_container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.add_to_cart_button, .add_to_cart_button_active {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 12px;
+  padding: 12px;
+  background-color: semantic.$container-containerNormal;
+  transition: ani.$leaveTransition;
+  &:hover{
+    transition: ani.$onTransition;
+    background-color: semantic.$primary-primaryNormal;
+    &>p, &>div{
+      color: white !important;
+    }
+  }
+}
+.add_to_cart_button_active {
+  transition: ani.$onTransition;
+  background-color: semantic.$primary-primaryNormal;
+  &>p, &>div{
+    color: white !important;
+  }
+}
+
+.ad_name_chip, .ad_name_chip_button {
+  padding: 8px 12px;
+  background-color: semantic.$container-containerHigh;
+  border-radius: 100px;
+  border: 1px solid semantic.$outline-default;
+}
+
+.ad_name_chip_button {
+  background-color: semantic.$container-containerNormal;
+  padding: 12px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerHigh;
+  }
+}
+
+.bottom_ad_bar {
+  z-index: 1;
+  background-color: semantic.$container-containerNormal;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid semantic.$outline-default;
+}
+
+.buy_button, .buy_button_disabled {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 16px;
+  padding: 16px;
+  background-color: semantic.$primary-primaryNormal;
+  transition: ani.$leaveTransition;
+  &:hover{
+    transition: ani.$onTransition;
+    background-color: semantic.$primary-primaryHigh;
+  }
+}
+.buy_button_disabled {
+  background-color: semantic.$primary-primaryLow;
+  cursor: not-allowed !important;
+  &:hover {
+    background-color: semantic.$primary-primaryLow;
+  }
+}
+
+.title_section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.account_number {
+  text-decoration: underline;
+}
+
+.buy_table {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid semantic.$outline-default;
+}
+
+.buy_table_row {
+  align-items: center !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.back_button {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: transparent;
+  transition: ani.$leaveTransition;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$container-containerNormal;
+  }
+}
