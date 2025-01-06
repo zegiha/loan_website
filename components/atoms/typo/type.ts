@@ -30,6 +30,7 @@ export interface ITypo {
   color?: TColor,
   textAlign?: 'start' | 'center' | 'end';
   userSelect?: 'none' | 'auto';
+  underline?: boolean;
   className?: string;
 }
 
