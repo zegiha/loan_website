@@ -5,7 +5,7 @@ export default function Table({
   children,
   className,
 }: {
-  head: React.ReactNode,
+  head?: React.ReactNode,
   children: React.ReactNode,
   className?: string;
 }) {
@@ -15,7 +15,7 @@ export default function Table({
       gap={8}
       className={className}
     >
-      {head}
+      {head && head}
       {children}
     </Col>
   );

@@ -9,6 +9,8 @@ import WarningIcon from "@/components/atoms/icons/WarningIcon";
 import SearchIcon from "@/components/atoms/icons/SearchIcon";
 import CloseIcon from "@/components/atoms/icons/CloseIcon";
 import MenuIcon from "@/components/atoms/icons/MenuIcon";
+import ArrowAltIcon from "@/components/atoms/icons/ArrowAltIcon";
+import ContentCopy from "@/components/atoms/icons/ContentCopy";
 
 export {
   LocationIcon,
@@ -22,4 +24,6 @@ export {
   SearchIcon,
   CloseIcon,
   MenuIcon,
+  ArrowAltIcon,
+  ContentCopy,
 }
