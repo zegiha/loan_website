@@ -1,0 +1,65 @@
+'use client'
+
+import {ReactText, useEffect, useState} from "react";
+import {IRegister_data, Register_data_context} from "@/features/register/context/register_data_context";
+import {useRouter} from "next/navigation";
+import Register_generic_user_info from "@/features/register/ui/Register_generic_user_info";
+
+export default function Register_page() {
+  const [id, setId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+
+  const [brokerage_number, setBrokerage_number] = useState<string>('');
+  const [brokerage_period, setBrokerage_period] = useState<string>('');
+  const [brokerage_registrar, setBrokerage_registrar] = useState<string>('');
+  const [brokerage_registration_certificate, setBrokerage_registration_certificate] = useState<File | null>(null);
+
+  const [company_name, setCompany_name] = useState<string>('');
+  const [company_phone, setCompany_phone] = useState<string>('');
+  const [company_location, setCompany_location] = useState<string>('');
+
+  const default_value: IRegister_data = {
+    id, setId,
+    password, setPassword,
+    phone, setPhone,
+    company_name, setCompany_name,
+    company_phone, setCompany_phone,
+    company_location, setCompany_location,
+    brokerage_number, setBrokerage_number,
+    brokerage_period, setBrokerage_period,
+    brokerage_registrar, setBrokerage_registrar,
+    brokerage_registration_certificate, setBrokerage_registration_certificate,
+  }
+
+  const [step, setStep] = useState<number>(0)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if(step >= 3) {
+      router.push('/login')
+    }
+  }, [step]);
+
+  return (
+    <Register_data_context.Provider value={default_value}>
+      <Switcher step={step} setStep={setStep}/>
+    </Register_data_context.Provider>
+  );
+}
+
+function Switcher({
+  step,
+  setStep
+}: {
+  step: number,
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}) {
+  switch (step) {
+    case 0: return <Register_generic_user_info setStep={setStep}/>
+    case 1: return <></>
+    case 2: return <></>
+    default: throw new Error('register page switcher')
+  }
+}
