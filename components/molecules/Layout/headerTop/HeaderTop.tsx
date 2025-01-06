@@ -35,7 +35,7 @@ const topIconNavigation: Array<ITopIconNavigation> = [
   {icon: 'adContact', domain: '', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
   {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
   {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
-  {icon: 'account_circle', domain: '/my', label: '마이페이지', onClick: () => {}}
+  {icon: 'account_circle', domain: '/my/ads', label: '마이페이지', onClick: () => {}}
 ];
 
 const items =  [
@@ -181,7 +181,7 @@ function ModalHeader({
           <Col gap={24} width={'fill'}>
             <Col gap={12} width={'fill'}>
               {topIconNavigation.map((v, i) => (
-                !(v.domain === '/login' && isLogin) ? !(v.domain === '/my' && !isLogin) ? (
+                !(v.domain === '/login' && isLogin) ? !(v.domain === '/my/ads' && !isLogin) ? (
                   <Link href={v.domain} key={i} style={{width: '100%'}} onClick={() => setModalHeader(false)}>
                     <Row
                       width={'fill'}
@@ -237,7 +237,7 @@ function TopIconNavigation({
 }: ITopIconNavigationProps) {
   const {isLogin} = use_auth_store();
   if(isLogin && domain === '/login') return <></>
-  if(!isLogin && domain === '/my') return <></>
+  if(!isLogin && domain.includes('/my')) return <></>
   return (
     <Link href={domain}>
       <Col
