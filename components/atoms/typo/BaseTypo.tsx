@@ -13,6 +13,7 @@ export default function BaseTypo({
   textAlign,
   color='generic',
   userSelect='none',
+  underline,
   className,
 }:IBaseTypo) {
   return createElement(
@@ -27,7 +28,8 @@ export default function BaseTypo({
         wordBreak: 'keep-all',
         userSelect: userSelect,
         ...getWidthByStyle(width),
-        whiteSpace: isPre === undefined ? undefined : typeof isPre === "boolean" || isPre === 'wrap' ? 'pre-wrap' : 'pre'
+        whiteSpace: isPre === undefined ? undefined : typeof isPre === "boolean" || isPre === 'wrap' ? 'pre-wrap' : 'pre',
+        textDecoration: underline ? 'underline' : undefined,
       },
       className: `
       ${className}
