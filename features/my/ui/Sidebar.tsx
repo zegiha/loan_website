@@ -19,7 +19,7 @@ export default function Sidebar() {
 	return (
 		<div className={style.sidebar_container}>
 			<Col gap={16} width={'fill'}>
-				<Typo.Body emphasize color={'variable'}>마이페이지</Typo.Body>
+				<Typo.SubBody emphasize color={'variable'}>마이페이지</Typo.SubBody>
 				<Col gap={12} width={'fill'}>
 					{navigations.map((v) => (
 						<Link
@@ -32,9 +32,9 @@ export default function Sidebar() {
 									style.sidebar_item_red : ''
 							].join(' ')}
 						>
-							<Typo.SubBody color={'dim'}>
+							<Typo.Contents color={'dim'}>
 								{v.name}
-							</Typo.SubBody>
+							</Typo.Contents>
 						</Link>
 					))}
 				</Col>
