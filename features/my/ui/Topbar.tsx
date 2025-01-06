@@ -18,7 +18,7 @@ export default function Topbar() {
   const pathname = usePathname();
   return (
     <Row className={style.topbar_container}>
-      <Row gap={24} style={{padding: 16}}>
+      <Row gap={24} style={{padding: 16}} wrap>
         {navigations.map((v, i) => (
           <Link key={i} href={v.domain} style={{cursor: 'pointer'}}>
             <Typo.Contents

@@ -1,28 +1,33 @@
 import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import style from './style.module.scss'
+import React from "react";
+import {Col, Divider} from "@/components/atoms/layout";
 
 function My_ads_table_head() {
-	return <TableHead>
-		<Typo.Contents width={92}>
-			광고 형식
-		</Typo.Contents>
-		<Typo.Contents width={'fill'}>
-			제목
-		</Typo.Contents>
-		<Typo.Contents width={60}>
-			조회수
-		</Typo.Contents>
-		<Typo.Contents width={92}>
-			등록일
-		</Typo.Contents>
-		<Typo.Contents width={80}>
-			광고연장
-		</Typo.Contents>
-		<Typo.Contents width={50}>
-			수정
-		</Typo.Contents>
-	</TableHead>
+	return <Col width={'fill'}>
+    <TableHead className={style.table_row}>
+      <Typo.Contents width={92}>
+        광고 형식
+      </Typo.Contents>
+      <Typo.Contents width={'fill'} className={style.table_row_min_width}>
+        제목
+      </Typo.Contents>
+      <Typo.Contents width={60}>
+        조회수
+      </Typo.Contents>
+      <Typo.Contents width={92}>
+        등록일
+      </Typo.Contents>
+      <Typo.Contents width={80}>
+        광고연장
+      </Typo.Contents>
+      <Typo.Contents width={50}>
+        수정
+      </Typo.Contents>
+    </TableHead>
+    <div className={style.divider}/>
+  </Col>
 }
 
 interface IMyAdds_table_row {
@@ -43,7 +48,7 @@ function My_ads_table_row({
 		<Typo.Contents width={92}>
 			{add_type}
 		</Typo.Contents>
-		<Typo.Contents width={'fill'}>
+		<Typo.Contents width={'fill'} className={style.table_row_min_width}>
 			{title}
 		</Typo.Contents>
 		<Typo.Contents width={60}>
