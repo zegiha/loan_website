@@ -11,7 +11,6 @@ export default function Section_wrapper({
 		<Section backgroundColor={'surface'}>
 			<Row width={'fill'} gap={24}>
 				<Sidebar/>
-				{/*TODO Navigation top bar*/}
         <Col className={style.contents_container} gap={16}>
           <Topbar/>
           <Col width={'fill'}>

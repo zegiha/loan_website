@@ -6,7 +6,7 @@ export default function My_ads() {
 	return (
 		<Col width={'fill'}>
 			<Section_wrapper>
-				<Add_contents/>
+        <Add_contents/>
 			</Section_wrapper>
 		</Col>
 	);
