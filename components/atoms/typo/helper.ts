@@ -17,10 +17,10 @@ export function getFontSize(textSize: TTextSize, emphasize: boolean): string {
     case 'display': return `44px`;
     case 'header': return `${emphasize ? 29 : 28}px`;
     case 'title': return `${emphasize ? 25 : 24}px`;
-    case 'body': return `${emphasize ? 19 : 18}px`;
-    case 'subBody': return `${emphasize ? 17 : 16}px`;
-    case 'contents': return `${emphasize ? 15 : 14}px`;
-    case 'caption': return `${emphasize ? 13 : 12}px`;
+    case 'body': return `${emphasize ? 20 : 20}px`;
+    case 'subBody': return `${emphasize ? 18 : 18}px`;
+    case 'contents': return `${emphasize ? 17 : 16}px`;
+    case 'caption': return `${emphasize ? 14 : 14}px`;
   }
 }
 

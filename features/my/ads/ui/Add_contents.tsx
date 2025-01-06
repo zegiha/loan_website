@@ -11,9 +11,9 @@ export default function Add_contents() {
 	const now = new Date();
 	return (
 		<Col width={'fill'} gap={16}>
-			<Typo.Title color={'variable'} emphasize>
+			<Typo.Body color={'variable'} emphasize>
 				나의 광고
-			</Typo.Title>
+			</Typo.Body>
 			<Col width={'fill'} gap={4}>
 				<Table
 					className={style.table}
