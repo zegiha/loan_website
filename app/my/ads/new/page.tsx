@@ -1,13 +1,14 @@
 'use client'
 
 import {Col} from "@/components/atoms/layout";
-import Section_wrapper from "@/features/my/ui/Section_wrapper";
 import React, {useState} from "react";
 import {Select_context} from "@/features/my/new_ads/context/select_context";
 import {TStep} from "@/features/my/new_ads/type";
 import Get_new_ads from "@/features/my/new_ads/ui/Get_new_ads";
 import Buy_new_ads from "@/features/my/new_ads/ui/Buy_new_ads";
 import End_new_ads from "@/features/my/new_ads/ui/End_new_ads";
+import Section_wrapper from "@/components/organisms/section_wrapper/Section_wrapper";
+import my_navigations from "@/features/my/lib/my_navigations";
 
 export default function My_ads_new() {
   const [select, setSelect] = useState<Array<string>>([])
@@ -15,7 +16,7 @@ export default function My_ads_new() {
 
   return (
     <Col width={'fill'}>
-      <Section_wrapper>
+      <Section_wrapper navigations={my_navigations}>
         <Select_context.Provider value={{select, setSelect}}>
           {Switcher(step, setStep)}
         </Select_context.Provider>

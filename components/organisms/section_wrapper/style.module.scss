@@ -1,0 +1,7 @@
+.contents_container {
+  display: flex;
+  width: calc((100% - 24px) / 4.5 * 3.5);
+  @media(max-width: 840px) {
+    width: 100%;
+  }
+}
