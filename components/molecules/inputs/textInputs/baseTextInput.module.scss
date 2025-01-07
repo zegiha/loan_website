@@ -86,6 +86,6 @@
   color: semantic.$errorContainer-onErrorContainer !important;
   position: absolute;
   right: 0;
-  top: 0;
-  transform: translateY(-100%);
+  bottom: 0;
+  transform: translateY(100%);
 }

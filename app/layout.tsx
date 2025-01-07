@@ -20,9 +20,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-    <head>
-      <link rel="icon" href="./favicon.ico"/>
-    </head>
     <body className={`${wantedSans.className}`}>
     <div className={style.container}>
       <Header/>
