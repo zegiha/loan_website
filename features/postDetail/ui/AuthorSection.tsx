@@ -20,6 +20,10 @@ export default function AuthorSection({
           contents={gender === 'MALE' ? '남' : '여'}
         />
         <PostDetailTextTableRow
+          title={'전화번호'}
+          contents={'업체 로그인을 통해 번호를 확인하세요'}
+        />
+        <PostDetailTextTableRow
           title={'월수입'}
           contents={monthlyIncome}
         />
