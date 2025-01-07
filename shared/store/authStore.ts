@@ -4,7 +4,7 @@ export interface IAuthStore {
   isLogin: boolean,
   setIsLogin: (v: boolean) => void
   access_token?: string,
-  setAccess_token: (v: string) => void;
+  setAccess_token: (v: string | undefined) => void;
 }
 
 export const use_auth_store = create<IAuthStore>(setState => ({
