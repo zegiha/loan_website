@@ -6,7 +6,7 @@ import my_navigations from "@/features/my/lib/my_navigations";
 export default function My_ads() {
 	return (
 		<Col width={'fill'}>
-			<Section_wrapper navigations={my_navigations}>
+			<Section_wrapper title={'마이페이지'} navigations={my_navigations}>
         <Add_contents/>
 			</Section_wrapper>
 		</Col>
