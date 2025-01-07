@@ -1,7 +1,7 @@
 @use '/shared/color/semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
-.grayButton44, .grayButton44_fill {
+.grayButton44, .grayButton44_fill, .grayButton36 {
   height: 44px;
   padding: 12px;
   background-color: semantic.$container-containerHigh;
@@ -21,6 +21,11 @@
   width: 100%;
 }
 
+.grayButton36 {
+  height: 36px;
+  padding: 8px;
+}
+
 .primary_button44 {
   width: 100%;
   background-color: semantic.$primary-primaryNormal;
@@ -37,6 +42,7 @@
 }
 
 .primary_button36 {
+  height: 36px;
   width: 100%;
   background-color: semantic.$primary-primaryNormal;
   border-radius: 8px;
@@ -49,4 +55,11 @@
     transition: ani.$onTransition;
     background-color: semantic.$primary-primaryHigh;
   }
+}
+
+.one_third_width {
+  flex: 1;
+}
+.two_third_width {
+  flex: 2;
 }

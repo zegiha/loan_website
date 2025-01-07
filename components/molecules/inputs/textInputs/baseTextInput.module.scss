@@ -49,6 +49,15 @@
   resize: none;
 }
 
+.input_date {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: semantic.$onGeneric-onGenericVariable;
+  resize: none;
+}
+
 .placeholderIcon {
   animation: showPlaceholderIcon 0.18s;
   animation-fill-mode: forwards;
@@ -68,4 +77,15 @@
     opacity: 1;
     transform: translateX(0) translateY(0);
   }
+}
+
+.error_container {
+  border-color: semantic.$outline-error;
+}
+.error_text {
+  color: semantic.$errorContainer-onErrorContainer !important;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-100%);
 }
