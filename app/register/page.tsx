@@ -1,9 +1,11 @@
 'use client'
 
-import {ReactText, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {IRegister_data, Register_data_context} from "@/features/register/context/register_data_context";
 import {useRouter} from "next/navigation";
 import Register_generic_user_info from "@/features/register/ui/Register_generic_user_info";
+import Register_company_info from "@/features/register/ui/Register_company_info";
+import Register_brokerage_info from "@/features/register/ui/Register_brokerage_info";
 
 export default function Register_page() {
   const [id, setId] = useState<string>('');
@@ -11,7 +13,7 @@ export default function Register_page() {
   const [phone, setPhone] = useState<string>('');
 
   const [brokerage_number, setBrokerage_number] = useState<string>('');
-  const [brokerage_period, setBrokerage_period] = useState<string>('');
+  const [brokerage_period, setBrokerage_period] = useState<{start: Date | null, end: Date | null}>({start: null, end: null});
   const [brokerage_registrar, setBrokerage_registrar] = useState<string>('');
   const [brokerage_registration_certificate, setBrokerage_registration_certificate] = useState<File | null>(null);
 
@@ -38,6 +40,7 @@ export default function Register_page() {
 
   useEffect(() => {
     if(step >= 3) {
+      console.log(id, password, phone, company_name, company_phone, company_location, brokerage_number, brokerage_period, brokerage_registrar, brokerage_registration_certificate)
       router.push('/login')
     }
   }, [step]);
@@ -58,8 +61,9 @@ function Switcher({
 }) {
   switch (step) {
     case 0: return <Register_generic_user_info setStep={setStep}/>
-    case 1: return <></>
-    case 2: return <></>
+    case 1: return <Register_company_info setStep={setStep}/>
+    case 2: return <Register_brokerage_info setStep={setStep}/>
+    case 3: return <></>
     default: throw new Error('register page switcher')
   }
 }

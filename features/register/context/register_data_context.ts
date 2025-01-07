@@ -10,8 +10,8 @@ export interface IRegister_data {
 
   brokerage_number: string
   setBrokerage_number: React.Dispatch<React.SetStateAction<string>>
-  brokerage_period: string
-  setBrokerage_period: React.Dispatch<React.SetStateAction<string>>
+  brokerage_period: {start: Date | null, end: Date | null}
+  setBrokerage_period: React.Dispatch<React.SetStateAction<{start: Date | null, end: Date | null}>>
   brokerage_registrar: string
   setBrokerage_registrar: React.Dispatch<React.SetStateAction<string>>
   brokerage_registration_certificate: File | null

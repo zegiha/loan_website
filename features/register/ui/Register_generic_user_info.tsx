@@ -19,26 +19,17 @@ export default function Register_generic_user_info({
   } = useRegister_data()
 
   const handleNext = () => {
-    let sw = true
-    if(sw) setId(prev => {
-      sw = is_correct_id(prev) && sw;
-      return prev
-    })
-    if(sw) setPassword(prev => {
-      sw = is_correct_password(prev) && sw;
-      return prev;
-    })
-    if(sw) setPhone(prev => {
-      sw = is_correct_phone_number(prev) && sw;
-      return prev;
-    })
-    if(sw) {
-      setStep(prev => prev + 1)
+    if(
+      is_correct_id(id) === null &&
+      is_correct_password(password) === null &&
+      is_correct_phone_number(phone) === null
+    ) {
+      setStep(prev => prev + 1);
     }
   }
 
   return (
-    <InputSection title={'계정정보를 입력해주세요'}>
+    <InputSection title={'회원가입 - 기본정보'}>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>
@@ -50,6 +41,7 @@ export default function Register_generic_user_info({
               size={'normal'}
               value={id}
               onChangeAction={(v) => setId(v)}
+              checkError={[is_correct_id]}
               placeholder={'아이디를 입력해주세요'}
             />
           </Col>
@@ -62,6 +54,7 @@ export default function Register_generic_user_info({
               size={'normal'}
               value={password}
               onChangeAction={(v) => setPassword(v)}
+              checkError={[is_correct_password]}
               placeholder={'비밀번호를 입력해주세요'}
             />
           </Col>
@@ -74,6 +67,7 @@ export default function Register_generic_user_info({
               size={'normal'}
               value={phone}
               onChangeAction={(v) => setPhone(formatting_phone_number(v))}
+              checkError={[is_correct_phone_number]}
               placeholder={'전화번호를 입력해주세요'}
             />
           </Col>
