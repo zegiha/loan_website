@@ -16,7 +16,7 @@ export default function My_ads_new() {
 
   return (
     <Col width={'fill'}>
-      <Section_wrapper navigations={my_navigations}>
+      <Section_wrapper title={'마이페이지'} navigations={my_navigations}>
         <Select_context.Provider value={{select, setSelect}}>
           {Switcher(step, setStep)}
         </Select_context.Provider>

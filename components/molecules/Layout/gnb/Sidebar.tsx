@@ -8,15 +8,17 @@ import style from "./style.module.scss";
 import {TNavigation} from "@/shared/type/navigation";
 
 export default function Sidebar({
+  title,
   navigations
 }: {
+  title: string
   navigations: Array<TNavigation>,
 }) {
 	const pathname = usePathname();
 	return (
 		<div className={style.sidebar_container}>
 			<Col gap={16} width={'fill'}>
-				<Typo.SubBody emphasize color={'variable'}>마이페이지</Typo.SubBody>
+				<Typo.SubBody emphasize color={'variable'}>{title}</Typo.SubBody>
 				<Col gap={12} width={'fill'}>
 					{navigations.map((v) => (
 						<Link

@@ -6,15 +6,17 @@ import {Sidebar, Topbar} from "@/components/molecules/Layout";
 
 export default function Section_wrapper({
 	children,
+  title,
   navigations,
 }: {
   children: React.ReactNode
+  title: string
   navigations: Array<TNavigation>
 }) {
 	return (
 		<Section backgroundColor={'surface'}>
 			<Row width={'fill'} gap={24}>
-				<Sidebar navigations={navigations}/>
+				<Sidebar title={title} navigations={navigations}/>
         <Col className={style.contents_container} gap={16}>
           <Topbar navigations={navigations}/>
           <Col width={'fill'}>
