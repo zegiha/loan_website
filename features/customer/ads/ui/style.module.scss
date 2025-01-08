@@ -1,0 +1,27 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  @media (max-width: 400px) {
+    flex-direction: column;
+    &>.arrow_wrapper{
+      transform: rotate(90deg) !important;
+    }
+    &>.step_container {
+      width: 100% !important;
+    }
+  }
+}
+
+.step_container {
+  padding: 16px;
+  border-radius: 12px;
+  background-color: semantic.$container-containerNormal;
+  border: 1px solid semantic.$outline-default;
+}
+
