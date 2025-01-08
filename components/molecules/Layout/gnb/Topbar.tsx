@@ -5,16 +5,13 @@ import {usePathname} from "next/navigation";
 import Typo from "@/components/atoms/typo/Typo";
 import Link from "next/link";
 import style from './style.module.scss';
+import {TNavigation} from "@/shared/type/navigation";
 
-type TNavigation = {domain: string, name: string}
-const navigations: Array<TNavigation> = [
-  {domain: '/my/ads', name: '나의 광고'},
-  {domain: '/my/ads/new', name: '광고 추가하기'},
-  {domain: '/my/logout', name: '로그아웃'},
-  {domain: '/my/leave', name: '회원탈퇴'}
-]
-
-export default function Topbar() {
+export default function Topbar({
+  navigations
+}: {
+  navigations: Array<TNavigation>
+}) {
   const pathname = usePathname();
   return (
     <Row className={style.topbar_container}>
