@@ -1,3 +1,5 @@
+'use client'
+
 import {Row} from "@/components/atoms/layout";
 import style from './headerBottom.module.scss';
 import Typo from "@/components/atoms/typo/Typo";

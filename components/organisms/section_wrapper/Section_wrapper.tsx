@@ -1,18 +1,24 @@
 import {Section} from "@/components/molecules";
 import {Col, Row} from "@/components/atoms/layout";
-import Sidebar from "@/features/my/ui/Sidebar";
 import style from './style.module.scss';
-import Topbar from "@/features/my/ui/Topbar";
+import {TNavigation} from "@/shared/type/navigation";
+import {Sidebar, Topbar} from "@/components/molecules/Layout";
 
 export default function Section_wrapper({
 	children,
-}: {children: React.ReactNode}) {
+  title,
+  navigations,
+}: {
+  children: React.ReactNode
+  title: string
+  navigations: Array<TNavigation>
+}) {
 	return (
 		<Section backgroundColor={'surface'}>
 			<Row width={'fill'} gap={24}>
-				<Sidebar/>
+				<Sidebar title={title} navigations={navigations}/>
         <Col className={style.contents_container} gap={16}>
-          <Topbar/>
+          <Topbar navigations={navigations}/>
           <Col width={'fill'}>
             {children}
           </Col>

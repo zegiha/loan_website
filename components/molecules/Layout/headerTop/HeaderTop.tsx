@@ -1,3 +1,5 @@
+'use client'
+
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import Image from "next/image";
 import LogoImage from "@/public/assets/colorLogo.png";
