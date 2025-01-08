@@ -1,6 +1,5 @@
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
-import Form from "next/form";
 import {CSSProperties} from "react";
 
 export default function InputSection({
@@ -13,7 +12,7 @@ export default function InputSection({
   children: React.ReactNode
 }) {
   const actual_style_parents: CSSProperties = style ?
-    style : {flex: 1, padding: '64px 20px'}
+    style : {flex: 1, width: '100%', padding: '64px 20px'}
   const actual_style_children: CSSProperties | undefined = !style ? {maxWidth: 320} : undefined
 
   return (
