@@ -16,7 +16,7 @@ const items =  [
     // {domain: '/search/scam', name: '사기 번호 조회'},
     {domain: '/search/registered_company', name: '정식 업체 조회'},
     {domain: '/user_guied', name: '이용안내'},
-    {domain: '/customer', name: '고객센터'}
+    {domain: '/customer/announcement', name: '고객센터', separator: 'customer'}
   ]
 ];
 
@@ -44,7 +44,7 @@ export default function HeaderBottom() {
             {v.map((v, i) => (
               <NavigationItem
                 key={i}
-                isActive={pathName === v.domain}
+                isActive={v.separator ? pathName.includes(v.separator) : pathName === v.domain}
                 onClick={() => router.push(v.domain)}
                 name={v.name}
               />
