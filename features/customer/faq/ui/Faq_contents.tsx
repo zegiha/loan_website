@@ -3,34 +3,37 @@
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {useState} from "react";
-import Navigation from "@/features/customer/faq/ui/Navigation";
-import style from './style.module.scss'
 import User_faq from "@/features/customer/faq/ui/User_faq";
 import Company_faq from "@/features/customer/faq/ui/Company_faq";
+import {
+  ISlide_nav,
+  Show_or_hidden_with_fade,
+  Show_or_hidden_with_fade_container,
+  Slide_nav
+} from "@/components/molecules";
+
+const nav_data: Array<ISlide_nav> = [
+  {name: '일반고객', separator: 'user'},
+  {name: '대출 업체', separator: 'company'},
+]
 
 export default function Faq_contents() {
-  const [active, set_active] = useState<'user' | 'company'>('user');
-
-  const handle_active = (is_active: boolean) => {
-    return is_active ?
-      style.show_component:
-      style.hide_component
-  }
+  const [active, set_active] = useState<typeof nav_data[number]['separator']>('user');
 
   return (
     <Col gap={16} width={'fill'}>
       <Typo.Body emphasize color={'variable'}>
         자주 묻는 질문
       </Typo.Body>
-      <Navigation active={active} set_active={set_active}/>
-      <Col width={'fill'} style={{position: 'relative'}}>
-        <Col width={'fill'} className={handle_active(active === 'user')}>
+      <Slide_nav nav_data={nav_data} active={active} set_active_action={set_active}/>
+      <Show_or_hidden_with_fade_container>
+        <Show_or_hidden_with_fade is_active={active === 'user'}>
           <User_faq/>
-        </Col>
-        <Col width={'fill'} className={handle_active(active === 'company')}>
+        </Show_or_hidden_with_fade>
+        <Show_or_hidden_with_fade is_active={active === 'company'}>
           <Company_faq/>
-        </Col>
-      </Col>
+        </Show_or_hidden_with_fade>
+      </Show_or_hidden_with_fade_container>
     </Col>
   )
 }

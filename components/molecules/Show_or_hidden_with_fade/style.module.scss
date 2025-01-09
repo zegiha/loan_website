@@ -1,0 +1,14 @@
+@use '/shared/constants/animation.module' as ani;
+
+.show_component {
+  opacity: 1;
+  transition: ani.$onTransition;
+}
+
+.hide_component {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: ani.$onTransition;
+}
