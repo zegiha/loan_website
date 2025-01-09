@@ -34,7 +34,7 @@ interface ITopIconNavigation {
 
 const topIconNavigation: Array<ITopIconNavigation> = [
   {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => {}},
-  {icon: 'adContact', domain: '', label: '광고 문의', onClick: () => console.log('헤더 광고 문의')},
+  {icon: 'adContact', domain: '/customer/ads', label: '광고 문의', onClick: () => {}},
   {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
   {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
   {icon: 'account_circle', domain: '/my/ads', label: '마이페이지', onClick: () => {}}
@@ -51,7 +51,7 @@ const items =  [
     // {domain: '/search/scam', name: '사기 번호 조회'},
     {domain: '/search/registered_company', name: '정식 업체 조회'},
     {domain: '/user_guied', name: '이용안내'},
-    {domain: '/customer', name: '고객센터'}
+    {domain: '/customer/announcement', name: '고객센터', separator: 'customer'}
   ]
 ];
 
@@ -210,7 +210,7 @@ function ModalHeader({
                 v.map((v2) => (
                   <Link key={`${v2.domain}`} href={v2.domain} className={style.modalHeader_item} style={{width: '100%'}} onClick={() => setModalHeader(false)}>
                     <NavigationItem
-                      isActive={pathname === v2.domain}
+                      isActive={v2.separator ? pathname.includes(v2.separator) : pathname === v2.domain}
                       onClick={() => {
                         router.push(v2.domain)
                       }}
