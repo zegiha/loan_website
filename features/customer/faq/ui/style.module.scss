@@ -1,58 +1,6 @@
 @use '/shared/color/semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
-.navigation_container, .navigation_item, .navigation_item_active {
-  padding: 6px;
-  border-radius: 8px;
-  background-color: semantic.$container-containerNormal;
-}
-
-.navigation_container {
-  position: relative;
-}
-
-.navigation_item, .navigation_item_active {
-  cursor: pointer;
-  padding: 8px;
-}
-
-.navigation_item {
-  &:hover {
-    transition: ani.$onTransition;
-    background-color: semantic.$container-containerHigh;
-  }
-}
-
-.navigation_item_active {
-  width: calc((100% - 12px - 12px)/2);
-  height: calc(100% - 12px);
-  position: absolute;
-  background-color: semantic.$primary-primaryNormal;
-  transition: ani.$onTransition;
-}
-
-.navigation_item_text, .navigation_item_text_active {
-  transition: ani.$onTransition;
-}
-
-.navigation_item_text_active {
-  z-index: 1;
-  color: semantic.$primary-onPrimary !important;
-}
-
-.show_component {
-  opacity: 1;
-  transition: ani.$onTransition;
-}
-
-.hide_component {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  transition: ani.$onTransition;
-}
-
 .faq_item_container {
   border-radius: 8px;
   background-color: semantic.$container-containerNormal;

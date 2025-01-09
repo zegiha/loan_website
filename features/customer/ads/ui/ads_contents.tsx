@@ -1,4 +1,4 @@
-import {Col} from "@/components/atoms/layout";
+import {Col, Divider, Row} from "@/components/atoms/layout";
 import style from './style.module.scss'
 import Typo from "@/components/atoms/typo/Typo";
 import {ArrowAltIcon} from "@/components/atoms/icons";
@@ -13,23 +13,40 @@ const step_data = [
 
 export default function Ads_contents() {
   return (
-    <div className={style.container}>
-      {step_data.map((v, i) => (
-        <>
-          <Step key={i} title={v} step_number={i + 1}/>
-          {i !== v.length-1 && (<span key={`${i}_arrow`} className={style.arrow_wrapper}>
+    <Col gap={32} width={'fill'}>
+      <div className={style.container}>
+        {step_data.map((v, i) => (
+          <>
+            <Step key={i} title={v} step_number={i + 1}/>
+            {i !== v.length - 1 && (<span key={`${i}_arrow`} className={style.arrow_wrapper}>
             <ArrowAltIcon color={'dim'}/>
           </span>)}
-        </>
-      ))}
-    </div>
+          </>
+        ))}
+      </div>
+      <Divider/>
+      <Row
+        width={'fill'}
+        justifyContents={'center'}
+        alignItems={'center'}
+      >
+        <Col gap={12} width={'fill'}>
+          <Typo.Title emphasize color={'variable'}>
+            아직 ~의 회원이 아니신가요?
+          </Typo.Title>
+          <Typo.Contents isPre={'wrap'}>
+            {'저렴한 비용으로 엄청난 광고효과를 누릴 수 있어요!\n회원 가입을 통해 달라지는 콜 수로 광고효과를 직접 체감해보세요!'}
+          </Typo.Contents>
+        </Col>
+      </Row>
+    </Col>
   )
 }
 
 function Step({
-  title,
-  step_number
-}: {
+                title,
+                step_number
+              }: {
   title: string
   step_number: number
 }) {
