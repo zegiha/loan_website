@@ -15,7 +15,7 @@ const items =  [
   [
     // {domain: '/search/scam', name: '사기 번호 조회'},
     {domain: '/search/registered_company', name: '정식 업체 조회'},
-    {domain: '/user_guied', name: '이용안내'},
+    {domain: '/guide', name: '이용안내'},
     {domain: '/customer/announcement', name: '고객센터', separator: 'customer'}
   ]
 ];
