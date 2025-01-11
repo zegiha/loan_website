@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import {Col} from "@/components/atoms/layout";
 import Guide_user from "@/features/guide/user/ui/Guide_user";
 import {useRouter} from "next/navigation";
+import Guide_introduce from "@/features/guide/introduce/ui/Guide_introduce";
 
 interface ISlide_nav_new extends ISlide_nav {
   separator: 'user' | 'company' | 'introduce'
@@ -38,7 +39,7 @@ export default function Guide_page() {
             <Guide_user/>
           </Show_or_hidden_with_fade>
           <Show_or_hidden_with_fade is_active={active === 'introduce'}>
-            introduce
+            <Guide_introduce/>
           </Show_or_hidden_with_fade>
         </Show_or_hidden_with_fade_container>
       </Col>
