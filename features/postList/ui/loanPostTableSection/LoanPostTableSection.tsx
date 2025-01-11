@@ -1,7 +1,7 @@
 import {AccordionSectionTitle, Section} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import {semantic} from "@/shared/color";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseButton, BaseTextInput} from "@/components/molecules/inputs";
 import SearchTypeTextInput from "@/components/molecules/inputs/textInputs/searchTypeTextInput/SearchTypeTextInput";
@@ -16,11 +16,13 @@ const SEARCHTYPE = ['제목 및 내용', '제목', '내용', '금액']
 export default function LoanPostTableSection({
   activeLoanTypeCategories,
   activeLocationCategories,
+  is_display
 }: {
   activeLoanTypeCategories: Set<string>,
   activeLocationCategories: Set<string>,
+  is_display?: boolean,
 }) {
-  const [activeAccordionNumber, setActiveAccordionNumber] = useState<string>('15')
+  const [activeAccordionNumber, setActiveAccordionNumber] = useState<string>(!is_display ? '15' : '5')
 
   const [search, setSearch] = useState<string>('');
 
@@ -104,7 +106,11 @@ export default function LoanPostTableSection({
             </Typo.Contents>
           </BaseButton>
         </Row>
-        <PostTable key={`${activeAccordionNumber}`} dataNumber={Number(activeAccordionNumber)}/>
+        <PostTable
+          key={`${activeAccordionNumber}`}
+          dataNumber={Number(activeAccordionNumber)}
+          is_display={is_display}
+        />
       </Col>
     </Section>
   );

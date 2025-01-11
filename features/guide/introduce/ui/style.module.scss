@@ -1,0 +1,19 @@
+.active_image_container {
+  display: flex;
+  width: 100%;
+  align-content: center;
+  gap: 16px;
+  @media (max-width: 840px) {
+    flex-direction: column;
+  }
+}
+
+.active_image_wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 320px;
+  aspect-ratio: 293/175;
+  @media (max-width: 840px) {
+    width: 100%;
+  }
+}

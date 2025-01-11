@@ -8,7 +8,8 @@ interface IToggleButton {
   active?: boolean;
   contents: string;
   subContents: string;
-  handleCategoryButtonValues: IHandleCategoryButton
+  handleCategoryButtonValues?: IHandleCategoryButton,
+  is_display?: boolean
 }
 
 interface IHandleCategoryButton {
@@ -59,13 +60,14 @@ export default function CategoryToggleButton({
   active=false,
   contents,
   subContents,
-  handleCategoryButtonValues
+  handleCategoryButtonValues,
+  is_display
 }: IToggleButton) {
   return <BaseButton
     className={`${
       active ? style.activeContainer : style.container
     } ${style.transition}`}
-    onClick={() => handleCategoryButton({...handleCategoryButtonValues})}
+    onClick={() => !is_display && handleCategoryButtonValues && handleCategoryButton({...handleCategoryButtonValues})}
   >
     <Col alignItems={'center'}>
       <Typo.Contents emphasize color={active ? 'onPrimary' : 'variable'}>
