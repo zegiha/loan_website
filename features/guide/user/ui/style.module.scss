@@ -1,0 +1,58 @@
+@use "/shared/color/semanticPalette.module" as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.eg_container {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+
+  width: 100%;
+  @media (max-width: 840px) {
+    flex-direction: column;
+  }
+}
+
+.primary_text {
+  transition-delay: 0s !important;
+  &:hover {
+    color: semantic.$primary-primaryHigh !important;
+  }
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: semantic.$outline-default;
+  border-radius: 100px;
+  transition: ani.$leaveTransition;
+}
+
+.eg_item{
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid semantic.$outline-default;
+  cursor: pointer;
+
+  transition: ani.$leaveTransition;
+
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: semantic.$primaryContainer-primaryContainerNormal;
+    border-color: semantic.$outline-primary;
+    &>div>p {
+      color: semantic.$primaryContainer-onPrimaryContainerDim;
+      transition: ani.$onTransition;
+    }
+    &>div>.dot {
+      background-color: semantic.$outline-primary;
+      transition: ani.$onTransition;
+    }
+  }
+}
+
+.tlqkf_swiper {
+  width: 50%;
+  @media (max-width: 840px) {
+    width: 100%;
+  }
+}

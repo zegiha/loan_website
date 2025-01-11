@@ -9,7 +9,13 @@ import style from './loanPostTableSection.module.scss'
 import Link from "next/link";
 import {Row} from "@/components/atoms/layout";
 
-export default function PostTable({dataNumber}: {dataNumber: number}) {
+export default function PostTable({
+  dataNumber,
+  is_display
+}: {
+  dataNumber: number
+  is_display?: boolean
+}) {
   const [postList, setPostList] = useState(
     [...getLoanPostList(dataNumber, 50)]
   );
@@ -39,7 +45,12 @@ export default function PostTable({dataNumber}: {dataNumber: number}) {
               head={<LoanPostTableHead show_sub_status={show_sub_status}/>}
             >
               {slide.map((loanPost, i) => (
-                <LoanPostTableRow key={`${i}-post`} {...loanPost} show_sub_status={show_sub_status}/>
+                <LoanPostTableRow
+                  key={`${i}-post`}
+                  {...loanPost}
+                  show_sub_status={show_sub_status}
+                  is_display={is_display}
+                />
               ))}
             </Table>
           </SwiperSlide>
@@ -69,6 +80,7 @@ function LoanPostTableHead({
 
 interface ILoanPostTableProps extends ILoanPost {
   show_sub_status: boolean;
+  is_display?: boolean;
 }
 function LoanPostTableRow({
   type,
@@ -77,17 +89,32 @@ function LoanPostTableRow({
   title,
   createdAt,
   viewCount,
-  show_sub_status
+  show_sub_status,
+  is_display,
 }: ILoanPostTableProps) {
-  return <Link href={`/post/${postId}`} style={{ width: "100%" }}>
-    <TableRow className={type === '공지' ? style.notificationRow : undefined}>
-      <Typo.Contents width={30} color={type === '공지' ? 'primary' : 'generic'}>{type}</Typo.Contents>
-      <Typo.Contents width={52}>{location}</Typo.Contents>
-      <Typo.Contents width={'fill'} textOverflowLine={2} isPre>{title}</Typo.Contents>
-      {show_sub_status && (<>
-        <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
-        <Typo.Contents width={60} isPre>{viewCount}</Typo.Contents>
-      </>)}
-    </TableRow>
-  </Link>
+  if(!is_display) {
+    return <Link href={`/post/${postId}`} style={{ width: "100%" }}>
+      <TableRow className={type === '공지' ? style.notificationRow : undefined}>
+        <Typo.Contents width={30} color={type === '공지' ? 'primary' : 'generic'}>{type}</Typo.Contents>
+        <Typo.Contents width={52}>{location}</Typo.Contents>
+        <Typo.Contents width={'fill'} textOverflowLine={2} isPre>{title}</Typo.Contents>
+        {show_sub_status && (<>
+          <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
+          <Typo.Contents width={60} isPre>{viewCount}</Typo.Contents>
+        </>)}
+      </TableRow>
+    </Link>
+  } else {
+    return (
+      <TableRow className={type === '공지' ? style.notificationRow : undefined}>
+        <Typo.Contents width={30} color={type === '공지' ? 'primary' : 'generic'}>{type}</Typo.Contents>
+        <Typo.Contents width={52}>{location}</Typo.Contents>
+        <Typo.Contents width={'fill'} textOverflowLine={2} isPre>{title}</Typo.Contents>
+        {show_sub_status && (<>
+          <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
+          <Typo.Contents width={60} isPre>{viewCount}</Typo.Contents>
+        </>)}
+      </TableRow>
+    )
+  }
 }
