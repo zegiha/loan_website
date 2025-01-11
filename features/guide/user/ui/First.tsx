@@ -70,7 +70,7 @@ export default function First() {
         </Typo.Title>
       </Col>
       <div className={style.eg_container}>
-        <Link href={'/loan/location'}>
+        <Link href={'/loan/location'} style={{width: '100%'}}>
           <Col gap={8} alignItems={'center'} width={'fill'} className={style.eg_item}>
             <Row width={'fill'} gap={12} wrap>
               {CATEGORIES_LOCATIONS.map((v, i) => (
@@ -90,7 +90,7 @@ export default function First() {
             </Row>
           </Col>
         </Link>
-        <Link href={'/loan/product'}>
+        <Link href={'/loan/product'} style={{width: '100%'}}>
           <Col gap={8} alignItems={'center'} width={'fill'} className={style.eg_item}>
             <Row width={'fill'} gap={12} wrap>
               {CATEGORIES_PRODUCTS.map((v, i) => (

@@ -6,9 +6,10 @@ import {
   Show_or_hidden_with_fade_container,
   Slide_nav
 } from "@/components/molecules";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Col} from "@/components/atoms/layout";
 import Guide_user from "@/features/guide/user/ui/Guide_user";
+import {useRouter} from "next/navigation";
 
 interface ISlide_nav_new extends ISlide_nav {
   separator: 'user' | 'company' | 'introduce'
@@ -22,6 +23,12 @@ const slide_nav: Array<ISlide_nav_new> = [
 
 export default function Guide_page() {
   const [active, set_active] = useState<ISlide_nav_new['separator']>('user')
+  const router = useRouter()
+  useEffect(() => {
+    if(active === 'company') {
+      router.push('/customer/ads')
+    }
+  }, [active])
   return (
     <Section backgroundColor={'surface'}>
       <Col width={'fill'} gap={24}>
@@ -29,9 +36,6 @@ export default function Guide_page() {
         <Show_or_hidden_with_fade_container>
           <Show_or_hidden_with_fade is_active={active === 'user'}>
             <Guide_user/>
-          </Show_or_hidden_with_fade>
-          <Show_or_hidden_with_fade is_active={active === 'company'}>
-            company
           </Show_or_hidden_with_fade>
           <Show_or_hidden_with_fade is_active={active === 'introduce'}>
             introduce

@@ -5,7 +5,6 @@
   display: flex;
   gap: 12px;
   justify-content: center;
-  align-items: center;
 
   width: 100%;
   @media (max-width: 840px) {
@@ -44,9 +43,16 @@
       color: semantic.$primaryContainer-onPrimaryContainerDim;
       transition: ani.$onTransition;
     }
-    &>div>div {
+    &>div>.dot {
       background-color: semantic.$outline-primary;
       transition: ani.$onTransition;
     }
+  }
+}
+
+.tlqkf_swiper {
+  width: 50%;
+  @media (max-width: 840px) {
+    width: 100%;
   }
 }
