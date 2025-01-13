@@ -46,7 +46,7 @@ export default function Companies_section({
 
   return (
     <Section>
-      <Col gap={24} width={'fill'}>
+      <Col gap={24} width={'fill'} className={style.swiper_button}>
         <Row>
           <Typo.Body emphasize color={'variable'}>{`${data.length}개`}</Typo.Body>
           <Typo.Body color={'variable'}>의 업체</Typo.Body>
