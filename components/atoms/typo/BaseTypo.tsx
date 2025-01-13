@@ -25,7 +25,7 @@ export default function BaseTypo({
         fontWeight: emphasize ? 600 : 400,
         textAlign: textAlign,
         justifyContent: textAlign,
-        wordBreak: 'keep-all',
+        wordBreak: 'break-word',
         userSelect: userSelect,
         ...getWidthByStyle(width),
         whiteSpace: isPre === undefined ? undefined : typeof isPre === "boolean" || isPre === 'wrap' ? 'pre-wrap' : 'pre',
