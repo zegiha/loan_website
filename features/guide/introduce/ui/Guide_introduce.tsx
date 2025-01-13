@@ -3,8 +3,9 @@ import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import Link from "next/link";
 import Image from "next/image";
-import active_image from '@/public/assets/active_image.svg'
 import style from './style.module.scss'
+import active_image from '@/public/assets/active_image.svg'
+import introduce_company_image from '@/public/assets/introduce_company.png'
 
 export default function Guide_introduce() {
 	return (
@@ -22,9 +23,13 @@ export default function Guide_introduce() {
 					<Typo.SubBody isPre={'wrap'}>
 						{'는 정부에서 사업자 인증을 받은 안전한 대부중개 업체에요\n또한 사용자 분들께 신뢰를 드리기 위해 온라인 대부중개 플랫폼 협의회에서 활동하고있어요'}
 					</Typo.SubBody>
-					<div style={{width: '100%', display: 'flex'}}>
-						<div style={{width: '100%', height: 240, backgroundColor: 'red'}}/>
-						<div style={{width: '100%', height: 240, backgroundColor: 'blue'}}/>
+					<div className={style.introduce_image_container}>
+						<Image
+							src={introduce_company_image}
+							alt={'기업소개 이미지'}
+							fill
+							objectFit={'cover'}
+						/>
 					</div>
 				</Col>
 				<Col gap={24} width={'fill'}>
