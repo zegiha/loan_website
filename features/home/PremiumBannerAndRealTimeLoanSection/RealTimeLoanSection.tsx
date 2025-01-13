@@ -60,11 +60,13 @@ function RealTimeLoan({
   location,
   createdAt
 }: TRealTimeLoan) {
+  const router = useRouter()
   return (
     <Row
       gap={12}
       alignItems={'center'}
       width={'fill'}
+      onClick={() => {router.push('/post/id')}}
       className={style.realTimeLoan}
     >
       <div className={`${style.locationChip}`}>
