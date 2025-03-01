@@ -7,9 +7,9 @@ import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
-import getPremiumCards from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getPrimiumCards";
 import {PremiumCard} from "@/components/molecules";
 import Link from "next/link";
+import getPremiumCards from "@/components/organisms/premiumBanner/api/getPrimiumCards";
 
 export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: number}) {
   const swiperRef = useRef<SwiperType>();

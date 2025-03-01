@@ -9,7 +9,7 @@ export default async function MainRegisteredCompanySection() {
   return (
     <Section backgroundColor={'surfaceDim'}>
       <CompanyCardGrid>
-        {getRegisteredCompanyWithImage(12).map((v, i) => (
+        {getRegisteredCompanyWithImage({dummyN: 12, type: 'home'}).map((v, i) => (
           <CompanyCard
             key={i}
             type={'image'}
