@@ -9,7 +9,13 @@ export interface ICompanyWithImage {
   name: string;
 }
 
-export default function getRegisteredCompanyWithImage(dummyN: number | undefined = 5): Array<ICompanyWithImage>{
+export default function getRegisteredCompanyWithImage({
+  dummyN=5,
+  type
+}: {
+  dummyN: number | undefined,
+  type: 'home' | 'location' | 'product'
+}): Array<ICompanyWithImage>{
   const item:ICompanyWithImage = {
     imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlROcXWBsxzaZwXERUSfV6eD92_-KLFAvjbg&s',
     variableTitle: '무방문 무서류 당일 대출',
