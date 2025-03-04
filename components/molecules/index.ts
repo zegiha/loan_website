@@ -10,6 +10,7 @@ import ISlide_nav from "@/components/molecules/Slide_nav/type";
 import Show_or_hidden_with_fade from "@/components/molecules/Show_or_hidden_with_fade/Show_or_hidden_with_fade";
 import Show_or_hidden_with_fade_container
   from "@/components/molecules/Show_or_hidden_with_fade/Show_or_hidden_with_fade_container";
+import Banner from "@/components/molecules/Banner/Banner";
 
 export {
   CompanyCard,
@@ -22,6 +23,7 @@ export {
   Slide_nav,
   Show_or_hidden_with_fade_container,
   Show_or_hidden_with_fade,
+  Banner,
 }
 
 export type {
