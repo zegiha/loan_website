@@ -1,27 +1,19 @@
 import Typo from "@/components/atoms/typo/Typo";
 import style from './premiumCard.module.scss';
 import {Col, Divider, Row} from "@/components/atoms/layout";
-import {semantic} from "@/shared/color";
 import {LocationIcon} from "@/components/atoms/icons";
-import {TPremiumCard} from "@/features/home/PremiumBannerAndRealTimeLoanSection/type";
+import {IPremium_banner_data} from "@/shared/type";
 
 export default function PremiumCard({
   title,
   location,
   name
-}: TPremiumCard) {
+}: IPremium_banner_data) {
   return (
     <Col gap={12} className={style.premiumCardContainer}>
       <Col gap={4} width={'fill'}>
         <Typo.Contents emphasize color={'variable'}>
-          {title.map((v, i) => {
-            if(v.type === 'primary') return (
-              <span key={i} className={semantic.onGenericOnGenericPrimary}>
-                {v.contents}
-              </span>
-            );
-            return v.contents
-          })}
+          {title}
         </Typo.Contents>
         <Row gap={4} alignItems={'center'}>
           <LocationIcon

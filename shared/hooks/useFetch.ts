@@ -28,8 +28,10 @@ export default function useFetch<T>(
 
   // 수동으로 리패치할 수 있는 함수 제공
   const refetch = useCallback(() => {
-    fetch_data();
-  }, [fetch_data]);
+    if(!is_loading) {
+      fetch_data()
+    }
+  }, [fetch_data, set_is_loading]);
 
   return { data, is_loading, error, refetch };
 }

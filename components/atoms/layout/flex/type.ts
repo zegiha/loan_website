@@ -1,4 +1,4 @@
-import {CSSProperties} from "react";
+import {CSSProperties, LegacyRef} from "react";
 
 export type flexDir =
   'row' |
@@ -26,7 +26,7 @@ export interface IRowAndCol {
   width?: width;
   style?: CSSProperties;
   children: React.ReactNode;
-  ref?: React.MutableRefObject<HTMLDivElement | null>;
+  ref?: React.MutableRefObject<HTMLDivElement | null> | LegacyRef<HTMLDivElement>;
   onClick?: () => void;
 }
 

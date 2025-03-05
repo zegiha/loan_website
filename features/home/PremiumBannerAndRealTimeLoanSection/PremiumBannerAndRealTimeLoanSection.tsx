@@ -15,9 +15,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
 
   useEffect(() => {
     // Ref 값 초기 높이 설정
-    if (premiumBannerRef.current) {
-      setBannerHeight(premiumBannerRef.current.offsetHeight);
-    }
+    if(premiumBannerRef.current) setBannerHeight(premiumBannerRef.current.offsetHeight)
 
     // 윈도우 리사이즈 이벤트 처리
     const handleResize = () => {
@@ -42,7 +40,9 @@ export default function PremiumBannerAndRealTimeLoanSection() {
             </span>
             대부업체
           </Typo.SubBody>
-          <PremiumBanner defaultCardNumber={3} />
+          <PremiumBanner defaultCardNumber={3} update_height={() => {
+            if(premiumBannerRef.current) setBannerHeight(premiumBannerRef.current.offsetHeight);
+          }} />
         </Box>
         <Box className={style.smallBox} inlineStyle={{
           height: `${bannerHeight}px`,
