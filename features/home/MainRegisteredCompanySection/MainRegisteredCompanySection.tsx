@@ -5,20 +5,18 @@ import Section from "@/components/molecules/Layout/section/Section";
 import {useFetch} from "@/shared/hooks";
 import {get_banner} from "@/shared/api";
 import {Banner} from "@/components/molecules";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {IBanner_data} from "@/shared/type";
 
 export default function MainRegisteredCompanySection() {
-  const [real_data, set_real_data] = useState<Array<IBanner_data> | null>(null);
-  const {data, is_loading, error, refetch} = useFetch(() => {
-    return get_banner('home')
-  })
-  const [target, set_target] = useState<HTMLDivElement | null>(null);
+  const [real_data, set_real_data] = useState<Array<IBanner_data> | null>(null)
+  const {data, is_loading, error, refetch} = useFetch(() => get_banner('home'))
+  const [target, set_target] = useState<HTMLDivElement | null>(null)
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if(entry.isIntersecting) {
-        refetch()
+        // refetch()
       }
     })
   }, {
@@ -41,7 +39,7 @@ export default function MainRegisteredCompanySection() {
         observer.unobserve(target)
       }
     }
-  }, [data]);
+  }, [data])
 
   return (
     <Section backgroundColor={'surfaceDim'}>
@@ -52,8 +50,10 @@ export default function MainRegisteredCompanySection() {
             {...v}
           />
         ))}
-        <div ref={set_target} style={{width: 0, height: 0}}/>
       </CompanyCardGrid>
+      <div ref={set_target} style={{width: '100%'}}>
+        {is_loading && <div style={{width: '100%', height: 64, backgroundColor: 'red'}}/>}
+      </div>
     </Section>
   );
 }
