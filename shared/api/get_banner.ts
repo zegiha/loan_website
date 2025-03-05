@@ -22,7 +22,7 @@ const dummy: IBanner_data = {
   img_url: get_temp_image()
 }
 
-async function get_banner(
+export default async function get_banner(
   page_option: page_option_type,
   data_number: number | undefined = 20
 ): Promise<Array<IBanner_data>> {
@@ -31,7 +31,5 @@ async function get_banner(
   let dummies: Array<IBanner_data> = [];
   for(let i = 0; i < data_number; i++) dummies.push(dummy);
 
-  return dummies
+  return dummies;
 }
-
-export {get_banner};

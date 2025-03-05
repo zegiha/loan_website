@@ -9,13 +9,15 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
 import React from "react";
 import {PlusIcon} from "@/components/atoms/icons";
-import {TRealTimeLoan} from "@/features/home/PremiumBannerAndRealTimeLoanSection/type";
-import getRealTimeLoan from "@/shared/api/getRealTimeLoan";
 import {useRouter} from "next/navigation";
+import {useFetch} from "@/shared/hooks";
+import {ILoan_inquiry_data} from "@/shared/type";
+import {get_loan_inquiry} from "@/shared/api";
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   const router = useRouter()
-  return (
+  const {data, is_loading, error, refetch} = useFetch(() => get_loan_inquiry())
+  if(data) return (
     <>
       <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
         <Typo.SubBody emphasize color={'variable'}>
@@ -44,7 +46,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
             pauseOnMouseEnter: true,
           }}
         >
-          {getRealTimeLoan().map((v, i) => (
+          {data.map((v, i) => (
             <SwiperSlide key={i}>
               <RealTimeLoan {...v}/>
             </SwiperSlide>
@@ -59,7 +61,7 @@ function RealTimeLoan({
   title,
   location,
   createdAt
-}: TRealTimeLoan) {
+}: ILoan_inquiry_data) {
   return (
     <Row
       gap={12}
