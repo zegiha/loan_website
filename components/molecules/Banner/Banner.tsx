@@ -4,7 +4,7 @@ import Image from "next/image";
 import Typo from "@/components/atoms/typo/Typo";
 import {LocationIcon, PhoneIcon} from "@/components/atoms/icons";
 import Link from "next/link";
-import {IBanner_data} from "@/shared/type";
+import {ICompany_banner_data} from "@/shared/type";
 
 export default function Banner({
   title,
@@ -13,7 +13,7 @@ export default function Banner({
   phone,
   location,
   img_url,
-}: IBanner_data) {
+}: ICompany_banner_data) {
   return (
     <Link href={`/loan/${name}`}>
       <Col
