@@ -1,23 +1,22 @@
 'use client'
 
-import getRegisterCompany from "@/shared/api/getRegisterCompany";
 import Typo from "@/components/atoms/typo/Typo";
 import {TableHead, TableRow} from "@/components/molecules";
-import {TRegisterStatus} from "@/shared/type";
+import {ICompany_row_having_is_visible_company_name} from "@/shared/type";
 import {Table} from "@/components/organisms";
 import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
 import {Row} from "@/components/atoms/layout";
-import {set} from "immutable";
+import {useFetch} from "@/shared/hooks";
+import {get_company_row} from "@/shared/api";
 
 export default function RegisterStatusTable() {
   const [visible_company_name, set_visible_company_name] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null);
+  const {data} = useFetch(() => get_company_row())
 
   const handleResize = () => {
-    if(ref.current) {
-      set_visible_company_name(ref.current.offsetWidth > 600);
-    }
+    if(ref.current) set_visible_company_name(ref.current.offsetWidth > 600);
   }
 
   useEffect(() => {
@@ -27,17 +26,20 @@ export default function RegisterStatusTable() {
       window.removeEventListener('resize', handleResize)
     }
   }, []);
+  useEffect(() => {
+    if(data !== null) handleResize()
+  }, [data]);
 
   return (
-    <Row ref={ref}>
+    <Row width={'fill'} ref={ref}>
       <Table
         head={<RegisterStatusTableHead visible_company_name={visible_company_name}/>}
       >
-        {getRegisterCompany().map((v, i) => (
+        {data && data.map((v, i) => (
           <RegisterStatusTableRow
             key={i}
             {...v}
-            visible_company_name={visible_company_name}
+            is_visible_company_name={visible_company_name}
           />
         ))}
       </Table>
@@ -64,13 +66,15 @@ function RegisterStatusTableHead({
     )}
   </TableHead>
 }
+
 function RegisterStatusTableRow({
+  id,
   location,
   title,
-  companyName,
-  visible_company_name,
-}: TRegisterStatus) {
-  return <Link href={`/loan/${companyName}`}>
+  name,
+  is_visible_company_name
+}: ICompany_row_having_is_visible_company_name) {
+  return <Link href={`/loan/${id}`} style={{width:'100%'}}>
     <TableRow>
       <Typo.Contents width={70}>
         {location}
@@ -78,9 +82,9 @@ function RegisterStatusTableRow({
       <Typo.Contents width={'fill'} textOverflowLine={1}>
         {title}
       </Typo.Contents>
-      {visible_company_name && (
+      {is_visible_company_name && (
         <Typo.Contents width={100} color={'dim'} textOverflowLine={1}>
-          {companyName}
+          {name}
         </Typo.Contents>
       )}
     </TableRow>

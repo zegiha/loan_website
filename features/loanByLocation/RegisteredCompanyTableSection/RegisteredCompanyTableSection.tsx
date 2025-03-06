@@ -7,8 +7,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {Section, AccordionSectionTitle} from "@/components/molecules";
 import {BaseTextInput} from "@/components/molecules/inputs";
 import {SwiperPaginationAndNavigation, Table} from "@/components/organisms";
-import {TRegisterStatus} from "@/shared/type";
-import getRegisterCompany from "@/shared/api/getRegisterCompany";
+import {ICompany_row, ICompany_row_having_is_visible_company_name} from "@/shared/type";
 import {semantic} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import {SwiperSlide} from "swiper/react";
@@ -16,6 +15,8 @@ import {
   RegisteredCompanyTableHead,
   RegisteredCompanyTableRow
 } from "@/features/loanByLocation/ui/RegisteredCompanyTable";
+import {get_company_row} from "@/shared/api";
+import {useFetch} from "@/shared/hooks";
 
 const contentsNumberData = ['5', '10', '15', '20']
 
@@ -24,21 +25,19 @@ export default function RegisteredCompanyTableSection({
 }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('5')
 
-  const formatRegisteredCompany = (rawData: Array<TRegisterStatus>): Array<Array<TRegisterStatus>> => {
-    const res: Array<Array<TRegisterStatus>> = [];
+  const formatRegisteredCompany = (rawData: Array<ICompany_row>): Array<Array<ICompany_row_having_is_visible_company_name>> => {
+    const data: Array<ICompany_row_having_is_visible_company_name> = [];
+    rawData.forEach((item) => {data.push({...item, is_visible_company_name: visible_company_name})})
+    const res: Array<Array<ICompany_row_having_is_visible_company_name>> = [];
     for(let i = 0; i < rawData.length; i++) {
       if(i % Number(activeContentsNumber) === 0) res.push([]);
-      res[res.length-1].push(rawData[i]);
+      res[res.length-1].push(data[i]);
     }
     return res;
   }
-  const [registeredCompanyData, setRegisteredCompanyData] = useState(formatRegisteredCompany(getRegisterCompany(60, Array.from(activeCategories), true)));
+
+  const {data} = useFetch(() => get_company_row())
   const [search, setSearch] = useState<string>('');
-
-  useEffect(() => {
-    setRegisteredCompanyData([...formatRegisteredCompany(getRegisterCompany(60, Array.from(activeContentsNumber), true))])
-  }, [activeContentsNumber]);
-
 
   const [visible_company_name, set_visible_company_name] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null);
@@ -50,14 +49,16 @@ export default function RegisteredCompanyTableSection({
   }
 
   useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
+    if(data) {
+      handleResize();
+      window.addEventListener('resize', handleResize)
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
     }
-  }, []);
+  }, [data]);
 
-  return (
+  if(data) return (
     <Section backgroundColor={'surface'} ref={ref}>
       <AccordionSectionTitle
         title={
@@ -95,7 +96,7 @@ export default function RegisteredCompanyTableSection({
           />
         </Row>
         <SwiperPaginationAndNavigation>
-          {registeredCompanyData.map((v, i) => (
+          {formatRegisteredCompany(data).map((v, i) => (
             <SwiperSlide key={`${i}-slide`}>
               <Table
                 head={<RegisteredCompanyTableHead visible_company_name={visible_company_name}/>}
@@ -103,11 +104,7 @@ export default function RegisteredCompanyTableSection({
                 {v.map((contents, index) => (
                   <RegisteredCompanyTableRow
                     key={`${index}-tableItem`}
-                    name={contents.companyName}
-                    loanLimit={contents.loanLimit ?? '상담 후 결정'}
-                    location={contents.location}
-                    title={contents.title}
-                    visible_company_name={visible_company_name}
+                    {...contents}
                   />
                 ))}
               </Table>
@@ -116,5 +113,5 @@ export default function RegisteredCompanyTableSection({
         </SwiperPaginationAndNavigation>
       </Col>
     </Section>
-  );
+  )
 }

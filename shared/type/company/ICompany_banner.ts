@@ -1,4 +1,4 @@
-export interface IBanner_data {
+export interface ICompany_banner_data {
   title: string;
   subtitle: string;
   name: string;
