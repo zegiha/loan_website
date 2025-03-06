@@ -44,7 +44,7 @@ function RealTimeLoanTableRow({
   title,
   createdAt,
 }: ILoan_inquiry_data) {
-  return <Link href={`/post/${id}`}>
+  return <Link href={`/post/${id}`} style={{width: '100%'}}>
     <TableRow>
       <Typo.Contents width={70}>
         {location}

@@ -11,9 +11,11 @@ import {CloseIcon} from "@/components/atoms/icons";
 import {BaseButton} from "@/components/molecules/inputs";
 
 export default function CompanySection({
-  contents
+  contents,
+  registration_certificate,
 }: {
   contents: Array<{title: string, contents: string}>,
+  registration_certificate: string,
 }) {
   const [isOpenImgModal, setIsOpenImgModal] = useState<boolean>(false);
 
@@ -31,7 +33,7 @@ export default function CompanySection({
         </TextTable>
         <div className={style.imgContainer} onClick={() => setIsOpenImgModal(true)}>
           <Image
-            src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlROcXWBsxzaZwXERUSfV6eD92_-KLFAvjbg&s'}
+            src={registration_certificate}
             alt={'사업증'}
             width={120}
             height={140.3616}

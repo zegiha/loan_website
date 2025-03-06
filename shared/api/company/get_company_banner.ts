@@ -1,7 +1,7 @@
 'use server'
 
 import get_temp_image from "@/shared/api/get_temp_image";
-import {IBanner_data} from "@/shared/type";
+import {ICompany_banner_data} from "@/shared/type";
 
 type page_option_type = 'home' | 'location' | 'product';
 
@@ -13,7 +13,7 @@ function get_fetch_url(page_option: page_option_type): string {
   }
 }
 
-const dummy: IBanner_data = {
+const dummy: ICompany_banner_data = {
   title: "무방문 무서류 당일 대출",
   subtitle: "지역 시간 장소 제약 X 월별 당일승인 당일송금",
   name: "스피드 대출",
@@ -22,13 +22,13 @@ const dummy: IBanner_data = {
   img_url: get_temp_image()
 }
 
-export default async function get_banner(
+export default async function get_company_banner(
   page_option: page_option_type,
   data_number: number | undefined = 20
-): Promise<Array<IBanner_data>> {
+): Promise<Array<ICompany_banner_data>> {
   const fetch_url = get_fetch_url(page_option);
 
-  let dummies: Array<IBanner_data> = [];
+  let dummies: Array<ICompany_banner_data> = [];
   for(let i = 0; i < data_number; i++) dummies.push(dummy);
 
   return dummies;

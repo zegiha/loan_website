@@ -1,13 +1,13 @@
 import {DetailsContentsSection, TextTable} from "@/components/organisms";
-import {IAuthor} from "@/features/postDetail/type";
 import PostDetailTextTableRow from "@/features/postDetail/ui/PostDetailTextTableRow";
+import {ILoan_inquiry_detail} from "@/shared/type";
 
 export default function AuthorSection({
   age,
-  isJob,
-  monthlyIncome,
-  gender
-}: IAuthor) {
+  is_job,
+  monthly_income,
+  gender,
+}: ILoan_inquiry_detail['author']) {
   return (
     <DetailsContentsSection subTitle={'작성자'}>
       <TextTable>
@@ -25,11 +25,11 @@ export default function AuthorSection({
         />
         <PostDetailTextTableRow
           title={'월수입'}
-          contents={monthlyIncome}
+          contents={monthly_income}
         />
         <PostDetailTextTableRow
           title={'직업유무'}
-          contents={isJob ? '유' : '무'}
+          contents={is_job ? '유' : '무'}
         />
       </TextTable>
     </DetailsContentsSection>
