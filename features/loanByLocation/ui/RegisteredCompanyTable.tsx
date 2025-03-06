@@ -1,6 +1,7 @@
 import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import Link from "next/link";
+import {ICompany_row_having_is_visible_company_name} from "@/shared/type";
 
 export function RegisteredCompanyTableHead({
   visible_company_name
@@ -27,29 +28,23 @@ export function RegisteredCompanyTableHead({
 
 export function RegisteredCompanyTableRow({
   location,
-  loanLimit,
+  loan_limit,
   title,
   name,
-  visible_company_name,
-}: {
-  location: string,
-  loanLimit: string,
-  title: string,
-  name: string,
-  visible_company_name: boolean,
-}) {
-  return <Link href={`/loan/${name}`}>
+  is_visible_company_name
+}: ICompany_row_having_is_visible_company_name) {
+  return <Link href={`/loan/${name}`} style={{width: '100%'}}>
     <TableRow>
       <Typo.Contents width={60}>
         {location}
       </Typo.Contents>
       <Typo.Contents width={80}>
-        {loanLimit}
+        {loan_limit}
       </Typo.Contents>
       <Typo.Contents width={'fill'} textOverflowLine={1}>
         {title}
       </Typo.Contents>
-      {visible_company_name && (
+      {is_visible_company_name && (
         <Typo.Contents width={100} textOverflowLine={1}>
           {name}
         </Typo.Contents>

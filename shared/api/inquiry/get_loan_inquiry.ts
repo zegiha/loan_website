@@ -7,7 +7,7 @@ export default async function get_loan_inquiry(): Promise<Array<ILoan_inquiry_da
 		id: 'id',
 		category: '신용',
 		location: '인천',
-		title: '200 대출문의드립니다 200 대출문의드립니다 200 대출문의드립니다 200 대출문의드립니다',
+		title: '200 대출문의드립니다',
 		createdAt: '2분 전',
 		views: 293,
 	};

@@ -3,14 +3,14 @@
 import {CompanyCardGrid} from "@/components/organisms";
 import Section from "@/components/molecules/Layout/section/Section";
 import {useFetch} from "@/shared/hooks";
-import {get_banner} from "@/shared/api";
+import {get_company_banner} from "@/shared/api";
 import {Banner} from "@/components/molecules";
 import {useEffect, useState} from "react";
-import {IBanner_data} from "@/shared/type";
+import {ICompany_banner_data} from "@/shared/type";
 
 export default function MainRegisteredCompanySection() {
-  const [real_data, set_real_data] = useState<Array<IBanner_data> | null>(null)
-  const {data, is_loading, error, refetch} = useFetch(() => get_banner('home'))
+  const [real_data, set_real_data] = useState<Array<ICompany_banner_data> | null>(null)
+  const {data, is_loading, error, refetch} = useFetch(() => get_company_banner('home'))
   const [target, set_target] = useState<HTMLDivElement | null>(null)
 
   const observer = new IntersectionObserver((entries) => {

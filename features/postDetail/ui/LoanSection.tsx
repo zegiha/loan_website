@@ -1,12 +1,12 @@
-import {ILoan} from "@/features/postDetail/type";
 import {DetailsContentsSection, TextTable} from "@/components/organisms";
 import PostDetailTextTableRow from "@/features/postDetail/ui/PostDetailTextTableRow";
+import {ILoan_inquiry_detail} from "@/shared/type";
 
 export default function LoanSection({
-  loanType,
+  category,
   location,
   amount
-}: ILoan) {
+}: ILoan_inquiry_detail['loan']) {
   return <DetailsContentsSection subTitle={'대출'}>
     <TextTable>
       <PostDetailTextTableRow
@@ -19,7 +19,7 @@ export default function LoanSection({
       />
       <PostDetailTextTableRow
         title={'대출 분류'}
-        contents={`${loanType}대출`}
+        contents={`${category}대출`}
       />
     </TextTable>
   </DetailsContentsSection>

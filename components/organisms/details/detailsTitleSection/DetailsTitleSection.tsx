@@ -14,7 +14,7 @@ import {useRouter} from "next/navigation";
 
 interface ILoanDetailsTitleSectionProps {
   type: 'loan'| 'post';
-  title: TPrimaryAndGenericColorString;
+  title: string;
   createdAt?: string;
 }
 
@@ -44,16 +44,7 @@ export default function DetailsTitleSection({
       )}
       <Row width={'fill'} gap={24} className={style.button_and_title_container}>
         <Typo.Title emphasize width={'fill'} textOverflowLine={2}>
-          {title.map((v, i) => (
-            v.type === 'primary' ? (
-              <span
-                key={i}
-                className={semantic.onGenericOnGenericPrimary}
-              >
-                {v.contents}
-              </span>
-            ) : (v.contents)
-          ))}
+          {title}
         </Typo.Title>
         {type === 'loan' && (
           <BaseButton
