@@ -15,7 +15,7 @@ export default function RegisteredCompanyCardSection({
   activeCategories
 }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('20');
-  const {data, is_loading, error, refetch} = useFetch(() => get_company_banner('location'))
+  const {data} = useFetch(() => get_company_banner('location'))
 
   return (
     <Section>

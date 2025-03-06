@@ -9,7 +9,7 @@ import {ILoan_inquiry_data} from "@/shared/type";
 import {get_loan_inquiry} from "@/shared/api";
 
 export default function RealTimeLoanTable() {
-  const {data, is_loading, error, refetch} = useFetch(()=> get_loan_inquiry())
+  const {data} = useFetch(()=> get_loan_inquiry())
   return (
     <Table
       head={<RealTimeLoanTableHead/>}
