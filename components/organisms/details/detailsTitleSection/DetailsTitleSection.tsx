@@ -6,7 +6,6 @@ import style from './detailsTitleSection.module.scss';
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
 import Typo from "@/components/atoms/typo/Typo";
-import {TPrimaryAndGenericColorString} from "@/shared/type";
 import {semantic} from "@/shared/color";
 import {useState} from "react";
 import Modal from "@/components/molecules/modal/Modal";
