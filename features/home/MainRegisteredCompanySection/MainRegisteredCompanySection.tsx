@@ -10,7 +10,7 @@ import {ICompany_banner_data} from "@/shared/type";
 
 export default function MainRegisteredCompanySection() {
   const [real_data, set_real_data] = useState<Array<ICompany_banner_data> | null>(null)
-  const {data, is_loading, error, refetch} = useFetch(() => get_company_banner('home'))
+  const {data, is_loading} = useFetch(() => get_company_banner('home'))
   const [target, set_target] = useState<HTMLDivElement | null>(null)
 
   const observer = new IntersectionObserver((entries) => {
