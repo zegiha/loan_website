@@ -9,6 +9,7 @@ import {LocationIcon} from "@/components/atoms/icons";
 import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
 import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
 import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
+import tmp_img from '@/public/img/tmp_img.avif'
 
 export default async function DisplaySection() {
   const {totalLoanCompany, cumulativeVisiter, realTimeLoan} = await getWebStatus();
@@ -18,9 +19,14 @@ export default async function DisplaySection() {
       <div className={style.displaySectionBackgroundBlur}/>
       <div className={style.displaySectionBackground}>
           <Image
-            src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlROcXWBsxzaZwXERUSfV6eD92_-KLFAvjbg&s'}
+            src={tmp_img}
             alt={'배경'}
-            fill={true}
+            fill
+            quality={1}
+            priority={true}
+            fetchPriority={'high'}
+            placeholder={'blur'}
+            loading={'eager'}
           />
       </div>
       <Col className={style.displaySectionWrapper} gap={32}>

@@ -1,7 +1,6 @@
-interface IPremium_banner_data {
+export interface IPremium_banner_data {
+	id: string,
 	title: string,
 	location: string,
 	name: string,
 }
-
-export type {IPremium_banner_data};
