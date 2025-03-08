@@ -7,6 +7,7 @@ import Link from "next/link";
 import {ICompany_banner_data} from "@/shared/type";
 
 export default function Banner({
+  id,
   title,
   subtitle,
   name,
@@ -15,7 +16,7 @@ export default function Banner({
   img_url,
 }: ICompany_banner_data) {
   return (
-    <Link href={`/loan/${name}`}>
+    <Link href={`/loan/${id}`}>
       <Col
         width={'fill'}
         gap={12}

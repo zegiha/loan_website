@@ -14,6 +14,7 @@ function get_fetch_url(page_option: page_option_type): string {
 }
 
 const dummy: ICompany_banner_data = {
+  id: 'id',
   title: "무방문 무서류 당일 대출",
   subtitle: "지역 시간 장소 제약 X 월별 당일승인 당일송금",
   name: "스피드 대출",

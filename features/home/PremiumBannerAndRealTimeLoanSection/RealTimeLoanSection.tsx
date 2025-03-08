@@ -13,6 +13,7 @@ import {useRouter} from "next/navigation";
 import {useFetch} from "@/shared/hooks";
 import {ILoan_inquiry_data} from "@/shared/type";
 import {get_loan_inquiry} from "@/shared/api";
+import Link from "next/link";
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   const router = useRouter()
@@ -58,29 +59,32 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
 }
 
 function RealTimeLoan({
+  id,
   title,
   location,
   createdAt
 }: ILoan_inquiry_data) {
   return (
-    <Row
-      gap={12}
-      alignItems={'center'}
-      width={'fill'}
-      className={style.realTimeLoan}
-    >
-      <div className={`${style.locationChip}`}>
-        <Typo.Contents color={'dim'}>
-          {location}
+    <Link href={`/post/${id}`} style={{width: '100%'}}>
+      <Row
+        gap={12}
+        alignItems={'center'}
+        width={'fill'}
+        className={style.realTimeLoan}
+      >
+        <div className={`${style.locationChip}`}>
+          <Typo.Contents color={'dim'}>
+            {location}
+          </Typo.Contents>
+        </div>
+        <Typo.Contents width={'fill'} textOverflowLine={1} isPre>
+          {title}
         </Typo.Contents>
-      </div>
-      <Typo.Contents width={'fill'} textOverflowLine={1} isPre>
-        {title}
-      </Typo.Contents>
-      <Typo.Caption color={'dim'} width={'hug'} isPre>
-        {createdAt}
-      </Typo.Caption>
-    </Row>
+        <Typo.Caption color={'dim'} width={'hug'} isPre>
+          {createdAt}
+        </Typo.Caption>
+      </Row>
+    </Link>
 )
   ;
 }

@@ -13,17 +13,17 @@ export default function MainRegisteredCompanySection() {
   const {data, is_loading} = useFetch(() => get_company_banner('home'))
   const [target, set_target] = useState<HTMLDivElement | null>(null)
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if(entry.isIntersecting) {
-        // refetch()
-      }
-    })
-  }, {
-    root: document.querySelector('#scrollArea'),
-    rootMargin: '0px',
-    threshold: 0.3,
-  })
+  // const observer = new IntersectionObserver((entries) => {
+  //   entries.forEach((entry) => {
+  //     if(entry.isIntersecting) {
+  //       // refetch()
+  //     }
+  //   })
+  // }, {
+  //   root: document.querySelector('#scrollArea'),
+  //   rootMargin: '0px',
+  //   threshold: 0.3,
+  // })
 
   useEffect(() => {
     set_real_data(prev => {
@@ -31,14 +31,14 @@ export default function MainRegisteredCompanySection() {
       else if(data === null) return prev
       else return prev.concat(data)
     })
-    if(target !== null) {
-      if(data !== null) {
-        observer.observe(target)
-      }
-      return () => {
-        observer.unobserve(target)
-      }
-    }
+    // if(target !== null) {
+    //   if(data !== null) {
+    //     observer.observe(target)
+    //   }
+    //   return () => {
+    //     observer.unobserve(target)
+    //   }
+    // }
   }, [data])
 
   return (

@@ -27,13 +27,14 @@ export function RegisteredCompanyTableHead({
 }
 
 export function RegisteredCompanyTableRow({
+  id,
   location,
   loan_limit,
   title,
   name,
   is_visible_company_name
 }: ICompany_row_having_is_visible_company_name) {
-  return <Link href={`/loan/${name}`} style={{width: '100%'}}>
+  return <Link href={`/loan/${id}`} style={{width: '100%'}}>
     <TableRow>
       <Typo.Contents width={60}>
         {location}
