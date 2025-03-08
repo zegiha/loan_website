@@ -5,8 +5,9 @@ import 'swiper/css';
 import style from './home.module.scss';
 import Footer from "@/components/organisms/layout/footer/Footer";
 import Header from "@/components/organisms/layout/Header/Header";
+import Link from "next/link";
 
-const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2'});
+const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2', display: 'swap'});
 
 export const metadata: Metadata = {
   title: '대출 정보',
@@ -24,6 +25,9 @@ export default function RootLayout({
     <div className={style.container}>
       <Header/>
       {children}
+      <Link href={'/iamagoodboy'} style={{width: '100%', height: 600}}>
+        iamagoodboy
+      </Link>
       <Footer/>
     </div>
     <div id={'modal-root'}></div>

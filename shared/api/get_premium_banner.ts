@@ -6,6 +6,7 @@ export default async function get_premium_banner(): Promise<Array<IPremium_banne
 	// const data = await fetch();
 
 	const dummy: IPremium_banner_data = {
+		id: 'id',
 		title: '저신용자 상관없음 무서류 저신용자 상관 없음 무서류',
 		location: '전국',
 		name: '스피드 대출'
