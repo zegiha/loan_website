@@ -80,7 +80,7 @@ export default function PremiumBanner({
       >
         {data.map((v, i) => (
           <SwiperSlide key={i}>
-            <Link href={`/loan/${v.name}`}>
+            <Link href={`/loan/${v.id}`}>
               <PremiumCard {...v}/>
             </Link>
           </SwiperSlide>
