@@ -1,6 +1,5 @@
 import {AccordionSectionTitle, Section} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
-import {semantic} from "@/shared/color";
 import {useState} from "react";
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseButton, BaseTextInput} from "@/components/molecules/inputs";
@@ -9,6 +8,7 @@ import style from './loanPostTableSection.module.scss'
 import {PlusIcon} from "@/components/atoms/icons";
 import PostTable from "@/features/postList/ui/loanPostTableSection/PostTable";
 import {useRouter} from "next/navigation";
+import {semantic_object} from "@/shared/color";
 
 const accordionData = ['10', '15', '20', '30']
 const SEARCHTYPE = ['제목 및 내용', '제목', '내용', '금액']
@@ -53,14 +53,14 @@ export default function LoanPostTableSection({
           <Typo.Body emphasize color={'variable'}>
             {formatLocationCategory() !== ' ' && (
               <>
-                <span className={semantic.onGenericOnGenericPrimary}>
+                <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
                   {formatLocationCategory()}
                 </span>
                 {`지역 `}
               </>
             )}
             {formatLoanTypeCategory() !== '' && (
-              <span className={semantic.onGenericOnGenericPrimary}>
+              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
                 {`${formatLoanTypeCategory()} `}
               </span>
             )}

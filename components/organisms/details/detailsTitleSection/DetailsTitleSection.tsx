@@ -6,7 +6,7 @@ import style from './detailsTitleSection.module.scss';
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
 import Typo from "@/components/atoms/typo/Typo";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {useState} from "react";
 import Modal from "@/components/molecules/modal/Modal";
 import {useRouter} from "next/navigation";
@@ -112,7 +112,7 @@ function WarningModalContents() {
             <Typo.Contents>
               {v.contents}
               <br/>
-              <span className={semantic.onGenericOnGenericDim}>
+              <span style={{color: semantic_object.onGeneric.onGenericDim}}>
                 {v.subContents}
               </span>
             </Typo.Contents>

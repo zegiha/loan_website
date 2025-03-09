@@ -2,7 +2,7 @@
 
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import style from "@/features/home/PremiumBannerAndRealTimeLoanSection/premiumBannerAndRealTimeLoanSection.module.scss";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -23,7 +23,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
       <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
         <Typo.SubBody emphasize color={'variable'}>
           실시간 대출 문의
-          <span className={semantic.onGenericOnGenericPrimary}>
+          <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
                   {` 18`}
                 </span>
           건

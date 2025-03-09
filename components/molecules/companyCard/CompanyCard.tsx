@@ -2,7 +2,7 @@ import {Col, Divider, Row} from "@/components/atoms/layout";
 import style from './companyCard.module.scss';
 import Image from "next/image";
 import Typo from "@/components/atoms/typo/Typo";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {LocationIcon, PhoneIcon} from "@/components/atoms/icons";
 import {TPrimaryAndGenericColorString} from "@/shared/type";
 import Link from "next/link";
@@ -79,7 +79,7 @@ export default function CompanyCard({
             ) : (
               title.map((v, i) => {
                 if(v.type === 'primary') {
-                  return <span key={i} className={semantic.onGenericOnGenericPrimary}>
+                  return <span key={i} style={{color: semantic_object.onGeneric.onGenericPrimary}}>
                  {v.contents}
                </span>
                 }
