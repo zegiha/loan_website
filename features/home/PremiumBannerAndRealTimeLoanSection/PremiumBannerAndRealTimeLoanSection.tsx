@@ -1,7 +1,7 @@
 'use client';
 
 import React, {CSSProperties, useEffect, useRef, useState} from "react";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import Typo from "@/components/atoms/typo/Typo";
 import {Col, Row} from "@/components/atoms/layout";
 import RealTimeLoanSection from "@/features/home/PremiumBannerAndRealTimeLoanSection/RealTimeLoanSection";
@@ -35,7 +35,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
       <Row width={'fill'} gap={24} className={style.allSection}>
         <Box ref={premiumBannerRef} className={style.bigBox}>
           <Typo.SubBody emphasize color={'variable'}>
-            <span className={semantic.onGenericOnGenericPrimary}>
+            <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
               {`프리미엄 `}
             </span>
             대부업체

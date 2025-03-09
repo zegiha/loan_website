@@ -8,7 +8,7 @@ import {Section, AccordionSectionTitle} from "@/components/molecules";
 import {BaseTextInput} from "@/components/molecules/inputs";
 import {SwiperPaginationAndNavigation, Table} from "@/components/organisms";
 import {ICompany_row, ICompany_row_having_is_visible_company_name} from "@/shared/type";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import {SwiperSlide} from "swiper/react";
 import {
@@ -63,7 +63,7 @@ export default function RegisteredCompanyTableSection({
       <AccordionSectionTitle
         title={
           <Typo.Body emphasize color={'variable'}>
-          <span className={semantic.onGenericOnGenericPrimary}>
+          <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
             {formatActiveCategories(activeCategories)}
           </span>
             등록업체
