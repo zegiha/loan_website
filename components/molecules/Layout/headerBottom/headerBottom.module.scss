@@ -1,4 +1,4 @@
-@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/color/_semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
 .container {
@@ -19,7 +19,7 @@
   &:hover {
     position: relative;
     transition: ani.$onTransition;
-    color: semantic.$onGeneric-onGenericPrimary;
+    color: semantic.$onGeneric-onGenericPrimary !important;
     cursor: pointer;
   }
 }

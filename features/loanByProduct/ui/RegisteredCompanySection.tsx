@@ -1,6 +1,6 @@
 import {AccordionSectionTitle, Banner, Section} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import {useState} from "react";
 import {CompanyCardGrid} from "@/components/organisms";
@@ -19,7 +19,7 @@ export default function RegisteredCompanySection({
       <AccordionSectionTitle
         title={
         <Typo.Body emphasize color={'variable'}>
-          <span className={semantic.onGenericOnGenericPrimary}>
+          <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
             {formatActiveCategories(activeCategories)}
           </span>
           등록업체
