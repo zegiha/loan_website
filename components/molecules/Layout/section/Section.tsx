@@ -1,6 +1,6 @@
 import style from './section.module.scss';
 import {Col} from "@/components/atoms/layout";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 
 export default function Section({
   backgroundColor,
@@ -17,7 +17,10 @@ export default function Section({
       width={'fill'}
       alignItems={'center'}
       gap={24}
-      className={`${style.section} ${backgroundColor === 'surface' ? semantic.surfaceSurface : semantic.surfaceSurfaceDim}`}
+      style={{
+        backgroundColor: backgroundColor === 'surface' ? semantic_object.surface.surface : semantic_object.surface.surfaceDim
+      }}
+      className={`${style.section}`}
     >
       <Col
         width={'fill'}

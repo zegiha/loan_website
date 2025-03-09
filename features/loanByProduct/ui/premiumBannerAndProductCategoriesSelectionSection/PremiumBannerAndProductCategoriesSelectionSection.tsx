@@ -2,7 +2,7 @@
 
 import {Section} from "@/components/molecules";
 import {Col, Row} from "@/components/atoms/layout";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import Typo from "@/components/atoms/typo/Typo";
 import {PremiumBanner} from "@/components/organisms";
 import {BaseTextInput, CategoryToggleButton} from "@/components/molecules/inputs";
@@ -54,7 +54,7 @@ export default function PremiumBannerAndProductCategoriesSelectionSection({
       <Row gap={24} width={'fill'} className={style.allSection}>
         <Col gap={24} className={style.smallBox}>
           <Typo.SubBody color={'variable'} emphasize>
-            <span className={semantic.onGenericOnGenericPrimary}>
+            <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
               프리미엄
             </span>
             대부업체

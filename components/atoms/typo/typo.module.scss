@@ -1,4 +1,5 @@
 @use '/shared/constants/animation.module' as ani;
+@use '/shared/color/semanticPalette.module' as semantic;
 
 .overflowLine1, .overflowLine2 {
   display: -webkit-box;
@@ -17,4 +18,23 @@
 
 .textTransision {
   transition: ani.$leaveTransition;
+}
+
+.variable {
+  color: semantic.$onGeneric-onGenericVariable;
+}
+.generic {
+  color: semantic.$onGeneric-onGeneric;
+}
+.dim {
+  color: semantic.$onGeneric-onGenericDim;
+}
+.primary {
+  color: semantic.$onGeneric-onGenericPrimary;
+}
+.onPrimary {
+  color: semantic.$primary-onPrimary;
+}
+.onPrimaryDim {
+  color: semantic.$primary-onPrimaryDim;
 }

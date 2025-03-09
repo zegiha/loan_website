@@ -4,7 +4,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import style from "./display.module.scss";
 import Image from "next/image";
 import {Col, Row} from "@/components/atoms/layout";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {LocationIcon} from "@/components/atoms/icons";
 import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
 import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
@@ -40,11 +40,11 @@ export default async function DisplaySection() {
           <Col style={{gap: 4}}>
             <Typo.Header isPre emphasize color={'variable'}>
             {'정식 등록 '}
-            <span className={semantic.onGenericOnGenericPrimary}>
+            <span style={{color:semantic_object.onGeneric.onGenericPrimary}}>
               대부업체
             </span>
               {'가\n'}
-              <span className={semantic.onGenericOnGenericPrimary}>
+              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
               한 곳
             </span>
               에!
@@ -111,7 +111,7 @@ async function TopADCard({
             <Typo.Body color={'variable'} emphasize>
               {title.map((v, i) => {
                 if(v.type === 'primary') {
-                  return <span key={i} className={semantic.onGenericOnGenericPrimary}>
+                  return <span key={i} style={{color: semantic_object.onGeneric.onGenericPrimary}}>
                     {v.contents}
                   </span>
                 }
