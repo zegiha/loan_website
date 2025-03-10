@@ -5,7 +5,7 @@ import {CloseIcon} from "@/components/atoms/icons";
 import Typo from "@/components/atoms/typo/Typo";
 import Certified_company_table from "@/features/loan_certified/ui/Certified_company_table";
 import React from "react";
-import ICertified_company from "@/features/loan_certified/lib/ICertified_company";
+import ICertified_company from "@/shared/type/company/ICertified_company";
 
 export default function Certified_company_modal({
   is_open_modal,

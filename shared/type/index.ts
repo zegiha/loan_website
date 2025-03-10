@@ -7,6 +7,8 @@ import {ICompany_banner_data} from "@/shared/type/company/ICompany_banner";
 import {ICompany_row, ICompany_row_having_is_visible_company_name} from "@/shared/type/company/ICompany_row";
 import {ICompany_detail} from "@/shared/type/company/ICompany_detail";
 import {ILoan_inquiry_detail} from "@/shared/type/inquiry/ILoan_inquiry_detail";
+import ICertified_company_summary from "@/shared/type/company/ICertified_company_summary";
+import ICertified_company from "@/shared/type/company/ICertified_company";
 
 export type {
   TPrimaryAndGenericColorString,
@@ -19,4 +21,6 @@ export type {
   ICompany_row_having_is_visible_company_name,
   ICompany_detail,
   ILoan_inquiry_detail,
+  ICertified_company_summary,
+  ICertified_company,
 }
