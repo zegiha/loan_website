@@ -5,6 +5,8 @@ import get_notification from "@/shared/api/get_notification";
 import get_company_row from "@/shared/api/company/get_company_row";
 import get_company_detail from "@/shared/api/company/get_company_detail";
 import get_loan_inquiry_detail from "@/shared/api/inquiry/get_loan_inquiry_detail";
+import get_certified_companies_summary from "@/shared/api/company/get_certified_companies_summary";
+import get_certified_company_by_id from "@/shared/api/company/get_certified_company_by_id";
 
 export {
   get_company_banner,
@@ -14,4 +16,6 @@ export {
   get_company_row,
   get_company_detail,
   get_loan_inquiry_detail,
+  get_certified_companies_summary,
+  get_certified_company_by_id,
 }
