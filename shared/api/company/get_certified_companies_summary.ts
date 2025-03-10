@@ -1,6 +1,8 @@
-import ICertified_company_summary from "@/features/loan_certified/lib/ICertified_company_summary";
+'use server'
 
-export default function get_certified_companies_summary(search: string): Array<ICertified_company_summary> {
+import ICertified_company_summary from "@/shared/type/company/ICertified_company_summary";
+
+export default async function get_certified_companies_summary(search: string): Promise<Array<ICertified_company_summary>> {
   // TODO API
   const dummy: ICertified_company_summary = {
     id: 'temp',
