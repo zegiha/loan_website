@@ -25,9 +25,6 @@ export default function RootLayout({
     <div className={style.container}>
       <Header/>
       {children}
-      <Link href={'/iamagoodboy'} style={{width: '100%', height: 600}}>
-        iamagoodboy
-      </Link>
       <Footer/>
     </div>
     <div id={'modal-root'}></div>
