@@ -7,15 +7,23 @@ export interface IRegister_data {
   setPassword: React.Dispatch<React.SetStateAction<string>>
   phone: string
   setPhone: React.Dispatch<React.SetStateAction<string>>
+  exponent_name: string
+  set_exponent_name: React.Dispatch<React.SetStateAction<string>>
+  // nickname: string
+  // set_nickname: React.Dispatch<React.SetStateAction<string>>
 
   brokerage_number: string
   setBrokerage_number: React.Dispatch<React.SetStateAction<string>>
+  loan_advertisement_phone: string
+  set_loan_advertisement_phone: React.Dispatch<React.SetStateAction<string>>
   brokerage_period: {start: Date | null, end: Date | null}
   setBrokerage_period: React.Dispatch<React.SetStateAction<{start: Date | null, end: Date | null}>>
   brokerage_registrar: string
   setBrokerage_registrar: React.Dispatch<React.SetStateAction<string>>
   brokerage_registration_certificate: File | null
   setBrokerage_registration_certificate: React.Dispatch<React.SetStateAction<File | null>>
+  business_registration_certificate: File | null
+  set_business_registration_certificate: React.Dispatch<React.SetStateAction<File | null>>
 
   company_name: string
   setCompany_name: React.Dispatch<React.SetStateAction<string>>
