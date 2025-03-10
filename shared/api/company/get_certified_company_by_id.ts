@@ -1,8 +1,10 @@
-import ICertified_company from "@/features/loan_certified/lib/ICertified_company";
+'use server'
 
-export default function get_certified_company_by_id(id: string): ICertified_company {
+import ICertified_company from "@/shared/type/company/ICertified_company";
+
+export default async function get_certified_company_by_id(id: string | undefined): Promise<ICertified_company | null> {
   // TODO API
-  return {
+  if(id) return {
     id: 'temp',
     company_name: '청년금융지원대부중개',
     registration_number: '대전-4072',
@@ -15,4 +17,5 @@ export default function get_certified_company_by_id(id: string): ICertified_comp
       end: new Date('2027-03-21'),
     }
   }
+  else return null
 }
