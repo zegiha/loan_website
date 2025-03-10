@@ -11,6 +11,7 @@ import CloseIcon from "@/components/atoms/icons/CloseIcon";
 import MenuIcon from "@/components/atoms/icons/MenuIcon";
 import ArrowAltIcon from "@/components/atoms/icons/ArrowAltIcon";
 import ContentCopy from "@/components/atoms/icons/ContentCopy";
+import Upload_icon from "@/components/atoms/icons/Upload_icon";
 
 export {
   LocationIcon,
@@ -26,4 +27,5 @@ export {
   MenuIcon,
   ArrowAltIcon,
   ContentCopy,
+  Upload_icon,
 }
