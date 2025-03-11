@@ -34,8 +34,8 @@ export default function Leave_contents() {
       setTimeout(async () => {
         const try_leave = await leave_action(id, password)
         if(try_leave.status === 200) {
-          // setIsLogin(false)
-          // setAccess_token(undefined)
+          setIsLogin(false)
+          setAccess_token(undefined)
           router.push("/my/leave/done")
           set_status('done')
         } else throw new Error('haha')
