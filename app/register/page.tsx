@@ -44,7 +44,7 @@ export default function Register_page() {
     business_registration_certificate, set_business_registration_certificate
   }
 
-  const [step, setStep] = useState<number>(5)
+  const [step, setStep] = useState<number>(0)
 
   const site_key = process.env.NEXT_PUBLIC_SITE_KEY ?? '';
 
@@ -52,6 +52,7 @@ export default function Register_page() {
   // TODO 도메인 없어서 리캡챠 테스트 못함
   const {executeRecaptcha, loaded} = useReCaptcha()
   const handleSubmit = async (): Promise<void> => {
+    router.push('/login')
     if(loaded) {
       const token = await executeRecaptcha('form_submit')
       try {
@@ -68,8 +69,7 @@ export default function Register_page() {
         }).then(res => res.json())
         if(res.success && res.score > 0.5) {
           console.log('replace')
-          console.log(id, password, phone, company_name, company_phone, company_location, brokerage_number, brokerage_period, brokerage_registrar, brokerage_registration_certificate)
-          router.push('/login')
+          // router.push('/login')
         }
       } catch (e) {
         console.error(e)
@@ -81,32 +81,32 @@ export default function Register_page() {
 
   useEffect(() => {
     if(step == 3) {
-      // handleSubmit()
+      handleSubmit()
     }
   }, [step]);
 
   return (
     <ReCaptchaProvider reCaptchaKey={site_key}>
       <Register_data_context.Provider value={default_value}>
-        {/*<Switcher step={step} setStep={setStep}/>*/}
-        <button onClick={() => handleSubmit()}>haha</button>
+        <Switcher step={step} setStep={setStep}/>
+        {/*<button onClick={() => handleSubmit()}>haha</button>*/}
       </Register_data_context.Provider>
     </ReCaptchaProvider>
   );
 }
 
-// function Switcher({
-//   step,
-//   setStep
-// }: {
-//   step: number,
-//   setStep: React.Dispatch<React.SetStateAction<number>>
-// }) {
-//   switch (step) {
-//     case 0: return <Register_generic_user_info setStep={setStep}/>
-//     case 1: return <Register_brokerage_info setStep={setStep}/>
-//     case 2: return <Register_company_info setStep={setStep}/>
-//     case 3: return <></>
-//     default: throw new Error('register page switcher')
-//   }
-// }
+function Switcher({
+  step,
+  setStep
+}: {
+  step: number,
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}) {
+  switch (step) {
+    case 0: return <Register_generic_user_info setStep={setStep}/>
+    case 1: return <Register_brokerage_info setStep={setStep}/>
+    case 2: return <Register_company_info setStep={setStep}/>
+    case 3: return <></>
+    default: throw new Error('register page switcher')
+  }
+}
