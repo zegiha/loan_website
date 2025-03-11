@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.6.0",
     "material-symbols": "^0.27.1",
     "next": "15.2.1",
     "next-recaptcha-v3": "^1.5.2",
