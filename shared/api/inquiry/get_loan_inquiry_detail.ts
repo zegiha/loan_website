@@ -4,6 +4,7 @@ import {ILoan_inquiry_detail} from "@/shared/type";
 
 export default async function get_loan_inquiry_detail(): Promise<ILoan_inquiry_detail> {
 	return {
+		id: 'id',
 		post: {
 			title: '알바생 1000만원 대출 문의',
 			contents: '다음주부터 아르바이트 근무 예정입니다\n1000만원 필요한데 가능한 곳 있을까요?',

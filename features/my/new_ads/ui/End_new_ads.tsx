@@ -5,7 +5,7 @@ import React from "react";
 import {Table} from "@/components/organisms";
 import Buy_table_row from "@/features/my/new_ads/ui/Buy_table_row";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
-import get_ads from "@/features/my/new_ads/api/get_ads";
+import get_ads from "@/features/my/new_ads/const/ad_list";
 import style from './style.module.scss'
 import {TableHead, TableRow} from "@/components/molecules";
 import {BaseButton, button} from "@/components/molecules/inputs";

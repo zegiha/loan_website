@@ -2,7 +2,6 @@ import {Table} from "@/components/organisms";
 import React from "react";
 import Typo from "@/components/atoms/typo/Typo";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
-import get_ads from "@/features/my/new_ads/api/get_ads";
 import {Row} from "@/components/atoms/layout";
 import {ContentCopy} from "@/components/atoms/icons";
 import style from './style.module.scss';
@@ -16,14 +15,13 @@ export default function Buy_table_section({
   depositor: string
   setDepositor: React.Dispatch<React.SetStateAction<string>>
 }) {
-  const ads = get_ads()
 
   const {select} = useSelect_context()
 
   const get_total_price = () => {
     let res = 0;
     select.forEach(v => {
-      res += ads[ads.findIndex(e => e.name === v)].price;
+      res += v.price
     })
     return res.toLocaleString();
   }
@@ -32,7 +30,7 @@ export default function Buy_table_section({
     <Table className={style.buy_table}>
       <Buy_table_row key={`${select}`} title={'총 결제금액'} contents={
         <Typo.Contents width={'fill'}>
-          {get_total_price()}
+          {get_total_price()}원
         </Typo.Contents>
       }/>
       <Buy_table_row title={'입금 계좌'} contents={

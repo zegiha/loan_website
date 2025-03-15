@@ -20,9 +20,9 @@ export default function Bottom_bar({
       <Col gap={4} width={'fill'}>
         <Typo.Contents color={'dim'}>선택한 광고</Typo.Contents>
         <Row gap={8} width={'fill'} wrap>
-          {select.map((v) => (
-            <div key={v} className={style.ad_name_chip}>
-              <Typo.Contents>{v}</Typo.Contents>
+          {select.map((v, i) => (
+            <div key={`${v.name}-${i}`} className={style.ad_name_chip}>
+              <Typo.Contents>{v.name}</Typo.Contents>
             </div>
           ))}
         </Row>
