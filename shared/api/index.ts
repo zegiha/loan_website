@@ -9,6 +9,8 @@ import get_certified_companies_summary from "@/shared/api/company/get_certified_
 import get_certified_company_by_id from "@/shared/api/company/get_certified_company_by_id";
 import leave_action from "@/shared/api/leave/leave_action";
 import {login_action} from "@/shared/api/login_action";
+import get_loan_inquiry_consultation_available_companies
+  from "@/shared/api/inquiry/get_loan_inquiry_consultation_available_companies";
 
 export {
   get_company_banner,
@@ -21,5 +23,6 @@ export {
   get_certified_companies_summary,
   get_certified_company_by_id,
   leave_action,
-  login_action
+  login_action,
+  get_loan_inquiry_consultation_available_companies,
 }

@@ -9,9 +9,10 @@ import Buy_new_ads from "@/features/my/new_ads/ui/Buy_new_ads";
 import End_new_ads from "@/features/my/new_ads/ui/End_new_ads";
 import Section_wrapper from "@/components/organisms/section_wrapper/Section_wrapper";
 import my_navigations from "@/features/my/lib/my_navigations";
+import {TAds_name, TAds_type} from "@/shared/type";
 
 export default function My_ads_new() {
-  const [select, setSelect] = useState<Array<string>>([])
+  const [select, setSelect] = useState<Array<{type_name: TAds_type, name: TAds_name, price: number}>>([])
   const [step, setStep] = useState<TStep>('get')
 
   return (

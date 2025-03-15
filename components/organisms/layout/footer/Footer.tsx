@@ -8,7 +8,7 @@ import {semantic_object} from "@/shared/color";
 
 export default async function Footer() {
   return (
-    <Col width={'fill'} alignItems={'center'}>
+    <Col width={'fill'} alignItems={'center'} style={{backgroundColor: semantic_object.surface.surfaceDim}}>
       <Row
         width={'fill'}
         gap={24}

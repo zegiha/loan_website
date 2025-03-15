@@ -26,8 +26,8 @@ export default function PostDetail() {
       <LoanSection {...data.loan}/>
       <Divider height={8}/>
       <ContentsSection contents={data.post.contents}/>
-      {/*<Divider height={8}/>*/}
-      {/*<ConsultationAvailableCompaniesSection/>*/}
+      <Divider height={8}/>
+      <ConsultationAvailableCompaniesSection id={data.id}/>
     </Col>
   );
 }

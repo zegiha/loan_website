@@ -9,6 +9,18 @@ import {ICompany_detail} from "@/shared/type/company/ICompany_detail";
 import {ILoan_inquiry_detail} from "@/shared/type/inquiry/ILoan_inquiry_detail";
 import ICertified_company_summary from "@/shared/type/company/ICertified_company_summary";
 import ICertified_company from "@/shared/type/company/ICertified_company";
+import ILoan_inquiry_consultation_available_companies
+  from "@/shared/type/inquiry/ILoan_inquiry_consultation_available_companies";
+import TLocation from "@/shared/type/TLocation";
+import IBanner_req from "@/shared/type/advertisement/IBanner_req";
+import ILine_req from "@/shared/type/advertisement/ILine_req";
+import IPremium_banner_req from "@/shared/type/advertisement/IPremium_banner_req";
+import ISponsor_link_req from "@/shared/type/advertisement/ISponsor_link_req";
+import TAll_req from "@/shared/type/advertisement/TAll_req";
+import TAds_name from "@/shared/type/advertisement/TAds_name";
+import TAds_type from "@/shared/type/advertisement/TAds_type";
+import IProduct_banner_req from "@/shared/type/advertisement/IProduct_banner_req";
+import ILocation_banner_req from "@/shared/type/advertisement/ILocation_banner_req";
 
 export type {
   TPrimaryAndGenericColorString,
@@ -23,4 +35,15 @@ export type {
   ILoan_inquiry_detail,
   ICertified_company_summary,
   ICertified_company,
+  ILoan_inquiry_consultation_available_companies,
+  TLocation,
+  TAds_type,
+  IBanner_req,
+  ILine_req,
+  IPremium_banner_req,
+  ISponsor_link_req,
+  TAll_req,
+  TAds_name,
+  ILocation_banner_req,
+  IProduct_banner_req,
 }
