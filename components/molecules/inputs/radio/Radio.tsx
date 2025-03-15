@@ -11,7 +11,7 @@ interface IRadio {
 export default function Radio({
   name,
   contents,
-  children
+  children,
 }: IRadio) {
   return (
     <label>

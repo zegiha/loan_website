@@ -1,0 +1,15 @@
+@use '/shared/color/_semanticPalette.module' as sematic;
+@use '/shared/constants/animation.module' as ani;
+
+.container {
+  border-radius: 12px;
+  background-color: sematic.$container-containerLow;
+  transition: ani.$leaveTransition;
+  padding: 8px 16px 16px 16px;
+  border: 1px solid sematic.$outline-default;
+  &:hover {
+    transition: ani.$onTransition;
+    background-color: sematic.$container-containerHigh;
+    cursor: pointer;
+  }
+}

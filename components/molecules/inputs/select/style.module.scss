@@ -1,0 +1,62 @@
+@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/constants/animation.module' as ani;
+
+.wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.selection_container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid semantic.$outline-default;
+  background-color: semantic.$container-containerNormal;
+  transition: ani.$onTransition;
+}
+.selection_container_active {
+  border-color: semantic.$outline-active;
+}
+
+.option_container {
+  border: 1px solid semantic.$outline-default;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: semantic.$container-containerLow;
+  position: absolute;
+  top: 100%;
+  transition: ani.$onTransition;
+  z-index: 5;
+  box-shadow: 0 0 4px 4px semantic.$shadow-default;
+  overflow-y: scroll;
+  transform: translateY(2px);
+}
+.option_container_open {
+  opacity: 1;
+  scale: 1.0;
+  transform: translateY(2px);
+}
+
+.option_container_close {
+  opacity: 0;
+  scale: 0.998;
+  transform: translateY(-2px);
+}
+
+.option_item, .option_item_active {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: semantic.$container-containerLow;
+  transition: ani.$leaveTransition;
+  &:hover {
+    background-color: semantic.$container-containerNormal;
+    transition: ani.$onTransition;
+  }
+}
+
+.option_item_active {
+  background-color: semantic.$container-containerHigh;
+}

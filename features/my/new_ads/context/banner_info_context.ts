@@ -1,12 +1,11 @@
 'use client'
 
-import {createContext, ReactNode, useContext} from "react";
+import {createContext, useContext} from "react";
+import {TAds_name, TAll_req} from "@/shared/type";
 
 interface IBanner_info_context {
-  title: string
-  setTitle: React.Dispatch<React.SetStateAction<string>>
-  contents: string
-  setContents: React.Dispatch<React.SetStateAction<string>>
+  ad_req_data: Array<{name: TAds_name, req_data: TAll_req}>,
+  set_ad_req_data: React.Dispatch<React.SetStateAction<Array<{name: TAds_name, req_data: TAll_req}>>>,
 }
 
 export const Banner_info_context = createContext<IBanner_info_context | null>(null);
