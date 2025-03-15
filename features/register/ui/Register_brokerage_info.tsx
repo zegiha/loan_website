@@ -4,16 +4,15 @@ import InputSection from "@/components/molecules/Layout/inputSection/InputSectio
 import {useRegister_data} from "@/features/register/context/register_data_context";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
-import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
+import {BaseButton, BaseTextInput, button, File_input} from "@/components/molecules/inputs";
 import {
   error_checker,
   formatting_phone_number,
   is_correct_phone_number,
   is_typed
 } from "@/shared/helper";
-import React, {useState} from "react";
+import React from "react";
 import {ArrowAltIcon, Upload_icon} from "@/components/atoms/icons";
-import style from './style.module.scss'
 
 export default function Register_brokerage_info({
   setStep
@@ -28,9 +27,6 @@ export default function Register_brokerage_info({
     brokerage_registration_certificate, setBrokerage_registration_certificate,
     business_registration_certificate, set_business_registration_certificate,
   } = useRegister_data()
-
-  const [brokerage_prev_img, set_brokerage_prev_img] = useState<string | ArrayBuffer | null>(null);
-  const [business_prev_img, set_business_prev_img] = useState<string | ArrayBuffer | null>(null);
 
   const getDate = (date: Date) => {
     const y = date.getFullYear()
@@ -119,93 +115,19 @@ export default function Register_brokerage_info({
           </Col>
           <Col gap={4} width={'fill'}>
             <Typo.Contents color={'dim'}>대부업 등록증 파일</Typo.Contents>
-            <div className={style.input_file_container}>
-              <input
-                className={style.input_file}
-                type="file"
-                accept="image/*"
-                onChange={e => {
-                  const file = e.target.files?.[0]
-                  if(file) {
-                    const reader = new FileReader()
-                    reader.readAsDataURL(file)
-                    setBrokerage_registration_certificate(file)
-                    reader.onload = () => set_brokerage_prev_img(reader.result)
-                  }
-                }}
-              />
-              <Col
-                className={style.input_file_placeholder}
-                justifyContents={'center'}
-                alignItems={'center'}
-                gap={4}
-              >
-                {brokerage_prev_img ? (
-                  <img
-                    className={style.input_file_prev_img}
-                    src={brokerage_prev_img.toString()}
-                    alt="brokerage prev img"
-                  />
-                ): (
-                  <>
-                    <Upload_icon color={'dim'} size={64}/>
-                    <Typo.Caption
-                      color={'dim'}
-                      width={'hug'}
-                      textAlign={'center'}
-                      isPre
-                    >
-                      {`대부업 등록증 파일을 올리거나\n이 박스를 눌러 선택해주세요`}
-                    </Typo.Caption>
-                  </>
-                )}
-              </Col>
-            </div>
+            <File_input
+              set_data={setBrokerage_registration_certificate}
+              placeholder={`대부업 등록증 파일을 올리거나\n이 박스를 눌러 선택해주세요`}
+              placeholder_icon={<Upload_icon color={'dim'} size={64}/>}
+            />
           </Col>
           <Col gap={4} width={'fill'}>
-            <Typo.Contents color={'dim'}>대부업 등록증 파일</Typo.Contents>
-            <div className={style.input_file_container}>
-              <input
-                className={style.input_file}
-                type="file"
-                accept="image/*"
-                onChange={e => {
-                  const file = e.target.files?.[0]
-                  if(file) {
-                    const reader = new FileReader()
-                    reader.readAsDataURL(file)
-                    set_business_registration_certificate(file);
-                    reader.onload = () => set_business_prev_img(reader.result)
-                  }
-                }}
-              />
-              <Col
-                className={style.input_file_placeholder}
-                justifyContents={'center'}
-                alignItems={'center'}
-                gap={4}
-              >
-                {business_prev_img ? (
-                  <img
-                    className={style.input_file_prev_img}
-                    src={business_prev_img.toString()}
-                    alt="business prev img"
-                  />
-                ): (
-                  <>
-                    <Upload_icon color={'dim'} size={64}/>
-                    <Typo.Caption
-                      color={'dim'}
-                      width={'hug'}
-                      textAlign={'center'}
-                      isPre
-                    >
-                      {`사업자 등록증 파일을 올리거나\n이 박스를 눌러 선택해주세요`}
-                    </Typo.Caption>
-                  </>
-                )}
-              </Col>
-            </div>
+            <Typo.Contents color={'dim'}>사업자 등록증 파일</Typo.Contents>
+            <File_input
+              set_data={set_business_registration_certificate}
+              placeholder={`사업자 등록증 파일을 올리거나\n이 박스를 눌러 선택해주세요`}
+              placeholder_icon={<Upload_icon color={'dim'} size={64}/>}
+            />
           </Col>
         </Col>
         <Row width={'fill'} gap={12}>

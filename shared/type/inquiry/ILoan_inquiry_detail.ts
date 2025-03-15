@@ -1,4 +1,5 @@
 export interface ILoan_inquiry_detail {
+	id: string;
 	post: {
 		title: string
 		contents: string

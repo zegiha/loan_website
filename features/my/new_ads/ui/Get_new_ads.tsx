@@ -4,27 +4,29 @@ import {Col} from "@/components/atoms/layout";
 import React from "react";
 import {TStep} from "@/features/my/new_ads/type";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
-import get_ads from "@/features/my/new_ads/api/get_ads";
 import Subject_section from "@/features/my/new_ads/ui/Subject_section";
 import Ad from "@/features/my/new_ads/ui/Ad";
 import Bottom_bar from "@/features/my/new_ads/ui/Bottom_bar";
+import ad_list from "@/features/my/new_ads/const/ad_list";
+import {TAds_name, TAds_type} from "@/shared/type";
 
 export default function Get_new_ads({
   setStepAction
 }: {
   setStepAction: React.Dispatch<React.SetStateAction<TStep>>
 }) {
-  const ads = get_ads();
-
   const {select, setSelect} = useSelect_context();
 
-  const handle_ad_click = (ad_name: string) => {
+  const handle_ad_click = (type_name: TAds_type, name: TAds_name, price: number) => {
     setSelect(prev => {
-      const has = prev.includes(ad_name)
-      if(has) {
-        return prev.filter(e => e !== ad_name)
+      const has: () => boolean = () => {
+        for(let i = 0; i < prev.length; i++) if(prev[i].name === name) return true;
+        return false
+      }
+      if(has()) {
+        return prev.filter(e => e.name !== name)
       } else {
-        return [...prev, ad_name]
+        return [...prev, {type_name, name, price}]
       }
     })
   }
@@ -34,11 +36,11 @@ export default function Get_new_ads({
       <Subject_section step={'get'}/>
       <Col width={'fill'} gap={64}>
         <Col gap={128} width={'fill'}>
-          {ads.map((v, i) => (
+          {ad_list.map((v, i) => (
             <Ad
               key={i}
-              onClick={() => handle_ad_click(v.name)}
-              active={select.findIndex((e) => v.name === e) !== -1}
+              onClick={() => handle_ad_click(v.type_name, v.name, v.default_price)}
+              active={select.findIndex((e) => v.name === e.name) !== -1}
               {...v}
             />
           ))}

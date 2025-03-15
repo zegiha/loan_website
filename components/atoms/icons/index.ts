@@ -12,6 +12,7 @@ import MenuIcon from "@/components/atoms/icons/MenuIcon";
 import ArrowAltIcon from "@/components/atoms/icons/ArrowAltIcon";
 import ContentCopy from "@/components/atoms/icons/ContentCopy";
 import Upload_icon from "@/components/atoms/icons/Upload_icon";
+import Chevron_icon from "@/components/atoms/icons/Chevron_icon";
 
 export {
   LocationIcon,
@@ -28,4 +29,5 @@ export {
   ArrowAltIcon,
   ContentCopy,
   Upload_icon,
+  Chevron_icon,
 }
