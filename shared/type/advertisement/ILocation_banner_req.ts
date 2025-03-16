@@ -4,7 +4,7 @@ export default interface ILocation_banner_req {
 	title: string
 	subtitle: string
 	phone: string
-	location: TLocation | null
+	location: Array<TLocation> | null
 	banner_cover_img: File | null
 	// company_name: string;
 }
