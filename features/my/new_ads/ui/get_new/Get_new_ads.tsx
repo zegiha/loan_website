@@ -5,8 +5,8 @@ import React from "react";
 import {TStep} from "@/features/my/new_ads/type";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
 import Subject_section from "@/features/my/new_ads/ui/Subject_section";
-import Ad from "@/features/my/new_ads/ui/Ad";
-import Bottom_bar from "@/features/my/new_ads/ui/Bottom_bar";
+import Ad from "@/features/my/new_ads/ui/get_new/Ad";
+import Bottom_bar from "@/features/my/new_ads/ui/get_new/Bottom_bar";
 import ad_list from "@/features/my/new_ads/const/ad_list";
 import {TAds_name, TAds_type} from "@/shared/type";
 

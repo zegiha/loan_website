@@ -3,7 +3,7 @@ import Subject_section from "@/features/my/new_ads/ui/Subject_section";
 import Typo from "@/components/atoms/typo/Typo";
 import React from "react";
 import {Table} from "@/components/organisms";
-import Buy_table_row from "@/features/my/new_ads/ui/Buy_table_row";
+import Buy_table_row from "@/features/my/new_ads/ui/buy_new/Buy_table_row";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
 import get_ads from "@/features/my/new_ads/const/ad_list";
 import style from './style.module.scss'

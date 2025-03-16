@@ -4,9 +4,9 @@ import Typo from "@/components/atoms/typo/Typo";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
 import {Row} from "@/components/atoms/layout";
 import {ContentCopy} from "@/components/atoms/icons";
-import style from './style.module.scss';
+import style from '../style.module.scss';
 import {BaseTextInput} from "@/components/molecules/inputs";
-import Buy_table_row from "@/features/my/new_ads/ui/Buy_table_row";
+import Buy_table_row from "@/features/my/new_ads/ui/buy_new/Buy_table_row";
 
 export default function Buy_table_section({
   depositor,

@@ -3,7 +3,7 @@
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseTextInput, File_input} from "@/components/molecules/inputs";
-import style from "@/features/my/new_ads/ui/buy_new_ads.module.scss";
+import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
 import React, {useEffect, useState} from "react";
 import {IBanner_req, TAds_name} from "@/shared/type";
