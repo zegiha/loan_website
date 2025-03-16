@@ -14,6 +14,7 @@ export default function Line_info_input_section({
 }: {
 	name: TAds_name
 }) {
+	// const {set_validate_list} = use_info_validate_context()
 	const {set_ad_req_data} = use_banner_info_context()
 	const [ad_info, set_ad_info] = useState<ILine_req>({
 		title: '',
@@ -48,6 +49,16 @@ export default function Line_info_input_section({
 			return [...new_state]
 		})
 	}, [ad_info])
+	//
+	// useEffect(() => {
+	// 	set_validate_list(prev => {
+	// 		const new_data = [...prev]
+	// 		new_data.push({name, status: is_typed(ad_info.title) === null})
+	// 		new_data.push({name, status: is_typed(ad_info.location) === null})
+	// 		new_data.push({name, status: is_typed(ad_info.loan_limit) === null})
+	// 		return [...new_data]
+	// 	})
+	// }, []);
 
 	return (
 		<>
@@ -57,6 +68,7 @@ export default function Line_info_input_section({
 					width={'fill'}
 					size={'normal'}
 					value={ad_info.title}
+					// checkError={[is_typed]}
 					onChangeAction={(v) => set_ad_info(prev => ({...prev, title: v}))}
 					placeholder={'제목을 입력해주세요'}
 				/>
