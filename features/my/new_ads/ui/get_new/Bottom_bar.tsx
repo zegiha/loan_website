@@ -3,7 +3,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton} from "@/components/molecules/inputs";
 import {ArrowAltIcon} from "@/components/atoms/icons";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
-import style from './style.module.scss'
+import style from '../style.module.scss'
 
 export default function Bottom_bar({
   onBuyClick
