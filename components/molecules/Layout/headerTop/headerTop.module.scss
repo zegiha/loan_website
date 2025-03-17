@@ -3,7 +3,7 @@
 
 .bigContainer, .bigContainerHidden {
   width: 100%;
-  padding: 24px 40px;
+  padding: 12px 40px;
   border-bottom: 1px solid semantic.$outline-default;
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@
 }
 
 .topIconNavigation {
-  padding: 8px;
+  padding: 4px;
   border-radius: 10px;
   background-color: semantic.$container-containerLow;
   transition: ani.$leaveTransition;
