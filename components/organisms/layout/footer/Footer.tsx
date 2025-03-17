@@ -4,11 +4,11 @@ import style from './footer.module.scss';
 import Image from "next/image";
 import Typo from "@/components/atoms/typo/Typo";
 import LogoImage from '@/public/assets/noColorLogo.png';
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 
 export default async function Footer() {
   return (
-    <Col width={'fill'} alignItems={'center'}>
+    <Col width={'fill'} alignItems={'center'} style={{backgroundColor: semantic_object.surface.surfaceDim}}>
       <Row
         width={'fill'}
         gap={24}
@@ -90,7 +90,7 @@ export default async function Footer() {
           </Typo.Contents>
         </Col>
         <Typo.SubBody emphasize>
-          <span className={semantic.errorContainerOnErrorContainer}>
+          <span style={{color: semantic_object.errorContainer.onErrorContainer}}>
             과도한빚은 당신에게 큰 불행을 안겨줄 수 있습니다. 대출 시 귀하의 신용등급이 하락할 수 있습니다. 중개수수료를 요구하거나 받는 것은 불법입니다.
           </span>
         </Typo.SubBody>

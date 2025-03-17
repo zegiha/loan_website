@@ -6,8 +6,15 @@ import {ArrowIcon} from "@/components/atoms/icons";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Typo from "@/components/atoms/typo/Typo";
 import {usePaginationSwiper} from "@/shared/hooks";
+import {Property} from "csstype";
 
-export default function SwiperPaginationAndNavigation({children}: {children: Array<React.ReactNode>}) {
+export default function SwiperPaginationAndNavigation({
+  children,
+  height,
+}: {
+  children: Array<React.ReactNode>,
+  height?: Property.Height,
+}) {
   const {
     swiperRef,
     pagination,
@@ -19,7 +26,7 @@ export default function SwiperPaginationAndNavigation({children}: {children: Arr
   } = usePaginationSwiper();
 
   return (
-    <Col gap={12} width={'fill'}>
+    <Col gap={12} width={'fill'} style={{height: height}}>
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper
@@ -27,6 +34,7 @@ export default function SwiperPaginationAndNavigation({children}: {children: Arr
         onUpdate={handleSwiperUpdate}
         spaceBetween={40}
         style={{
+          height,
           paddingLeft: 1,
         }}
       >

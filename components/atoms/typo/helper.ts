@@ -1,6 +1,6 @@
 import {TColor, TTextSize, TTextWidth} from "@/components/atoms/typo/type";
-import semantic from "@/shared/color/semanticPalette.module.scss";
 import {CSSProperties} from "react";
+import style from './typo.module.scss'
 
 export function getElementType(textSize: TTextSize): string {
   switch (textSize) {
@@ -35,14 +35,14 @@ export function getWidthByStyle(width: TTextWidth | undefined): CSSProperties {
   }
 }
 
-export function getColorClass(color: TColor): string {
+export function get_color(color: TColor): string {
   switch (color) {
-    case 'variable': return semantic.onGenericOnGenericVariable;
-    case 'generic': return semantic.onGenericOnGeneric;
-    case 'dim': return semantic.onGenericOnGenericDim;
-    case 'primary': return semantic.onGenericOnGenericPrimary;
-    case 'onPrimary': return semantic.primaryOnPrimary;
-    case 'onPrimaryDim': return semantic.primaryOnPrimaryDim;
+    case 'variable': return style.variable;
+    case 'generic': return style.generic;
+    case 'dim': return style.dim;
+    case 'primary': return style.primary;
+    case 'onPrimary': return style.onPrimary;
+    case 'onPrimaryDim': return style.onPrimaryDim;
     default: return '';
   }
 }

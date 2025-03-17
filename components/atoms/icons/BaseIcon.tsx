@@ -1,5 +1,5 @@
 import {CSSProperties} from "react"
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import transitionStyle from './baseIcon.module.scss';
 
 type color = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white';
@@ -24,12 +24,12 @@ export default function BaseIcon({
     fontSize: size,
     fontVariationSettings: `'FILL' ${fill ? '1' : '0'}, 'wght' 300`,
     transform: `rotate(${deg}deg)`,
-    color: color === 'none' ? 'transparent' : undefined,
+    color: color === 'none' ? 'transparent' : getColor(color),
     userSelect: 'none',
   }
   return (
     <div
-      className={`material-symbols-rounded ${getColor(color)} ${transitionStyle.transition}`}
+      className={`material-symbols-rounded ${transitionStyle.transition}`}
       style={style}
     >
       {iconKey}
@@ -39,10 +39,10 @@ export default function BaseIcon({
 
 function getColor(color: color): string {
   switch (color) {
-    case 'primary': return semantic.onGenericOnGenericPrimary;
-    case 'variable': return semantic.onGenericOnGenericVariable;
-    case 'normal': return semantic.onGenericOnGeneric;
-    case 'white': return semantic.primaryOnPrimary;
-    default: return semantic.onGenericOnGenericDim;
+    case 'primary': return semantic_object.onGeneric.onGenericPrimary;
+    case 'variable': return semantic_object.onGeneric.onGenericVariable;
+    case 'normal': return semantic_object.onGeneric.onGeneric;
+    case 'white': return semantic_object.primary.onPrimary;
+    default: return semantic_object.onGeneric.onGenericDim;
   }
 }

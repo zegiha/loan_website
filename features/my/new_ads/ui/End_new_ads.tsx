@@ -3,26 +3,24 @@ import Subject_section from "@/features/my/new_ads/ui/Subject_section";
 import Typo from "@/components/atoms/typo/Typo";
 import React from "react";
 import {Table} from "@/components/organisms";
-import Buy_table_row from "@/features/my/new_ads/ui/Buy_table_row";
+import Buy_table_row from "@/features/my/new_ads/ui/buy_new/Buy_table_row";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
-import get_ads from "@/features/my/new_ads/api/get_ads";
 import style from './style.module.scss'
 import {TableHead, TableRow} from "@/components/molecules";
 import {BaseButton, button} from "@/components/molecules/inputs";
 import {useRouter} from "next/navigation";
 import {ArrowAltIcon} from "@/components/atoms/icons";
+import ad_list from "@/features/my/new_ads/const/ad_list";
 
 export default function End_new_ads() {
   const router = useRouter();
-
-  const ads = get_ads()
 
   const {select} = useSelect_context()
 
   const get_total_price = () => {
     let res = 0;
     select.forEach(v => {
-      res += ads[ads.findIndex(e => e.name === v)].price;
+      res += v.price
     })
     return res.toLocaleString();
   }
@@ -30,7 +28,7 @@ export default function End_new_ads() {
   const get_all_ads = () => {
     let res = '';
     select.forEach((v, i) => {
-      res += v
+      res += v.name
       if(i + 1 !== select.length) res += ', '
     })
     return res;
@@ -77,15 +75,17 @@ export default function End_new_ads() {
             className={style.buy_table}
             head={<Ad_table_head/>}
           >
-            {select.map(v => {
-              const idx = ads.findIndex(e => e.name === v);
-              const current_date = new Date();
-              const end_date = new Date(current_date);
-              end_date.setDate(current_date.getDate() + ads[idx].duration)
+            {select.map((v, i) => {
+              const current_date = new Date()
+              const duration = ad_list.filter(t => v.name === t.name)[0].duration
+              const end_date = duration !== undefined ?
+                new Date(new Date(current_date).setDate(new Date(current_date).getDate() + duration)) :
+                undefined
+
               return <Ad_table_row
-                key={v}
-                name={ads[idx].name}
-                price={ads[idx].price}
+                key={i}
+                name={v.name}
+                price={v.price}
                 end_date={end_date}
               />
             })}
@@ -117,9 +117,9 @@ function Ad_table_row({
 }: {
   name: string,
   price: number,
-  end_date: Date
+  end_date?: Date
 }) {
-  const processed_date = `${end_date.getFullYear()}.${end_date.getMonth() + 1}.${end_date.getDate()}`
+  const processed_date = (end_date: Date) => `${end_date.getFullYear()}.${end_date.getMonth() + 1}.${end_date.getDate()}`
   return <TableRow className={style.buy_table_row}>
     <Typo.Contents width={'fill'} isPre={'wrap'}>
       {name}
@@ -127,8 +127,8 @@ function Ad_table_row({
     <Typo.Contents width={'fill'} isPre={'wrap'}>
       {price.toLocaleString()}
     </Typo.Contents>
-    <Typo.Contents width={'fill'} isPre={'wrap'}>
-      {processed_date}
+    <Typo.Contents width={'fill'} isPre={'wrap'} color={end_date ? 'generic' : 'dim'}>
+      {end_date ? processed_date(end_date) : '없음'}
     </Typo.Contents>
   </TableRow>
 }

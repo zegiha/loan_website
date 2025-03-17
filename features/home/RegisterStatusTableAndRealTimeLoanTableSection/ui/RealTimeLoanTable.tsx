@@ -1,17 +1,20 @@
-'use server'
+'use client'
+
 import Typo from "@/components/atoms/typo/Typo";
-import getRealTimeLoan from "@/shared/api/getRealTimeLoan";
 import {Table} from "@/components/organisms";
 import {TableHead, TableRow} from "@/components/molecules";
-import {TRealTimeLoan} from "@/shared/type";
 import Link from "next/link";
+import {useFetch} from "@/shared/hooks";
+import {ILoan_inquiry_data} from "@/shared/type";
+import {get_loan_inquiry} from "@/shared/api";
 
-export default async function RealTimeLoanTable() {
+export default function RealTimeLoanTable() {
+  const {data} = useFetch(()=> get_loan_inquiry())
   return (
     <Table
       head={<RealTimeLoanTableHead/>}
     >
-      {getRealTimeLoan().map((v, i) => (
+      {data && data.map((v, i) => (
         <RealTimeLoanTableRow
           key={i}
           {...v}
@@ -21,7 +24,7 @@ export default async function RealTimeLoanTable() {
   );
 }
 
-async function RealTimeLoanTableHead() {
+function RealTimeLoanTableHead() {
   return <TableHead>
     <Typo.Contents width={70}>
       지역
@@ -35,13 +38,13 @@ async function RealTimeLoanTableHead() {
   </TableHead>
 }
 
-async function RealTimeLoanTableRow({
+function RealTimeLoanTableRow({
   id,
   location,
   title,
   createdAt,
-}: TRealTimeLoan) {
-  return <Link href={`/post/${id}`}>
+}: ILoan_inquiry_data) {
+  return <Link href={`/post/${id}`} style={{width: '100%'}}>
     <TableRow>
       <Typo.Contents width={70}>
         {location}

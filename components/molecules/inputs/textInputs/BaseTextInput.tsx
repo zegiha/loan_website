@@ -2,7 +2,7 @@
 
 import {ChangeEvent, useRef, useState} from "react";
 import style from './baseTextInput.module.scss';
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import Typo from "@/components/atoms/typo/Typo";
 
 interface IBaseTextInput {
@@ -62,7 +62,7 @@ export default function BaseTextInput({
       {PlaceholderIcon && PlaceholderIcon}
       {SelectType && <>
         {SelectType}
-        <div className={semantic.outlineDefault} style={{width: 1, height: 20}}/>
+        <div style={{width: 1, height: 20, backgroundColor: semantic_object.outline.default}}/>
       </>}
       {inputType !== 'textarea' ? (
         <input

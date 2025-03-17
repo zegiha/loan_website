@@ -1,12 +1,13 @@
-import {CompanyCard} from "@/components/molecules";
+import {Banner} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 import {useState} from "react";
 import AccordionSectionTitle from "@/components/molecules/AccordionSectionTitle/AccordionSectionTitle";
 import {CompanyCardGrid} from "@/components/organisms";
-import getRegisteredCompanyWithImage from "@/shared/api/getRegisteredCompanyWithImage";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import Section from "@/components/molecules/Layout/section/Section";
+import {useFetch} from "@/shared/hooks";
+import {get_company_banner} from "@/shared/api";
 
 const contentsNumberData = ['10', '20', '30', '60']
 
@@ -14,13 +15,14 @@ export default function RegisteredCompanyCardSection({
   activeCategories
 }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('20');
+  const {data} = useFetch(() => get_company_banner('location'))
 
   return (
     <Section>
       <AccordionSectionTitle
         title={
           <Typo.Body emphasize color={'variable'}>
-          <span className={semantic.onGenericOnGenericPrimary}>
+          <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
             {formatActiveCategories(activeCategories)}
           </span>
             등록업체
@@ -33,13 +35,14 @@ export default function RegisteredCompanyCardSection({
         lastComment={'( 최대 )'}
       />
       <CompanyCardGrid>
-        {getRegisteredCompanyWithImage(Number(activeContentsNumber)).map((v, i) => (
-          <CompanyCard
-            key={i}
-            type={'image'}
-            {...v}
-          />
-        ))}
+        {data !== null && (
+          data.map((v, i) => (
+            <Banner
+              key={i}
+              {...v}
+            />
+          ))
+        )}
       </CompanyCardGrid>
     </Section>
   );

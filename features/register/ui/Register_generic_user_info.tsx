@@ -5,7 +5,13 @@ import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
 import {useRegister_data} from "@/features/register/context/register_data_context";
 import React from "react";
 import {ArrowAltIcon} from "@/components/atoms/icons";
-import {formatting_phone_number, is_correct_id, is_correct_password, is_correct_phone_number} from "@/shared/helper";
+import {
+  formatting_phone_number,
+  is_correct_id,
+  is_correct_password,
+  is_correct_phone_number,
+  is_typed
+} from "@/shared/helper";
 
 export default function Register_generic_user_info({
   setStep
@@ -16,13 +22,16 @@ export default function Register_generic_user_info({
     id, setId,
     password, setPassword,
     phone, setPhone,
+    exponent_name, set_exponent_name,
+    // nickname, set_nickname,
   } = useRegister_data()
 
   const handleNext = () => {
     if(
       is_correct_id(id) === null &&
       is_correct_password(password) === null &&
-      is_correct_phone_number(phone) === null
+      is_correct_phone_number(phone) === null &&
+      is_typed(exponent_name) === null
     ) {
       setStep(prev => prev + 1);
     }
@@ -69,6 +78,19 @@ export default function Register_generic_user_info({
               onChangeAction={(v) => setPhone(formatting_phone_number(v))}
               checkError={[is_correct_phone_number]}
               placeholder={'전화번호를 입력해주세요'}
+            />
+          </Col>
+          <Col gap={4} width={'fill'}>
+            <Typo.Caption color={'dim'}>
+              대표자명
+            </Typo.Caption>
+            <BaseTextInput
+              width={'fill'}
+              size={'normal'}
+              value={exponent_name}
+              onChangeAction={(v) => set_exponent_name(v)}
+              checkError={[is_typed]}
+              placeholder={'대표자명을 입력해주세요'}
             />
           </Col>
         </Col>
