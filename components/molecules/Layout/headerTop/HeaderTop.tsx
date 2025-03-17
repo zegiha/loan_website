@@ -3,14 +3,14 @@
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import Image from "next/image";
 import LogoImage from "@/public/assets/colorLogo.png";
-import {BaseTextInput} from "@/components/molecules/inputs";
+// import {BaseTextInput} from "@/components/molecules/inputs";
 import {
   CampaignIcon,
   ClockIcon,
   CloseIcon,
   CompanyIcon,
   MenuIcon,
-  SearchIcon,
+  // SearchIcon,
   WarningIcon
 } from "@/components/atoms/icons";
 import {IIcon} from "@/components/atoms/icons/BaseIcon";
@@ -131,7 +131,8 @@ export default function HeaderTop() {
           </Row>
         )}
         {tabletHeader && (
-          <ModalHeader searchText={searchText} setSearchText={setSearchText}/>
+          // <ModalHeader searchText={searchText} setSearchText={setSearchText}/>
+          <ModalHeader/>
         )}
       </Row>
     </div>
@@ -139,11 +140,11 @@ export default function HeaderTop() {
 }
 
 function ModalHeader({
-  searchText,
-  setSearchText,
+  // searchText,
+  // setSearchText,
 }: {
-  searchText: string;
-  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  // searchText: string;
+  // setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const pathname = usePathname()
   const router = useRouter()

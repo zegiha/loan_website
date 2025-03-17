@@ -5,8 +5,8 @@ import style from "./display.module.scss";
 import Image from "next/image";
 import {Col, Row} from "@/components/atoms/layout";
 import {semantic_object} from "@/shared/color";
-import {LocationIcon} from "@/components/atoms/icons";
-import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
+// import {LocationIcon} from "@/components/atoms/icons";
+// import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
 import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
 import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
 import tmp_img from '@/public/img/tmp_img.avif'
