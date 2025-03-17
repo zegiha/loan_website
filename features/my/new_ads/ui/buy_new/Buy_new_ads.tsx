@@ -19,6 +19,7 @@ import Sponsor_link_info_input_section from "@/features/my/new_ads/ui/buy_new/in
 import Product_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Product_banner_info_input_section";
 import Location_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Location_banner_info_input_section";
 import {Info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
+import {is_typed} from "@/shared/helper";
 
 export default function Buy_new_ads({
   setStepAction
@@ -45,21 +46,15 @@ export default function Buy_new_ads({
         break
       }
     }
-
-    if(sw) {
-      console.log('넘어감')
+    if(sw && is_typed(depositor) !== null) {
+      sw = false
+      alert('예금자명을 입력해주세요')
     }
 
-    // if(title === '') {
-    //   alert('배너 제목을 입력해주세요')
-    // } else if(contents === '') {
-    //   alert('배너 내용을 입력해주세요')
-    // } else if(depositor === '') {
-    //   alert('예금자명을 입력해주세요')
-    // } else {
-    //   window.scrollTo({top: 0})
-    //   setStepAction('end');
-    // }
+    if(sw) {
+      window.scrollTo({top: 0})
+      setStepAction('end');
+    }
   }
 
   const {select} = useSelect_context()

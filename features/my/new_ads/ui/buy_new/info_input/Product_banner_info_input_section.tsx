@@ -12,12 +12,15 @@ import {IProduct_banner_req, TAds_name} from "@/shared/type";
 import {use_banner_info_context} from "@/features/my/new_ads/context/banner_info_context";
 import TLoan_production_type from "@/shared/type/TLoan_production_type";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
+import {use_info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
+import {is_typed} from "@/shared/helper";
 
 export default function Product_banner_info_input_section({
 	                                                           name,
                                                            }: {
 	name: TAds_name
 }) {
+	const {set_validate_list} = use_info_validate_context()
 	const {setSelect} = useSelect_context()
 	const {set_ad_req_data} = use_banner_info_context()
 	const [banner_info, set_banner_info] = useState<IProduct_banner_req>({
@@ -109,6 +112,22 @@ export default function Product_banner_info_input_section({
 		})
 	}, [selected_idx])
 
+	useEffect(() => {
+		if(banner_info && production_num && set_validate_list) {
+			set_validate_list(prev => {
+				const data = [...prev.filter(v => v.name !== name)]
+
+
+				data.push({name, status: is_typed(banner_info.title) === null, error_message: '상품 배너광고의 제목이 비어있습니다'})
+				data.push({name, status: is_typed(banner_info.subtitle) === null, error_message: '상품 배너광고의 소제목이 비어있습니다'})
+				data.push({name, status: banner_info.product !== null && banner_info.product.length === production_num, error_message: '상품 배너광고의 상품이 일부 비어있습니다'})
+				data.push({name, status: banner_info.banner_cover_img !== null, error_message: '상품 배너광고의 이미지가 없습니다'})
+
+				return [...data]
+			})
+		}
+	}, [banner_info, production_num]);
+
 	return (
 		<>
 			<Col gap={4} width={'fill'}>
@@ -117,6 +136,7 @@ export default function Product_banner_info_input_section({
 					width={'fill'}
 					size={'normal'}
 					value={banner_info.title}
+					checkError={[is_typed]}
 					onChangeAction={(v) => set_banner_info(prev => ({...prev, title: v}))}
 					placeholder={'제목을 입력해주세요'}
 				/>
@@ -127,6 +147,7 @@ export default function Product_banner_info_input_section({
 					width={'fill'}
 					size={'normal'}
 					value={banner_info.subtitle}
+					checkError={[is_typed]}
 					onChangeAction={(v) => (set_banner_info(prev => ({...prev, subtitle: v})))}
 					placeholder={'소제목을 입력해주세요'}
 				/>
