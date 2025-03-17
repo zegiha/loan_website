@@ -17,6 +17,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img, tmp_img],
     mobile_preview_img: [tmp_img, tmp_img],
+    duration: 30,
   },
   {
     type_name: 'banner',
@@ -33,6 +34,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],
+    duration: 30,
   },
   {
     type_name: 'banner',
@@ -49,6 +51,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],
+    duration: 30,
   },
   {
     type_name: 'sponsor_link',
@@ -65,6 +68,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],
+    duration: 30,
   },
   {
     type_name: 'product_banner',
@@ -84,6 +88,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],
+    duration: 30,
   },
   {
     type_name: 'location_banner',
@@ -111,6 +116,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],
+    duration: 30,
   },
   {
     type_name: 'no_data_req',
@@ -127,6 +133,7 @@ const ad_list: Array<IAd> = [
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],
+    duration: 30,
   },
   {
     type_name: 'no_data_req',
