@@ -58,7 +58,7 @@ function Announcement_table_head({
     <Typo.Contents width={'fill'}>제목</Typo.Contents>
     {show_sub_status && (
       <>
-        <Typo.Contents width={60}>작성일</Typo.Contents>
+        <Typo.Contents width={100}>작성일</Typo.Contents>
         <Typo.Contents width={60}>조회수</Typo.Contents>
       </>
     )}
@@ -81,7 +81,7 @@ function Announcement_table_row({
       <Typo.Contents width={30} color={type === 'variable' ? 'primary' : 'generic'}>{type === 'variable' ? '중요' : '일반'}</Typo.Contents>
       <Typo.Contents width={'fill'} textOverflowLine={2} isPre>{title}</Typo.Contents>
       {show_sub_status && (<>
-        <Typo.Contents width={60} color={'dim'} isPre>{
+        <Typo.Contents width={100} color={'dim'} isPre={'nowrap'}>{
           `${created_date.getFullYear()}.${created_date.getMonth() + 1}.${created_date.getDate()}`
         }</Typo.Contents>
         <Typo.Contents width={60} isPre>{view_cnt}</Typo.Contents>

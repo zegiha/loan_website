@@ -17,3 +17,11 @@
     width: 100%;
   }
 }
+
+.introduce_image_container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 64/12;
+  border-radius: 16px;
+  overflow: hidden;
+}
