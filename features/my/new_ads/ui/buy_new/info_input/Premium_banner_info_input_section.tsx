@@ -8,12 +8,15 @@ import Typo from "@/components/atoms/typo/Typo";
 import {BaseTextInput} from "@/components/molecules/inputs";
 import Select from "@/components/molecules/inputs/select/Select";
 import {location_list} from "@/shared/constants";
+import {use_info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
+import {is_typed} from "@/shared/helper";
 
 export default function Premium_banner_info_input_section({
 	name
 }: {
 	name: TAds_name
 }) {
+	const {set_validate_list} = use_info_validate_context()
 	const {set_ad_req_data} = use_banner_info_context()
 	const [ad_info, set_ad_info] = useState<IPremium_banner_req>({
 		title: '',
@@ -30,6 +33,16 @@ export default function Premium_banner_info_input_section({
 			})
 			return [...new_state]
 		})
+
+		set_validate_list(prev => {
+			console.log('haha')
+			const data = [...prev.filter(v => v.name !== name)]
+
+			data.push({name, status: is_typed(ad_info.title) === null, error_message: '프리미업 배너광고의 제목이 없습니다'})
+			data.push({name, status: is_typed(ad_info.location) === null, error_message: '프리미업 배너광고의 지역이 없습니다'})
+
+			return [...data]
+		})
 	}, [ad_info])
 
 	return (
@@ -40,6 +53,7 @@ export default function Premium_banner_info_input_section({
 				  width={'fill'}
 				  size={'normal'}
 				  value={ad_info.title}
+				  checkError={[is_typed]}
 				  onChangeAction={(v) => set_ad_info(prev => ({...prev, title: v}))}
 				  placeholder={'제목을 입력해주세요'}
 			  />

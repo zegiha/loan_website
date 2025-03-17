@@ -140,7 +140,7 @@ export default function Location_banner_info_input_section({
 				data.push({name, status: banner_info.location !== null && banner_info.location.length === location_num, error_message: '지역 배너광고의 지역이 일부 비어있습니다'})
 				data.push({name, status: banner_info.banner_cover_img !== null, error_message: '지역 배너광고의 이미지가 없습니다'})
 
-				return data
+				return [...data]
 			})
 		}
 	}, [banner_info, location_num]);

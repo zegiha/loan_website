@@ -15,6 +15,7 @@ export interface IAd {
 	pc_preview_img: Array<StaticImageData>
 	mobile_preview_img: Array<StaticImageData>
 	option?: Array<TOption>
+	duration?: number
 }
 
 export type TStep = 'get' | 'buy' | 'end'
