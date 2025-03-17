@@ -35,8 +35,8 @@ interface ITopIconNavigation {
 const topIconNavigation: Array<ITopIconNavigation> = [
   {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => {}},
   {icon: 'adContact', domain: '/customer/ads', label: '광고 문의', onClick: () => {}},
-  {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
-  {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
+  // {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
+  // {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
   {icon: 'account_circle', domain: '/my/ads', label: '마이페이지', onClick: () => {}}
 ];
 
@@ -75,6 +75,7 @@ export default function HeaderTop() {
     <div className={style.bigContainer}>
       <Row
         width={'fill'}
+        justifyContents={'space-between'}
         alignItems={'center'}
         gap={16}
         className={style.bigWrapper}
@@ -87,25 +88,25 @@ export default function HeaderTop() {
             height={45}
           />
         </Link>
-        <Row
-          width={'fill'}
-          gap={8}
-          justifyContents={'center'}
-          alignItems={'center'}
-        >
-          <Row width={'fill'} className={style.inputWrapper}>
-            <BaseTextInput
-              width={'fill'}
-              maxWidth={440}
-              size={'big'}
-              placeholder={'검색어를 입력해주세요'}
-              PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
-              value={searchText}
-              onChangeAction={(v) => {
-                setSearchText(v)
-              }}
-            />
-          </Row>
+        {/*<Row*/}
+        {/*  width={'fill'}*/}
+        {/*  gap={8}*/}
+        {/*  justifyContents={'center'}*/}
+        {/*  alignItems={'center'}*/}
+        {/*>*/}
+          {/*<Row width={'fill'} className={style.inputWrapper}>*/}
+          {/*  <BaseTextInput*/}
+          {/*    width={'fill'}*/}
+          {/*    maxWidth={440}*/}
+          {/*    size={'big'}*/}
+          {/*    placeholder={'검색어를 입력해주세요'}*/}
+          {/*    PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}*/}
+          {/*    value={searchText}*/}
+          {/*    onChangeAction={(v) => {*/}
+          {/*      setSearchText(v)*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*</Row>*/}
           {/*<BaseTextInput*/}
           {/*  width={'fill'}*/}
           {/*  maxWidth={280}*/}
@@ -117,13 +118,13 @@ export default function HeaderTop() {
           {/*    setCompanySearchText(e.target.value)*/}
           {/*  }}*/}
           {/*/>*/}
-        </Row>
+        {/*</Row>*/}
         {!tabletHeader && (
           <Row gap={16} className={style.iconNavigationContainer}>
             {topIconNavigation.map((v, i) => (
               <TopIconNavigation
                 key={i}
-                size={48}
+                size={36}
                 {...v}
               />
             ))}
@@ -154,7 +155,7 @@ function ModalHeader({
         <MenuIcon color={'dim'} size={32}/>
       </Row>
       <Modal isOpen={modalHeader}>
-        <Col gap={32} className={style.modalHeader}>
+        <Col gap={12} className={style.modalHeader}>
           <Col gap={16} width={'fill'}>
             <Row justifyContents={'end'} width={'fill'}>
               {/*<Image*/}
@@ -169,16 +170,16 @@ function ModalHeader({
                 <CloseIcon/>
               </Row>
             </Row>
-            <BaseTextInput
-              width={'fill'}
-              size={'big'}
-              placeholder={'검색어를 입력해주세요'}
-              PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}
-              value={searchText}
-              onChangeAction={(v) => {
-                setSearchText(v)
-              }}
-            />
+            {/*<BaseTextInput*/}
+            {/*  width={'fill'}*/}
+            {/*  size={'big'}*/}
+            {/*  placeholder={'검색어를 입력해주세요'}*/}
+            {/*  PlaceholderIcon={<SearchIcon size={24} color={'dim'}/>}*/}
+            {/*  value={searchText}*/}
+            {/*  onChangeAction={(v) => {*/}
+            {/*    setSearchText(v)*/}
+            {/*  }}*/}
+            {/*/>*/}
           </Col>
           <Col gap={24} width={'fill'}>
             <Col gap={12} width={'fill'}>
@@ -243,7 +244,6 @@ function TopIconNavigation({
   return (
     <Link href={domain}>
       <Col
-        gap={4}
         alignItems={'center'}
         className={style.topIconNavigation}
         onClick={() => onClick()}
@@ -252,9 +252,9 @@ function TopIconNavigation({
           icon={icon}
           size={size}
         />
-        <Typo.Contents color={'dim'} width={'hug'}>
+        <Typo.Caption color={'dim'} width={'hug'}>
           {label}
-        </Typo.Contents>
+        </Typo.Caption>
       </Col>
     </Link>
   );

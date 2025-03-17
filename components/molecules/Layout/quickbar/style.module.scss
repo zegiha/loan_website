@@ -1,0 +1,74 @@
+@use '/shared/color/semanticPalette.module' as s;
+@use '/shared/constants/animation.module' as a;
+
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  padding: 24px 40px;
+  pointer-events: none;
+  z-index: 1000;
+  isolation: isolate;
+  @media (max-width: 840px) {
+    padding: 20px;
+  }
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid s.$outline-default;
+  border-radius: 12px;
+  background-color: s.$container-containerHigh;
+  box-shadow: 0 0 4px 4px s.$shadow-default;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+  transition: a.$leaveTransition;
+  cursor: pointer;
+  &:hover {
+    transition: a.$onTransition;
+    background-color: s.$container-containerHighest;
+  }
+}
+
+.sponsor_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 72.41px;
+  padding: 12px;
+  border: 1px solid s.$outline-default;
+  border-radius: 12px;
+
+  overflow: hidden;
+  box-shadow: 0 0 4px 4px s.$shadow-default;
+
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+  transition: a.$leaveTransition;
+  cursor: pointer;
+
+  &:hover {
+    transition: a.$onTransition;
+    background-color: s.$container-containerHighest;
+  }
+}
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(s.$surface-surface, 0.6);
+}
+
+.sponsor_link_contents {
+  position: relative;
+  z-index: 2;
+}
