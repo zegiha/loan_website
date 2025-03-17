@@ -5,9 +5,7 @@ import InputSection from "@/components/molecules/Layout/inputSection/InputSectio
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
-import {ArrowAltIcon} from "@/components/atoms/icons";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+import CheckIcon from "@/components/atoms/icons/CheckIcon";
 
 export default function Register_company_info({
   setStep
@@ -93,9 +91,9 @@ export default function Register_company_info({
           >
             <Row gap={4} alignItems={'center'}>
               <Typo.Contents emphasize color={'onPrimary'}>
-                다음
+                완료
               </Typo.Contents>
-              <ArrowAltIcon color={'white'}/>
+              <CheckIcon color={'white'} />
             </Row>
           </BaseButton>
         </Row>

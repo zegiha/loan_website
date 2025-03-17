@@ -9,6 +9,3 @@ export type TRegisterStatus = shareType & {
   loanLimit: string | undefined;
   visible_company_name: boolean;
 }
-export type TRealTimeLoan = shareType & {
-  createdAt: string;
-}

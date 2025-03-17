@@ -1,5 +1,5 @@
 import {createElement} from "react";
-import {getColorClass, getElementType, getFontSize, getWidthByStyle} from "@/components/atoms/typo/helper";
+import {get_color, getElementType, getFontSize, getWidthByStyle} from "@/components/atoms/typo/helper";
 import {IBaseTypo} from "@/components/atoms/typo/type";
 import style from './typo.module.scss';
 
@@ -34,7 +34,7 @@ export default function BaseTypo({
       className: `
       ${className}
       ${style.textTransision}
-      ${getColorClass(color)}
+      ${get_color(color)}
       ${textOverflowLine === 1 ?
         style.overflowLine1 :
         textOverflowLine === 2 ?

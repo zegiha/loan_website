@@ -5,6 +5,7 @@ import BaseTextInput from "@/components/molecules/inputs/textInputs/BaseTextInpu
 import CategoryToggleButton from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
 import Checkbox from "@/components/molecules/inputs/checkbox/Checkbox";
 import Radio from "@/components/molecules/inputs/radio/Radio";
+import File_input from "@/components/molecules/inputs/file/File_input";
 
 export {
   BaseButton,
@@ -14,4 +15,5 @@ export {
   CategoryToggleButton,
   Checkbox,
   Radio,
+  File_input,
 }

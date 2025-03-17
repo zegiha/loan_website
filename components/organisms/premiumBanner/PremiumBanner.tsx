@@ -7,30 +7,39 @@ import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
-import getPremiumCards from "@/features/home/PremiumBannerAndRealTimeLoanSection/api/getPrimiumCards";
 import {PremiumCard} from "@/components/molecules";
 import Link from "next/link";
+import {useFetch} from "@/shared/hooks";
+import {get_premium_banner} from "@/shared/api";
 
-export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: number}) {
+export default function PremiumBanner({
+  defaultCardNumber,
+  update_height,
+}: {
+  defaultCardNumber: number,
+  update_height?: () => void,
+}) {
   const swiperRef = useRef<SwiperType>();
   const [cardNumber, setCardNumber] = useState(defaultCardNumber);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (wrapperRef.current) {
-        const width = wrapperRef.current.offsetWidth;
+  const {data, is_loading, error, refetch} = useFetch(() => get_premium_banner())
 
-        if (width > 538 && cardNumber !== defaultCardNumber && defaultCardNumber > 2) {
-          setCardNumber(defaultCardNumber);
-        } else if (378 < width && width <= 538 && cardNumber !== 2 && defaultCardNumber > 2) {
-          setCardNumber(2);
-        } else if (width <= 378 && cardNumber !== 1 && defaultCardNumber > 1) {
-          setCardNumber(1);
-        }
+  const handleResize = () => {
+    if (wrapperRef.current) {
+      const width = wrapperRef.current.offsetWidth;
+
+      if (width > 538 && cardNumber !== defaultCardNumber && defaultCardNumber > 2) {
+        setCardNumber(defaultCardNumber);
+      } else if (378 < width && width <= 538 && cardNumber !== 2 && defaultCardNumber > 2) {
+        setCardNumber(2);
+      } else if (width <= 378 && cardNumber !== 1 && defaultCardNumber > 1) {
+        setCardNumber(1);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     handleResize();
 
     window.addEventListener('resize', handleResize);
@@ -40,7 +49,12 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
     };
   }, [defaultCardNumber, cardNumber]);
 
-  return (
+  useEffect(() => {
+    if(data && update_height) update_height();
+    handleResize()
+  }, [data]);
+
+  if(data) return (
     <Col
       ref={wrapperRef}
       gap={12}
@@ -64,9 +78,9 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
           paddingLeft: 1,
         }}
       >
-        {getPremiumCards().map((v, i) => (
+        {data.map((v, i) => (
           <SwiperSlide key={i}>
-            <Link href={`/loan/${v.name}`}>
+            <Link href={`/loan/${v.id}`}>
               <PremiumCard {...v}/>
             </Link>
           </SwiperSlide>
@@ -95,4 +109,5 @@ export default function PremiumBanner({defaultCardNumber}: {defaultCardNumber: n
       </Row>
     </Col>
   );
+  else return null
 }

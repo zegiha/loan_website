@@ -7,8 +7,8 @@ import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
 import {useRouter} from "next/navigation";
 import {use_auth_store} from "@/shared/store/authStore";
-import {login_action} from "@/shared/api/login_action";
 import Link from "next/link";
+import {login_action} from "@/shared/api";
 
 export default function Login() {
   const [id, setId] = useState('')

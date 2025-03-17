@@ -4,10 +4,15 @@ import InputSection from "@/components/molecules/Layout/inputSection/InputSectio
 import {useRegister_data} from "@/features/register/context/register_data_context";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
-import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
-import {error_checker, is_typed} from "@/shared/helper";
+import {BaseButton, BaseTextInput, button, File_input} from "@/components/molecules/inputs";
+import {
+  error_checker,
+  formatting_phone_number,
+  is_correct_phone_number,
+  is_typed
+} from "@/shared/helper";
 import React from "react";
-import {ArrowAltIcon} from "@/components/atoms/icons";
+import {ArrowAltIcon, Upload_icon} from "@/components/atoms/icons";
 
 export default function Register_brokerage_info({
   setStep
@@ -16,9 +21,11 @@ export default function Register_brokerage_info({
 }) {
   const {
     brokerage_number, setBrokerage_number,
+    loan_advertisement_phone, set_loan_advertisement_phone,
     brokerage_period, setBrokerage_period,
     brokerage_registrar, setBrokerage_registrar,
-    brokerage_registration_certificate, setBrokerage_registration_certificate
+    brokerage_registration_certificate, setBrokerage_registration_certificate,
+    business_registration_certificate, set_business_registration_certificate,
   } = useRegister_data()
 
   const getDate = (date: Date) => {
@@ -31,10 +38,12 @@ export default function Register_brokerage_info({
   const handleNext = () => {
     if(
       error_checker([is_typed], brokerage_number) === null &&
+      error_checker([is_correct_phone_number], loan_advertisement_phone) === null &&
       error_checker([is_typed], brokerage_period.start?.toString()) === null &&
       error_checker([is_typed], brokerage_period.end?.toString()) === null &&
       error_checker([is_typed], brokerage_registrar) === null &&
-      brokerage_registration_certificate !== null
+      brokerage_registration_certificate !== null &&
+      business_registration_certificate !== null
     ) {
       setStep(prev => prev + 1)
     } else {
@@ -57,6 +66,19 @@ export default function Register_brokerage_info({
               onChangeAction={v => setBrokerage_number(v)}
               checkError={[is_typed]}
               placeholder={'대부업 등록증의 번호를 입력해주세요'}
+            />
+          </Col>
+          <Col gap={4} width={'fill'}>
+            <Typo.Contents color={'dim'}>
+              대출광고 전화번호
+            </Typo.Contents>
+            <BaseTextInput
+              width={'fill'}
+              size={'normal'}
+              value={loan_advertisement_phone}
+              onChangeAction={v => set_loan_advertisement_phone(formatting_phone_number(v))}
+              checkError={[is_correct_phone_number]}
+              placeholder={'대출광고 전화번호를 입력해주세요'}
             />
           </Col>
           <Col gap={4} width={'fill'}>
@@ -93,12 +115,19 @@ export default function Register_brokerage_info({
           </Col>
           <Col gap={4} width={'fill'}>
             <Typo.Contents color={'dim'}>대부업 등록증 파일</Typo.Contents>
-            <input type="file" accept={'image/*'} onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                setBrokerage_registration_certificate(file);
-              }
-            }} />
+            <File_input
+              set_data={setBrokerage_registration_certificate}
+              placeholder={`대부업 등록증 파일을 올리거나\n이 박스를 눌러 선택해주세요`}
+              placeholder_icon={<Upload_icon color={'dim'} size={64}/>}
+            />
+          </Col>
+          <Col gap={4} width={'fill'}>
+            <Typo.Contents color={'dim'}>사업자 등록증 파일</Typo.Contents>
+            <File_input
+              set_data={set_business_registration_certificate}
+              placeholder={`사업자 등록증 파일을 올리거나\n이 박스를 눌러 선택해주세요`}
+              placeholder_icon={<Upload_icon color={'dim'} size={64}/>}
+            />
           </Col>
         </Col>
         <Row width={'fill'} gap={12}>

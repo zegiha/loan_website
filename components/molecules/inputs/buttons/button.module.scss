@@ -1,4 +1,4 @@
-@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/color/_semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
 .grayButton44, .grayButton44_fill, .grayButton36 {
@@ -28,6 +28,7 @@
 
 .primary_button44 {
   width: 100%;
+  height: 44px;
   background-color: semantic.$primary-primaryNormal;
   border-radius: 8px;
   padding: 12px;

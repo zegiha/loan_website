@@ -1,4 +1,3 @@
-import CompanyCard from "@/components/molecules/companyCard/CompanyCard";
 import PremiumCard from "@/components/molecules/premiumCard/PremiumCard";
 import TableHead from "@/components/molecules/table/TableHead";
 import TableRow from "@/components/molecules/table/TableRow";
@@ -10,9 +9,9 @@ import ISlide_nav from "@/components/molecules/Slide_nav/type";
 import Show_or_hidden_with_fade from "@/components/molecules/Show_or_hidden_with_fade/Show_or_hidden_with_fade";
 import Show_or_hidden_with_fade_container
   from "@/components/molecules/Show_or_hidden_with_fade/Show_or_hidden_with_fade_container";
+import Banner from "@/components/molecules/Banner/Banner";
 
 export {
-  CompanyCard,
   PremiumCard,
   TableHead,
   TableRow,
@@ -22,6 +21,7 @@ export {
   Slide_nav,
   Show_or_hidden_with_fade_container,
   Show_or_hidden_with_fade,
+  Banner,
 }
 
 export type {

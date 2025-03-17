@@ -1,13 +1,13 @@
-@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/color/_semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
 .displaySectionContainer {
   position: relative;
   width: 100%;
-  padding: 64px 40px;
+  padding: 20px 40px;
   background-color: rgba(255, 255, 255, 0.64);
   @media (max-width: 840px) {
-    padding: 32px 20px;
+    padding: 24px 20px;
   }
 }
 .displaySectionBackground {
@@ -36,7 +36,7 @@
 .test {
   display: grid;
   width: 100%;
-  grid-gap: 24px;
+  grid-gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   @media (max-width: 1180px) {
     grid-template-columns: repeat(2, 1fr);
@@ -49,9 +49,8 @@
 .topAdCardContainer {
   width: 100%;
   min-width: 350px;
-  padding: 24px;
+  padding: 16px;
   border-radius: 12px;
-  border: 1px solid semantic.$outline-default;
   background-color: semantic.$container-containerLow;
 
   transition: ani.$leaveTransition;

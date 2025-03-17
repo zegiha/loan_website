@@ -16,6 +16,8 @@ export default function Flex({
   children,
   ref,
   onClick,
+  onTransitionEnd,
+  onTransitionRun,
 }: IFlex) {
   const genericStyle: CSSProperties = {
     display: 'flex',
@@ -34,6 +36,8 @@ export default function Flex({
     className={className}
     ref={ref}
     onClick={onClick}
+    onTransitionEnd={onTransitionEnd}
+    onTransitionRun={onTransitionRun}
   >
     {children}
   </div>;

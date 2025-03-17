@@ -7,7 +7,7 @@ import {ArrowIcon} from "@/components/atoms/icons";
 import Typo from "@/components/atoms/typo/Typo";
 import {useRouter} from "next/navigation";
 import style from './style.module.scss';
-import {semantic} from "@/shared/color";
+import {semantic_object} from "@/shared/color";
 
 interface IAnnouncement_detail_title {
   title: string;
@@ -40,7 +40,7 @@ export default function Title_section({
         <Typo.SubBody color={'dim'}>
           {`${createdAt.getFullYear()}.${createdAt.getMonth() + 1}.${createdAt.getDate()}`} 등록
         </Typo.SubBody>
-        <div className={semantic.outlineDefault} style={{width: 6, height: 6, borderRadius: 100}}/>
+        <div style={{width: 6, height: 6, borderRadius: 100, backgroundColor: semantic_object.outline.default}}/>
         <Typo.SubBody color={'dim'}>
           {view_cnt}회
         </Typo.SubBody>

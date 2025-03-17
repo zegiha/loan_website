@@ -1,4 +1,4 @@
-import ICertified_company_summary from "@/features/loan_certified/lib/ICertified_company_summary";
+import ICertified_company_summary from "@/shared/type/company/ICertified_company_summary";
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import style from "@/features/loan_certified/ui/style.module.scss";
 import Typo from "@/components/atoms/typo/Typo";

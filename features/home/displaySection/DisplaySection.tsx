@@ -4,11 +4,12 @@ import Typo from "@/components/atoms/typo/Typo";
 import style from "./display.module.scss";
 import Image from "next/image";
 import {Col, Row} from "@/components/atoms/layout";
-import {semantic} from "@/shared/color";
-import {LocationIcon} from "@/components/atoms/icons";
-import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
+import {semantic_object} from "@/shared/color";
+// import {LocationIcon} from "@/components/atoms/icons";
+// import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
 import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
 import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
+import tmp_img from '@/public/img/tmp_img.avif'
 
 export default async function DisplaySection() {
   const {totalLoanCompany, cumulativeVisiter, realTimeLoan} = await getWebStatus();
@@ -18,12 +19,17 @@ export default async function DisplaySection() {
       <div className={style.displaySectionBackgroundBlur}/>
       <div className={style.displaySectionBackground}>
           <Image
-            src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlROcXWBsxzaZwXERUSfV6eD92_-KLFAvjbg&s'}
+            src={tmp_img}
             alt={'배경'}
-            fill={true}
+            fill
+            quality={1}
+            priority={true}
+            fetchPriority={'high'}
+            placeholder={'blur'}
+            loading={'eager'}
           />
       </div>
-      <Col className={style.displaySectionWrapper} gap={32}>
+      <Col className={style.displaySectionWrapper} gap={24}>
         <Row
           justifyContents={'space-between'}
           alignItems={'center'}
@@ -33,25 +39,25 @@ export default async function DisplaySection() {
         >
           <Col style={{gap: 4}}>
             <Typo.Header isPre emphasize color={'variable'}>
-            {'정식 등록 '}
-            <span className={semantic.onGenericOnGenericPrimary}>
+              {'정식 등록 '}
+              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
               대부업체
             </span>
-              {'가\n'}
-              <span className={semantic.onGenericOnGenericPrimary}>
+              {'가 '}
+              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
               한 곳
             </span>
               에!
             </Typo.Header>
-            <Typo.Body>
+            <Typo.SubBody>
               대출문의 회원가입 없이 무료로 이용가능합니다.
-            </Typo.Body>
-            <Typo.Body>
+            </Typo.SubBody>
+            <Typo.SubBody>
               실시간 대출문의를 등록하시면 빠른 상담이 가능합니다.
-            </Typo.Body>
+            </Typo.SubBody>
           </Col>
           <Col gap={12} className={style.buttonSection}>
-            <LoanQuestionButton/>
+            {/*<LoanQuestionButton/>*/}
             <Row gap={24}>
               <RealTime
                 label={'총 등록 업체'}
@@ -81,7 +87,7 @@ export default async function DisplaySection() {
   );
 }
 
-async function RealTime({contents, label}: {contents: string, label: string}) {
+async function RealTime({contents, label}: { contents: string, label: string }) {
   return (
     <Col gap={4} alignItems={'center'}>
       <Typo.Body emphasize>{contents}</Typo.Body>
@@ -94,31 +100,30 @@ async function TopADCard({
   title,
   contents,
   name,
-  location,
   imgUrl
 }: ITopAd) {
   return (
     <Col gap={12} className={style.topAdCardContainer}>
-      <Row gap={24} alignItems={'center'} width={'fill'} className={style.topAdTitleSection}>
+      <Row gap={16} width={'fill'} className={style.topAdTitleSection}>
         <Col gap={12}>
           <Col gap={4}>
-            <Typo.Body color={'variable'} emphasize>
+            <Typo.SubBody color={'variable'} emphasize>
               {title.map((v, i) => {
                 if(v.type === 'primary') {
-                  return <span key={i} className={semantic.onGenericOnGenericPrimary}>
+                  return <span key={i} style={{color: semantic_object.onGeneric.onGenericPrimary}}>
                     {v.contents}
                   </span>
                 }
                 return v.contents
               })}
-            </Typo.Body>
+            </Typo.SubBody>
             <Typo.Contents color={'dim'}>
               {contents}
             </Typo.Contents>
           </Col>
-          <Typo.SubBody emphasize>
+          <Typo.Contents emphasize>
             {name}
-          </Typo.SubBody>
+          </Typo.Contents>
         </Col>
         <div className={style.topAdCardImageContainer}>
           <Image
@@ -128,21 +133,6 @@ async function TopADCard({
             className={style.topAdCardImage}
           />
         </div>
-      </Row>
-      <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
-        <Row gap={4} alignItems={'center'}>
-          <LocationIcon
-            color={'dim'}
-            size={20}
-            fill
-          />
-          <Typo.Contents color={'dim'}>
-            {location}
-          </Typo.Contents>
-        </Row>
-        <Typo.Contents emphasize color={'variable'}>
-          눌러서 광고 신청
-        </Typo.Contents>
       </Row>
     </Col>
   );
