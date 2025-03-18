@@ -14,6 +14,7 @@ export default function RegisteredCompanySection({
 }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('20')
   const {data} = useFetch(() => get_company_banner('product'))
+
   return (
     <Section>
       <AccordionSectionTitle

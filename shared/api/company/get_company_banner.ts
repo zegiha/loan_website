@@ -1,5 +1,3 @@
-'use server'
-
 import get_temp_image from "@/shared/api/get_temp_image";
 import {ICompany_banner_data} from "@/shared/type";
 
@@ -31,6 +29,7 @@ export default async function get_company_banner(
 
   let dummies: Array<ICompany_banner_data> = [];
   for(let i = 0; i < data_number; i++) dummies.push(dummy);
+
 
   return dummies;
 }

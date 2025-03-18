@@ -1,5 +1,3 @@
-'use server'
-
 import ICertified_company from "@/shared/type/company/ICertified_company";
 
 export default async function get_certified_company_by_id(id: string | undefined): Promise<ICertified_company | null> {

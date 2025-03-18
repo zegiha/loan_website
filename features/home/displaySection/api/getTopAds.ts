@@ -1,5 +1,3 @@
-'use server'
-
 import {TPrimaryAndGenericColorString} from "@/shared/type";
 
 export interface ITopAd {
