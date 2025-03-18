@@ -1,5 +1,3 @@
-'use server'
-
 import {IPremium_banner_data} from "@/shared/type";
 
 export default async function get_premium_banner(): Promise<Array<IPremium_banner_data>> {

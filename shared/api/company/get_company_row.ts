@@ -1,5 +1,3 @@
-'use server'
-
 import {ICompany_row} from "@/shared/type";
 
 export default async function get_company_row(): Promise<Array<ICompany_row>> {

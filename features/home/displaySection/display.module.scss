@@ -17,6 +17,10 @@
   top: 0;
   left: 0;
   z-index: -2;
+  background-color: semantic.$container-containerHighest;
+  background-image: url('/img/tmp_img.avif');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .displaySectionBackgroundBlur {
   position: absolute;

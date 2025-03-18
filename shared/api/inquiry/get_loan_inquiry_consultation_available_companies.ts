@@ -1,5 +1,3 @@
-'use server'
-
 import {ILoan_inquiry_consultation_available_companies} from "@/shared/type";
 
 export default async function get_loan_inquiry_consultation_available_companies(id: string): Promise<Array<ILoan_inquiry_consultation_available_companies>> {

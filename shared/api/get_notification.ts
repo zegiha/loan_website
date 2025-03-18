@@ -1,5 +1,3 @@
-'use server'
-
 import {INotification_data} from "@/shared/type";
 
 export default async function get_notification(): Promise<Array<INotification_data>> {

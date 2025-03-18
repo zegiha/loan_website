@@ -23,7 +23,7 @@ export default function PremiumBanner({
   const [cardNumber, setCardNumber] = useState(defaultCardNumber);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const {data, is_loading, error, refetch} = useFetch(() => get_premium_banner())
+  const {data} = useFetch(() => get_premium_banner())
 
   const handleResize = () => {
     if (wrapperRef.current) {
