@@ -34,7 +34,7 @@ export default function Location_banner_info_input_section({
 		banner_cover_img: null,
 		location: null
 	})
-	const [selected_idx, set_selected_idx] = useState<Array<number | null>>(Array.from({length: 27}).map(() => null))
+	const [selected_idx, set_selected_idx] = useState<Array<number | null>>(Array.from({length: 26}).map(() => null))
 
 	const [option_selected_idx, set_option_selected_idx] = useState<number | null>(0)
 	const [selected_location, set_selected_location] = useState<Set<number>>(new Set())
@@ -88,6 +88,8 @@ export default function Location_banner_info_input_section({
 	}, [option_selected_idx]);
 
 	useEffect(() => {
+		set_selected_idx(Array.from({length: location_num}).map(() => null))
+		set_selected_location(new Set())
 		const get_price = (): number => {
 			switch (location_num) {
 				case 1: return 200000
@@ -97,12 +99,9 @@ export default function Location_banner_info_input_section({
 			}
 		}
 		setSelect(prev => {
-			const new_data = prev.filter(v => v.name !== name)
-			new_data.push({
-				type_name: 'location_banner',
-				name,
-				price: get_price()
-			})
+			const new_data = [...prev]
+			for(let i = 0; i < new_data.length; i++)
+				if(new_data[i].name === name) new_data[i].price = get_price()
 			return [...new_data]
 		})
 	}, [location_num]);

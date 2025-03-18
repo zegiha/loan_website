@@ -80,7 +80,7 @@ export default function Line_info_input_section({
 					option={location_list}
 					selected_idx={selected_idx}
 					set_selected_idx={(idx) => {
-						if(idx) {
+						if(idx !== null) {
 							set_selected_idx(idx)
 							set_ad_info(prev => ({...prev, location: location_list[idx]}))
 						}

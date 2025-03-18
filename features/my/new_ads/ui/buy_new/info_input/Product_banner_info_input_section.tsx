@@ -30,7 +30,7 @@ export default function Product_banner_info_input_section({
 		banner_cover_img: null,
 		product: null,
 	})
-	const [selected_idx, set_selected_idx] = useState<Array<number | null>>(Array.from({length: 27}).map(() => null))
+	const [selected_idx, set_selected_idx] = useState<Array<number | null>>(Array.from({length: 3}).map(() => null))
 
 	const [input_production_num, set_input_production_num] = useState<string>('3')
 	const [production_num, set_production_num] = useState<number>(3)
@@ -44,10 +44,12 @@ export default function Product_banner_info_input_section({
 			if(processed_input < 3)   {
 				alert('상품 카테고리 최소 갯수는 3개입니다')
 				set_input_production_num('3')
+				set_production_num(3)
 			}
 			else {
 				alert('상품 카테고리 최대 개수는 27개입니다')
 				set_input_production_num('27')
+				set_production_num(27)
 			}
 		}
 	}
@@ -74,17 +76,16 @@ export default function Product_banner_info_input_section({
 	}
 
 	useEffect(() => {
+		set_selected_idx(Array.from({length: production_num}).map(() => null))
+		set_selected_product(new Set())
 		const get_price = (): number => {
 			if(production_num === 3) return 300000
 			else return 300000 + (production_num-3) * 100000
 		}
 		setSelect(prev => {
-			const new_data = [...prev.filter(v => v.name !== name)]
-			new_data.push({
-				type_name: 'product_banner',
-				name,
-				price: get_price()
-			})
+			const new_data = [...prev]
+			for(let i = 0; i < new_data.length; i++)
+				if(new_data[i].name === name) new_data[i].price = get_price()
 			return [...new_data]
 		})
 	}, [production_num]);
