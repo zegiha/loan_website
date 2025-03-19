@@ -27,6 +27,7 @@ export default function Buy_new_ads({
 }: {
   setStepAction: React.Dispatch<React.SetStateAction<TStep>>
 }) {
+  const [total_price, set_total_price] = useState(0)
   const [validate_list, set_validate_list] = useState<Array<{name: TAds_name, status: boolean, error_message: string}>>([]);
 
   const [depositor, setDepositor] = useState<string>('')
@@ -58,12 +59,20 @@ export default function Buy_new_ads({
     }
   }
 
-  const {select} = useSelect_context()
+  const {select, setSelect} = useSelect_context()
   useEffect(() => {
     if(select.length === 0) {
       setStepAction('get')
     }
+    let new_total_price = 0
+    select.forEach(v => new_total_price += v.price)
+    set_total_price(new_total_price)
   }, [select]);
+  useEffect(() => {
+    const has_line_ad = select.findIndex(v => v.name === '줄광고') !== -1
+    if(has_line_ad && total_price < 500000) setSelect(prev => [...prev.filter(v => v.name !== '줄광고')])
+    else if(!has_line_ad && total_price >= 500000) setSelect(prev => [...prev, {name: '줄광고', price: 0, type_name: 'line'}])
+  }, [total_price]);
 
   return (
     <Info_validate_context.Provider value={{validate_list, set_validate_list}}>

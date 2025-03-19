@@ -6,8 +6,8 @@ import {ILine_req, TAds_name} from "@/shared/type";
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseTextInput} from "@/components/molecules/inputs";
-import Select from "@/components/molecules/inputs/select/Select";
-import {location_list} from "@/shared/constants";
+// import Select from "@/components/molecules/inputs/select/Select";
+// import {location_list} from "@/shared/constants";
 
 export default function Line_info_input_section({
 	name
@@ -19,9 +19,9 @@ export default function Line_info_input_section({
 	const [ad_info, set_ad_info] = useState<ILine_req>({
 		title: '',
 		loan_limit: '',
-		location: null
+		// location: null
 	})
-	const [selected_idx, set_selected_idx] = useState<number | null>(null)
+	// const [selected_idx, set_selected_idx] = useState<number | null>(null)
 
 	const to_won = (v: string): string => {
 		const to_number = () => {
@@ -73,21 +73,21 @@ export default function Line_info_input_section({
 					placeholder={'제목을 입력해주세요'}
 				/>
 			</Col>
-			<Col gap={4} width={'fill'}>
-				<Typo.Caption color={'dim'}>지역</Typo.Caption>
-				<Select
-					placeholder={'지역을 선택해주세요'}
-					option={location_list}
-					selected_idx={selected_idx}
-					set_selected_idx={(idx) => {
-						if(idx !== null) {
-							set_selected_idx(idx)
-							set_ad_info(prev => ({...prev, location: location_list[idx]}))
-						}
-					}}
-					max_option_item_show={5}
-				/>
-			</Col>
+			{/*<Col gap={4} width={'fill'}>*/}
+			{/*	<Typo.Caption color={'dim'}>지역</Typo.Caption>*/}
+			{/*	<Select*/}
+			{/*		placeholder={'지역을 선택해주세요'}*/}
+			{/*		option={location_list}*/}
+			{/*		selected_idx={selected_idx}*/}
+			{/*		set_selected_idx={(idx) => {*/}
+			{/*			if(idx !== null) {*/}
+			{/*				set_selected_idx(idx)*/}
+			{/*				set_ad_info(prev => ({...prev, location: location_list[idx]}))*/}
+			{/*			}*/}
+			{/*		}}*/}
+			{/*		max_option_item_show={5}*/}
+			{/*	/>*/}
+			{/*</Col>*/}
 			<Col gap={4} width={'fill'}>
 				<Typo.Caption color={'dim'}>대출한도</Typo.Caption>
 				<BaseTextInput
