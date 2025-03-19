@@ -10,6 +10,8 @@ import {IBanner_req, TAds_name} from "@/shared/type";
 import {use_banner_info_context} from "@/features/my/new_ads/context/banner_info_context";
 import {use_info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
 import {is_typed} from "@/shared/helper";
+import Select from "@/components/molecules/inputs/select/Select";
+import {location_list} from "@/shared/constants";
 
 export default function Main_banner_info_input_section({
 	name,
@@ -22,8 +24,10 @@ export default function Main_banner_info_input_section({
 		title: '',
 		subtitle: '',
 		phone: '',
+		loan_available_location: null,
 		banner_cover_img: null,
 	})
+	const [selected_idx, set_selected_idx] = useState<number | null>(null)
 
 	useEffect(() => {
 		set_ad_req_data(prev => {
@@ -68,6 +72,21 @@ export default function Main_banner_info_input_section({
 				  checkError={[is_typed]}
 				onChangeAction={(v) => (set_banner_info(prev => ({...prev, subtitle: v})))}
 				  placeholder={'소제목을 입력해주세요'}
+			  />
+		  </Col>
+		  <Col gap={4} width={'fill'}>
+			  <Typo.Caption color={'dim'}>대출 가능 지역</Typo.Caption>
+			  <Select
+				  placeholder={'대출 가능 지역을 선택해주세요'}
+				  option={location_list}
+				  selected_idx={selected_idx}
+				  set_selected_idx={(idx) => {
+					  if(idx !== null) {
+						  set_selected_idx(idx)
+						  set_banner_info(prev => ({...prev, loan_available_location: location_list[idx]}))
+					  }
+				  }}
+				  max_option_item_show={5}
 			  />
 		  </Col>
 		  <Col gap={4} width={'fill'}>

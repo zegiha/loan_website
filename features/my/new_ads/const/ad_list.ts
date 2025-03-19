@@ -37,7 +37,7 @@ const ad_list: Array<IAd> = [
     duration: 30,
   },
   {
-    type_name: 'banner',
+    type_name: 'top_banner',
     name: '메인 TOP 배너광고',
     default_price: 2500000,
     price_desc: [
@@ -113,23 +113,6 @@ const ad_list: Array<IAd> = [
       price: '100,000원',
     },
     desc: '지역별 업체검색에서 해당 지역 선택 시 보여집니다',
-    sub_desc: null,
-    pc_preview_img: [tmp_img],
-    mobile_preview_img: [tmp_img],
-    duration: 30,
-  },
-  {
-    type_name: 'no_data_req',
-    name: '배너 베스트 뱃지효과',
-    default_price: 100000,
-    price_desc: [
-      {
-        desc: '30일 기준 - 배너 1개',
-        price: '100,000원',
-      }
-    ],
-    sub_price_desc: null,
-    desc: '지역배너, 상품배너만 적용 가능합니다',
     sub_desc: null,
     pc_preview_img: [tmp_img],
     mobile_preview_img: [tmp_img],

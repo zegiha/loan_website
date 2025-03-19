@@ -1,5 +1,23 @@
+@use '/shared/color/semanticPalette.module' as s;
+
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.divide_design_img {
+  width: 100%;
+  max-height: 171px;
+  aspect-ratio: 1440/128;
+  background-color: s.$primary-primaryNormal;
+  background-image: url('/assets/main_divide_img_l.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media (max-width: 800px) {
+    background-image: url('/assets/main_divide_img_m.svg');
+  }
+  @media (max-width: 500px) {
+    background-image: url('/assets/main_divide_img_s.svg');
+  }
 }

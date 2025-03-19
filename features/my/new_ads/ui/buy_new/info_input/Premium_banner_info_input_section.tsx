@@ -59,9 +59,9 @@ export default function Premium_banner_info_input_section({
 			  />
 		  </Col>
 			<Col gap={4} width={'fill'}>
-				<Typo.Caption color={'dim'}>지역</Typo.Caption>
+				<Typo.Caption color={'dim'}>대출 가능 지역</Typo.Caption>
 				<Select
-					placeholder={'지역을 선택해주세요'}
+					placeholder={'대출 가능 지역을 선택해주세요'}
 					option={location_list}
 					selected_idx={selected_idx}
 					set_selected_idx={(idx) => {

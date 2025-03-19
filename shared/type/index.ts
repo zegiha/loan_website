@@ -21,6 +21,7 @@ import TAds_name from "@/shared/type/advertisement/TAds_name";
 import TAds_type from "@/shared/type/advertisement/TAds_type";
 import IProduct_banner_req from "@/shared/type/advertisement/IProduct_banner_req";
 import ILocation_banner_req from "@/shared/type/advertisement/ILocation_banner_req";
+import ITop_banner_req from "@/shared/type/advertisement/ITop_banner_req";
 
 export type {
   TPrimaryAndGenericColorString,
@@ -46,4 +47,5 @@ export type {
   TAds_name,
   ILocation_banner_req,
   IProduct_banner_req,
+  ITop_banner_req,
 }
