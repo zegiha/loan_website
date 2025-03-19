@@ -4,7 +4,7 @@ import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button, File_input} from "@/components/molecules/inputs";
 import Select from "@/components/molecules/inputs/select/Select";
-import {loan_production_list} from "@/shared/constants";
+import {loan_production_list, location_list} from "@/shared/constants";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
 import React, {useEffect, useState} from "react";
@@ -29,8 +29,11 @@ export default function Product_banner_info_input_section({
 		phone: '',
 		banner_cover_img: null,
 		product: null,
+		loan_available_location: null,
 	})
 	const [selected_idx, set_selected_idx] = useState<Array<number | null>>(Array.from({length: 3}).map(() => null))
+
+	const [available_selected_idx, set_available_selected_idx] = useState<number | null>(null)
 
 	const [input_production_num, set_input_production_num] = useState<string>('3')
 	const [production_num, set_production_num] = useState<number>(3)
@@ -171,6 +174,21 @@ export default function Product_banner_info_input_section({
 						<Typo.Contents width={'hug'}>적용</Typo.Contents>
 					</BaseButton>
 				</Row>
+			</Col>
+			<Col gap={4} width={'fill'}>
+				<Typo.Caption color={'dim'}>대출 가능 지역</Typo.Caption>
+				<Select
+					placeholder={'대출 가능 지역을 선택해주세요'}
+					option={location_list}
+					selected_idx={available_selected_idx}
+					set_selected_idx={(idx) => {
+						if(idx !== null) {
+							set_available_selected_idx(idx)
+							set_banner_info(prev => ({...prev, loan_available_location: location_list[idx]}))
+						}
+					}}
+					max_option_item_show={5}
+				/>
 			</Col>
 			{Array.from({length: production_num}).map((_, i) => (
 				<Col gap={4} width={'fill'} key={i}>

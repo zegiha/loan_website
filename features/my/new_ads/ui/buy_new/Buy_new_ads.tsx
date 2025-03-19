@@ -20,6 +20,7 @@ import Product_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/
 import Location_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Location_banner_info_input_section";
 import {Info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
 import {is_typed} from "@/shared/helper";
+import Top_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Top_banner_info_input_section";
 
 export default function Buy_new_ads({
   setStepAction
@@ -110,6 +111,7 @@ function Switcher({
 }) {
   switch (type_name) {
     case "banner": return <Main_banner_info_input_section name={name}/>
+    case 'top_banner': return <Top_banner_info_input_section name={name}/>
     case "product_banner": return <Product_banner_info_input_section name={name}/>
     case "location_banner": return <Location_banner_info_input_section name={name}/>
     case "line": return <Line_info_input_section name={name}/>

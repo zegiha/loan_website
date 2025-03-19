@@ -5,35 +5,44 @@ import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeL
 import RealTimeLoanTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RealTimeLoanTable";
 import {Section} from "@/components/molecules";
 import style from './style.module.scss';
+import {Article_icon, CompanyIcon} from "@/components/atoms/icons";
 
 export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
   return (
-    <Section backgroundColor={'surface'}>
-      <Row
-        width={'fill'}
-        gap={24}
-        className={style.container}
-      >
-        <Col
+    <>
+      <Section backgroundColor={'surface'}>
+        <Row
           width={'fill'}
           gap={24}
+          className={style.container}
         >
-          <Typo.Body emphasize>
-            대출업체 등록 현황
-          </Typo.Body>
-          <RegisterStatusTable/>
-        </Col>
-        <Col
-          width={'fill'}
-          gap={24}
-        >
-          <Typo.Body emphasize>
-            실시간 대출 문의글
-          </Typo.Body>
-          <RealTimeLoanTable/>
-        </Col>
-      </Row>
-    </Section>
+          <Col
+            width={'fill'}
+            gap={24}
+          >
+            <Row gap={8} alignItems={'center'}>
+              <CompanyIcon size={28} fill={false}/>
+              <Typo.Body emphasize>
+                대출업체 등록 현황
+              </Typo.Body>
+            </Row>
+            <RegisterStatusTable/>
+          </Col>
+          <Col
+            width={'fill'}
+            gap={24}
+          >
+            <Row gap={8} alignItems={'center'}>
+              <Article_icon size={28} fill={false}/>
+              <Typo.Body emphasize>
+                실시간 대출 문의글
+              </Typo.Body>
+            </Row>
+            <RealTimeLoanTable/>
+          </Col>
+        </Row>
+      </Section>
+    </>
   );
 }
 
