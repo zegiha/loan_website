@@ -17,6 +17,7 @@ export default function Create_post() {
   const [title, setTitle] = useState<string>('')
   const [contents, setContents] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
+  const [monthly_income, set_monthly_income] = useState<string | null>(null)
 
   const defaultValue: IPost_data = {
     gender, setGender,
@@ -25,7 +26,8 @@ export default function Create_post() {
     has_job, setHas_job,
     title, setTitle,
     contents, setContents,
-    amount, setAmount
+    amount, setAmount,
+    monthly_income, set_monthly_income
   }
 
   const router = useRouter()
