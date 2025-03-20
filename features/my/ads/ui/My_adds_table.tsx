@@ -35,6 +35,8 @@ interface IMyAdds_table_row {
 	title: string
 	views: string
 	registered_date: Date
+	prolongation_action: () => void
+	edit_action: () => void
 }
 
 function My_ads_table_row({
@@ -42,6 +44,8 @@ function My_ads_table_row({
 	title,
 	views,
 	registered_date,
+	prolongation_action,
+	edit_action,
 }: IMyAdds_table_row) {
 	const processed_date = `${registered_date.getFullYear()}.${registered_date.getMonth() + 1}.${registered_date.getDate()}`;
 	return <TableRow className={style.table_row}>
@@ -57,12 +61,16 @@ function My_ads_table_row({
 		<Typo.Contents width={92}>
 			{processed_date}
 		</Typo.Contents>
-		<Typo.Contents width={80}>
-			광고연장
-		</Typo.Contents>
-		<Typo.Contents width={50}>
-			수정
-		</Typo.Contents>
+		<span onClick={prolongation_action}>
+			<Typo.Contents width={80} underline>
+				광고연장
+			</Typo.Contents>
+		</span>
+		<span onClick={edit_action}>
+			<Typo.Contents width={50} underline>
+				수정
+			</Typo.Contents>
+		</span>
 	</TableRow>
 }
 

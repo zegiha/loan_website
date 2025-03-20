@@ -5,6 +5,7 @@ import 'swiper/css';
 import style from './home.module.scss';
 import Footer from "@/components/organisms/layout/footer/Footer";
 import Header from "@/components/organisms/layout/Header/Header";
+import Auth_provider from "@/components/organisms/layout/Auth_provider";
 
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2', display: 'swap'});
 
@@ -21,12 +22,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
     <body className={`${wantedSans.className}`}>
-    <div className={style.container}>
-      <Header/>
-      {children}
-      <Footer/>
-    </div>
-    <div id={'modal-root'}></div>
+    <Auth_provider>
+      <div className={style.container}>
+        <Header/>
+        {children}
+        <Footer/>
+      </div>
+      <div id={'modal-root'}></div>
+    </Auth_provider>
     </body>
     </html>
   );
