@@ -3,6 +3,7 @@ import style from './categoryToggleButon.module.scss';
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import React from "react";
+import TLoan_production_type from "@/shared/type/TLoan_production_type";
 
 interface IToggleButton {
   active?: boolean;
@@ -19,7 +20,7 @@ interface IHandleCategoryButton {
   defaultValue: Array<TCategory>
 }
 
-export type TCategory = {label: string, subLabel: number, active: boolean};
+export type TCategory = {label: TLoan_production_type, subLabel: number, active: boolean};
 
 function handleCategoryButton({
   i,
