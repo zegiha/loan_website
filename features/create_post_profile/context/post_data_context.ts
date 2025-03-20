@@ -15,6 +15,8 @@ export interface IPost_data {
   setContents: React.Dispatch<React.SetStateAction<string>>
   amount: string
   setAmount: React.Dispatch<React.SetStateAction<string>>
+  monthly_income: string | null
+  set_monthly_income: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 const Post_data_context = createContext<null | IPost_data>(null)
