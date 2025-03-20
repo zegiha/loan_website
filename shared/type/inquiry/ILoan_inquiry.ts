@@ -4,5 +4,5 @@ export interface ILoan_inquiry_data {
 	location: string;
 	title: string;
 	createdAt: string;
-	views: number;
+	desired_amount: string;
 }
