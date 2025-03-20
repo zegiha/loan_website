@@ -2,7 +2,7 @@ import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import style from './style.module.scss'
 import React from "react";
-import {Col, Divider} from "@/components/atoms/layout";
+import {Col} from "@/components/atoms/layout";
 
 function My_ads_table_head() {
 	return <Col width={'fill'}>
