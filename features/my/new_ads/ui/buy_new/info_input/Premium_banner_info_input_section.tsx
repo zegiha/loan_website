@@ -35,7 +35,6 @@ export default function Premium_banner_info_input_section({
 		})
 
 		set_validate_list(prev => {
-			console.log('haha')
 			const data = [...prev.filter(v => v.name !== name)]
 
 			data.push({name, status: is_typed(ad_info.title) === null, error_message: '프리미업 배너광고의 제목이 없습니다'})
