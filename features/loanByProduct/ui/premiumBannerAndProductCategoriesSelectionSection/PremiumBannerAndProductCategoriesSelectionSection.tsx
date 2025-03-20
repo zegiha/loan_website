@@ -5,9 +5,8 @@ import {Col, Row} from "@/components/atoms/layout";
 import {semantic_object} from "@/shared/color";
 import Typo from "@/components/atoms/typo/Typo";
 import {PremiumBanner} from "@/components/organisms";
-import {BaseTextInput, CategoryToggleButton} from "@/components/molecules/inputs";
-import {CloseIcon} from "@/components/atoms/icons";
-import React, {useState} from "react";
+import {CategoryToggleButton} from "@/components/molecules/inputs";
+import React from "react";
 import style from './premiumBannerAndProductCategoriesSelectionSection.module.scss';
 import {TCategory} from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
 import useCategoryToggleButtons
@@ -47,7 +46,6 @@ const CATEGORIES: Array<TCategory> = [
 export default function PremiumBannerAndProductCategoriesSelectionSection({
   setActiveCategoriesAction
 }: {setActiveCategoriesAction: React.Dispatch<React.SetStateAction<Set<string>>>}) {
-  const [productSearch, setProductSearch] = useState<string>('');
   const [categories, setCategories] = useCategoryToggleButtons(CATEGORIES, setActiveCategoriesAction)
   return (
     <Section>
@@ -62,27 +60,6 @@ export default function PremiumBannerAndProductCategoriesSelectionSection({
           <PremiumBanner defaultCardNumber={3}/>
         </Col>
         <Col gap={16} className={style.bigBox}>
-          <BaseTextInput
-            placeholder={'찾으시는 지역을 입력해주세요'}
-            size={'normal'}
-            width={'fill'}
-            maxWidth={280}
-            value={productSearch}
-            TypingIcon={
-            <div
-              style={{
-              width: 20, height: 20,
-              cursor: 'pointer',
-              }}
-              onClick={() => setProductSearch('')}
-            >
-              <CloseIcon size={20} color={'dim'}/>
-            </div>
-            }
-            onChangeAction={(v) => {
-              setProductSearch(v);
-            }}
-          />
           <Row width={'fill'} gap={12} wrap>
             {categories.map((v, i) => (
               <CategoryToggleButton
