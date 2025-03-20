@@ -37,7 +37,7 @@ export default function Create_post_loan({
               placeholder={'원하는 금액을 입력해주세요'}
             />
           </Radio>
-          <Radio name={'amount'} contents={'상담 후 결정'}/>
+          <Radio name={'amount'} contents={'상담 후 결정'} onFocus={() => setAmount('')}/>
         </Col>
       </Col>
       <Col width={'fill'}>
