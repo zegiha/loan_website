@@ -31,7 +31,7 @@
   transition: ani.$onTransition;
   z-index: 5;
   box-shadow: 0 0 4px 4px semantic.$shadow-default;
-  overflow-y: scroll;
+  overflow-y: auto;
   transform: translateY(2px);
 }
 .option_container_open {
