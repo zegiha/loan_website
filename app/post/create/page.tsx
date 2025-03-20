@@ -6,6 +6,7 @@ import Create_post_profile from "@/features/create_post_profile/ui/profile";
 import Create_post_post from "@/features/create_post_profile/ui/post";
 import Create_post_loan from "@/features/create_post_profile/ui/loan";
 import {useRouter} from "next/navigation";
+import TLocation from "@/shared/type/TLocation";
 
 
 export default function Create_post() {
@@ -18,6 +19,8 @@ export default function Create_post() {
   const [contents, setContents] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
   const [monthly_income, set_monthly_income] = useState<string | null>(null)
+  const [location, set_location] = useState<TLocation | null>(null)
+  const [loan_type, set_loan_type] = useState<'신용' | '담보' | null>(null)
 
   const defaultValue: IPost_data = {
     gender, setGender,
@@ -27,7 +30,9 @@ export default function Create_post() {
     title, setTitle,
     contents, setContents,
     amount, setAmount,
-    monthly_income, set_monthly_income
+    monthly_income, set_monthly_income,
+    location, set_location,
+    loan_type, set_loan_type,
   }
 
   const router = useRouter()
