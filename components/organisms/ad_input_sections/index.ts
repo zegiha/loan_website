@@ -18,6 +18,9 @@ import ITop_banner_info_input from "@/components/organisms/ad_input_sections/top
 import Sponsor_link_info_input from "@/components/organisms/ad_input_sections/sponsor_link_info_input/ui";
 import use_sponsor_link_info from "@/components/organisms/ad_input_sections/sponsor_link_info_input/hook";
 import ISponsor_link_info_input from "@/components/organisms/ad_input_sections/sponsor_link_info_input/type";
+import Line_info_input from "@/components/organisms/ad_input_sections/line_info_input/ui";
+import use_line_info from "@/components/organisms/ad_input_sections/line_info_input/hook";
+import ILine_info_input from "@/components/organisms/ad_input_sections/line_info_input/type";
 
 export {
 	Main_banner_info_input,
@@ -32,6 +35,8 @@ export {
 	use_top_banner_info,
 	Sponsor_link_info_input,
 	use_sponsor_link_info,
+	Line_info_input,
+	use_line_info,
 }
 export type {
 	IMain_banner_info_input,
@@ -40,4 +45,5 @@ export type {
 	IProduct_banner_info_input,
 	ITop_banner_info_input,
 	ISponsor_link_info_input,
+	ILine_info_input
 }
