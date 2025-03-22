@@ -13,7 +13,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {TAds_name, TAll_req, TAds_type} from "@/shared/type";
 import Info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Info_input_section";
 import Buy_new_premium_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_premium_banner";
-import Line_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Line_info_input_section";
+import Buy_new_line from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_line";
 import Buy_new_sponsor_link from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_sponsor_link";
 import Buy_new_product_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_product_banner";
 import {Info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
@@ -123,7 +123,7 @@ function Switcher({
     case 'top_banner': return <Buy_new_top_banner name={name}/>
     case "product_banner": return <Buy_new_product_banner name={name}/>
     case "location_banner": return <Buy_new_location_banner name={name}/>
-    case "line": return <Line_info_input_section name={name}/>
+    case "line": return <Buy_new_line name={name}/>
     case "premium_banner": return <Buy_new_premium_banner name={name}/>
     case "sponsor_link": return <Buy_new_sponsor_link name={name}/>
     default: return <Typo.Contents color={'dim'}>선택사항이 없습니다</Typo.Contents>
