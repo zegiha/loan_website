@@ -12,15 +12,15 @@ import {BaseButton, button} from "@/components/molecules/inputs";
 import Typo from "@/components/atoms/typo/Typo";
 import {TAds_name, TAll_req, TAds_type} from "@/shared/type";
 import Info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Info_input_section";
-import Main_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Main_banner_info_input_section";
-import Premium_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Premium_banner_info_input_section";
+import Buy_new_premium_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_premium_banner";
 import Line_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Line_info_input_section";
 import Sponsor_link_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Sponsor_link_info_input_section";
-import Product_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Product_banner_info_input_section";
-import Location_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Location_banner_info_input_section";
+import Buy_new_product_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_product_banner";
 import {Info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
 import {is_typed} from "@/shared/helper";
 import Top_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Top_banner_info_input_section";
+import Buy_new_main_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_main_banner";
+import Buy_new_location_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_location_banner";
 
 export default function Buy_new_ads({
   setStepAction
@@ -119,12 +119,12 @@ function Switcher({
   name: TAds_name
 }) {
   switch (type_name) {
-    case "banner": return <Main_banner_info_input_section name={name}/>
+    case 'banner': return <Buy_new_main_banner name={name}/>
     case 'top_banner': return <Top_banner_info_input_section name={name}/>
-    case "product_banner": return <Product_banner_info_input_section name={name}/>
-    case "location_banner": return <Location_banner_info_input_section name={name}/>
+    case "product_banner": return <Buy_new_product_banner name={name}/>
+    case "location_banner": return <Buy_new_location_banner name={name}/>
     case "line": return <Line_info_input_section name={name}/>
-    case "premium_banner": return <Premium_banner_info_input_section name={name}/>
+    case "premium_banner": return <Buy_new_premium_banner name={name}/>
     case "sponsor_link": return <Sponsor_link_info_input_section name={name}/>
     default: return <Typo.Contents color={'dim'}>선택사항이 없습니다</Typo.Contents>
   }
