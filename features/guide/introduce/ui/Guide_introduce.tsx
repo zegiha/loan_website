@@ -53,8 +53,7 @@ export default function Guide_introduce() {
 									<Typo.SubBody isPre={'wrap'}>
 										{'고객님의 안전한 업체 이용을 위해 금감원 인증'}
 									</Typo.SubBody>
-									<Link href={'/'}>
-										{/*TODO 정식 업체 조회 네비게이션 이어두기*/}
+									<Link href={'/loan/certified'}>
 										<Typo.SubBody isPre={'wrap'} color={'primary'} underline>{'정식 업체 조회,\n'}</Typo.SubBody>
 									</Link>
 								</Row>

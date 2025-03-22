@@ -11,7 +11,6 @@ import Buy_table_section from "@/features/my/new_ads/ui/buy_new/Buy_table_sectio
 import {BaseButton, button} from "@/components/molecules/inputs";
 import Typo from "@/components/atoms/typo/Typo";
 import {TAds_name, TAll_req, TAds_type} from "@/shared/type";
-import Info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Info_input_section";
 import Buy_new_premium_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_premium_banner";
 import Buy_new_line from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_line";
 import Buy_new_sponsor_link from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_sponsor_link";
@@ -21,6 +20,7 @@ import {is_typed} from "@/shared/helper";
 import Buy_new_top_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_top_banner";
 import Buy_new_main_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_main_banner";
 import Buy_new_location_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_location_banner";
+import {Info_input_section} from "@/components/organisms/ad_input_sections";
 
 export default function Buy_new_ads({
   setStepAction

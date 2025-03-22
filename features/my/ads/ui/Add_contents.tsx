@@ -10,6 +10,7 @@ import {
 } from "@/features/my/ads/ui/My_adds_table";
 import Modal from "@/components/molecules/modal/Modal";
 import {useState} from "react";
+import Edit_ad from "@/features/my/ads/ui/edit_ad/Edit_ad";
 
 export default function Add_contents() {
 	const now = new Date();
@@ -27,7 +28,7 @@ export default function Add_contents() {
 						head={<My_ads_table_head/>}
 					>
 						<My_ads_table_row
-							add_type={'VIP 배너'}
+							add_type={'메인 베너광고'}
 							title={'전라 지역 당일 대출'}
 							views={'139'}
 							registered_date={now}
@@ -38,7 +39,11 @@ export default function Add_contents() {
 				</Col>
 			</Col>
 			<Modal isOpen={is_edit_open} setIsOpen={set_is_edit_open}>
-				{/*TODO 수정창 만들기*/}
+				<Edit_ad
+					set_is_open={set_is_edit_open}
+					ad_type={'banner'}
+					ad_name={'메인 베너광고'}
+				/>
 			</Modal>
 			<Modal isOpen={is_prolongation_open} setIsOpen={set_is_prolongation_open}>
 				{/*TODO 광고연장창 만들기*/}
@@ -46,3 +51,5 @@ export default function Add_contents() {
 		</>
 	);
 }
+
+

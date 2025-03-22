@@ -21,6 +21,7 @@ import ISponsor_link_info_input from "@/components/organisms/ad_input_sections/s
 import Line_info_input from "@/components/organisms/ad_input_sections/line_info_input/ui";
 import use_line_info from "@/components/organisms/ad_input_sections/line_info_input/hook";
 import ILine_info_input from "@/components/organisms/ad_input_sections/line_info_input/type";
+import Info_input_section from "@/components/organisms/ad_input_sections/Info_input_section";
 
 export {
 	Main_banner_info_input,
@@ -37,6 +38,7 @@ export {
 	use_sponsor_link_info,
 	Line_info_input,
 	use_line_info,
+	Info_input_section,
 }
 export type {
 	IMain_banner_info_input,
