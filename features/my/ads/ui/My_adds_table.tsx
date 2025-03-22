@@ -3,6 +3,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import style from './style.module.scss'
 import React from "react";
 import {Col} from "@/components/atoms/layout";
+import {TAds_name} from "@/shared/type";
 
 function My_ads_table_head() {
 	return <Col width={'fill'}>
@@ -31,7 +32,7 @@ function My_ads_table_head() {
 }
 
 interface IMyAdds_table_row {
-	add_type: string
+	add_type: TAds_name
 	title: string
 	views: string
 	registered_date: Date
