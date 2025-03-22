@@ -2,43 +2,15 @@ import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseTextInput, File_input} from "@/components/molecules/inputs";
 import {is_typed} from "@/shared/helper";
-import React, {useEffect, useState} from "react";
-import {ITop_banner_req, TAds_name} from "@/shared/type";
-import {use_info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
-import {use_banner_info_context} from "@/features/my/new_ads/context/banner_info_context";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
+import React from "react";
+import {ITop_banner_info_input} from "@/components/organisms/ad_input_sections";
 
-export default function Top_banner_info_input_section({
-	name
-}: {
-	name: TAds_name
-}) {
-	const {set_validate_list} = use_info_validate_context()
-	const {set_ad_req_data} = use_banner_info_context()
-	const [banner_info, set_banner_info] = useState<ITop_banner_req>({
-		title: '',
-		contents: '',
-		banner_cover_img: null
-	})
-
-	useEffect(() => {
-		set_ad_req_data(prev => {
-			const data = [...prev]
-			for(let i = 0; i < data.length; i++)
-				if(data[i].name === name) data[i].req_data = banner_info
-			return [...data]
-		})
-		set_validate_list(prev => {
-			const data = [...prev.filter(v => v.name !== name)]
-
-			data.push({name, status: is_typed(banner_info.title) === null, error_message: '메인 TOP 배너광고의 제목이 비어있습니다'})
-			data.push({name, status: is_typed(banner_info.contents) === null, error_message: '메인 TOP 배너광고의 내용이 비어있습니다'})
-			data.push({name, status: banner_info.banner_cover_img !== null, error_message: '메인 TOP 배너광고의 이미지가 비어있습니다'})
-
-			return [...data]
-		})
-	}, [banner_info]);
+export default function Top_banner_info_input({
+	banner_info,
+	set_banner_info
+}: ITop_banner_info_input) {
 	return (
 		<>
 			<Col gap={4} width={'fill'}>

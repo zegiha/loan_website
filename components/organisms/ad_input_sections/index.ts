@@ -12,6 +12,12 @@ import IPremium_banner_info_input from "@/components/organisms/ad_input_sections
 import Product_banner_info_input from "@/components/organisms/ad_input_sections/product_banner_info_input/ui";
 import use_product_banner_info from "@/components/organisms/ad_input_sections/product_banner_info_input/hook";
 import IProduct_banner_info_input from "@/components/organisms/ad_input_sections/product_banner_info_input/type";
+import Top_banner_info_input from "@/components/organisms/ad_input_sections/top_banner_info_input/ui";
+import use_top_banner_info from "@/components/organisms/ad_input_sections/top_banner_info_input/hook";
+import ITop_banner_info_input from "@/components/organisms/ad_input_sections/top_banner_info_input/type";
+import Sponsor_link_info_input from "@/components/organisms/ad_input_sections/sponsor_link_info_input/ui";
+import use_sponsor_link_info from "@/components/organisms/ad_input_sections/sponsor_link_info_input/hook";
+import ISponsor_link_info_input from "@/components/organisms/ad_input_sections/sponsor_link_info_input/type";
 
 export {
 	Main_banner_info_input,
@@ -22,10 +28,16 @@ export {
 	use_premium_banner_info,
 	Product_banner_info_input,
 	use_product_banner_info,
+	Top_banner_info_input,
+	use_top_banner_info,
+	Sponsor_link_info_input,
+	use_sponsor_link_info,
 }
 export type {
 	IMain_banner_info_input,
 	ILocation_banner_info_input,
 	IPremium_banner_info_input,
 	IProduct_banner_info_input,
+	ITop_banner_info_input,
+	ISponsor_link_info_input,
 }
