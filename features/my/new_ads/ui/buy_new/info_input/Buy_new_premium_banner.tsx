@@ -29,8 +29,8 @@ export default function Buy_new_premium_banner({
 		set_validate_list(prev => {
 			const data = [...prev.filter(v => v.name !== name)]
 
-			data.push({name, status: is_typed(props.banner_info.title) === null, error_message: '프리미업 배너광고의 제목이 없습니다'})
-			data.push({name, status: is_typed(props.banner_info.location) === null, error_message: '프리미업 배너광고의 지역이 없습니다'})
+			data.push({name, status: is_typed(props.banner_info.title) === null, error_message: '프리미엄 배너광고의 제목이 없습니다'})
+			data.push({name, status: is_typed(props.banner_info.location) === null, error_message: '프리미엄 배너광고의 지역이 없습니다'})
 
 			return [...data]
 		})
