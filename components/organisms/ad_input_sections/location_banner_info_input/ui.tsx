@@ -7,7 +7,7 @@ import {location_list} from "@/shared/constants";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
 import React from "react";
-import ad_list from "@/features/my/new_ads/const/ad_list";
+import ad_list from "@/shared/constants/ad_list";
 import {ILocation_banner_info_input} from "@/components/organisms/ad_input_sections";
 
 const option: Array<string> =

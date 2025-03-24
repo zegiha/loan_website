@@ -7,6 +7,8 @@ interface IEdit_data_context {
 	set_edit_data: react_state_action<TAll_req | null>
 	validates: Array<{status: boolean, errormessage: string}>
 	set_validates: react_state_action<Array<{status: boolean, errormessage: string}>>
+	price: number,
+	set_price: react_state_action<number>
 }
 
 const Edit_data_context = createContext<IEdit_data_context | null>(null)
