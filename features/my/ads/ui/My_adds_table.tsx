@@ -27,7 +27,7 @@ function My_ads_table_head() {
         조회수
       </Typo.Contents>
       <Typo.Contents width={92}>
-        등록일
+        종료일
       </Typo.Contents>
       <Typo.Contents width={80}>
         광고연장
@@ -44,12 +44,12 @@ function My_ads_table_row({
 	ad_name,
 	title,
 	views,
-	registered_date,
+	end_date,
 	prolongation_action,
 	edit_action,
 	option,
 }: IMy_ads_table_row) {
-	const processed_date = `${registered_date.getFullYear()}.${registered_date.getMonth() + 1}.${registered_date.getDate()}`;
+	const processed_date = `${end_date.getFullYear()}.${end_date.getMonth() + 1}.${end_date.getDate()}`;
 	return <TableRow className={style.table_row}>
 		<Typo.Contents width={172}>
 			{ad_name}
