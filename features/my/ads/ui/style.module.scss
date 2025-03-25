@@ -59,3 +59,15 @@
   min-width: 726px;
   background-color: semantic.$outline-default;
 }
+
+.buy_info_table {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid semantic.$outline-default;
+}
+
+.buy_info_table_row {
+  align-items: center !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+}

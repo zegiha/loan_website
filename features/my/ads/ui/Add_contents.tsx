@@ -16,13 +16,14 @@ import ad_list from "@/shared/constants/ad_list";
 import TAds_type from "@/shared/type/advertisement/TAds_type";
 import {BaseButton} from "@/components/molecules/inputs";
 import {CloseIcon} from "@/components/atoms/icons";
+import Prolongation_ad from "@/features/my/ads/ui/prolongation_ad/Prolongation_ad";
 
 export interface IMy_ads {
 	ad_name: TAds_name
 	ad_type: TAds_type
 	title: string
 	views: number
-	registered_date: Date
+	end_date: Date
 }
 
 function get_dummies(): Array<IMy_ads> {
@@ -33,7 +34,7 @@ function get_dummies(): Array<IMy_ads> {
 			ad_name: v.name,
 			title: '전라 지역 당일 대출',
 			views: 139,
-			registered_date: new Date()
+			end_date: new Date()
 		})
 	})
 	return res
@@ -87,7 +88,14 @@ export default function Add_contents() {
 				</Modal_wrapper>
 			</Modal>
 			<Modal isOpen={is_prolongation_open} setIsOpen={set_is_prolongation_open}>
-				{/*TODO 광고연장창 만들기*/}
+				<Modal_wrapper close_func={() => set_is_prolongation_open(false)}>
+					<Prolongation_ad
+						name={'메인 베너광고'}
+						price={1000000}
+						end_date={new Date()}
+						close_func={() => set_is_prolongation_open(false)}
+					/>
+				</Modal_wrapper>
 			</Modal>
 		</>
 	);
