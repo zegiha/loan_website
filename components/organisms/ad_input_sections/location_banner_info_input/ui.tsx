@@ -6,7 +6,7 @@ import {is_typed} from "@/shared/helper";
 import {location_list} from "@/shared/constants";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
-import React from "react";
+import React, {useEffect} from "react";
 import ad_list from "@/shared/constants/ad_list";
 import {ILocation_banner_info_input} from "@/components/organisms/ad_input_sections";
 
@@ -47,6 +47,7 @@ export default function Location_banner_info_input({
 
 	const handle_location_selection = (selected_option_idx: number | null, i: number) => {
 		if(selected_option_idx === null) return
+		console.log('haha')
 		if(available_locations[i] === selected_option_idx) return
 
 		if(check_available_locations.has(selected_option_idx)) {
@@ -65,6 +66,23 @@ export default function Location_banner_info_input({
 			return newSelectedIdx
 		})
 	}
+
+	useEffect(() => {
+		set_banner_info(prev => {
+			const data = {...prev}
+			data.location = []
+			available_locations.forEach(v => {
+				if(v !== null && data.location !== null) data.location.push(location_list[v])
+			})
+			return {...data}
+		})
+	}, [available_locations])
+	useEffect(() => {
+		if(selected_option_idx === null) return
+		if(selected_option_idx >= 3) return
+		set_location_num(selected_option_idx + 1)
+		set_location_num_string(`${selected_option_idx + 1}`)
+	}, [selected_option_idx]);
 
 	return (
 		<>
@@ -131,7 +149,7 @@ export default function Location_banner_info_input({
 				</Col>
 			))}
 			<Col gap={4} width={'fill'}>
-				<Typo.Contents color={'dim'}>배너 이미지</Typo.Contents>
+				<Typo.Contents color={'dim'}>배너 이미지, 필수가 아닙니다</Typo.Contents>
 				<File_input
 					className={style.banner_file_input}
 					set_data={(v) => set_banner_info(prev => ({...prev, banner_cover_img: v}))}

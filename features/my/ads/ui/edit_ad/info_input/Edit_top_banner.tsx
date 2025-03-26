@@ -14,7 +14,7 @@ export default function Edit_top_banner() {
 		set_validates([
 			{status: is_typed(props.banner_info.title) === null, errormessage: '제목이 비어있습니다'},
 			{status: is_typed(props.banner_info.contents) === null, errormessage: '내용이 비어있습니다'},
-			{status: props.banner_info.banner_cover_img !== null, errormessage: '배너 이미지가 없습니다'}
+			// {status: props.banner_info.banner_cover_img !== null, errormessage: '배너 이미지가 없습니다'}
 		])
 	}, [props.banner_info])
 

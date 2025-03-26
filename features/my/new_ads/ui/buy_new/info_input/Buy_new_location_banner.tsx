@@ -23,10 +23,11 @@ export default function Buy_new_location_banner({name}: {name: TAds_name}) {
 				data.push({name, status: is_typed(default_value.banner_info.title) === null, error_message: '지역 배너광고의 제목이 비어있습니다'})
 				data.push({name, status: is_typed(default_value.banner_info.subtitle) === null, error_message: '지역 배너광고의 소제목이 비어있습니다'})
 				data.push({name, status: default_value.banner_info.location !== null &&default_value. banner_info.location.length === default_value.location_num, error_message: '지역 배너광고의 지역이 일부 비어있습니다'})
-				data.push({name, status: default_value.banner_info.banner_cover_img !== null, error_message: '지역 배너광고의 이미지가 없습니다'})
+				// data.push({name, status: default_value.banner_info.banner_cover_img !== null, error_message: '지역 배너광고의 이미지가 없습니다'})
 
 				return [...data]
 			})
+			console.log(default_value.banner_info)
 		}
 	}, [default_value.banner_info, default_value.location_num]);
 

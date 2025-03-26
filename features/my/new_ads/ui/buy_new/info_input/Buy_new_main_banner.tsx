@@ -28,7 +28,7 @@ export default function Buy_new_main_banner({name}: {name: TAds_name}) {
 			data.push({name, status: is_typed(default_value.banner_info.title) === null, error_message: `${name}의 제목이 비어있습니다`})
 			data.push({name, status: is_typed(default_value.banner_info.subtitle) === null, error_message: `${name}의 소제목이 비어있습니다`})
 			data.push({name, status: default_value.banner_info.loan_available_location !== null, error_message: `${name}의 대출 가능 지역이 비어있습니다`})
-			data.push({name, status: default_value.banner_info.banner_cover_img !== null, error_message: `${name}의 이미지가 없습니다`})
+			// data.push({name, status: default_value.banner_info.banner_cover_img !== null, error_message: `${name}의 이미지가 없습니다`})
 
 			return [...data]
 		})
