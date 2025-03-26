@@ -131,7 +131,7 @@ export default function Product_banner_info_input({
 				</Col>
 			))}
 			<Col gap={4} width={'fill'}>
-				<Typo.Contents color={'dim'}>배너 이미지</Typo.Contents>
+				<Typo.Contents color={'dim'}>배너 이미지, 필수가 아닙니다</Typo.Contents>
 				<File_input
 					className={style.banner_file_input}
 					set_data={(v) => {set_banner_info(prev => ({...prev, banner_cover_img: v}))}}

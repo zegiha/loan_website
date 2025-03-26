@@ -26,7 +26,7 @@ export default function Buy_new_top_banner({
 
 			data.push({name, status: is_typed(props.banner_info.title) === null, error_message: '메인 TOP 배너광고의 제목이 비어있습니다'})
 			data.push({name, status: is_typed(props.banner_info.contents) === null, error_message: '메인 TOP 배너광고의 내용이 비어있습니다'})
-			data.push({name, status: props.banner_info.banner_cover_img !== null, error_message: '메인 TOP 배너광고의 이미지가 비어있습니다'})
+			// data.push({name, status: props.banner_info.banner_cover_img !== null, error_message: '메인 TOP 배너광고의 이미지가 비어있습니다'})
 
 			return [...data]
 		})

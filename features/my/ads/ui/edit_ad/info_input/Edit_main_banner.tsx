@@ -14,7 +14,7 @@ export default function Edit_main_banner() {
 			{status: is_typed(props.banner_info.title) === null, errormessage: '제목이 비어있습니다'},
 			{status: is_typed(props.banner_info.subtitle) === null, errormessage: '소제목이 비어있습니다'},
 			{status: props.banner_info.loan_available_location !== null, errormessage: '대출 가능 지역이 선택되어있지 않습니다'},
-			{status: props.banner_info.banner_cover_img !== null, errormessage: '배너 이미지가 없습니다'},
+			// {status: props.banner_info.banner_cover_img !== null, errormessage: '배너 이미지가 없습니다'},
 		])
 	}, [props.banner_info])
 
