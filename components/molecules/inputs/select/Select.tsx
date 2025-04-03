@@ -15,13 +15,28 @@ export default function Select({
 }: {
 	placeholder: string
 	option: Array<string>
-	selected_idx: number | null
+	selected_idx: number | null | Array<number>
 	set_selected_idx:
 		(data: number | null) => void |
 		React.Dispatch<React.SetStateAction<number | null>>
 	max_option_item_show?: number
 }) {
 	const [is_open, set_is_open] = useState<boolean>(false)
+
+	const getSelectContents: () => string = () => {
+		if(selected_idx === null) return placeholder
+		if(typeof selected_idx === 'number') {
+			return option[selected_idx]
+		} else {
+			let res = '';
+			selected_idx.forEach((v, i) => {
+				res += option[v]
+				if(i < selected_idx.length-1) res += ', '
+			})
+			if(res === '') return placeholder
+			return res
+		}
+	}
 
 	return (
 		<div className={style.wrapper}>
@@ -31,9 +46,9 @@ export default function Select({
 				<Typo.Contents
 					width={'fill'}
 					textAlign={'start'}
-					color={selected_idx !== null ? 'generic' : 'dim'}
+					color={getSelectContents() !== placeholder ? 'generic' : 'dim'}
 				>
-					{selected_idx !== null ? option[selected_idx] : placeholder}
+					{getSelectContents()}
 				</Typo.Contents>
 				<Chevron_icon
 					color={'dim'}
@@ -68,9 +83,18 @@ function Option_container({
 		(data: number | null) => void |
 		React.Dispatch<React.SetStateAction<number | null>>
 	max_option_item_show?: number
-	selected_idx: number | null
+	selected_idx: number | null | Array<number>
 }) {
 	const ref = useRef<HTMLDivElement | null>(null)
+
+	const checkSelected: (idx: number) => boolean = (idx) => {
+		if(selected_idx === null) return false
+		if(typeof selected_idx === 'number') {
+			return idx === selected_idx
+		} else {
+			return selected_idx.findIndex(v => v === idx) !== -1
+		}
+	}
 
 	if(is_open)return (
 		<Col
@@ -88,7 +112,7 @@ function Option_container({
 				<Row
 					key={i}
 					width={'fill'}
-					className={i === selected_idx ? style.option_item_active : style.option_item}
+					className={checkSelected(i) ? style.option_item_active : style.option_item}
 					onClick={() => {
 						set_selected_idx(i)
 						set_is_open(false)
