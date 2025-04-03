@@ -19,6 +19,7 @@ export type TColor =
   'primary' |
   'onPrimary' |
   'onPrimaryDim' |
+  'red' |
   undefined;
 
 export interface ITypo {

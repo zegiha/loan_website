@@ -1,3 +1,4 @@
+import react_state_action from '@/shared/type/react_state_action'
 import React, {createContext, useContext} from "react";
 
 export interface IRegister_data {
@@ -31,6 +32,29 @@ export interface IRegister_data {
   setCompany_phone: React.Dispatch<React.SetStateAction<string>>
   company_location: string
   setCompany_location: React.Dispatch<React.SetStateAction<string>>
+
+	monthly_interest_rate: string
+  set_monthly_interest_rate: react_state_action<string>
+	yearly_interest_rate: string
+  set_yearly_interest_rate: react_state_action<string>
+	delinquent_interest_rate: string;
+  set_delinquent_interest_rate: react_state_action<string>
+	loan_limit: string;
+  set_loan_limit: react_state_action<string>
+	additional_cost: string;
+  set_additional_cost: react_state_action<string>
+	early_repayment_fee: string;
+  set_early_repayment_fee: react_state_action<string>
+	repayment_method: string;
+  set_repayment_method: react_state_action<string>
+	loan_period: string;
+  set_loan_period: react_state_action<string>
+	available_location: string;
+  set_available_location: react_state_action<string>
+  title: string,
+  set_title: react_state_action<string>
+	contents: string;
+  set_contents: react_state_action<string>
 }
 
 const Register_data_context = createContext<null | IRegister_data>(null)
