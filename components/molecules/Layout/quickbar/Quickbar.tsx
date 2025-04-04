@@ -73,7 +73,7 @@ function Sponsor_link() {
 				</Typo.Contents>
 			</Col>
 			<div className={style.blur}/>
-			<Image src={get_temp_image()} alt={'sponsor_img'} fill/>
+			<Image src={get_temp_image(21)} alt={'sponsor_img'} fill/>
 		</Link>
 	)
 }
