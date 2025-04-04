@@ -62,18 +62,19 @@ function Sponsor_link() {
 					emphasize
 					color={'variable'}
 				>
-					{'제목제목제목제목'}
+					{'지금 이 사진을 눌러 어떤 업체보다\n 빠르게 대출받으세요!'}
 				</Typo.Contents>
-				<Typo.Contents
-					className={style.sponsor_link_contents}
-					isPre={'wrap'}
-					textAlign={'center'}
-				>
-					{'이름이름이름'}
-				</Typo.Contents>
+				<Row width={'fill'} justifyContents={'center'}>
+					<Typo.Contents
+						className={style.sponsor_link_contents}
+						isPre={'wrap'}
+					>
+						{'대부중개'}
+					</Typo.Contents>
+				</Row>
 			</Col>
 			<div className={style.blur}/>
-			<Image src={get_temp_image(21)} alt={'sponsor_img'} fill/>
+			<Image src={get_temp_image(2)} alt={'sponsor_img'} fill/>
 		</Link>
 	)
 }
