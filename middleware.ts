@@ -8,7 +8,6 @@ export async function middleware(
 	}
 
 	if(req.nextUrl.pathname.startsWith('/my')) {
-		console.log('is starts with my')
 		if(req.nextUrl.pathname === '/my/leave/done') {
 			return my_leave_domain_validate(req)
 		} else {
@@ -36,7 +35,6 @@ function my_leave_domain_validate(req: NextRequest) {
 
 function my_domain_validate(req: NextRequest) {
 	const refresh_token = req.cookies.get('refresh_token')
-	console.log(req.nextUrl.pathname, refresh_token)
 	if(refresh_token)
 		return NextResponse.next()
 	else

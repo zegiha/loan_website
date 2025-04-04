@@ -3,7 +3,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseTextInput} from "@/components/molecules/inputs";
 import Image from "next/image";
-import get_temp_image from "@/shared/api/get_temp_image";
+import BG from '@/public/img/certifiedCompanyBG.webp'
 
 export default function Display_section({
   search,
@@ -53,7 +53,7 @@ export default function Display_section({
       </Col>
       <div className={style.display_section_background}>
         <Image
-          src={get_temp_image()}
+          src={BG}
           alt={'배경이미지'}
           fill
         />
