@@ -24,9 +24,9 @@ export default function Select({
 	const [is_open, set_is_open] = useState<boolean>(false)
 
 	const getSelectContents: () => string = () => {
-		if(selected_idx === null) return placeholder
-		if(typeof selected_idx === 'number') {
-			return option[selected_idx]
+		if(selected_idx === null || selected_idx === undefined) return placeholder
+		if(typeof selected_idx === 'number' || selected_idx.length === 1) {
+			return option[typeof selected_idx === 'number' ? selected_idx : selected_idx[0]]
 		} else {
 			let res = '';
 			selected_idx.forEach((v, i) => {
