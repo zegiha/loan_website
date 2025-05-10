@@ -2,12 +2,22 @@ import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import style from './style.module.scss'
 import React from "react";
-import {Col, Divider} from "@/components/atoms/layout";
+import {Col} from "@/components/atoms/layout";
+import {IMy_ads} from "@/features/my/ads/ui/Add_contents";
+
+interface IMy_ads_table_row extends IMy_ads{
+	edit_action: () => void
+	prolongation_action: () => void
+	option: {
+		off_edit: boolean
+		off_prolongation: boolean
+	}
+}
 
 function My_ads_table_head() {
 	return <Col width={'fill'}>
     <TableHead className={style.table_row}>
-      <Typo.Contents width={92}>
+      <Typo.Contents width={172}>
         광고 형식
       </Typo.Contents>
       <Typo.Contents width={'fill'} className={style.table_row_min_width}>
@@ -17,7 +27,7 @@ function My_ads_table_head() {
         조회수
       </Typo.Contents>
       <Typo.Contents width={92}>
-        등록일
+        종료일
       </Typo.Contents>
       <Typo.Contents width={80}>
         광고연장
@@ -30,23 +40,19 @@ function My_ads_table_head() {
   </Col>
 }
 
-interface IMyAdds_table_row {
-	add_type: string
-	title: string
-	views: string
-	registered_date: Date
-}
-
 function My_ads_table_row({
-	add_type,
+	ad_name,
 	title,
 	views,
-	registered_date,
-}: IMyAdds_table_row) {
-	const processed_date = `${registered_date.getFullYear()}.${registered_date.getMonth() + 1}.${registered_date.getDate()}`;
+	end_date,
+	prolongation_action,
+	edit_action,
+	option,
+}: IMy_ads_table_row) {
+	const processed_date = `${end_date.getFullYear()}.${end_date.getMonth() + 1}.${end_date.getDate()}`;
 	return <TableRow className={style.table_row}>
-		<Typo.Contents width={92}>
-			{add_type}
+		<Typo.Contents width={172}>
+			{ad_name}
 		</Typo.Contents>
 		<Typo.Contents width={'fill'} className={style.table_row_min_width}>
 			{title}
@@ -57,11 +63,19 @@ function My_ads_table_row({
 		<Typo.Contents width={92}>
 			{processed_date}
 		</Typo.Contents>
-		<Typo.Contents width={80}>
-			광고연장
+		<Typo.Contents width={80} underline color={'dim'}>
+			{!option.off_prolongation && (
+				<span onClick={prolongation_action} style={{cursor: 'pointer'}}>
+					광고연장
+				</span>
+			)}
 		</Typo.Contents>
-		<Typo.Contents width={50}>
-			수정
+		<Typo.Contents width={50} underline color={'dim'}>
+			{!option.off_edit && (
+				<span onClick={edit_action} style={{cursor: 'pointer'}}>
+					수정
+				</span>
+			)}
 		</Typo.Contents>
 	</TableRow>
 }

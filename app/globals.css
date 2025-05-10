@@ -14,6 +14,9 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   font-family: 'wantedSans', 'wantedSans Fallback', sans-serif;
 }
 

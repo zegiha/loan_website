@@ -11,6 +11,13 @@ import {PremiumCard} from "@/components/molecules";
 import Link from "next/link";
 import {useFetch} from "@/shared/hooks";
 import {get_premium_banner} from "@/shared/api";
+import dynamic from "next/dynamic";
+import load from '@/public/assets/load_dot_120.json';
+
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
+  {ssr: false}
+)
 
 export default function PremiumBanner({
   defaultCardNumber,
@@ -23,7 +30,7 @@ export default function PremiumBanner({
   const [cardNumber, setCardNumber] = useState(defaultCardNumber);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const {data, is_loading, error, refetch} = useFetch(() => get_premium_banner())
+  const {data, is_loading} = useFetch(() => get_premium_banner())
 
   const handleResize = () => {
     if (wrapperRef.current) {
@@ -54,38 +61,48 @@ export default function PremiumBanner({
     handleResize()
   }, [data]);
 
-  if(data) return (
+  return (
     <Col
       ref={wrapperRef}
       gap={12}
       width={'fill'}
       alignItems={'center'}
     >
-      <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        modules={[Autoplay]}
-        loop
-        autoplay={{
-          delay: 2000,
-          pauseOnMouseEnter: true,
-        }}
-        spaceBetween={24}
-        slidesPerGroup={cardNumber}
-        slidesPerView={cardNumber}
-        style={{
-          paddingLeft: 1,
-        }}
-      >
-        {data.map((v, i) => (
-          <SwiperSlide key={i}>
-            <Link href={`/loan/${v.id}`}>
-              <PremiumCard {...v}/>
-            </Link>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+
+      {is_loading && data === null ? (
+        <Row
+          width={'fill'}
+          justifyContents={'center'}
+          style={{padding: '32px 0'}}
+        >
+          <Player src={load} autoplay loop style={{height: 24}}/>
+        </Row>
+      ):(
+        <Swiper
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          modules={[Autoplay]}
+          loop
+          autoplay={{
+            delay: 2000,
+            pauseOnMouseEnter: true,
+          }}
+          spaceBetween={24}
+          slidesPerView={cardNumber}
+          style={{
+            paddingLeft: 1,
+          }}
+        >
+          {data !== null && data.map((v, i) => (
+            <SwiperSlide key={i}>
+              <Link href={`/loan/${v.id}`}>
+                <PremiumCard {...v}/>
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
       <Row gap={8}>
         <BaseButton
           className={`${iconButton.iconButton28}`}
@@ -109,5 +126,4 @@ export default function PremiumBanner({
       </Row>
     </Col>
   );
-  else return null
 }

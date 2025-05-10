@@ -8,6 +8,7 @@ import Header from "@/components/organisms/layout/Header/Header";
 // import Link from "next/link";
 import Quickbar from "@/components/molecules/Layout/quickbar/Quickbar";
 import {TanstackQueryProvider} from "@/shared/axios";
+import Auth_provider from "@/components/organisms/layout/Auth_provider";
 
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2', display: 'swap'});
 
@@ -25,13 +26,16 @@ export default function RootLayout({
     <html lang="ko">
     <body className={`${wantedSans.className}`}>
     <TanstackQueryProvider>
+    <Auth_provider>
       <div className={style.container}>
         <Header/>
         {children}
         <Footer/>
       </div>
+
       <Quickbar/>
       <div id={'modal-root'}></div>
+    </Auth_provider>
     </TanstackQueryProvider>
     </body>
     </html>

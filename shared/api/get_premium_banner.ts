@@ -1,5 +1,3 @@
-'use server'
-
 import {IPremium_banner_data} from "@/shared/type";
 
 export default async function get_premium_banner(): Promise<Array<IPremium_banner_data>> {
@@ -7,9 +5,9 @@ export default async function get_premium_banner(): Promise<Array<IPremium_banne
 
 	const dummy: IPremium_banner_data = {
 		id: 'id',
-		title: '저신용자 상관없음 무서류 저신용자 상관 없음 무서류',
+		title: '무서류 + 저신용자 상관 없음',
 		location: '전국',
-		name: '스피드 대출'
+		name: '대부중개'
 	}
 	const dummies: Array<IPremium_banner_data> = []
 	for(let i = 0; i < 10; i++) dummies.push(dummy)

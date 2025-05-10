@@ -25,6 +25,7 @@ export default function LoanDetails() {
           {title: '등록번호', contents: data.registration_number},
           {title: '등록기관', contents: data.registrar},
           {title: '영업지', contents: data.address},
+          {title: '전화번호', contents: data.phone_number},
         ]
       },
       {
@@ -50,7 +51,6 @@ export default function LoanDetails() {
       <Divider height={8}/>
       <CompanySection
         contents={processing_data(data).contents[0].contents}
-        registration_certificate={data.registration_certificate}
       />
       <Divider height={8}/>
       <ProductSection

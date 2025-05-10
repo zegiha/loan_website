@@ -1,5 +1,3 @@
-'use server'
-
 import Typo from "@/components/atoms/typo/Typo";
 import style from "./display.module.scss";
 import Image from "next/image";
@@ -9,7 +7,6 @@ import {semantic_object} from "@/shared/color";
 // import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
 import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
 import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
-import tmp_img from '@/public/img/tmp_img.avif'
 
 export default async function DisplaySection() {
   const {totalLoanCompany, cumulativeVisiter, realTimeLoan} = await getWebStatus();
@@ -17,18 +14,7 @@ export default async function DisplaySection() {
   return (
     <Col className={style.displaySectionContainer} alignItems="center">
       <div className={style.displaySectionBackgroundBlur}/>
-      <div className={style.displaySectionBackground}>
-          <Image
-            src={tmp_img}
-            alt={'배경'}
-            fill
-            quality={1}
-            priority={true}
-            fetchPriority={'high'}
-            placeholder={'blur'}
-            loading={'eager'}
-          />
-      </div>
+      <div className={style.displaySectionBackground}/>
       <Col className={style.displaySectionWrapper} gap={24}>
         <Row
           justifyContents={'space-between'}

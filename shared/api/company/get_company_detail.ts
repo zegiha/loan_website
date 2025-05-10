@@ -1,5 +1,3 @@
-'use server'
-
 import {ICompany_detail} from "@/shared/type";
 import get_temp_image from "@/shared/api/get_temp_image";
 

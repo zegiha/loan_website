@@ -1,4 +1,5 @@
 import React, {createContext, useContext} from "react";
+import {TLocation} from "@/shared/type";
 
 export interface IPost_data {
   gender: 'MALE' | 'FEMALE'
@@ -15,6 +16,12 @@ export interface IPost_data {
   setContents: React.Dispatch<React.SetStateAction<string>>
   amount: string
   setAmount: React.Dispatch<React.SetStateAction<string>>
+  monthly_income: string | null
+  set_monthly_income: React.Dispatch<React.SetStateAction<string | null>>
+  location: TLocation | null
+  set_location: React.Dispatch<React.SetStateAction<TLocation | null>>
+  loan_type: '신용' | '담보' | null
+  set_loan_type: React.Dispatch<React.SetStateAction<'신용' | '담보' | null>>
 }
 
 const Post_data_context = createContext<null | IPost_data>(null)

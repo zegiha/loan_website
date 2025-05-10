@@ -7,6 +7,7 @@ import Create_post_post from "@/features/create_post_profile/ui/post";
 import Create_post_loan from "@/features/create_post_profile/ui/loan";
 import {useRouter} from "next/navigation";
 import axios from "axios";
+import TLocation from "@/shared/type/TLocation";
 
 const upload = async () => {
   try {
@@ -39,6 +40,9 @@ export default function Create_post() {
   const [title, setTitle] = useState<string>('')
   const [contents, setContents] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
+  const [monthly_income, set_monthly_income] = useState<string | null>(null)
+  const [location, set_location] = useState<TLocation | null>(null)
+  const [loan_type, set_loan_type] = useState<'신용' | '담보' | null>(null)
 
   const defaultValue: IPost_data = {
     gender, setGender,
@@ -47,7 +51,10 @@ export default function Create_post() {
     has_job, setHas_job,
     title, setTitle,
     contents, setContents,
-    amount, setAmount
+    amount, setAmount,
+    monthly_income, set_monthly_income,
+    location, set_location,
+    loan_type, set_loan_type,
   }
 
   const router = useRouter()

@@ -1,5 +1,3 @@
-'use server'
-
 import {Col} from "@/components/atoms/layout";
 import {
   DisplaySection,
@@ -8,14 +6,19 @@ import {
 } from "@/features/home";
 import RegisterStatusTableAndRealTimeLoanTableSection
   from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTableAndRealTimeLoanTableSection";
+import style from './home.module.scss';
+import Quickbar_layout from "@/components/organisms/layout/Quickbar_layout";
 
-export default async function Home() {
+export default function Home() {
   return (
-    <Col width={'fill'}>
-      <DisplaySection/>
-      <PremiumBannerAndRealTimeLoanSection/>
-      <MainRegisteredCompanySection/>
-      <RegisterStatusTableAndRealTimeLoanTableSection/>
-    </Col>
+    <Quickbar_layout>
+      <Col width={'fill'}>
+        <DisplaySection/>
+        <PremiumBannerAndRealTimeLoanSection/>
+        <MainRegisteredCompanySection/>
+        <div className={style.divide_design_img}/>
+        <RegisterStatusTableAndRealTimeLoanTableSection/>
+      </Col>
+    </Quickbar_layout>
   );
 }

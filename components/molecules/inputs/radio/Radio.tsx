@@ -5,6 +5,7 @@ import style from "./style.module.scss"
 interface IRadio {
   name: string
   contents?: string
+  onFocus?: () => void
   children?: React.ReactNode
 }
 
@@ -12,6 +13,7 @@ export default function Radio({
   name,
   contents,
   children,
+  onFocus,
 }: IRadio) {
   return (
     <label>
@@ -20,7 +22,7 @@ export default function Radio({
         gap={4}
         className={style.container}
       >
-        <input type="radio" name={name} className={style.radio}/>
+        <input type="radio" name={name} className={style.radio} onFocus={onFocus}/>
         {contents && (
           <Typo.Contents>
             {contents}

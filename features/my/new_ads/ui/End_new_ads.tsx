@@ -10,7 +10,7 @@ import {TableHead, TableRow} from "@/components/molecules";
 import {BaseButton, button} from "@/components/molecules/inputs";
 import {useRouter} from "next/navigation";
 import {ArrowAltIcon} from "@/components/atoms/icons";
-import ad_list from "@/features/my/new_ads/const/ad_list";
+import ad_list from "@/shared/constants/ad_list";
 
 export default function End_new_ads() {
   const router = useRouter();
@@ -43,7 +43,7 @@ export default function End_new_ads() {
             결제 완료됐어요!
           </Typo.Title>
           <Typo.Contents color={'dim'} isPre={'wrap'}>
-            입금 확인 후 배너가 적용되요{'\n'}
+            입금 확인 후 배너가 적용돼요{'\n'}
             배너가 적용되면 확인 문자를 보내드릴게요
           </Typo.Contents>
           <Row width={'fill'} justifyContents={'end'}>

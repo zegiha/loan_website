@@ -1,8 +1,10 @@
 import {BaseButton} from "@/components/molecules/inputs";
+import {TLocation} from '@/shared/type'
 import style from './categoryToggleButon.module.scss';
 import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import React from "react";
+import TLoan_production_type from "@/shared/type/TLoan_production_type";
 
 interface IToggleButton {
   active?: boolean;
@@ -19,7 +21,7 @@ interface IHandleCategoryButton {
   defaultValue: Array<TCategory>
 }
 
-export type TCategory = {label: string, subLabel: number, active: boolean};
+export type TCategory = {label: TLoan_production_type | TLocation | '신용' | '담보', subLabel: number, active: boolean};
 
 function handleCategoryButton({
   i,

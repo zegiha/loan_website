@@ -1,4 +1,3 @@
-'use server'
 export default async function getWebStatus() {
   return {
     totalLoanCompany: 19,

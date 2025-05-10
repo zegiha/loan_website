@@ -43,6 +43,7 @@ export function get_color(color: TColor): string {
     case 'primary': return style.primary;
     case 'onPrimary': return style.onPrimary;
     case 'onPrimaryDim': return style.onPrimaryDim;
+    case 'red': return style.error;
     default: return '';
   }
 }

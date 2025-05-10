@@ -15,20 +15,21 @@ export default function Create_post_profile({
   setStep?: React.Dispatch<React.SetStateAction<number>>,
   is_display?: boolean
 }) {
-  const [age_d, set_age_d] = useState<string>('');
-  const [gender_d, set_gender_d] = useState<string>('');
-  const [phone_number_d, set_phone_number_d] = useState<string>('');
-  const [has_job_d, set_has_job_d] = useState<boolean>(false);
+  const [string_tmp, set_string_tmp] = useState<string>('');
+  const [string_with_null_tmp, set_string_with_null_tmp] = useState<string | null>(null);
+  const [_, set_bool_tmp] = useState<boolean>(false);
   const {
     age, setAge,
-    gender, setGender,
+    setGender,
     phone_number, setPhone_number,
-    has_job, setHas_job,
+    setHas_job,
+    monthly_income, set_monthly_income,
   } = !is_display ? usePost_data() : {
-    age: age_d, setAge: set_age_d,
-    gender: gender_d, setGender: set_gender_d,
-    phone_number: phone_number_d, setPhone_number: set_phone_number_d,
-    has_job: has_job_d, setHas_job: set_has_job_d,
+    age: string_tmp, setAge: set_string_tmp,
+    setGender: set_string_tmp,
+    phone_number: string_tmp, setPhone_number: set_string_tmp,
+    setHas_job: set_bool_tmp,
+    monthly_income: string_with_null_tmp, set_monthly_income: set_string_with_null_tmp
   }
 
   return (
@@ -38,8 +39,8 @@ export default function Create_post_profile({
           <Typo.Caption color={'dim'}>성별</Typo.Caption>
         </label>
         <Col width={'fill'} gap={8}>
-          <Radio name={'gender'} contents={'남성'}/>
-          <Radio name={'gender'} contents={'여성'}/>
+          <Radio name={'gender'} contents={'남성'} onFocus={() => !is_display && setGender('MALE')}/>
+          <Radio name={'gender'} contents={'여성'} onFocus={() => !is_display && setGender('FEMALE')}/>
         </Col>
       </Col>
       <Col gap={4} width={'fill'}>
@@ -66,6 +67,33 @@ export default function Create_post_profile({
           onChangeAction={(v) => !is_display && setPhone_number(formatting_phone_number(v))}
           placeholder={'연락처를 입력해주세요'}
         />
+      </Col>
+      <Col gap={4} width={'fill'}>
+        <label htmlFor="gender">
+          <Typo.Caption color={'dim'}>직업유무</Typo.Caption>
+        </label>
+        <Col width={'fill'} gap={8}>
+          <Radio name={'has_job'} contents={'예'} onFocus={() => !is_display && setHas_job(true)}/>
+          <Radio name={'has_job'} contents={'아니요'} onFocus={() => !is_display && setHas_job(false)}/>
+        </Col>
+      </Col>
+      <Col gap={4} width={'fill'}>
+        <label htmlFor="gender">
+          <Typo.Caption color={'dim'}>월수입</Typo.Caption>
+        </label>
+        <Col width={'fill'} gap={8}>
+          <Radio name={'monthly_income'}>
+            <BaseTextInput
+              width={'fill'}
+              size={'normal'}
+              value={monthly_income !== null ? monthly_income : ''}
+              TypingIcon={<Typo.Contents color={'dim'}>₩</Typo.Contents>}
+              onChangeAction={(v) => !is_display && set_monthly_income(v)}
+              placeholder={'월수입을 입력해주세요'}
+            />
+          </Radio>
+          <Radio name={'monthly_income'} contents={'수입없음'} onFocus={() => !is_display && set_monthly_income(null)}/>
+        </Col>
       </Col>
       <BaseButton className={style.button} onClick={() => {
         if(!is_display && setStep) {
