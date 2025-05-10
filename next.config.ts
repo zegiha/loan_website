@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/*',
       },
+      {
+        protocol: 'https',
+        hostname: 'loan.apne2a.algorix.cloud/',
+        port: '',
+        pathname: '/*',
+      }
     ]
   },
   typescript: {
