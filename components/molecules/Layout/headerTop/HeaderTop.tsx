@@ -33,10 +33,10 @@ interface ITopIconNavigation {
 }
 
 const topIconNavigation: Array<ITopIconNavigation> = [
+  {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => {}},
   {icon: 'adContact', domain: '/customer/ads', label: '광고 문의', onClick: () => {}},
   // {icon: 'recentlySeenCompany', domain: '', label: '최근 본 업체', onClick: () => console.log('헤더 최근 본 없체')},
   // {icon: 'warnings', domain: '', label: '주의 사항', onClick: () => console.log('헤더 주의 사항')},
-  {icon: 'company', domain: '/login', label: '업체 로그인', onClick: () => {}},
   {icon: 'account_circle', domain: '/my/ads', label: '마이페이지', onClick: () => {}}
 ];
 
