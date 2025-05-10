@@ -35,6 +35,11 @@ export default function Register_brokerage_info({
     return `${y}-${m}-${d}`
   }
 
+  const periodChecker = (start: Date, end: Date) => {
+    return start.getTime() > end.getTime()
+      ? '시작일은 종료일보다 이릅니다' : null
+  }
+
   const handleNext = () => {
     if(
       error_checker([is_typed], brokerage_number) === null &&
@@ -45,7 +50,11 @@ export default function Register_brokerage_info({
       brokerage_registration_certificate !== null &&
       business_registration_certificate !== null
     ) {
-      setStep(prev => prev + 1)
+      if(periodChecker(brokerage_period.start!, brokerage_period.end!) === null) {
+        setStep(prev => prev + 1)
+      } else {
+        alert(periodChecker(brokerage_period.start!, brokerage_period.end!))
+      }
     } else {
       alert('잘못된 입력이 있습니다')
     }
