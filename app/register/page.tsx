@@ -80,8 +80,8 @@ export default function Register_page() {
   }
 
   useEffect(() => {
-    if(step == 3) {
-      handleSubmit()
+    if(step >= 3) {
+      router.replace('/login')
     }
   }, [step]);
 
@@ -106,7 +106,6 @@ function Switcher({
     case 0: return <Register_generic_user_info setStep={setStep}/>
     case 1: return <Register_brokerage_info setStep={setStep}/>
     case 2: return <Register_company_info setStep={setStep}/>
-    case 3: return <></>
     default: throw new Error('register page switcher')
   }
 }
