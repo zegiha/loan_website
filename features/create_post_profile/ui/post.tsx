@@ -8,9 +8,11 @@ import CheckIcon from "@/components/atoms/icons/CheckIcon";
 import style from './style.module.scss';
 
 export default function Create_post_post({
-  setStep
+  setStep,
+  test,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>
+  test: () => Promise<boolean>
 }) {
   const {
     title, setTitle,
@@ -45,7 +47,13 @@ export default function Create_post_post({
           placeholder={'문의내용을 입력해주세요'}
         />
       </Col>
-      <BaseButton className={style.button} onClick={() => {setStep(prev => prev + 1)}}>
+      <BaseButton className={style.button} onClick={() => {
+        test().then(res => {
+          if(res) {
+            setStep(prev => prev + 1)
+          }
+        })
+      }}>
         <Row gap={4} alignItems={'center'}>
           <Typo.SubBody emphasize color={'onPrimary'}>완료</Typo.SubBody>
           <CheckIcon color={'white'}/>

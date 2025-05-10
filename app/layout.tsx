@@ -7,6 +7,7 @@ import Footer from "@/components/organisms/layout/footer/Footer";
 import Header from "@/components/organisms/layout/Header/Header";
 // import Link from "next/link";
 import Quickbar from "@/components/molecules/Layout/quickbar/Quickbar";
+import {TanstackQueryProvider} from "@/shared/axios";
 
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2', display: 'swap'});
 
@@ -23,13 +24,15 @@ export default function RootLayout({
   return (
     <html lang="ko">
     <body className={`${wantedSans.className}`}>
-    <div className={style.container}>
-      <Header/>
-      {children}
-      <Footer/>
-    </div>
-    <Quickbar/>
-    <div id={'modal-root'}></div>
+    <TanstackQueryProvider>
+      <div className={style.container}>
+        <Header/>
+        {children}
+        <Footer/>
+      </div>
+      <Quickbar/>
+      <div id={'modal-root'}></div>
+    </TanstackQueryProvider>
     </body>
     </html>
   );
