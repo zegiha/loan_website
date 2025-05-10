@@ -1,7 +1,5 @@
-import {authControllerRegister} from '@/entities/api/auth/auth'
-import {uploadControllerUploadFile} from '@/entities/api/upload/upload'
-import {UserRegisterDto} from '@/entities/const'
-import {IRegister_data, useRegister_data} from "@/features/register/context/register_data_context";
+import {ArrowAltIcon} from '@/components/atoms/icons'
+import {useRegister_data} from "@/features/register/context/register_data_context";
 import React from "react";
 import {error_checker, formatting_phone_number, is_correct_phone_number, is_typed} from "@/shared/helper";
 import InputSection from "@/components/molecules/Layout/inputSection/InputSection";
@@ -10,67 +8,16 @@ import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
 import CheckIcon from "@/components/atoms/icons/CheckIcon";
 
-async function registerFunc(data: IRegister_data) {
-  try {
-    const formatDate = (v: Date) => {
-      return `${v.getFullYear()}-${v.getMonth() + 1}-${v.getDate()}`
-    }
-
-    Object.entries(data).forEach(([key, value]) => {
-      if(value === null || value === undefined) {
-        throw new Error(`${key} cannot be empty`)
-      }
-    })
-
-    const loanRegistrationCertificate =
-      await uploadControllerUploadFile({
-        file: data.brokerage_registration_certificate!,
-      }).then(res => {
-        if(res === undefined) throw new Error('img upload failed')
-        return res.url
-      })
-    const businessRegistrationCertificate =
-      await uploadControllerUploadFile({
-        file: data.business_registration_certificate!,
-      }).then(res => {
-        if(res === undefined) throw new Error('img upload failed')
-        return res.url
-      })
-
-    const registerData: UserRegisterDto = {
-      ...data,
-      tel: data.phone,
-      advertisementTel: data.loan_advertisement_phone,
-      companyTel: data.company_name,
-      registeredNumber: data.brokerage_number,
-      registerPeriodStart: formatDate(data.brokerage_period.start!),
-      registerPeriodEnd: formatDate(data.brokerage_period.end!),
-      registrar: data.brokerage_registrar,
-      loanRegistrationCertificate: loanRegistrationCertificate!,
-      businessRegistrationCertificate: businessRegistrationCertificate!,
-      companyName: data.company_name,
-      companyLocation: data.company_location,
-      company: {
-        title: data
-      }
-    }
-    await authControllerRegister(registerData)
-  } catch (e) {
-
-  }
-}
-
 export default function Register_company_info({
   setStep
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>
 }) {
-  const data = useRegister_data()
   const {
     company_location, setCompany_location,
     company_phone, setCompany_phone,
     company_name, setCompany_name,
-  } = data
+  } = useRegister_data()
 
   const handleNext = () => {
     if(
@@ -78,8 +25,7 @@ export default function Register_company_info({
       error_checker([is_typed, is_correct_phone_number], company_phone) === null &&
       error_checker([is_typed], company_location) === null
     ) {
-      registerFunc(data)
-      // setStep(prev => prev + 1)
+      setStep(prev => prev + 1)
     } else {
       alert('잘못된 입력 값이 존재합니다')
     }
@@ -146,9 +92,9 @@ export default function Register_company_info({
           >
             <Row gap={4} alignItems={'center'}>
               <Typo.Contents emphasize color={'onPrimary'}>
-                완료
+                다음
               </Typo.Contents>
-              <CheckIcon color={'white'} />
+              <ArrowAltIcon color={'white'}/>
             </Row>
           </BaseButton>
         </Row>
