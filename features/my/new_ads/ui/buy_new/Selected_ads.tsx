@@ -15,7 +15,11 @@ export default function Selected_ads() {
           <div
             key={v.name}
             className={style.ad_name_chip_button}
-            onClick={() => setSelect(prev => prev.filter(e => e !== v))}
+            onClick={() => {
+              if(v.type_name !== 'line') {
+                setSelect(prev => prev.filter(e => e !== v))
+              }
+            }}
           >
             <Row gap={4} alignItems={'center'}>
               <Col gap={4}>
@@ -24,7 +28,7 @@ export default function Selected_ads() {
                   {v.price.toLocaleString()}원
                 </Typo.Caption>
               </Col>
-              <CloseIcon/>
+              {v.type_name !== 'line' && <CloseIcon/>}
             </Row>
           </div>
         ))}

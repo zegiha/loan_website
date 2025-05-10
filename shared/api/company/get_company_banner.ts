@@ -1,5 +1,3 @@
-'use server'
-
 import get_temp_image from "@/shared/api/get_temp_image";
 import {ICompany_banner_data} from "@/shared/type";
 
@@ -13,14 +11,50 @@ function get_fetch_url(page_option: page_option_type): string {
   }
 }
 
-const dummy: ICompany_banner_data = {
+const dummy1: ICompany_banner_data = {
   id: 'id',
-  title: "무방문 무서류 당일 대출",
-  subtitle: "지역 시간 장소 제약 X 월별 당일승인 당일송금",
-  name: "스피드 대출",
-  phone: "010-4612-4593",
+  title: "어디든 언제든 당일 대출",
+  subtitle: "당일 대출",
+  name: "대출",
+  phone: "010-1234-5678",
   location: "전국",
-  img_url: get_temp_image()
+  img_url: get_temp_image(1224)
+}
+const dummy2: ICompany_banner_data = {
+  id: 'id',
+  title: "무방문 무서류 빠른 대출",
+  subtitle: "빠른 대출",
+  name: "대출",
+  phone: "010-1234-5678",
+  location: "서울",
+  img_url: get_temp_image(16834893)
+}
+const dummy3: ICompany_banner_data = {
+  id: 'id',
+  title: "여성만을 위한 여성 대출",
+  subtitle: "여성 대출",
+  name: "대출",
+  phone: "010-1234-5678",
+  location: "경기",
+  img_url: get_temp_image(240518)
+}
+const dummy4: ICompany_banner_data = {
+  id: 'id',
+  title: "직장인이면 누구나 대출 가능",
+  subtitle: "직장인 대출",
+  name: "대출",
+  phone: "010-1234-5678",
+  location: "인천",
+  img_url: get_temp_image(30469)
+}
+const dummy5: ICompany_banner_data = {
+  id: 'id',
+  title: "어느 곳 보다 간편하게 대출",
+  subtitle: "간편 대출",
+  name: "대출",
+  phone: "010-1234-5678",
+  location: "전북",
+  img_url: get_temp_image(913340588)
 }
 
 export default async function get_company_banner(
@@ -30,7 +64,14 @@ export default async function get_company_banner(
   const fetch_url = get_fetch_url(page_option);
 
   let dummies: Array<ICompany_banner_data> = [];
-  for(let i = 0; i < data_number; i++) dummies.push(dummy);
+  for(let i = 0; i < data_number / 5; i++) {
+    dummies.push(dummy1)
+    dummies.push(dummy2)
+    dummies.push(dummy3)
+    dummies.push(dummy4)
+    dummies.push(dummy5)
+  }
+
 
   return dummies;
 }

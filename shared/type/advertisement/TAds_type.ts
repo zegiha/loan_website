@@ -3,6 +3,7 @@ type TAds_type =
 	'location_banner' |
 	'product_banner' |
 	'banner' |
+	'top_banner' |
 	'sponsor_link' |
 	'line' |
 	'no_data_req'

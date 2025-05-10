@@ -11,21 +11,23 @@ import Buy_table_section from "@/features/my/new_ads/ui/buy_new/Buy_table_sectio
 import {BaseButton, button} from "@/components/molecules/inputs";
 import Typo from "@/components/atoms/typo/Typo";
 import {TAds_name, TAll_req, TAds_type} from "@/shared/type";
-import Info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Info_input_section";
-import Main_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Main_banner_info_input_section";
-import Premium_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Premium_banner_info_input_section";
-import Line_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Line_info_input_section";
-import Sponsor_link_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Sponsor_link_info_input_section";
-import Product_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Product_banner_info_input_section";
-import Location_banner_info_input_section from "@/features/my/new_ads/ui/buy_new/info_input/Location_banner_info_input_section";
+import Buy_new_premium_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_premium_banner";
+import Buy_new_line from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_line";
+import Buy_new_sponsor_link from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_sponsor_link";
+import Buy_new_product_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_product_banner";
 import {Info_validate_context} from "@/features/my/new_ads/context/info_validate_context";
 import {is_typed} from "@/shared/helper";
+import Buy_new_top_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_top_banner";
+import Buy_new_main_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_main_banner";
+import Buy_new_location_banner from "@/features/my/new_ads/ui/buy_new/info_input/Buy_new_location_banner";
+import {Info_input_section} from "@/components/organisms/ad_input_sections";
 
 export default function Buy_new_ads({
   setStepAction
 }: {
   setStepAction: React.Dispatch<React.SetStateAction<TStep>>
 }) {
+  const [total_price, set_total_price] = useState(0)
   const [validate_list, set_validate_list] = useState<Array<{name: TAds_name, status: boolean, error_message: string}>>([]);
 
   const [depositor, setDepositor] = useState<string>('')
@@ -57,12 +59,20 @@ export default function Buy_new_ads({
     }
   }
 
-  const {select} = useSelect_context()
+  const {select, setSelect} = useSelect_context()
   useEffect(() => {
     if(select.length === 0) {
       setStepAction('get')
     }
-  }, [select]);
+    let new_total_price = 0
+    select.forEach(v => new_total_price += v.price)
+    set_total_price(new_total_price)
+  }, [select])
+  useEffect(() => {
+    const has_line_ad = select.findIndex(v => v.name === '줄광고') !== -1
+    if(has_line_ad && total_price < 500000) setSelect(prev => [...prev.filter(v => v.name !== '줄광고')])
+    else if(!has_line_ad && total_price >= 500000) setSelect(prev => [...prev, {name: '줄광고', price: 0, type_name: 'line'}])
+  }, [total_price])
 
   return (
     <Info_validate_context.Provider value={{validate_list, set_validate_list}}>
@@ -109,12 +119,13 @@ function Switcher({
   name: TAds_name
 }) {
   switch (type_name) {
-    case "banner": return <Main_banner_info_input_section name={name}/>
-    case "product_banner": return <Product_banner_info_input_section name={name}/>
-    case "location_banner": return <Location_banner_info_input_section name={name}/>
-    case "line": return <Line_info_input_section name={name}/>
-    case "premium_banner": return <Premium_banner_info_input_section name={name}/>
-    case "sponsor_link": return <Sponsor_link_info_input_section name={name}/>
+    case 'banner': return <Buy_new_main_banner name={name}/>
+    case 'top_banner': return <Buy_new_top_banner name={name}/>
+    case "product_banner": return <Buy_new_product_banner name={name}/>
+    case "location_banner": return <Buy_new_location_banner name={name}/>
+    case "line": return <Buy_new_line name={name}/>
+    case "premium_banner": return <Buy_new_premium_banner name={name}/>
+    case "sponsor_link": return <Buy_new_sponsor_link name={name}/>
     default: return <Typo.Contents color={'dim'}>선택사항이 없습니다</Typo.Contents>
   }
 }

@@ -108,14 +108,16 @@ export default function Ad({
             </Typo.Contents>
           </BaseButton>
         </Row>
-        <BaseButton
-          className={active ?
-            style.add_to_cart_button_active : style.add_to_cart_button}
-          onClick={onClick}
-        >
-          <CheckIcon/>
-          <Typo.Contents emphasize>바구니에 추가하기</Typo.Contents>
-        </BaseButton>
+        {name !== '줄광고' && (
+          <BaseButton
+            className={active ?
+              style.add_to_cart_button_active : style.add_to_cart_button}
+            onClick={onClick}
+          >
+            <CheckIcon/>
+            <Typo.Contents emphasize>바구니에 추가하기</Typo.Contents>
+          </BaseButton>
+        )}
       </Col>
       <Modal isOpen={is_modal_open} setIsOpen={set_is_modal_open}>
         <div

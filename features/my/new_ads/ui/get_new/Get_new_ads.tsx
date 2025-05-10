@@ -7,7 +7,7 @@ import {useSelect_context} from "@/features/my/new_ads/context/select_context";
 import Subject_section from "@/features/my/new_ads/ui/Subject_section";
 import Ad from "@/features/my/new_ads/ui/get_new/Ad";
 import Bottom_bar from "@/features/my/new_ads/ui/get_new/Bottom_bar";
-import ad_list from "@/features/my/new_ads/const/ad_list";
+import ad_list from "@/shared/constants/ad_list";
 import {TAds_name, TAds_type} from "@/shared/type";
 
 export default function Get_new_ads({

@@ -15,6 +15,7 @@ import Upload_icon from "@/components/atoms/icons/Upload_icon";
 import Chevron_icon from "@/components/atoms/icons/Chevron_icon";
 import Calculate_icon from "@/components/atoms/icons/Calculate_icon";
 import Search_people_icon from "@/components/atoms/icons/Search_people_icon";
+import Article_icon from "@/components/atoms/icons/Article_icon";
 
 export {
   LocationIcon,
@@ -34,4 +35,5 @@ export {
   Chevron_icon,
   Calculate_icon,
   Search_people_icon,
+  Article_icon,
 }

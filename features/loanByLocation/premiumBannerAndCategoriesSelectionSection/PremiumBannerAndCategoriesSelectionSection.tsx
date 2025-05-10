@@ -5,9 +5,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {PremiumBanner} from "@/components/organisms";
 import {semantic_object} from "@/shared/color";
 import style from './premiumBannerAndCategoriesSelectionSection.module.scss';
-import {BaseTextInput} from "@/components/molecules/inputs";
-import React, {useState} from "react";
-import CloseIcon from "@/components/atoms/icons/CloseIcon";
+import React from "react";
 import CategoryToggleButton, {
   TCategory
 } from "@/components/molecules/inputs/buttons/categoryToggleButton/CategoryToggleButton";
@@ -38,7 +36,6 @@ const CATEGORIES: Array<TCategory> = [
 export default function PremiumBannerAndCategoriesSelectionSection({
   setActiveCategoriesAction
 }: {setActiveCategoriesAction: React.Dispatch<React.SetStateAction<Set<string>>>}) {
-  const [locationSearch, setLocationSearch] = useState<string>('');
   const [categories, setCategories] = useCategoryToggleButtons(CATEGORIES, setActiveCategoriesAction);
 
   return (
@@ -54,27 +51,6 @@ export default function PremiumBannerAndCategoriesSelectionSection({
           <PremiumBanner defaultCardNumber={3}/>
         </Col>
         <Col gap={16} className={style.bigBox}>
-          <BaseTextInput
-            placeholder={'찾으시는 지역을 입력해주세요'}
-            size={'normal'}
-            width={'fill'}
-            maxWidth={280}
-            value={locationSearch}
-            TypingIcon={
-            <div
-              style={{
-              width: 20, height: 20,
-              cursor: 'pointer',
-              }}
-              onClick={() => setLocationSearch('')}
-            >
-              <CloseIcon size={20} color={'dim'}/>
-            </div>
-            }
-            onChangeAction={(v) => {
-              setLocationSearch(v);
-            }}
-          />
           <Row width={'fill'} gap={12} wrap>
             {categories.map((v, i) => (
               <CategoryToggleButton

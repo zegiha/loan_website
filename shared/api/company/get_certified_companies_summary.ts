@@ -1,5 +1,3 @@
-'use server'
-
 import ICertified_company_summary from "@/shared/type/company/ICertified_company_summary";
 
 export default async function get_certified_companies_summary(search: string): Promise<Array<ICertified_company_summary>> {
