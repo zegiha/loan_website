@@ -215,6 +215,10 @@ export const useAuthControllerRegister = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * 로그아웃
+ * @summary Logout
+ */
 export const authControllerLogout = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
@@ -267,6 +271,9 @@ export type AuthControllerLogoutMutationResult = NonNullable<
 
 export type AuthControllerLogoutMutationError = ErrorType<unknown>;
 
+/**
+ * @summary Logout
+ */
 export const useAuthControllerLogout = <
   TError = ErrorType<unknown>,
   TContext = unknown,
