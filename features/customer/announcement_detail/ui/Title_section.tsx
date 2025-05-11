@@ -12,13 +12,11 @@ import {semantic_object} from "@/shared/color";
 interface IAnnouncement_detail_title {
   title: string;
   createdAt: Date;
-  view_cnt: number
 }
 
 export default function Title_section({
   title,
   createdAt,
-  view_cnt,
 }: IAnnouncement_detail_title) {
   const router = useRouter()
 
@@ -39,10 +37,6 @@ export default function Title_section({
       <Row width={'fill'} wrap gap={12} alignItems={'center'}>
         <Typo.SubBody color={'dim'}>
           {`${createdAt.getFullYear()}.${createdAt.getMonth() + 1}.${createdAt.getDate()}`} 등록
-        </Typo.SubBody>
-        <div style={{width: 6, height: 6, borderRadius: 100, backgroundColor: semantic_object.outline.default}}/>
-        <Typo.SubBody color={'dim'}>
-          {view_cnt}회
         </Typo.SubBody>
       </Row>
     </Section>

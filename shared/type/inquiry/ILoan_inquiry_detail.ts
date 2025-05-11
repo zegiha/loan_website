@@ -8,8 +8,9 @@ export interface ILoan_inquiry_detail {
 	author: {
 		age: number
 		gender: 'MALE' | 'FEMALE'
-		monthly_income: string
+		monthly_income?: string
 		is_job: boolean
+    tel: string
 	}
 	loan: {
 		location: string

@@ -1,6 +1,6 @@
 import {AccordionSectionTitle, Section} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
-import {useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseButton, BaseTextInput} from "@/components/molecules/inputs";
 import SearchTypeTextInput from "@/components/molecules/inputs/textInputs/searchTypeTextInput/SearchTypeTextInput";
@@ -9,9 +9,23 @@ import {PlusIcon} from "@/components/atoms/icons";
 import PostTable from "@/features/postList/ui/loanPostTableSection/PostTable";
 import {useRouter} from "next/navigation";
 import {semantic_object} from "@/shared/color";
+import react_state_action from "@/shared/type/react_state_action";
 
 const accordionData = ['10', '15', '20', '30']
 const SEARCHTYPE = ['제목 및 내용', '제목', '내용', '금액']
+
+const PaginationProvider = createContext<{
+  limit: number
+  page: number, setPage: react_state_action<number>
+  searchType: string
+  search: string
+} | null>(null)
+
+export function usePagination() {
+  const data = useContext(PaginationProvider)
+  if(data === null) throw new Error("pagination provider's value is null ")
+  return data
+}
 
 export default function LoanPostTableSection({
   activeLoanTypeCategories,
@@ -24,9 +38,23 @@ export default function LoanPostTableSection({
 }) {
   const [activeAccordionNumber, setActiveAccordionNumber] = useState<string>(!is_display ? '15' : '5')
 
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>('')
 
   const [activeSearchType, setActiveSearchType] = useState<string>('제목 및 내용')
+
+  const [limit, setLimit] = useState<number>(!is_display ? 15 : 5)
+  const [page, setPage] = useState<number>(1)
+
+  const paginationDefault = {
+    limit,
+    page, setPage,
+    search,
+    searchType: activeSearchType
+  }
+
+  useEffect(() => {
+    setLimit(Number(activeAccordionNumber))
+  }, [activeAccordionNumber]);
 
   const formatLocationCategory = () => {
     let res = ''
@@ -106,11 +134,13 @@ export default function LoanPostTableSection({
             </Typo.Contents>
           </BaseButton>
         </Row>
-        <PostTable
-          key={`${activeAccordionNumber}`}
-          dataNumber={Number(activeAccordionNumber)}
-          is_display={is_display}
-        />
+        <PaginationProvider value={paginationDefault}>
+          <PostTable
+            key={`${activeAccordionNumber}`}
+            dataNumber={Number(activeAccordionNumber)}
+            is_display={is_display}
+          />
+        </PaginationProvider>
       </Col>
     </Section>
   );

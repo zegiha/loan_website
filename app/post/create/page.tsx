@@ -9,12 +9,12 @@ import {useRouter} from "next/navigation";
 import axios from "axios";
 import TLocation from "@/shared/type/TLocation";
 
-const upload = async () => {
+const upload = async (data: IPost_data) => {
   try {
     const res = await axios.post('https://loan.apne2a.algorix.cloud/loanboard', {
-      type: '신용',
-      available_location: '서울',
-      desired_amount: 10000,
+      type: data.loan_type,
+      available_location: data.location,
+      desired_amount: data.amount,
       age: 30,
       gender: 'male',
       tel: '01012345678',
@@ -23,10 +23,8 @@ const upload = async () => {
       title: 'tttt',
       content: 'haha'
     })
-    console.log(`success: ${res}`)
     return true
   } catch (e) {
-    console.error(e)
     return false
   }
 }
@@ -64,15 +62,15 @@ export default function Create_post() {
     if(step === 3) {
     } else if(step > 3) {
       router.push('/')
-      setStep(2);
+      setStep(2)
     }
-  }, [step]);
+  }, [step])
 
   return (
     <Post_data_context.Provider value={defaultValue}>
       <Switcher step={step} setStep={setStep}/>
     </Post_data_context.Provider>
-  );
+  )
 }
 
 function Switcher({
@@ -82,7 +80,6 @@ function Switcher({
     case 0: return <Create_post_profile setStep={setStep} />
     case 1: return <Create_post_loan setStep={setStep}/>
     case 2: return <Create_post_post
-      test={upload}
       setStep={setStep}
     />
   }

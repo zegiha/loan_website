@@ -30,26 +30,23 @@ instance.interceptors.response.use(
   res => res,
   async (err) => {
     if(err instanceof AxiosError && err.status === 401) {
-    //   const res = await checkLogin()
-    //   const reqConfig = err.config as CustomInternalAxiosRequestConfig | undefined
-    //
-    //   if(
-    //     res === 'loggedInUpdated' &&
-    //     reqConfig &&
-    //     reqConfig.url?.includes('my') &&
-    //     !reqConfig._isRetry
-    //   ) {
-    //     console.log('refreshing')
-    //     reqConfig._isRetry = true
-    //     return instance(reqConfig)
-    //   }
-    //   if(res === 'loggedOut') {
-    //     console.log('must log in')
-    //     globalRouter?.push('/login')
-    //   }
+      const res = await checkLogin()
+      const reqConfig = err.config as CustomInternalAxiosRequestConfig | undefined
+
+      if(
+        res === 'loggedInUpdated' &&
+        reqConfig &&
+        reqConfig.url?.includes('my') &&
+        !reqConfig._isRetry
+      ) {
+        reqConfig._isRetry = true
+        return instance(reqConfig)
+      }
+      if(res === 'loggedOut') {
+        globalRouter?.push('/login')
+      }
     }
 
-    console.log('other 401')
     return Promise.reject(err)
   }
 )

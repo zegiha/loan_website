@@ -75,7 +75,7 @@ export default function Buy_new_ads({
   useEffect(() => {
     if(status === 'success') {
       window.scrollTo({top: 0})
-      setStepAction('end');
+      setStepAction('end')
     }
   }, [status]);
 

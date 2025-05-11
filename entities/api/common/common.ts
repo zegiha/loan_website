@@ -21,41 +21,32 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type {
-  CompanyCreateDto,
-  CompanyResponseDto,
-  CompanyWithUserResponseDto,
-} from "../../const";
-
 import { customInstance } from "../../../shared/axios/lib/customInstance";
-import type {
-  ErrorType,
-  BodyType,
-} from "../../../shared/axios/lib/customInstance";
+import type { ErrorType } from "../../../shared/axios/lib/customInstance";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-export const companyControllerFindAll = (
+export const commonControllerCommonInfos = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<CompanyResponseDto[]>(
-    { url: `/company`, method: "GET", signal },
+  return customInstance<void>(
+    { url: `/common`, method: "GET", signal },
     options,
   );
 };
 
-export const getCompanyControllerFindAllQueryKey = () => {
-  return [`/company`] as const;
+export const getCommonControllerCommonInfosQueryKey = () => {
+  return [`/common`] as const;
 };
 
-export const getCompanyControllerFindAllQueryOptions = <
-  TData = Awaited<ReturnType<typeof companyControllerFindAll>>,
+export const getCommonControllerCommonInfosQueryOptions = <
+  TData = Awaited<ReturnType<typeof commonControllerCommonInfos>>,
   TError = ErrorType<unknown>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<
-      Awaited<ReturnType<typeof companyControllerFindAll>>,
+      Awaited<ReturnType<typeof commonControllerCommonInfos>>,
       TError,
       TData
     >
@@ -65,41 +56,41 @@ export const getCompanyControllerFindAllQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getCompanyControllerFindAllQueryKey();
+    queryOptions?.queryKey ?? getCommonControllerCommonInfosQueryKey();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof companyControllerFindAll>>
-  > = ({ signal }) => companyControllerFindAll(requestOptions, signal);
+    Awaited<ReturnType<typeof commonControllerCommonInfos>>
+  > = ({ signal }) => commonControllerCommonInfos(requestOptions, signal);
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof companyControllerFindAll>>,
+    Awaited<ReturnType<typeof commonControllerCommonInfos>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
-export type CompanyControllerFindAllQueryResult = NonNullable<
-  Awaited<ReturnType<typeof companyControllerFindAll>>
+export type CommonControllerCommonInfosQueryResult = NonNullable<
+  Awaited<ReturnType<typeof commonControllerCommonInfos>>
 >;
-export type CompanyControllerFindAllQueryError = ErrorType<unknown>;
+export type CommonControllerCommonInfosQueryError = ErrorType<unknown>;
 
-export function useCompanyControllerFindAll<
-  TData = Awaited<ReturnType<typeof companyControllerFindAll>>,
+export function useCommonControllerCommonInfos<
+  TData = Awaited<ReturnType<typeof commonControllerCommonInfos>>,
   TError = ErrorType<unknown>,
 >(
   options: {
     query: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindAll>>,
+        Awaited<ReturnType<typeof commonControllerCommonInfos>>,
         TError,
         TData
       >
     > &
       Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof companyControllerFindAll>>,
+          Awaited<ReturnType<typeof commonControllerCommonInfos>>,
           TError,
-          Awaited<ReturnType<typeof companyControllerFindAll>>
+          Awaited<ReturnType<typeof commonControllerCommonInfos>>
         >,
         "initialData"
       >;
@@ -109,23 +100,23 @@ export function useCompanyControllerFindAll<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-export function useCompanyControllerFindAll<
-  TData = Awaited<ReturnType<typeof companyControllerFindAll>>,
+export function useCommonControllerCommonInfos<
+  TData = Awaited<ReturnType<typeof commonControllerCommonInfos>>,
   TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindAll>>,
+        Awaited<ReturnType<typeof commonControllerCommonInfos>>,
         TError,
         TData
       >
     > &
       Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof companyControllerFindAll>>,
+          Awaited<ReturnType<typeof commonControllerCommonInfos>>,
           TError,
-          Awaited<ReturnType<typeof companyControllerFindAll>>
+          Awaited<ReturnType<typeof commonControllerCommonInfos>>
         >,
         "initialData"
       >;
@@ -135,14 +126,14 @@ export function useCompanyControllerFindAll<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-export function useCompanyControllerFindAll<
-  TData = Awaited<ReturnType<typeof companyControllerFindAll>>,
+export function useCommonControllerCommonInfos<
+  TData = Awaited<ReturnType<typeof commonControllerCommonInfos>>,
   TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindAll>>,
+        Awaited<ReturnType<typeof commonControllerCommonInfos>>,
         TError,
         TData
       >
@@ -154,14 +145,14 @@ export function useCompanyControllerFindAll<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 
-export function useCompanyControllerFindAll<
-  TData = Awaited<ReturnType<typeof companyControllerFindAll>>,
+export function useCommonControllerCommonInfos<
+  TData = Awaited<ReturnType<typeof commonControllerCommonInfos>>,
   TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindAll>>,
+        Awaited<ReturnType<typeof commonControllerCommonInfos>>,
         TError,
         TData
       >
@@ -172,7 +163,7 @@ export function useCompanyControllerFindAll<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getCompanyControllerFindAllQueryOptions(options);
+  const queryOptions = getCommonControllerCommonInfosQueryOptions(options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,
@@ -184,81 +175,71 @@ export function useCompanyControllerFindAll<
   return query;
 }
 
-export const companyControllerGetCompany = (
-  id: string,
+export const commonControllerGetVisitorCount = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<CompanyWithUserResponseDto>(
-    { url: `/company/${id}`, method: "GET", signal },
+  return customInstance<void>(
+    { url: `/visitor-count`, method: "GET", signal },
     options,
   );
 };
 
-export const getCompanyControllerGetCompanyQueryKey = (id: string) => {
-  return [`/company/${id}`] as const;
+export const getCommonControllerGetVisitorCountQueryKey = () => {
+  return [`/visitor-count`] as const;
 };
 
-export const getCompanyControllerGetCompanyQueryOptions = <
-  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
+export const getCommonControllerGetVisitorCountQueryOptions = <
+  TData = Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
   TError = ErrorType<unknown>,
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerGetCompany>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-) => {
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
+      TError,
+      TData
+    >
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getCompanyControllerGetCompanyQueryKey(id);
+    queryOptions?.queryKey ?? getCommonControllerGetVisitorCountQueryKey();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof companyControllerGetCompany>>
-  > = ({ signal }) => companyControllerGetCompany(id, requestOptions, signal);
+    Awaited<ReturnType<typeof commonControllerGetVisitorCount>>
+  > = ({ signal }) => commonControllerGetVisitorCount(requestOptions, signal);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof companyControllerGetCompany>>,
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
-export type CompanyControllerGetCompanyQueryResult = NonNullable<
-  Awaited<ReturnType<typeof companyControllerGetCompany>>
+export type CommonControllerGetVisitorCountQueryResult = NonNullable<
+  Awaited<ReturnType<typeof commonControllerGetVisitorCount>>
 >;
-export type CompanyControllerGetCompanyQueryError = ErrorType<unknown>;
+export type CommonControllerGetVisitorCountQueryError = ErrorType<unknown>;
 
-export function useCompanyControllerGetCompany<
-  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
+export function useCommonControllerGetVisitorCount<
+  TData = Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
   TError = ErrorType<unknown>,
 >(
-  id: string,
   options: {
     query: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerGetCompany>>,
+        Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
         TError,
         TData
       >
     > &
       Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof companyControllerGetCompany>>,
+          Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
           TError,
-          Awaited<ReturnType<typeof companyControllerGetCompany>>
+          Awaited<ReturnType<typeof commonControllerGetVisitorCount>>
         >,
         "initialData"
       >;
@@ -268,24 +249,23 @@ export function useCompanyControllerGetCompany<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-export function useCompanyControllerGetCompany<
-  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
+export function useCommonControllerGetVisitorCount<
+  TData = Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
   TError = ErrorType<unknown>,
 >(
-  id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerGetCompany>>,
+        Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
         TError,
         TData
       >
     > &
       Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof companyControllerGetCompany>>,
+          Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
           TError,
-          Awaited<ReturnType<typeof companyControllerGetCompany>>
+          Awaited<ReturnType<typeof commonControllerGetVisitorCount>>
         >,
         "initialData"
       >;
@@ -295,15 +275,14 @@ export function useCompanyControllerGetCompany<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-export function useCompanyControllerGetCompany<
-  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
+export function useCommonControllerGetVisitorCount<
+  TData = Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
   TError = ErrorType<unknown>,
 >(
-  id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerGetCompany>>,
+        Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
         TError,
         TData
       >
@@ -315,15 +294,14 @@ export function useCompanyControllerGetCompany<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 
-export function useCompanyControllerGetCompany<
-  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
+export function useCommonControllerGetVisitorCount<
+  TData = Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
   TError = ErrorType<unknown>,
 >(
-  id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerGetCompany>>,
+        Awaited<ReturnType<typeof commonControllerGetVisitorCount>>,
         TError,
         TData
       >
@@ -334,7 +312,7 @@ export function useCompanyControllerGetCompany<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getCompanyControllerGetCompanyQueryOptions(id, options);
+  const queryOptions = getCommonControllerGetVisitorCountQueryOptions(options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,
@@ -346,40 +324,34 @@ export function useCompanyControllerGetCompany<
   return query;
 }
 
-export const companyControllerUpdate = (
-  id: string,
-  companyCreateDto: BodyType<CompanyCreateDto>,
+export const commonControllerLogVisitor = (
   options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-  return customInstance<CompanyResponseDto>(
-    {
-      url: `/company/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: companyCreateDto,
-    },
+  return customInstance<void>(
+    { url: `/visitor`, method: "POST", signal },
     options,
   );
 };
 
-export const getCompanyControllerUpdateMutationOptions = <
+export const getCommonControllerLogVisitorMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof companyControllerUpdate>>,
+    Awaited<ReturnType<typeof commonControllerLogVisitor>>,
     TError,
-    { id: string; data: BodyType<CompanyCreateDto> },
+    void,
     TContext
   >;
   request?: SecondParameter<typeof customInstance>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof companyControllerUpdate>>,
+  Awaited<ReturnType<typeof commonControllerLogVisitor>>,
   TError,
-  { id: string; data: BodyType<CompanyCreateDto> },
+  void,
   TContext
 > => {
-  const mutationKey = ["companyControllerUpdate"];
+  const mutationKey = ["commonControllerLogVisitor"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -389,44 +361,42 @@ export const getCompanyControllerUpdateMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof companyControllerUpdate>>,
-    { id: string; data: BodyType<CompanyCreateDto> }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return companyControllerUpdate(id, data, requestOptions);
+    Awaited<ReturnType<typeof commonControllerLogVisitor>>,
+    void
+  > = () => {
+    return commonControllerLogVisitor(requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type CompanyControllerUpdateMutationResult = NonNullable<
-  Awaited<ReturnType<typeof companyControllerUpdate>>
+export type CommonControllerLogVisitorMutationResult = NonNullable<
+  Awaited<ReturnType<typeof commonControllerLogVisitor>>
 >;
-export type CompanyControllerUpdateMutationBody = BodyType<CompanyCreateDto>;
-export type CompanyControllerUpdateMutationError = ErrorType<unknown>;
 
-export const useCompanyControllerUpdate = <
+export type CommonControllerLogVisitorMutationError = ErrorType<unknown>;
+
+export const useCommonControllerLogVisitor = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof companyControllerUpdate>>,
+      Awaited<ReturnType<typeof commonControllerLogVisitor>>,
       TError,
-      { id: string; data: BodyType<CompanyCreateDto> },
+      void,
       TContext
     >;
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
 ): UseMutationResult<
-  Awaited<ReturnType<typeof companyControllerUpdate>>,
+  Awaited<ReturnType<typeof commonControllerLogVisitor>>,
   TError,
-  { id: string; data: BodyType<CompanyCreateDto> },
+  void,
   TContext
 > => {
-  const mutationOptions = getCompanyControllerUpdateMutationOptions(options);
+  const mutationOptions = getCommonControllerLogVisitorMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };

@@ -3,5 +3,4 @@ interface IAnnouncement_summary {
   type: 'variable' | 'normal'
   title: string
   created_date: Date
-  view_cnt: number
 }

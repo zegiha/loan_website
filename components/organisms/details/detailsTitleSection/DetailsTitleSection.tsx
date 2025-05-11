@@ -10,6 +10,7 @@ import {semantic_object} from "@/shared/color";
 import {useState} from "react";
 import Modal from "@/components/molecules/modal/Modal";
 import {useRouter} from "next/navigation";
+import get_YYYYMMDD from "@/shared/helper/get_YYYYMMDD";
 
 interface ILoanDetailsTitleSectionProps {
   type: 'loan'| 'post';
@@ -56,9 +57,9 @@ export default function DetailsTitleSection({
           </BaseButton>
         )}
       </Row>
-      {type === 'post' && (
+      {type === 'post' && createdAt && (
         <Typo.SubBody color={'dim'}>
-          {createdAt}
+          {get_YYYYMMDD(new Date(createdAt))}
         </Typo.SubBody>
       )}
       <Modal isOpen={isOpenWarning} setIsOpen={setIsOpenWarning}>

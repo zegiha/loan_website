@@ -7,6 +7,7 @@ export default function AuthorSection({
   is_job,
   monthly_income,
   gender,
+  tel,
 }: ILoan_inquiry_detail['author']) {
   return (
     <DetailsContentsSection subTitle={'작성자'}>
@@ -21,11 +22,11 @@ export default function AuthorSection({
         />
         <PostDetailTextTableRow
           title={'전화번호'}
-          contents={'업체 로그인을 통해 번호를 확인하세요'}
+          contents={tel}
         />
         <PostDetailTextTableRow
           title={'월수입'}
-          contents={monthly_income}
+          contents={monthly_income ?? ''}
         />
         <PostDetailTextTableRow
           title={'직업유무'}

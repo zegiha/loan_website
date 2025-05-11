@@ -4,10 +4,10 @@ import {useEffect, useRef, useState} from "react";
 import {TableHead, TableRow} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import Link from "next/link";
-import {Row} from "@/components/atoms/layout";
-import {useFetch} from "@/shared/hooks";
+import {Col, Row} from "@/components/atoms/layout";
 import {ILoan_inquiry_data} from "@/shared/type";
-import {get_loan_inquiry} from "@/shared/api";
+import {useLoanboardControllerFindAll} from "@/entities/api/loanboard/loanboard";
+import {usePagination} from "@/features/postList/ui/loanPostTableSection/LoanPostTableSection";
 
 interface ILoan_inquiry_row {
   type: 'inquiry'
@@ -21,14 +21,51 @@ export default function PostTable({
   dataNumber: number
   is_display?: boolean
 }) {
+  const [show_sub_status, set_show_sub_status] = useState(true)
+  const ref = useRef<HTMLDivElement | null>(null)
+
   const {
-    data: loan_inquiry_data,
-    // is_loading: loan_inquiry_loading,
-    // error: loan_inquiry_error,
-    // refetch: loan_inquiry_refetch,
-  } = useFetch(() => get_loan_inquiry());
-  const [show_sub_status, set_show_sub_status] = useState(true);
-  const ref = useRef<HTMLDivElement | null>(null);
+    limit,
+    page, setPage,
+    search,
+    searchType,
+  } = usePagination()
+
+  useEffect(() => {
+    console.log(limit, page, search, searchType)
+  }, [limit, page, search, searchType])
+
+  const {
+    data,
+    status,
+    error,
+  } = useLoanboardControllerFindAll(
+    {
+      page: page,
+      limit: limit,
+      type: '전체',
+      location: ['전체'],
+      search_type: searchType,
+      // TODO nullable로 변경
+      search: "''"
+    },
+    {
+      query: {
+        select: data => {
+          const res: Array<ILoan_inquiry_data> = []
+          data.data.forEach(v => {
+            res.push({
+              ...v,
+              category: v.type,
+              location: v.available_location,
+              createdAt: v.updatedAt,
+              desired_amount: v.desired_amount.toString()
+            })
+          })
+          return res
+      }
+    }
+  })
 
   const handleResize = () => {
     if(ref.current) {
@@ -36,12 +73,12 @@ export default function PostTable({
     }
   }
 
-  const process_to_slide: () => Array<Array<ILoan_inquiry_row>> = () => {
-    if(loan_inquiry_data) {
+  const process_to_slide: (rawData: Array<ILoan_inquiry_data>) => Array<Array<ILoan_inquiry_row>> = (rawData) => {
+    if(rawData) {
       let i = -1;
       const data: Array<ILoan_inquiry_row> = [];
 
-      loan_inquiry_data.forEach((v) => {
+      rawData.forEach((v) => {
         data.push({type: 'inquiry', value: v});
       })
 
@@ -65,26 +102,45 @@ export default function PostTable({
     }
   }, [])
 
+  useEffect(() => {
+    console.log(status, error)
+  }, [status]);
+
   return (
     <Row width={'fill'} ref={ref}>
-      <SwiperPaginationAndNavigation>
-        {process_to_slide().map((slide, index) => (
-          <SwiperSlide key={`${index}-slide`}>
-            <Table
-              head={<LoanPostTableHead show_sub_status={show_sub_status}/>}
-            >
-              {slide.map((data, i) => (
-                <LoanPostTableRow
-                  key={`${i}-post`}
-                  {...data.value}
-                  show_sub_status={show_sub_status}
-                  is_display={is_display}
-                />
-              ))}
-            </Table>
-          </SwiperSlide>
-        ))}
-      </SwiperPaginationAndNavigation>
+      {status === 'success' && (
+        data?.length !== 0 && data !== undefined ? (
+          <SwiperPaginationAndNavigation activeSlides={page} setActiveSlides={setPage}>
+            {process_to_slide(data).map((slide, index) => (
+              <SwiperSlide key={`${index}-slide`}>
+                <Table
+                  head={<LoanPostTableHead show_sub_status={show_sub_status}/>}
+                >
+                  {slide.map((data, i) => (
+                    <LoanPostTableRow
+                      key={`${i}-post`}
+                      {...data.value}
+                      show_sub_status={show_sub_status}
+                      is_display={is_display}
+                    />
+                  ))}
+                </Table>
+              </SwiperSlide>
+            ))}
+          </SwiperPaginationAndNavigation>
+        ) : (
+          <Col
+            width={'fill'}
+            style={{height: '50vh'}}
+            justifyContents={'center'}
+            alignItems={'center'}
+          >
+            <Typo.Body color={'dim'} emphasize>
+              아직 등록된 대출 문의가 없어요
+            </Typo.Body>
+          </Col>
+        )
+      )}
     </Row>
   )
 }
@@ -101,7 +157,7 @@ function LoanPostTableHead({
     {show_sub_status && (
       <>
         <Typo.Contents width={60}>희망금액</Typo.Contents>
-        <Typo.Contents width={60}>작성시간</Typo.Contents>
+        <Typo.Contents width={80}>작성시간</Typo.Contents>
       </>
     )}
   </TableHead>
@@ -121,6 +177,11 @@ function LoanPostTableRow({
   show_sub_status,
   is_display,
 }: ILoan_inquiry_table_props) {
+  const parseDate = (data: string) => {
+    const res = new Date(data)
+    return `${res.getFullYear()}-${res.getMonth()-1}-${res.getDate()}`
+  }
+
   if(!is_display) {
     return (
       <Link href={`/post/${id}`} style={{ width: "100%" }}>
@@ -130,7 +191,7 @@ function LoanPostTableRow({
           <Typo.Contents width={'fill'} textOverflowLine={2} isPre>{title}</Typo.Contents>
           {show_sub_status && (<>
             <Typo.Contents width={60} isPre>{desired_amount}</Typo.Contents>
-            <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
+            <Typo.Contents width={80} color={'dim'} isPre>{parseDate(createdAt)}</Typo.Contents>
           </>)}
         </TableRow>
       </Link>
@@ -143,7 +204,7 @@ function LoanPostTableRow({
         <Typo.Contents width={'fill'} textOverflowLine={2} isPre>{title}</Typo.Contents>
         {show_sub_status && (<>
           <Typo.Contents width={60} isPre>{desired_amount}</Typo.Contents>
-          <Typo.Contents width={60} color={'dim'} isPre>{createdAt}</Typo.Contents>
+          <Typo.Contents width={80} color={'dim'} isPre>{parseDate(createdAt)}</Typo.Contents>
         </>)}
       </TableRow>
     </>)
