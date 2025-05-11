@@ -7,11 +7,36 @@ import LoanSection from "@/features/postDetail/ui/LoanSection";
 import ContentsSection from "@/features/postDetail/ui/ContentsSection";
 import ConsultationAvailableCompaniesSection
   from "@/features/postDetail/ui/ConsultationAvailableCompaniesSection";
-import {useFetch} from "@/shared/hooks";
-import {get_loan_inquiry_detail} from "@/shared/api";
+import {useLoanboardControllerFindOne} from "@/entities/api/loanboard/loanboard";
+import {useParams} from "next/navigation";
+import {ILoan_inquiry_detail} from "@/shared/type";
 
 export default function PostDetail() {
-  const {data} = useFetch(() => get_loan_inquiry_detail())
+  const {postId} = useParams<{postId: string}>()
+  const {
+    data,
+    status,
+  } = useLoanboardControllerFindOne(postId, {
+    query: {
+      select: data => {
+        const res: ILoan_inquiry_detail ={
+          id: data.id,
+          post: {...data},
+          author: {
+            ...data,
+            monthly_income: data.monthly_income !== null ? data.monthly_income.toString() : undefined,
+            is_job: data.job_status
+          },
+          loan: {
+            location: data.available_location,
+            amount: data.desired_amount.toString(),
+            category: data.type
+          }
+        }
+        return res
+      }
+    }
+  })
 
   if(data) return (
     <Col width={'fill'}>

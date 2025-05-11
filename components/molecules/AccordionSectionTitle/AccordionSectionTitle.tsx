@@ -27,14 +27,8 @@ export default function AccordionSectionTitle({
   const ref = useRef<HTMLDivElement | null>(null);
   const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
 
-  const handleMouseLeave = () => setAccordionOpen(false);
   useEffect(() => {
-    if(ref.current) {
-      ref.current.addEventListener('mouseleave', handleMouseLeave);
-    }
-    return () => {
-      ref.current?.removeEventListener('mouseleave', handleMouseLeave);
-    }
+    console.log('mount')
   }, []);
 
   return (
@@ -74,7 +68,9 @@ export default function AccordionSectionTitle({
                 width={'fill'}
                 justifyContents={'space-between'}
                 className={style.accordion}
-                onClick={() => {
+                onClick={e => {
+                  e.stopPropagation()
+                  setAccordionOpen(false)
                   onAccordionActiveChangeAction(v)
                 }}
               >

@@ -1,12 +1,15 @@
 'use client'
 
-import {useEffect, useRef, useState} from "react";
+import {SetStateAction, useEffect, useRef, useState} from "react";
 import {Swiper as SwiperType} from 'swiper'
+import react_state_action from "@/shared/type/react_state_action";
 
-export default function usePaginationSwiper() {
+export default function usePaginationSwiper(
+  activeSlides: number,
+  setActiveSlides: react_state_action<number>
+) {
   const swiperRef = useRef<SwiperType>()
   const [pagination, setPagination] = useState<Array<number>>([]);
-  const [activeSlides, setActiveSlides] = useState(1);
 
   const handlePaginationRender = () => {
     if (swiperRef.current) {
@@ -30,7 +33,6 @@ export default function usePaginationSwiper() {
               newPagination.push(i);
           }
         }
-
       }
       setPagination(newPagination)
     }
@@ -75,5 +77,6 @@ export default function usePaginationSwiper() {
     handlePrevSlide,
     handleToSlide,
     handleSwiperUpdate,
+    setActiveSlides,
   };
 }

@@ -35,7 +35,6 @@ function handleAuth(
 			.then((res) => {
 				if(res) {
 					setIsLogin(true)
-					console.log('tlqkf wlsWk')
 				}
 			})
 	} else {

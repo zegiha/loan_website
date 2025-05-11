@@ -19,22 +19,10 @@ export default function SearchTypeTextInput({
   setActiveType
 }: ISearchTypeTextInput) {
   const Text = size === 'normal' ? Typo.Contents : Typo.SubBody
-  const ref = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleMouseleave = () => setIsOpen(false);
-    if(ref.current) {
-      ref.current.addEventListener('mouseleave',handleMouseleave)
-    }
-    return () => {
-      ref.current?.removeEventListener('mouseleave', handleMouseleave)
-    }
-  }, []);
 
   return (
     <Col
-      ref={ref}
       className={style.container}
     >
       <Row
@@ -61,7 +49,9 @@ export default function SearchTypeTextInput({
               width={'fill'}
               justifyContents={'space-between'}
               className={style.accordion}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsOpen(false)
                 setActiveType(v)
               }}
             >

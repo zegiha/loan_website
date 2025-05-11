@@ -27,7 +27,7 @@ export interface IRowAndCol {
   style?: CSSProperties;
   children: React.ReactNode;
   ref?: React.MutableRefObject<HTMLDivElement | null> | LegacyRef<HTMLDivElement>;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
   onTransitionEnd?: TransitionEventHandler<HTMLDivElement>;
   onTransitionRun?: TransitionEventHandler<HTMLDivElement>;
 }

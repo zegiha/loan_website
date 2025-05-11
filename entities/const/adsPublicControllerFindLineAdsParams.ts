@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UploadResponseDto = {
-  /** 업로드된 파일의 URL */
-  url: string;
+export type AdsPublicControllerFindLineAdsParams = {
+  location: string;
+  product: string;
 };

@@ -7,29 +7,36 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import Typo from "@/components/atoms/typo/Typo";
 import {usePaginationSwiper} from "@/shared/hooks";
 import {Property} from "csstype";
+import react_state_action from "@/shared/type/react_state_action";
 
 export default function SwiperPaginationAndNavigation({
   children,
+  activeSlides,
+  setActiveSlides,
   height,
 }: {
   children: Array<React.ReactNode>,
+  activeSlides: number
+  setActiveSlides: react_state_action<number>
   height?: Property.Height,
 }) {
   const {
     swiperRef,
     pagination,
-    activeSlides,
     handleNextSlide,
     handlePrevSlide,
     handleToSlide,
-    handleSwiperUpdate
-  } = usePaginationSwiper();
+    handleSwiperUpdate,
+  } = usePaginationSwiper(activeSlides, setActiveSlides);
 
   return (
     <Col gap={12} width={'fill'} style={{height: height}}>
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper
+        }}
+        onSlideChange={(swiper) => {
+          setActiveSlides(swiper.activeIndex+1)
         }}
         onUpdate={handleSwiperUpdate}
         spaceBetween={40}

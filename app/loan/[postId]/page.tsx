@@ -92,7 +92,7 @@ export default function LoanDetails() {
     if(status === 'error') {
       if(
         error.status === 404 ||
-        error.response.data.message === 'Not Found'
+        error.response?.data?.message === 'Not Found'
       ) {
         alert('존재하지 않는 페이지')
         router.replace('/')
