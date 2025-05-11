@@ -9,8 +9,8 @@ export default function use_main_banner_info(): IMain_banner_info_input {
 		title: '',
 		subtitle: '',
 		phone: '',
-		loan_available_location: null,
-		banner_cover_img: null,
+		loan_available_location: undefined,
+		banner_cover_img: undefined,
 	})
 	const [selected_available_location_idx, set_selected_available_location_idx] = useState<number | null>(null)
 

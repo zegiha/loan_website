@@ -72,7 +72,7 @@ export default function Location_banner_info_input({
 			const data = {...prev}
 			data.location = []
 			available_locations.forEach(v => {
-				if(v !== null && data.location !== null) data.location.push(location_list[v])
+				if(v !== null && data.location !== undefined) data.location.push(location_list[v])
 			})
 			return {...data}
 		})

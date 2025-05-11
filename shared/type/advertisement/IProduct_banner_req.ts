@@ -5,8 +5,8 @@ export default interface IProduct_banner_req {
 	title: string
 	subtitle: string
 	phone: string
-	product: Array<TLoan_production_type> | null
-	banner_cover_img: File | null
-	loan_available_location: TLocation | null
+	product?: Array<TLoan_production_type>
+	banner_cover_img?: File
+	loan_available_location?: TLocation
 	// company_name: string;
 }

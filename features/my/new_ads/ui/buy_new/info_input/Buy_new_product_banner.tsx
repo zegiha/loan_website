@@ -49,7 +49,7 @@ export default function Buy_new_product_banner({
 
 				data.push({name, status: is_typed(props.banner_info.title) === null, error_message: '상품 배너광고의 제목이 비어있습니다'})
 				data.push({name, status: is_typed(props.banner_info.subtitle) === null, error_message: '상품 배너광고의 소제목이 비어있습니다'})
-				data.push({name, status: props.banner_info.product !== null && props.banner_info.product.length === props.production_num, error_message: '상품 배너광고의 상품이 일부 비어있습니다'})
+				data.push({name, status: props.banner_info.product !== undefined && props.banner_info.product.length === props.production_num, error_message: '상품 배너광고의 상품이 일부 비어있습니다'})
 				// data.push({name, status: props.banner_info.banner_cover_img !== null, error_message: '상품 배너광고의 이미지가 없습니다'})
 
 				return [...data]

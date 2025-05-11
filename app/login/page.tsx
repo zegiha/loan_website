@@ -1,5 +1,7 @@
 'use client'
 
+import {authControllerLogin} from '@/entities/api/auth/auth'
+import {AxiosError} from 'axios'
 import React, {useState} from "react";
 import InputSection from "@/components/molecules/Layout/inputSection/InputSection";
 import {Col, Row} from "@/components/atoms/layout";
@@ -8,13 +10,36 @@ import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
 import {useRouter} from "next/navigation";
 import {use_auth_store} from "@/shared/store/authStore";
 import Link from "next/link";
-import {login_action} from "@/shared/api";
 
 export default function Login() {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
-  const router = useRouter();
-  const {setIsLogin} = use_auth_store();
+  const router = useRouter()
+  const {setIsLogin} = use_auth_store()
+
+  const handleLogin = async () => {
+    try {
+      await authControllerLogin({id, password})
+      return 'logged in'
+    } catch(e) {
+      if(e instanceof AxiosError) {
+        switch (e.response?.data.message) {
+          case '활동 허가가 되지 않았습니다.':
+            alert('아직 회원가입이 승인 되지 않았어요\n기다려주세요')
+            break
+          case 'User not found':
+            alert('잘못된 아이디를 입력하셨어요')
+            break
+          case 'invalid password':
+            alert('비밀번호가 틀렸어요')
+            break
+          default:
+            alert('다시 시도해주세요')
+        }
+      }
+      return false
+    }
+  }
 
   const loginAction = async () => {
     if(!id) {
@@ -23,9 +48,13 @@ export default function Login() {
       if(!password) {
         alert('비밀번호를 입력해주세요')
       } else {
-        await login_action(id, password);
-        setIsLogin(true);
-        router.push('/');
+        const res = await handleLogin()
+        switch(res) {
+          case 'logged in':
+            setIsLogin(true)
+            router.push('/')
+            break
+        }
       }
     }
   }

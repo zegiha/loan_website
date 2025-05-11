@@ -1,6 +1,25 @@
-// import {globalRouter} from '@/shared/lib'
-import axios, {AxiosError, AxiosRequestConfig} from 'axios'
-// import {adminControllerRefresh} from "@/entities/api/admin/admin";
+import {globalRouter} from '@/shared/globalRouter'
+import axios, {AxiosError, AxiosRequestConfig, InternalAxiosRequestConfig} from 'axios'
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
+interface CustomInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _isRetry?: boolean
+}
+
+async function checkLogin() {
+  try {
+    await axios.get(`${baseUrl}/user/profile`, {withCredentials: true})
+    return 'loggedIn'
+  } catch {
+    try {
+      await axios.get(`${baseUrl}/auth/refresh`, {withCredentials: true})
+      return 'loggedInUpdated'
+    } catch {
+      return 'loggedOut'
+    }
+  }
+}
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -11,11 +30,27 @@ instance.interceptors.response.use(
   res => res,
   async (err) => {
     if(err instanceof AxiosError && err.status === 401) {
-      try {
-        return Promise.reject(err)
-      } catch (e) {
-      }
+    //   const res = await checkLogin()
+    //   const reqConfig = err.config as CustomInternalAxiosRequestConfig | undefined
+    //
+    //   if(
+    //     res === 'loggedInUpdated' &&
+    //     reqConfig &&
+    //     reqConfig.url?.includes('my') &&
+    //     !reqConfig._isRetry
+    //   ) {
+    //     console.log('refreshing')
+    //     reqConfig._isRetry = true
+    //     return instance(reqConfig)
+    //   }
+    //   if(res === 'loggedOut') {
+    //     console.log('must log in')
+    //     globalRouter?.push('/login')
+    //   }
     }
+
+    console.log('other 401')
+    return Promise.reject(err)
   }
 )
 

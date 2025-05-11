@@ -9,8 +9,8 @@ export default function use_location_banner_info(): ILocation_banner_info_input 
 		title: '',
 		subtitle: '',
 		phone: '',
-		banner_cover_img: null,
-		location: null
+		banner_cover_img: undefined,
+		location: undefined
 	})
 	const [available_locations, set_available_locations] = useState<Array<number | null>>([])
 	const [check_available_locations, set_check_available_locations] = useState<Set<number>>(new Set())

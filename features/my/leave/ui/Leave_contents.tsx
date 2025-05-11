@@ -21,7 +21,7 @@ export default function Leave_contents() {
   const [id, set_id] = useState<string>('')
   const [password, set_password] = useState<string>('')
 
-  const {setIsLogin, setAccess_token} = use_auth_store()
+  const {setIsLogin} = use_auth_store()
   const router = useRouter()
   const [status, set_status] = useState<'before_start' | 'loading' | 'done'>('before_start');
 
@@ -35,7 +35,6 @@ export default function Leave_contents() {
         const try_leave = await leave_action(id, password)
         if(try_leave.status === 200) {
           setIsLogin(false)
-          setAccess_token(undefined)
           router.push("/my/leave/done")
           set_status('done')
         } else throw new Error('haha')
