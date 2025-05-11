@@ -4,83 +4,19 @@ import Typo from '@/components/atoms/typo/Typo'
 import {BaseButton, BaseTextInput, button} from '@/components/molecules/inputs'
 import Select from '@/components/molecules/inputs/select/Select'
 import InputSection from '@/components/molecules/Layout/inputSection/InputSection'
-import {authControllerRegister} from '@/entities/api/auth/auth'
-import {uploadControllerUploadFile} from '@/entities/api/upload/upload'
-import {UserRegisterDto} from '@/entities/const'
-import {IRegister_data, useRegister_data} from '@/features/register/context/register_data_context'
+import {useRegister_data} from '@/features/register/context/register_data_context'
 import {location_list} from '@/shared/constants'
 import {is_typed} from '@/shared/helper'
-import {AxiosError} from 'axios'
 import React, {useEffect, useState} from 'react'
+import useRegister from "@/features/register/model/useRegister";
+import dynamic from "next/dynamic";
+import loadDot from '@/public/assets/load_dot_32.json'
+import {ReloadIcon} from "@/components/atoms/icons";
 
-async function registerFunc(data: IRegister_data) {
-  try {
-    const formatDate = (v: Date) => {
-      return `${v.getFullYear()}-${v.getMonth() + 1}-${v.getDate()}`
-    }
-
-    Object.entries(data).forEach(([key, value]) => {
-      if(value === null || value === undefined) {
-        throw new Error(`${key} cannot be empty`)
-      }
-    })
-
-    const loanRegistrationCertificate =
-      await uploadControllerUploadFile({
-        file: data.brokerage_registration_certificate!,
-      }).then(res => {
-        if(res === undefined) throw new Error('img upload failed')
-        return res.url
-      })
-    const businessRegistrationCertificate =
-      await uploadControllerUploadFile({
-        file: data.business_registration_certificate!,
-      }).then(res => {
-        if(res === undefined) throw new Error('img upload failed')
-        return res.url
-      })
-
-    const registerData: UserRegisterDto = {
-      id: data.id,
-      password: data.password,
-      tel: data.phone.replaceAll('-', ''),
-      advertisementTel: data.loan_advertisement_phone.replaceAll('-', ''),
-      companyTel: data.company_phone.replaceAll('-', ''),
-      registeredNumber: data.brokerage_number,
-      registerPeriodStart: formatDate(data.brokerage_period.start!),
-      registerPeriodEnd: formatDate(data.brokerage_period.end!),
-      registrar: data.brokerage_registrar,
-      loanRegistrationCertificate: loanRegistrationCertificate!,
-      businessRegistrationCertificate: businessRegistrationCertificate!,
-      companyName: data.company_name,
-      companyLocation: data.company_location,
-      exponentName: data.exponent_name,
-      company: {
-        title: data.title,
-        contents: data.contents,
-        monthlyInterestRate: data.monthly_interest_rate,
-        yearlyInterestRate: data.yearly_interest_rate,
-        delinquentInterestRate: data.delinquent_interest_rate,
-        loanLimit: Number(data.loan_limit) ?? 0,
-        additionalCost: data.additional_cost,
-        earlyRepaymentFee: data.early_repayment_fee,
-        repaymentMethod: data.repayment_method,
-        loanPeriod: data.loan_period,
-        // TODO 대출 가능 지역 여러개로 수정
-        location: [location_list[Number(data.available_location)]]
-      }
-    }
-
-    console.log(registerData)
-
-    await authControllerRegister({
-      ...registerData,
-    })
-  } catch (e) {
-    console.log(e)
-    return Promise.reject(e)
-  }
-}
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
+  {ssr: false}
+)
 
 export default function Register_company_page_info({
   setStep
@@ -111,6 +47,10 @@ export default function Register_company_page_info({
     set_available_location(sum)
   }, [locationIdx])
 
+  const {
+    handleRegister,
+    status
+  } = useRegister()
 
   const handleNext = () => {
     if(
@@ -120,25 +60,13 @@ export default function Register_company_page_info({
       is_typed(contents) === null &&
       is_typed(available_location) === null
     ) {
-
-      registerFunc(data)
-        .then(() => {
-          alert('tetetetetetetet')
-          // setStep(prev => prev + 1)
-        })
-        .catch((err) => {
-          if(err instanceof AxiosError) {
-            if(err.status === 401) {
-
-            }
-          } else {
-            alert('다시 시도해주세요')
-          }
-        })
-    } else {
-      alert('필수 입력값 중 일부가 비어있습니다')
+      handleRegister()
     }
   }
+
+  useEffect(() => {
+    console.log(status)
+  }, [status]);
 
   return (
     <InputSection title={'회원가입 - 업체상세 페이지 정보'}>
@@ -384,12 +312,33 @@ export default function Register_company_page_info({
           <BaseButton
             className={`${button.primary_button36} ${button.two_third_width}`}
             onClick={() => handleNext()}
+            disabled={status === 'pending' || status === 'error'}
           >
             <Row gap={4} alignItems={'center'}>
-              <Typo.Contents emphasize color={'onPrimary'}>
-                완료
-              </Typo.Contents>
-              <CheckIcon color={'white'} />
+              {status === 'idle' && (
+                <>
+                  <Typo.Contents emphasize color={'onPrimary'}>
+                    완료
+                  </Typo.Contents>
+                  <CheckIcon color={'white'} />
+                </>
+              )}
+              {status === 'error' && (
+                <>
+                  <ReloadIcon color={'white'}/>
+                  <Typo.Contents emphasize color={'onPrimary'}>
+                    다시시도
+                  </Typo.Contents>
+                </>
+              )}
+              {status === 'pending' && (
+                <Player
+                  src={loadDot}
+                  style={{height: 16}}
+                  autoplay
+                  loop
+                />
+              )}
             </Row>
           </BaseButton>
         </Row>
