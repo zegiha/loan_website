@@ -5,8 +5,9 @@
  * Loan API description
  * OpenAPI spec version: 1.0
  */
+import type { UserRequiredResponseDto } from "./userRequiredResponseDto";
 
-export type CompanyResponseDto = {
+export type CompanyWithUserResponseDto = {
   /** 유저 아이디 */
   userId: string;
   /** 제목 */
@@ -35,4 +36,6 @@ export type CompanyResponseDto = {
   createdAt?: string;
   /** 수정일 */
   updatedAt?: string;
+  /** 유저 정보 */
+  user: UserRequiredResponseDto;
 };

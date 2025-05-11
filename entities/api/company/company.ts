@@ -21,7 +21,11 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { CompanyCreateDto, CompanyResponseDto } from "../../const";
+import type {
+  CompanyCreateDto,
+  CompanyResponseDto,
+  CompanyWithUserResponseDto,
+} from "../../const";
 
 import { customInstance } from "../../../shared/axios/lib/customInstance";
 import type {
@@ -185,7 +189,7 @@ export const companyControllerGetCompany = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<CompanyResponseDto>(
+  return customInstance<CompanyWithUserResponseDto>(
     { url: `/company/${id}`, method: "GET", signal },
     options,
   );
