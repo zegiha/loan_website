@@ -1,3 +1,5 @@
+'use client'
+
 import react_state_action from '@/shared/type/react_state_action'
 import React, {createContext, useContext} from "react";
 
@@ -55,6 +57,9 @@ export interface IRegister_data {
   set_title: react_state_action<string>
 	contents: string;
   set_contents: react_state_action<string>
+
+  step: number
+  setStep: react_state_action<number>
 }
 
 const Register_data_context = createContext<null | IRegister_data>(null)
@@ -69,5 +74,5 @@ function useRegister_data() {
 
 export {
   Register_data_context,
-  useRegister_data
+  useRegister_data,
 }

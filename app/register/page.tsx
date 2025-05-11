@@ -40,7 +40,10 @@ export default function Register_page() {
   const [title, set_title] = useState<string>('')
   const [contents, set_contents] = useState<string>('');
 
+  const [step, setStep] = useState<number>(0)
+
   const default_value: IRegister_data = {
+    step, setStep,
     id, setId,
     password, setPassword,
     phone, setPhone,
@@ -67,8 +70,6 @@ export default function Register_page() {
     title, set_title,
     contents, set_contents,
   };
-
-  const [step, setStep] = useState<number>(0)
 
   const site_key = process.env.NEXT_PUBLIC_SITE_KEY ?? '';
 
