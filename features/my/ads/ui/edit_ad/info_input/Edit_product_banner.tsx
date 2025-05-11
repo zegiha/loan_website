@@ -19,7 +19,7 @@ export default function Edit_product_banner() {
 		set_validates([
 				{status: is_typed(props.banner_info.title) === null, errormessage: '제목이 비어있습니다'},
 				{status: is_typed(props.banner_info.subtitle) === null, errormessage: '소제목이 비어있습니다'},
-				{status: props.banner_info.product !== null && props.banner_info.product.length === props.production_num, errormessage: '상품이 일부 비어있습니다'},
+				{status: props.banner_info.product !== undefined && props.banner_info.product.length === props.production_num, errormessage: '상품이 일부 비어있습니다'},
 				// {status: props.banner_info.banner_cover_img !== null, errormessage: '이미지가 없습니다'},
 		])
 	}, [props.banner_info, props.production_num])

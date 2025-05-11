@@ -6,7 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdvertiseControllerSearchLineAdsParams = {
-  location: string;
-  content: string;
+export type AdsPublicControllerRequestCountExtendParams = {
+  deposit_name: string;
 };

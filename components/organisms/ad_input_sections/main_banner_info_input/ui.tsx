@@ -48,7 +48,7 @@ export default function Main_banner_info_input({
 					set_selected_idx={(idx) => {
 						if(idx !== null) {
 							set_selected_available_location_idx(idx)
-							set_banner_info(prev => ({...prev, loan_available_location: location_list[idx]}))
+							set_banner_info(prev => ({...prev, loan_available_location:location_list[idx]}))
 						}
 					}}
 					max_option_item_show={5}

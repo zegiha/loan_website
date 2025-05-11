@@ -2,11 +2,12 @@
 
 import {Col} from "@/components/atoms/layout";
 import Section_wrapper from "@/components/organisms/section_wrapper/Section_wrapper";
+import {authControllerLogout} from '@/entities/api/auth/auth'
+import {userControllerProfile} from '@/entities/api/user/user'
 import my_navigations from "@/features/my/lib/my_navigations";
 import load from '@/public/assets/load_dot_120.json';
 import Typo from "@/components/atoms/typo/Typo";
 import dynamic from "next/dynamic";
-import logout_action from "@/features/my/logout/api/logout_action";
 import {use_auth_store} from "@/shared/store/authStore";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
@@ -17,23 +18,34 @@ const Player = dynamic(
 )
 
 export default function Logout_page() {
-  const {setIsLogin, setAccess_token} = use_auth_store()
+  const {setIsLogin} = use_auth_store()
   const router = useRouter()
-   const logout = async () => {
-     try {
-       const res = await logout_action();
-       if(res.status === 200) {
-         setIsLogin(false)
-         setAccess_token(undefined)
-         router.push('')
-       }
-     } catch (e) {
-       console.error(e)
-     }
+  const logout = async () => {
+   try {
+     const res = await authControllerLogout()
+     console.log(res)
+     return true
+   } catch (e) {
+     console.error(e)
+     return false
    }
+}
 
    useEffect(() => {
-     logout();
+     logout()
+       .then(res => {
+         if(res)
+           setTimeout(() => {
+             const test = async () => {
+               console.log('tlqkfaksdoaisjfoiwef')
+               // const res = await userControllerProfile()
+               console.log(res)
+               setIsLogin(false)
+               router.replace('/')
+             }
+             test()
+           }, 1000)
+       })
    }, [])
 
   return (

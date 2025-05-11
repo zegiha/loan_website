@@ -1,3 +1,4 @@
+import {GlobalRouterLayout} from '@/shared/globalRouter'
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -25,18 +26,20 @@ export default function RootLayout({
   return (
     <html lang="ko">
     <body className={`${wantedSans.className}`}>
-    <TanstackQueryProvider>
-    <Auth_provider>
-      <div className={style.container}>
-        <Header/>
-        {children}
-        <Footer/>
-      </div>
+    <GlobalRouterLayout>
+      <TanstackQueryProvider>
+        <Auth_provider>
+          <div className={style.container}>
+            <Header/>
+            {children}
+            <Footer/>
+          </div>
 
-      <Quickbar/>
-      <div id={'modal-root'}></div>
-    </Auth_provider>
-    </TanstackQueryProvider>
+          <Quickbar/>
+          <div id={'modal-root'}></div>
+        </Auth_provider>
+      </TanstackQueryProvider>
+    </GlobalRouterLayout>
     </body>
     </html>
   );

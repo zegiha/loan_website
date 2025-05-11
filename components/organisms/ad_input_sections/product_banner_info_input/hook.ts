@@ -9,9 +9,9 @@ export default function use_product_banner_info(): IProduct_banner_info_input {
 		title: '',
 		subtitle: '',
 		phone: '',
-		banner_cover_img: null,
-		product: null,
-		loan_available_location: null,
+		banner_cover_img: undefined,
+		product: undefined,
+		loan_available_location: undefined,
 	})
 	const [available_productions, set_available_productions] = useState<Array<number | null>>([])
 	const [check_available_productions, set_check_available_productions] = useState<Set<number>>(new Set())

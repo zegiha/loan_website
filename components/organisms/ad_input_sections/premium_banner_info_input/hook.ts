@@ -7,7 +7,7 @@ import {IPremium_banner_req} from "@/shared/type";
 export default function use_premium_banner_info(): IPremium_banner_info_input {
 	const [banner_info, set_banner_info] = useState<IPremium_banner_req>({
 		title: '',
-		location: null
+		location: undefined,
 	})
 	const [selected_available_location_idx, set_selected_available_location_idx] = useState<number | null>(null)
 

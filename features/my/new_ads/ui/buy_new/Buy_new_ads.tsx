@@ -1,5 +1,6 @@
 'use client'
 
+import useBuyNewAds from '@/features/my/new_ads/model/useBuyNewAds'
 import React, {useEffect, useState} from "react";
 import {TStep} from "@/features/my/new_ads/type";
 import {Col} from "@/components/atoms/layout";
@@ -27,6 +28,7 @@ export default function Buy_new_ads({
 }: {
   setStepAction: React.Dispatch<React.SetStateAction<TStep>>
 }) {
+
   const [total_price, set_total_price] = useState(0)
   const [validate_list, set_validate_list] = useState<Array<{name: TAds_name, status: boolean, error_message: string}>>([]);
 
@@ -37,6 +39,18 @@ export default function Buy_new_ads({
     req_data: TAll_req
   }>>([])
   const default_value = {ad_req_data, set_ad_req_data}
+
+
+  const {
+    status,
+    addAds
+  } = useBuyNewAds(
+    {
+      depositor,
+      totalPrice: total_price,
+    },
+    ad_req_data
+  )
 
   const handleSubmit = () => {
     let sw = true
@@ -54,10 +68,16 @@ export default function Buy_new_ads({
     }
 
     if(sw) {
+      addAds()
+    }
+  }
+
+  useEffect(() => {
+    if(status === 'success') {
       window.scrollTo({top: 0})
       setStepAction('end');
     }
-  }
+  }, [status]);
 
   const {select, setSelect} = useSelect_context()
   useEffect(() => {
