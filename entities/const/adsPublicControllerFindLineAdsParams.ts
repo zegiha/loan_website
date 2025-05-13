@@ -7,6 +7,6 @@
  */
 
 export type AdsPublicControllerFindLineAdsParams = {
-  location: string;
-  product: string;
+  location?: string;
+  product?: string;
 };

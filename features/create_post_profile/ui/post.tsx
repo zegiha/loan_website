@@ -64,18 +64,22 @@ export default function Create_post_post({
         className={style.button}
         onClick={() => {
           if(status === 'idle' || status === 'error') {
+            if(data.location === null) {
+              alert('대출 지역을 선택해주세요')
+              setStep(1)
+              return
+            }
             mutate({
               data: {
-                ...data,
+                title: data.title,
+                contents: data.contents,
                 type: data.loan_type ?? '신용',
-                // TODO available_location 전체로
-                available_location: data.location !== '전체' && data.location !== null ? data.location : '서울',
+                available_location: data.location,
                 desired_amount: Number(data.amount.replaceAll(',', '')),
                 age: Number(data.age),
                 gender: data.gender,
                 tel: data.phone_number.replaceAll('-',''),
-                // TODO monthly_income string으로
-                monthly_income: Number(data.monthly_income ?? '0'),
+                monthly_income: data.monthly_income?.replaceAll(',','') ?? '0',
                 job_status: data.has_job,
               },
             })

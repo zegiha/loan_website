@@ -1,4 +1,4 @@
-import {useAdsPublicControllerCreate} from '@/entities/api/advertise/advertise'
+import {useAdsPublicControllerCreate} from '@/entities/api/advertisement-public/advertisement-public'
 import {CreateAdvertisementDto} from '@/entities/const'
 import {
   IBanner_req, ILine_req,
@@ -18,13 +18,32 @@ export default function useBuyNewAds(
   adData: Array<{
     name: TAds_name,
     req_data: TAll_req
-  }>
+  }>,
+  selectedAds: Set<TAds_name>
 ) {
   const mutation = useAdsPublicControllerCreate()
 
   const addAds = () => {
+    const notIncludeReqAd: Array<TAds_name> = []
+    adData.forEach((ad) => {
+      if(selectedAds.has(ad.name))
+        selectedAds.delete(ad.name)
+    })
+    selectedAds.forEach((ad) => {
+      notIncludeReqAd.push(ad)
+    })
+
     mutation.mutate({
-      data: rawDataParseToCreateAdvertisementDto(parentData, adData)
+      data: [
+        ...rawDataParseToCreateAdvertisementDto(parentData, adData),
+        ...notIncludeReqAd.map(v => {
+          const res: CreateAdvertisementDto = {
+            ad_name: v,
+            deposit_name: parentData.depositor
+          }
+          return res
+        })
+      ]
     })
   }
 

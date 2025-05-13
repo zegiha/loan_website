@@ -1,6 +1,7 @@
 'use client'
 
 import {Col, Row} from "@/components/atoms/layout";
+import {useAdsPublicControllerFindAllofMyAds} from '@/entities/api/advertisement-public/advertisement-public'
 import style from './style.module.scss';
 import Typo from "@/components/atoms/typo/Typo";
 import {Table} from "@/components/organisms";
@@ -9,7 +10,7 @@ import {
 	My_ads_table_row
 } from "@/features/my/ads/ui/My_adds_table";
 import Modal from "@/components/molecules/modal/Modal";
-import {ReactNode, useState} from "react";
+import {ReactNode, useEffect, useState} from "react";
 import Edit_ad from "@/features/my/ads/ui/edit_ad/Edit_ad";
 import {TAds_name} from "@/shared/type";
 import ad_list from "@/shared/constants/ad_list";
@@ -44,6 +45,15 @@ export default function Add_contents() {
 	const [is_edit_open, set_is_edit_open] = useState(false);
 	const [is_prolongation_open, set_is_prolongation_open] = useState(false);
 	const [ad_info, set_ad_info] = useState<{name: TAds_name, type: TAds_type} | null>(null)
+
+	const {
+		data,
+		status,
+	} = useAdsPublicControllerFindAllofMyAds()
+
+	useEffect(() => {
+		console.log(data)
+	}, [data])
 
 	return (
 		<>

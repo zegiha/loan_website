@@ -137,7 +137,7 @@ export const useAdsPublicControllerCreate = <
  */
 export const adsPublicControllerSearchAds = (
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params?: AdsPublicControllerSearchAdsParams,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
@@ -149,7 +149,7 @@ export const adsPublicControllerSearchAds = (
 
 export const getAdsPublicControllerSearchAdsQueryKey = (
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params?: AdsPublicControllerSearchAdsParams,
 ) => {
   return [`/ads/search/${type}`, ...(params ? [params] : [])] as const;
 };
@@ -159,7 +159,7 @@ export const getAdsPublicControllerSearchAdsQueryOptions = <
   TError = ErrorType<AdResponseDto[]>,
 >(
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params?: AdsPublicControllerSearchAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -204,7 +204,7 @@ export function useAdsPublicControllerSearchAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params: undefined | AdsPublicControllerSearchAdsParams,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -232,7 +232,7 @@ export function useAdsPublicControllerSearchAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params?: AdsPublicControllerSearchAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -260,7 +260,7 @@ export function useAdsPublicControllerSearchAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params?: AdsPublicControllerSearchAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -284,7 +284,7 @@ export function useAdsPublicControllerSearchAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   type: string,
-  params: AdsPublicControllerSearchAdsParams,
+  params?: AdsPublicControllerSearchAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -803,21 +803,26 @@ export function useAdsPublicControllerFindOne<
  */
 export const adsPublicControllerFindLineAds = (
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params?: AdsPublicControllerFindLineAdsParams,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
   return customInstance<AdResponseDto[]>(
-    { url: `/ads/line-ads/${adType}`, method: "GET", params, signal },
+    { url: `/ads/line-ads/${adType}/${limit}`, method: "GET", params, signal },
     options,
   );
 };
 
 export const getAdsPublicControllerFindLineAdsQueryKey = (
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params?: AdsPublicControllerFindLineAdsParams,
 ) => {
-  return [`/ads/line-ads/${adType}`, ...(params ? [params] : [])] as const;
+  return [
+    `/ads/line-ads/${adType}/${limit}`,
+    ...(params ? [params] : []),
+  ] as const;
 };
 
 export const getAdsPublicControllerFindLineAdsQueryOptions = <
@@ -825,7 +830,8 @@ export const getAdsPublicControllerFindLineAdsQueryOptions = <
   TError = ErrorType<AdResponseDto[]>,
 >(
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params?: AdsPublicControllerFindLineAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -841,17 +847,23 @@ export const getAdsPublicControllerFindLineAdsQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getAdsPublicControllerFindLineAdsQueryKey(adType, params);
+    getAdsPublicControllerFindLineAdsQueryKey(adType, limit, params);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>
   > = ({ signal }) =>
-    adsPublicControllerFindLineAds(adType, params, requestOptions, signal);
+    adsPublicControllerFindLineAds(
+      adType,
+      limit,
+      params,
+      requestOptions,
+      signal,
+    );
 
   return {
     queryKey,
     queryFn,
-    enabled: !!adType,
+    enabled: !!(adType && limit),
     ...queryOptions,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>,
@@ -872,7 +884,8 @@ export function useAdsPublicControllerFindLineAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params: undefined | AdsPublicControllerFindLineAdsParams,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -900,7 +913,8 @@ export function useAdsPublicControllerFindLineAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params?: AdsPublicControllerFindLineAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -928,7 +942,8 @@ export function useAdsPublicControllerFindLineAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params?: AdsPublicControllerFindLineAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -952,7 +967,8 @@ export function useAdsPublicControllerFindLineAds<
   TError = ErrorType<AdResponseDto[]>,
 >(
   adType: string,
-  params: AdsPublicControllerFindLineAdsParams,
+  limit: string,
+  params?: AdsPublicControllerFindLineAdsParams,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -969,6 +985,7 @@ export function useAdsPublicControllerFindLineAds<
 } {
   const queryOptions = getAdsPublicControllerFindLineAdsQueryOptions(
     adType,
+    limit,
     params,
     options,
   );

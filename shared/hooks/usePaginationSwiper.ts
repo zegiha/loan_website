@@ -6,34 +6,22 @@ import react_state_action from "@/shared/type/react_state_action";
 
 export default function usePaginationSwiper(
   activeSlides: number,
-  setActiveSlides: react_state_action<number>
+  setActiveSlides: react_state_action<number>,
+  maxSlideLength?: number
 ) {
   const swiperRef = useRef<SwiperType>()
   const [pagination, setPagination] = useState<Array<number>>([]);
 
   const handlePaginationRender = () => {
     if (swiperRef.current) {
-      const slideLength = swiperRef.current.slides.length;
+      const slideLength = maxSlideLength ?? swiperRef.current.slides.length;
       const newPagination: Array<number> = []
-      if (slideLength <= 5) {
-        for (let i = 1; i <= slideLength; i++)
-          newPagination.push(i);
-      } else {
-        const start = activeSlides - 2;
-        const end = activeSlides + 2;
-        if (start <= 1) {
-          for (let i = 0; i < 5; i++)
-            newPagination.push(i + 1);
-        } else {
-          if (end >= slideLength) {
-            for (let i = slideLength - 4; i <= slideLength; i++)
-              newPagination.push(i);
-          } else {
-            for (let i = end - 4; i <= end; i++)
-              newPagination.push(i);
-          }
-        }
-      }
+
+      const start = Math.max(activeSlides - 2, 1)
+      const end = Math.min(start + 5, slideLength + 1)
+
+      for(let i = start; i < end; i++) newPagination.push(i)
+
       setPagination(newPagination)
     }
   }

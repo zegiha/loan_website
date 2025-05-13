@@ -26,7 +26,7 @@ export default function Certified_company_table({
     {title: '광고용 전화번호', contents: advertising_phone},
     {title: '소재지', contents: company_location},
     {title: '등록번호', contents: registration_number},
-    {title: '등록 유효기간', contents: `${get_YYYYMMDD(registration_period.start)} ~ ${get_YYYYMMDD(registration_period.end)}`},
+    {title: '등록 유효기간', contents: registration_period},
     {title: '대부업 등록기관', contents: registrar},
   ]
   return (

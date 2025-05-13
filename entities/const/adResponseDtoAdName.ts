@@ -15,7 +15,7 @@ export type AdResponseDtoAdName =
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdResponseDtoAdName = {
   프리미엄_배너광고: "프리미엄 배너광고",
-  메인_베너광고: "메인 베너광고",
+  메인_배너광고: "메인 배너광고",
   메인_TOP_배너광고: "메인 TOP 배너광고",
   스폰서_링크: "스폰서 링크",
   지역_배너광고: "지역 배너광고",

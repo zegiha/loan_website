@@ -7,7 +7,7 @@
  */
 
 export type AdsPublicControllerSearchAdsParams = {
-  location: string;
-  product: string;
-  content: string;
+  location?: string;
+  product?: string;
+  content?: string;
 };

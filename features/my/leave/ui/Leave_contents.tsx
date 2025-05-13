@@ -1,9 +1,12 @@
 'use client'
 
+import {ReloadIcon} from '@/components/atoms/icons'
 import InputSection from "@/components/molecules/Layout/inputSection/InputSection";
-import {Col} from "@/components/atoms/layout";
+import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, button} from "@/components/molecules/inputs";
+import {authControllerLogin} from '@/entities/api/auth/auth'
+import {userControllerRequestWithdrawal} from '@/entities/api/user/user'
 import {error_checker, is_correct_id, is_correct_password} from "@/shared/helper";
 import {useState} from "react";
 import {use_auth_store} from "@/shared/store/authStore";
@@ -23,25 +26,23 @@ export default function Leave_contents() {
 
   const {setIsLogin} = use_auth_store()
   const router = useRouter()
-  const [status, set_status] = useState<'before_start' | 'loading' | 'done'>('before_start');
+  const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle')
 
   const handle_submit = async () => {
+    if(status === 'pending' || status === 'success') return
+    setStatus('pending')
     if(
       error_checker([is_correct_id], id) === null &&
       error_checker([is_correct_password], password) === null
     ) {
-      set_status('loading')
-      setTimeout(async () => {
-        const try_leave = await leave_action(id, password)
-        if(try_leave.status === 200) {
-          setIsLogin(false)
-          router.push("/my/leave/done")
-          set_status('done')
-        } else throw new Error('haha')
-      }, 3000)
-    } else {
-      set_status('before_start')
-      alert('잘못된 정보가 있습니다')
+      try {
+        await authControllerLogin({id, password})
+        await userControllerRequestWithdrawal()
+        setIsLogin(false)
+        router.push("/")
+      } catch (error) {
+        setStatus('error')
+      }
     }
   }
 
@@ -80,22 +81,28 @@ export default function Leave_contents() {
         <BaseButton
           className={button.primary_button36}
           onClick={handle_submit}
+          disabled={status === 'pending' || status === 'success'}
         >
-          {status === 'before_start' ? (
-            <Typo.Contents color={'onPrimary'} emphasize>
-              회원탈퇴
-            </Typo.Contents>
-          ) : status === 'loading' ? (
+          {status === 'pending' && (
             <Player
               src={load}
               style={{height: 12}}
               autoplay
               loop
             />
-          ) : (
+          )}
+          {status === 'idle' && (
             <Typo.Contents color={'onPrimary'} emphasize>
               회원탈퇴
             </Typo.Contents>
+          )}
+          {status === 'error' && (
+            <Row gap={4} alignItems={'center'}>
+              <ReloadIcon color={'white'}/>
+              <Typo.Contents color={'onPrimary'} emphasize>
+                회원탈퇴
+              </Typo.Contents>
+            </Row>
           )}
         </BaseButton>
       </Col>

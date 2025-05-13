@@ -3,13 +3,16 @@
 import InputSection from "@/components/molecules/Layout/inputSection/InputSection";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
+import {TLocation} from '@/shared/type'
 import React, {useState} from "react";
 import {BaseButton, BaseTextInput, Radio} from "@/components/molecules/inputs";
 import {usePost_data} from "@/features/create_post_profile/context/post_data_context";
 import style from './style.module.scss'
 import {ArrowIcon} from "@/components/atoms/icons";
 import Select from "@/components/molecules/inputs/select/Select";
-import {location_list} from "@/shared/constants";
+import {location_list as rawLocationList} from "@/shared/constants";
+
+const location_list: Array<Exclude<TLocation, '전체'>> = rawLocationList.filter(v => v !== '전체')
 
 export default function Create_post_loan({
   setStep

@@ -6,6 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
+import {TAds_name} from '@/shared/type'
+
 /**
  * 광고 타입
  */
@@ -15,7 +17,7 @@ export type CreateAdvertisementDtoAdName =
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateAdvertisementDtoAdName = {
   프리미엄_배너광고: "프리미엄 배너광고",
-  메인_베너광고: "메인 베너광고",
+  메인_배너광고: "메인 배너광고",
   메인_TOP_배너광고: "메인 TOP 배너광고",
   스폰서_링크: "스폰서 링크",
   지역_배너광고: "지역 배너광고",

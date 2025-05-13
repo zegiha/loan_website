@@ -28,6 +28,7 @@ export default function Buy_new_ads({
 }: {
   setStepAction: React.Dispatch<React.SetStateAction<TStep>>
 }) {
+  const {select, setSelect} = useSelect_context()
 
   const [total_price, set_total_price] = useState(0)
   const [validate_list, set_validate_list] = useState<Array<{name: TAds_name, status: boolean, error_message: string}>>([]);
@@ -38,8 +39,10 @@ export default function Buy_new_ads({
     name: TAds_name
     req_data: TAll_req
   }>>([])
-  const default_value = {ad_req_data, set_ad_req_data}
-
+  const default_value = {
+    ad_req_data,
+    set_ad_req_data,
+  }
 
   const {
     status,
@@ -49,7 +52,8 @@ export default function Buy_new_ads({
       depositor,
       totalPrice: total_price,
     },
-    ad_req_data
+    ad_req_data,
+    new Set(select.map(v => v.name))
   )
 
   const handleSubmit = () => {
@@ -77,9 +81,8 @@ export default function Buy_new_ads({
       window.scrollTo({top: 0})
       setStepAction('end')
     }
-  }, [status]);
+  }, [status])
 
-  const {select, setSelect} = useSelect_context()
   useEffect(() => {
     if(select.length === 0) {
       setStepAction('get')

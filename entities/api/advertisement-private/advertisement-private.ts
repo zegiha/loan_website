@@ -535,6 +535,7 @@ export const useAdsPrivateControllerReject = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
+ * @deprecated
  * @summary Get all advertisements waiting for approval
  */
 export const adsPrivateControllerFindAllWaitingApproval = (
@@ -672,6 +673,7 @@ export function useAdsPrivateControllerFindAllWaitingApproval<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
+ * @deprecated
  * @summary Get all advertisements waiting for approval
  */
 
