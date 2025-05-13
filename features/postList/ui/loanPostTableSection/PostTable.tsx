@@ -31,10 +31,6 @@ export default function PostTable({
     searchType,
   } = usePagination()
 
-  useEffect(() => {
-    console.log(limit, page, search, searchType)
-  }, [limit, page, search, searchType])
-
   const {
     data,
     status,
@@ -45,13 +41,13 @@ export default function PostTable({
       limit: limit,
       type: '전체',
       location: ['전체'],
-      search_type: searchType,
-      // TODO nullable로 변경
-      search: "''"
+      search_type: 'title',
+      search: undefined
     },
     {
       query: {
         select: data => {
+          console.log(data)
           const res: Array<ILoan_inquiry_data> = []
           data.data.forEach(v => {
             res.push({

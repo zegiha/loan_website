@@ -3,6 +3,7 @@
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {ArrowIcon} from "@/components/atoms/icons";
+import {ReactNode} from 'react'
 import {Swiper, SwiperSlide} from "swiper/react";
 import Typo from "@/components/atoms/typo/Typo";
 import {usePaginationSwiper} from "@/shared/hooks";
@@ -13,11 +14,13 @@ export default function SwiperPaginationAndNavigation({
   children,
   activeSlides,
   setActiveSlides,
+  maxSlideLength,
   height,
 }: {
-  children: Array<React.ReactNode>,
+  children: Array<ReactNode> | ReactNode,
   activeSlides: number
   setActiveSlides: react_state_action<number>
+  maxSlideLength?: number
   height?: Property.Height,
 }) {
   const {
@@ -27,29 +30,35 @@ export default function SwiperPaginationAndNavigation({
     handlePrevSlide,
     handleToSlide,
     handleSwiperUpdate,
-  } = usePaginationSwiper(activeSlides, setActiveSlides);
+  } = usePaginationSwiper(activeSlides, setActiveSlides, maxSlideLength);
 
   return (
     <Col gap={12} width={'fill'} style={{height: height}}>
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper
+          handleSwiperUpdate(swiperRef.current)
         }}
         onSlideChange={(swiper) => {
           setActiveSlides(swiper.activeIndex+1)
         }}
-        onUpdate={handleSwiperUpdate}
         spaceBetween={40}
         style={{
           height,
           paddingLeft: 1,
         }}
       >
-        {children.map((v, i) => (
-          <SwiperSlide key={i}>
-            {v}
+        {Array.isArray(children) ? (
+          children.map((v, i) => (
+            <SwiperSlide key={i}>
+              {v}
+            </SwiperSlide>
+          ))
+        ) : (
+          <SwiperSlide>
+            {children}
           </SwiperSlide>
-        ))}
+        )}
       </Swiper>
       <Row gap={8} width={'fill'} justifyContents={'center'}>
         <BaseButton

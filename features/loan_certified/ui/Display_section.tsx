@@ -1,17 +1,31 @@
+'use client'
 import style from './style.module.scss'
 import Typo from "@/components/atoms/typo/Typo";
 import {Col, Row} from "@/components/atoms/layout";
 import {BaseTextInput} from "@/components/molecules/inputs";
 import Image from "next/image";
 import BG from '@/public/img/certifiedCompanyBG.webp'
+import {useEffect, useState} from "react";
 
 export default function Display_section({
-  search,
-  set_search
-}: {
+                                          search,
+                                          set_search
+                                        }: {
   search: string,
   set_search: React.Dispatch<React.SetStateAction<string>>
 }) {
+  const [prev, setPrev] = useState(search);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (prev !== search) {
+        set_search(prev);
+      }
+    }, 250); // 500ms 동안 입력이 없으면 set_search 호출
+
+    return () => clearTimeout(timeout); // 입력 중이면 타이머 초기화
+  }, [prev]);
+
   return (
     <div className={style.display_section}>
       <Col gap={24} className={style.display_wrapper} width={'fill'}>
@@ -47,8 +61,8 @@ export default function Display_section({
           maxWidth={320}
           size={'big'}
           placeholder={'업체명으로 검색할 수 있어요'}
-          value={search}
-          onChangeAction={(v) => set_search(v)}
+          value={prev}
+          onChangeAction={(v) => setPrev(v)}
         />
       </Col>
       <div className={style.display_section_background}>

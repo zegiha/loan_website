@@ -31,7 +31,7 @@ export type LoanboardResponseDto = {
    * Monthly income of the applicant
    * @nullable
    */
-  monthly_income: number | null;
+  monthly_income: string | null;
   /** Job status of the applicant */
   job_status: boolean;
   /** Title of the loan board */

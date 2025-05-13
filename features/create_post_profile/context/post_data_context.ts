@@ -18,8 +18,8 @@ export interface IPost_data {
   setAmount: React.Dispatch<React.SetStateAction<string>>
   monthly_income: string | null
   set_monthly_income: React.Dispatch<React.SetStateAction<string | null>>
-  location: TLocation | null
-  set_location: React.Dispatch<React.SetStateAction<TLocation | null>>
+  location: Exclude<TLocation, '전체'> | null
+  set_location: React.Dispatch<React.SetStateAction<Exclude<TLocation, '전체'> | null>>
   loan_type: '신용' | '담보' | null
   set_loan_type: React.Dispatch<React.SetStateAction<'신용' | '담보' | null>>
 }

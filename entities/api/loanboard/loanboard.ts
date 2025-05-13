@@ -549,3 +549,95 @@ export const useLoanboardControllerDelete = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Register available company for a loan board
+ */
+export const loanboardControllerRegisterAvailableCompany = (
+  boardId: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<void>(
+    {
+      url: `/loanboard/register-available-company/${boardId}`,
+      method: "POST",
+      signal,
+    },
+    options,
+  );
+};
+
+export const getLoanboardControllerRegisterAvailableCompanyMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof loanboardControllerRegisterAvailableCompany>>,
+    TError,
+    { boardId: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof loanboardControllerRegisterAvailableCompany>>,
+  TError,
+  { boardId: string },
+  TContext
+> => {
+  const mutationKey = ["loanboardControllerRegisterAvailableCompany"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof loanboardControllerRegisterAvailableCompany>>,
+    { boardId: string }
+  > = (props) => {
+    const { boardId } = props ?? {};
+
+    return loanboardControllerRegisterAvailableCompany(boardId, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type LoanboardControllerRegisterAvailableCompanyMutationResult =
+  NonNullable<
+    Awaited<ReturnType<typeof loanboardControllerRegisterAvailableCompany>>
+  >;
+
+export type LoanboardControllerRegisterAvailableCompanyMutationError =
+  ErrorType<void>;
+
+/**
+ * @summary Register available company for a loan board
+ */
+export const useLoanboardControllerRegisterAvailableCompany = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof loanboardControllerRegisterAvailableCompany>>,
+      TError,
+      { boardId: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof loanboardControllerRegisterAvailableCompany>>,
+  TError,
+  { boardId: string },
+  TContext
+> => {
+  const mutationOptions =
+    getLoanboardControllerRegisterAvailableCompanyMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};

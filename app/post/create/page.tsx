@@ -9,28 +9,8 @@ import {useRouter} from "next/navigation";
 import axios from "axios";
 import TLocation from "@/shared/type/TLocation";
 
-const upload = async (data: IPost_data) => {
-  try {
-    const res = await axios.post('https://loan.apne2a.algorix.cloud/loanboard', {
-      type: data.loan_type,
-      available_location: data.location,
-      desired_amount: data.amount,
-      age: 30,
-      gender: 'male',
-      tel: '01012345678',
-      monthly_income: 100000,
-      job_status: true,
-      title: 'tttt',
-      content: 'haha'
-    })
-    return true
-  } catch (e) {
-    return false
-  }
-}
-
 export default function Create_post() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [gender, setGender] = useState<'MALE' | 'FEMALE'>("MALE");
   const [age, setAge] = useState<string>('');
   const [phone_number, setPhone_number] = useState<string>('');
@@ -39,7 +19,7 @@ export default function Create_post() {
   const [contents, setContents] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
   const [monthly_income, set_monthly_income] = useState<string | null>(null)
-  const [location, set_location] = useState<TLocation | null>(null)
+  const [location, set_location] = useState<Exclude<TLocation, '전체'> | null>(null)
   const [loan_type, set_loan_type] = useState<'신용' | '담보' | null>(null)
 
   const defaultValue: IPost_data = {
@@ -60,9 +40,7 @@ export default function Create_post() {
   useEffect(() => {
 
     if(step === 3) {
-    } else if(step > 3) {
       router.push('/')
-      setStep(2)
     }
   }, [step])
 
