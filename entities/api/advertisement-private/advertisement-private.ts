@@ -21,172 +21,17 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { AdResponseDto } from "../../const";
+import type {
+  AdPendingExtendResponseDto,
+  AdPendingRegistrationResponseDto,
+  AdPendingUpdateResponseDto,
+  AdResponseDto,
+} from "../../const";
 
 import { customInstance } from "../../../shared/axios/lib/customInstance";
 import type { ErrorType } from "../../../shared/axios/lib/customInstance";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-/**
- * @summary Get all pending groups
- */
-export const adsPrivateControllerFindAllPendingGroup = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal,
-) => {
-  return customInstance<string[]>(
-    { url: `/ads/pending-group-list`, method: "GET", signal },
-    options,
-  );
-};
-
-export const getAdsPrivateControllerFindAllPendingGroupQueryKey = () => {
-  return [`/ads/pending-group-list`] as const;
-};
-
-export const getAdsPrivateControllerFindAllPendingGroupQueryOptions = <
-  TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-  TError = ErrorType<string[]>,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAdsPrivateControllerFindAllPendingGroupQueryKey();
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>
-  > = ({ signal }) =>
-    adsPrivateControllerFindAllPendingGroup(requestOptions, signal);
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
-
-export type AdsPrivateControllerFindAllPendingGroupQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>
->;
-export type AdsPrivateControllerFindAllPendingGroupQueryError = ErrorType<
-  string[]
->;
-
-export function useAdsPrivateControllerFindAllPendingGroup<
-  TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-  TError = ErrorType<string[]>,
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-          TError,
-          Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdsPrivateControllerFindAllPendingGroup<
-  TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-  TError = ErrorType<string[]>,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-          TError,
-          Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdsPrivateControllerFindAllPendingGroup<
-  TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-  TError = ErrorType<string[]>,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-/**
- * @summary Get all pending groups
- */
-
-export function useAdsPrivateControllerFindAllPendingGroup<
-  TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-  TError = ErrorType<string[]>,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllPendingGroup>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions =
-    getAdsPrivateControllerFindAllPendingGroupQueryOptions(options);
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-}
 
 /**
  * @summary Get all advertisements by group ID
@@ -372,14 +217,14 @@ export const adsPrivateControllerApprove = (
   groupId: string,
   options?: SecondParameter<typeof customInstance>,
 ) => {
-  return customInstance<AdResponseDto>(
+  return customInstance<AdResponseDto[]>(
     { url: `/ads/approve/registration/${groupId}`, method: "PATCH" },
     options,
   );
 };
 
 export const getAdsPrivateControllerApproveMutationOptions = <
-  TError = ErrorType<AdResponseDto>,
+  TError = ErrorType<AdResponseDto[]>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -420,13 +265,15 @@ export type AdsPrivateControllerApproveMutationResult = NonNullable<
   Awaited<ReturnType<typeof adsPrivateControllerApprove>>
 >;
 
-export type AdsPrivateControllerApproveMutationError = ErrorType<AdResponseDto>;
+export type AdsPrivateControllerApproveMutationError = ErrorType<
+  AdResponseDto[]
+>;
 
 /**
  * @summary Approve advertisement registration
  */
 export const useAdsPrivateControllerApprove = <
-  TError = ErrorType<AdResponseDto>,
+  TError = ErrorType<AdResponseDto[]>,
   TContext = unknown,
 >(
   options?: {
@@ -535,189 +382,13 @@ export const useAdsPrivateControllerReject = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
- * @deprecated
- * @summary Get all advertisements waiting for approval
- */
-export const adsPrivateControllerFindAllWaitingApproval = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal,
-) => {
-  return customInstance<AdResponseDto[]>(
-    { url: `/ads/waiting-approval/all`, method: "GET", signal },
-    options,
-  );
-};
-
-export const getAdsPrivateControllerFindAllWaitingApprovalQueryKey = () => {
-  return [`/ads/waiting-approval/all`] as const;
-};
-
-export const getAdsPrivateControllerFindAllWaitingApprovalQueryOptions = <
-  TData = Awaited<
-    ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-  >,
-  TError = ErrorType<void | AdResponseDto[]>,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAdsPrivateControllerFindAllWaitingApprovalQueryKey();
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>
-  > = ({ signal }) =>
-    adsPrivateControllerFindAllWaitingApproval(requestOptions, signal);
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
-
-export type AdsPrivateControllerFindAllWaitingApprovalQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>
->;
-export type AdsPrivateControllerFindAllWaitingApprovalQueryError = ErrorType<
-  void | AdResponseDto[]
->;
-
-export function useAdsPrivateControllerFindAllWaitingApproval<
-  TData = Awaited<
-    ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-  >,
-  TError = ErrorType<void | AdResponseDto[]>,
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-          >,
-          TError,
-          Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdsPrivateControllerFindAllWaitingApproval<
-  TData = Awaited<
-    ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-  >,
-  TError = ErrorType<void | AdResponseDto[]>,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-          >,
-          TError,
-          Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdsPrivateControllerFindAllWaitingApproval<
-  TData = Awaited<
-    ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-  >,
-  TError = ErrorType<void | AdResponseDto[]>,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-/**
- * @deprecated
- * @summary Get all advertisements waiting for approval
- */
-
-export function useAdsPrivateControllerFindAllWaitingApproval<
-  TData = Awaited<
-    ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>
-  >,
-  TError = ErrorType<void | AdResponseDto[]>,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingApproval>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions =
-    getAdsPrivateControllerFindAllWaitingApprovalQueryOptions(options);
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-}
-
-/**
  * @summary Get all advertisements waiting for registration
  */
 export const adsPrivateControllerFindAllWaitingRegistration = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<AdResponseDto[]>(
+  return customInstance<AdPendingRegistrationResponseDto[]>(
     { url: `/ads/waiting-approval/register`, method: "GET", signal },
     options,
   );
@@ -731,7 +402,7 @@ export const getAdsPrivateControllerFindAllWaitingRegistrationQueryOptions = <
   TData = Awaited<
     ReturnType<typeof adsPrivateControllerFindAllWaitingRegistration>
   >,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingRegistrationResponseDto[]>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<
@@ -767,13 +438,13 @@ export type AdsPrivateControllerFindAllWaitingRegistrationQueryResult =
     Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingRegistration>>
   >;
 export type AdsPrivateControllerFindAllWaitingRegistrationQueryError =
-  ErrorType<void | AdResponseDto[]>;
+  ErrorType<void | AdPendingRegistrationResponseDto[]>;
 
 export function useAdsPrivateControllerFindAllWaitingRegistration<
   TData = Awaited<
     ReturnType<typeof adsPrivateControllerFindAllWaitingRegistration>
   >,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingRegistrationResponseDto[]>,
 >(
   options: {
     query: Partial<
@@ -807,7 +478,7 @@ export function useAdsPrivateControllerFindAllWaitingRegistration<
   TData = Awaited<
     ReturnType<typeof adsPrivateControllerFindAllWaitingRegistration>
   >,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingRegistrationResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -841,7 +512,7 @@ export function useAdsPrivateControllerFindAllWaitingRegistration<
   TData = Awaited<
     ReturnType<typeof adsPrivateControllerFindAllWaitingRegistration>
   >,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingRegistrationResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -867,7 +538,7 @@ export function useAdsPrivateControllerFindAllWaitingRegistration<
   TData = Awaited<
     ReturnType<typeof adsPrivateControllerFindAllWaitingRegistration>
   >,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingRegistrationResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -905,7 +576,7 @@ export const adsPrivateControllerFindAllWaitingUpdate = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<AdResponseDto[]>(
+  return customInstance<AdPendingUpdateResponseDto[]>(
     { url: `/ads/waiting-approval/update`, method: "GET", signal },
     options,
   );
@@ -917,7 +588,7 @@ export const getAdsPrivateControllerFindAllWaitingUpdateQueryKey = () => {
 
 export const getAdsPrivateControllerFindAllWaitingUpdateQueryOptions = <
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingUpdate>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingUpdateResponseDto[]>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<
@@ -950,12 +621,12 @@ export type AdsPrivateControllerFindAllWaitingUpdateQueryResult = NonNullable<
   Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingUpdate>>
 >;
 export type AdsPrivateControllerFindAllWaitingUpdateQueryError = ErrorType<
-  void | AdResponseDto[]
+  void | AdPendingUpdateResponseDto[]
 >;
 
 export function useAdsPrivateControllerFindAllWaitingUpdate<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingUpdate>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingUpdateResponseDto[]>,
 >(
   options: {
     query: Partial<
@@ -981,7 +652,7 @@ export function useAdsPrivateControllerFindAllWaitingUpdate<
 };
 export function useAdsPrivateControllerFindAllWaitingUpdate<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingUpdate>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingUpdateResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -1007,7 +678,7 @@ export function useAdsPrivateControllerFindAllWaitingUpdate<
 };
 export function useAdsPrivateControllerFindAllWaitingUpdate<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingUpdate>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingUpdateResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -1029,7 +700,7 @@ export function useAdsPrivateControllerFindAllWaitingUpdate<
 
 export function useAdsPrivateControllerFindAllWaitingUpdate<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingUpdate>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingUpdateResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -1065,7 +736,7 @@ export const adsPrivateControllerFindAllWaitingExtend = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<AdResponseDto[]>(
+  return customInstance<AdPendingExtendResponseDto[]>(
     { url: `/ads/waiting-approval/extend`, method: "GET", signal },
     options,
   );
@@ -1077,7 +748,7 @@ export const getAdsPrivateControllerFindAllWaitingExtendQueryKey = () => {
 
 export const getAdsPrivateControllerFindAllWaitingExtendQueryOptions = <
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingExtend>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingExtendResponseDto[]>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<
@@ -1110,12 +781,12 @@ export type AdsPrivateControllerFindAllWaitingExtendQueryResult = NonNullable<
   Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingExtend>>
 >;
 export type AdsPrivateControllerFindAllWaitingExtendQueryError = ErrorType<
-  void | AdResponseDto[]
+  void | AdPendingExtendResponseDto[]
 >;
 
 export function useAdsPrivateControllerFindAllWaitingExtend<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingExtend>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingExtendResponseDto[]>,
 >(
   options: {
     query: Partial<
@@ -1141,7 +812,7 @@ export function useAdsPrivateControllerFindAllWaitingExtend<
 };
 export function useAdsPrivateControllerFindAllWaitingExtend<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingExtend>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingExtendResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -1167,7 +838,7 @@ export function useAdsPrivateControllerFindAllWaitingExtend<
 };
 export function useAdsPrivateControllerFindAllWaitingExtend<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingExtend>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingExtendResponseDto[]>,
 >(
   options?: {
     query?: Partial<
@@ -1189,7 +860,7 @@ export function useAdsPrivateControllerFindAllWaitingExtend<
 
 export function useAdsPrivateControllerFindAllWaitingExtend<
   TData = Awaited<ReturnType<typeof adsPrivateControllerFindAllWaitingExtend>>,
-  TError = ErrorType<void | AdResponseDto[]>,
+  TError = ErrorType<void | AdPendingExtendResponseDto[]>,
 >(
   options?: {
     query?: Partial<

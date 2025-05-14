@@ -7,6 +7,6 @@ export interface ICompany_row {
 	name: string;
 }
 
-export interface ICompany_row_having_is_visible_company_name extends ICompany_row {
+export interface ICompany_row_having_is_visible_company_name extends Omit<ICompany_row, 'category'> {
 	is_visible_company_name: boolean;
 }

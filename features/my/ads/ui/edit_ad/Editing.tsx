@@ -17,11 +17,9 @@ import Edit_sponsor_link from "@/features/my/ads/ui/edit_ad/info_input/Edit_spon
 
 export default function Editing({
 	ad_name,
-	ad_type,
 	set_step,
 }: {
 	ad_name: TAds_name
-	ad_type: TAds_type
 	set_step: react_state_action<0 | 1>
 }) {
 	const {validates} = use_context_with_check(Edit_data_context);
@@ -38,7 +36,7 @@ export default function Editing({
 	return (
 		<Col width={'fill'} gap={24}>
 			<Info_input_section title={ad_name}>
-				<Edit_field {...{ad_type}}/>
+				<Edit_field {...{ad_name}}/>
 			</Info_input_section>
 			<BaseButton className={button.primary_button44} onClick={handle_submit}>
 				<Typo.Contents color={'onPrimary'}>
@@ -50,17 +48,17 @@ export default function Editing({
 }
 
 function Edit_field({
-	ad_type,
+	ad_name,
 }: {
-	ad_type: TAds_type
+	ad_name: TAds_name
 }) {
-	switch(ad_type) {
-		case 'banner': return <Edit_main_banner/>
-		case 'top_banner': return <Edit_top_banner/>
-		case "product_banner": return <Edit_product_banner/>
-		case "location_banner": return <Edit_location_banner/>
-		case "line": return <Edit_line/>
-		case "premium_banner": return <Edit_premium_banner/>
-		case "sponsor_link": return <Edit_sponsor_link/>
+	switch(ad_name) {
+		case '메인 베너광고': return <Edit_main_banner/>
+		case '메인 TOP 배너광고': return <Edit_top_banner/>
+		case '상품 배너 광고': return <Edit_product_banner/>
+		case '지역 배너광고': return <Edit_location_banner/>
+		case '줄광고': return <Edit_line/>
+		case '프리미엄 배너광고': return <Edit_premium_banner/>
+		case '스폰서 링크': return <Edit_sponsor_link/>
 	}
 }

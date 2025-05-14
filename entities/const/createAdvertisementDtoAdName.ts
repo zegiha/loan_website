@@ -6,8 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 
-import {TAds_name} from '@/shared/type'
-
 /**
  * 광고 타입
  */

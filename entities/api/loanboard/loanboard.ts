@@ -550,6 +550,216 @@ export const useLoanboardControllerDelete = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
+ * @summary Get available company for a loan board
+ */
+export const loanboardControllerGetRegisterAvailableCompany = (
+  boardId: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<void>(
+    { url: `/loanboard/available-company/${boardId}`, method: "GET", signal },
+    options,
+  );
+};
+
+export const getLoanboardControllerGetRegisterAvailableCompanyQueryKey = (
+  boardId: string,
+) => {
+  return [`/loanboard/available-company/${boardId}`] as const;
+};
+
+export const getLoanboardControllerGetRegisterAvailableCompanyQueryOptions = <
+  TData = Awaited<
+    ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+  >,
+  TError = ErrorType<unknown>,
+>(
+  boardId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+        >,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getLoanboardControllerGetRegisterAvailableCompanyQueryKey(boardId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>>
+  > = ({ signal }) =>
+    loanboardControllerGetRegisterAvailableCompany(
+      boardId,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!boardId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type LoanboardControllerGetRegisterAvailableCompanyQueryResult =
+  NonNullable<
+    Awaited<ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>>
+  >;
+export type LoanboardControllerGetRegisterAvailableCompanyQueryError =
+  ErrorType<unknown>;
+
+export function useLoanboardControllerGetRegisterAvailableCompany<
+  TData = Awaited<
+    ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+  >,
+  TError = ErrorType<unknown>,
+>(
+  boardId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+        >,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<
+            ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+          >,
+          TError,
+          Awaited<
+            ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+          >
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useLoanboardControllerGetRegisterAvailableCompany<
+  TData = Awaited<
+    ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+  >,
+  TError = ErrorType<unknown>,
+>(
+  boardId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+        >,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<
+            ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+          >,
+          TError,
+          Awaited<
+            ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+          >
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useLoanboardControllerGetRegisterAvailableCompany<
+  TData = Awaited<
+    ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+  >,
+  TError = ErrorType<unknown>,
+>(
+  boardId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+        >,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Get available company for a loan board
+ */
+
+export function useLoanboardControllerGetRegisterAvailableCompany<
+  TData = Awaited<
+    ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+  >,
+  TError = ErrorType<unknown>,
+>(
+  boardId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
+        >,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions =
+    getLoanboardControllerGetRegisterAvailableCompanyQueryOptions(
+      boardId,
+      options,
+    );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
  * @summary Register available company for a loan board
  */
 export const loanboardControllerRegisterAvailableCompany = (
