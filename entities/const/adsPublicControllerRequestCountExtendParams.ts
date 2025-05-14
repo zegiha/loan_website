@@ -7,5 +7,6 @@
  */
 
 export type AdsPublicControllerRequestCountExtendParams = {
-  deposit_name: string;
+  deposit_name?: string;
+  deposit_fee: string;
 };

@@ -33,7 +33,7 @@ export type CreateAdvertisementDto = {
   /** 남은 광고 수량 */
   remain?: number;
   /** 입금자명 */
-  deposit_name?: string;
+  deposit_name: string;
   /** 입금할 금액 */
-  deposit_fee?: number;
+  deposit_fee: number;
 };

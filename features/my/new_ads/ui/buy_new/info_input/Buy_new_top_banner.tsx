@@ -17,8 +17,15 @@ export default function Buy_new_top_banner({
 	useEffect(() => {
 		set_ad_req_data(prev => {
 			const data = [...prev]
+      let sw = true;
 			for(let i = 0; i < data.length; i++)
-				if(data[i].name === name) data[i].req_data = props.banner_info
+				if(data[i].name === name) {
+          data[i].req_data = props.banner_info
+          sw = false
+        }
+      if(sw) {
+        data.push({name, req_data: props.banner_info})
+      }
 			return [...data]
 		})
 		set_validate_list(prev => {
@@ -30,6 +37,7 @@ export default function Buy_new_top_banner({
 
 			return [...data]
 		})
-	}, [props.banner_info]);
+	}, [props.banner_info])
+
 	return <Top_banner_info_input {...props}/>
 }

@@ -5,6 +5,7 @@
  * 대출업체 데이터 조회 API
  * OpenAPI spec version: 0.1.0
  */
+import type { LenderDTOAddress } from "./lenderDTOAddress";
 import type { LenderDTOPhone } from "./lenderDTOPhone";
 
 export type LenderDTO = {
@@ -19,7 +20,7 @@ export type LenderDTO = {
   /** 대표자 */
   ceo: string;
   /** 소재지(도로명) */
-  address: string;
+  address?: LenderDTOAddress;
   /** 광고용 전화번호 */
   phone?: LenderDTOPhone;
   /** 등록기관 */

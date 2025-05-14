@@ -14,7 +14,9 @@ export type AdResponseDto = {
   /** 광고 ID */
   id: string;
   /** 사용자 ID */
-  user_id?: string;
+  user_id: string;
+  /** 광고 그룹 ID */
+  group_id: string;
   /** 광고 유형 */
   ad_name: AdResponseDtoAdName;
   /** 광고 제목 */
@@ -63,4 +65,10 @@ export type AdResponseDto = {
   isUpdatePending: boolean;
   /** 입금자명 */
   deposit_name?: string;
+  /** 상품별 입금 필요 금액 */
+  deposit_fee?: number;
+  /** 등록한 회사 ID */
+  company_id: string;
+  /** 줄광고 ID */
+  scroll_ad_id?: string;
 };

@@ -6,10 +6,8 @@ import ad_list from "@/shared/constants/ad_list";
 import Edited from "@/features/my/ads/ui/edit_ad/Edited";
 
 export default function Edit_ad({
-	ad_type,
 	ad_name,
 }: {
-	ad_type: TAds_type
 	ad_name: TAds_name
 }) {
 	const get_price = (name: TAds_name): number => {
@@ -35,7 +33,7 @@ export default function Edit_ad({
 		case 0:
 			return (
 				<Edit_data_context.Provider value={default_value}>
-					<Editing {...{ad_name, ad_type, set_step}}/>
+					<Editing {...{ad_name, set_step}}/>
 				</Edit_data_context.Provider>
 			)
 		case 1: return <Edited/>

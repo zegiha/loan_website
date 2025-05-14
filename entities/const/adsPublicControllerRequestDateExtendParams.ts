@@ -8,4 +8,5 @@
 
 export type AdsPublicControllerRequestDateExtendParams = {
   deposit_name: string;
+  deposit_fee: string;
 };
