@@ -1,4 +1,5 @@
 import {Col, Divider, Row} from "@/components/atoms/layout";
+import {useRandomImage} from '@/shared/hooks'
 import style from './style.module.scss';
 import Image from "next/image";
 import Typo from "@/components/atoms/typo/Typo";
@@ -15,6 +16,8 @@ export default function Banner({
   location,
   img_url,
 }: ICompany_banner_data) {
+  const {img} = useRandomImage(img_url)
+
   return (
     <Link href={`/loan/${id}`}>
       <Col
@@ -47,11 +50,13 @@ export default function Banner({
             </Row>
             <div className={style.imgCover}/>
             <div className={style.img}>
-              <Image
-                src={img_url}
-                alt={'업체 이미지'}
-                fill={true}
-              />
+              {img && (
+                <Image
+                  src={img}
+                  alt={'업체 이미지'}
+                  fill={true}
+                />
+              )}
             </div>
           </Row>
           <Typo.Contents

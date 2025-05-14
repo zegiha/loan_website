@@ -4,6 +4,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {TableHead, TableRow} from "@/components/molecules";
 import {ICompany_row_having_is_visible_company_name} from "@/shared/type";
 import {Table} from "@/components/organisms";
+import {useInfiniteQuery} from '@tanstack/react-query'
 import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
 import {Row} from "@/components/atoms/layout";
@@ -13,7 +14,19 @@ import {ScrollAdResponseDto} from "@/entities/const";
 export default function RegisterStatusTable() {
   const [visible_company_name, set_visible_company_name] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null);
-  // const {data} = useFetch(() => get_company_row())
+
+  // const {
+  //   data,
+  //
+  // } = useInfiniteQuery({
+  //   queryKey: ['mainLine'],
+  //   queryFn: async ({pageParam=1}) => {
+  //     const res = await adsPublicControllerFindLineAds('main', '25')
+  //     return res
+  //   },
+  //   get
+  // })
+
   const [data, setData] = useState<Array<ICompany_row_having_is_visible_company_name> | null>(null)
 
   const scrollAdDtoToICompanyRow = (v: Array<ScrollAdResponseDto>): Array<ICompany_row_having_is_visible_company_name> => {
@@ -55,9 +68,6 @@ export default function RegisterStatusTable() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-  // useEffect(() => {
-  //   if(data !== null) handleResize()
-  // }, [data]);
 
   return (
     <Row width={'fill'} ref={ref}>

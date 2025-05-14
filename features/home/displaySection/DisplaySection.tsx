@@ -10,6 +10,9 @@ import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
 
 export default async function DisplaySection() {
   const {totalLoanCompany, cumulativeVisiter, realTimeLoan} = await getWebStatus();
+
+  // const
+
   const topAds = await getTopAds();
   return (
     <Col className={style.displaySectionContainer} alignItems="center">

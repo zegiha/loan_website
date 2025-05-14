@@ -1,5 +1,8 @@
 'use client'
 
+import Typo from '@/components/atoms/typo/Typo'
+import {useAdsPublicControllerSearchAds} from '@/entities/api/advertisement-public/advertisement-public'
+import {IPremium_banner_data} from '@/shared/type'
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
 import {useEffect, useRef, useState} from "react";
@@ -30,7 +33,26 @@ export default function PremiumBanner({
   const [cardNumber, setCardNumber] = useState(defaultCardNumber);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const {data, is_loading} = useFetch(() => get_premium_banner())
+  const {
+    data,
+    status,
+  } = useAdsPublicControllerSearchAds('프리미엄 배너광고', {}, {
+    query: {
+      select: v => {
+        const res: Array<IPremium_banner_data> = []
+        v.forEach(v => {
+          res.push({
+            ...v,
+            id: v.company_id,
+            title: v.title ?? '',
+            location: v.loan_available_location?.join(', ') ?? '',
+            name: v.user.companyName,
+          })
+        })
+        return res
+      }
+    }
+  })
 
   const handleResize = () => {
     if (wrapperRef.current) {
@@ -68,16 +90,7 @@ export default function PremiumBanner({
       width={'fill'}
       alignItems={'center'}
     >
-
-      {is_loading && data === null ? (
-        <Row
-          width={'fill'}
-          justifyContents={'center'}
-          style={{padding: '32px 0'}}
-        >
-          <Player src={load} autoplay loop style={{height: 24}}/>
-        </Row>
-      ):(
+      {status === 'success' && (
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
@@ -102,6 +115,26 @@ export default function PremiumBanner({
             </SwiperSlide>
           ))}
         </Swiper>
+      )}
+      {status === 'pending' && (
+        <Row
+          width={'fill'}
+          justifyContents={'center'}
+          style={{padding: '32px 0'}}
+        >
+          <Player src={load} autoplay loop style={{height: 24}}/>
+        </Row>
+      )}
+      {status === 'error' && (
+        <Row
+          width={'fill'}
+          justifyContents={'center'}
+          style={{padding: '32px 0'}}
+        >
+          <Typo.Body color={'dim'} emphasize>
+            다시시도해주세요
+          </Typo.Body>
+        </Row>
       )}
       <Row gap={8}>
         <BaseButton

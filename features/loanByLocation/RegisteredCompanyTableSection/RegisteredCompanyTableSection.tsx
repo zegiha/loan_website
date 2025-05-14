@@ -24,6 +24,7 @@ export default function RegisteredCompanyTableSection({
   activeCategories
 }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('5')
+  const [page, setPage] = useState(1)
 
   const formatRegisteredCompany = (rawData: Array<ICompany_row>): Array<Array<ICompany_row_having_is_visible_company_name>> => {
     const data: Array<ICompany_row_having_is_visible_company_name> = [];
@@ -95,7 +96,7 @@ export default function RegisteredCompanyTableSection({
             onChangeAction={(v) => setSearch(v)}
           />
         </Row>
-        <SwiperPaginationAndNavigation>
+        <SwiperPaginationAndNavigation activeSlides={page} setActiveSlides={setPage}>
           {formatRegisteredCompany(data).map((v, i) => (
             <SwiperSlide key={`${i}-slide`}>
               <Table

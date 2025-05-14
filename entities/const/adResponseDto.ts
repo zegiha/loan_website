@@ -9,6 +9,8 @@ import type { AdResponseDtoAdName } from "./adResponseDtoAdName";
 import type { AdResponseDtoLoanAvailableLocationItem } from "./adResponseDtoLoanAvailableLocationItem";
 import type { AdResponseDtoProductTypeItem } from "./adResponseDtoProductTypeItem";
 import type { AdResponseDtoPendingUpdateData } from "./adResponseDtoPendingUpdateData";
+import type { CompanyResponseDto } from "./companyResponseDto";
+import type { UserResponseDto } from "./userResponseDto";
 
 export type AdResponseDto = {
   /** 광고 ID */
@@ -71,4 +73,8 @@ export type AdResponseDto = {
   company_id: string;
   /** 줄광고 ID */
   scroll_ad_id?: string;
+  /** 등록한 회사 정보 */
+  company: CompanyResponseDto;
+  /** 등록한 사용자 정보 */
+  user: UserResponseDto;
 };

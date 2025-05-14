@@ -1,11 +1,12 @@
 import {Banner} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
+import {useAdsPublicControllerSearchAds} from '@/entities/api/advertisement-public/advertisement-public'
 import {semantic_object} from "@/shared/color";
 import {CompanyCardGrid} from "@/components/organisms";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import Section from "@/components/molecules/Layout/section/Section";
-import {useFetch} from "@/shared/hooks";
-import {get_company_banner} from "@/shared/api";
+import {formatting_phone_number} from '@/shared/helper'
+import {ICompany_banner_data} from '@/shared/type'
 import dynamic from "next/dynamic";
 import load from '@/public/assets/load_dot_120.json'
 import {Row} from "@/components/atoms/layout";
@@ -18,7 +19,36 @@ const Player = dynamic(
 export default function RegisteredCompanyCardSection({
   activeCategories
 }: {activeCategories: Set<string>}) {
-  const {data, is_loading} = useFetch(() => get_company_banner('location'))
+  const {
+    data,
+    status,
+  } = useAdsPublicControllerSearchAds(
+    '지역 배너광고',
+    {
+      location: !activeCategories.has('전체') ?
+        Array.from(activeCategories).join(',') :
+        undefined
+    },
+    {
+      query: {
+        select: v => {
+          const res: Array<ICompany_banner_data> = []
+          v.forEach(v => {
+            res.push({
+              id: v.company_id,
+              title: v.title ?? '',
+              subtitle: v.sub_title ?? '',
+              name: v.user.companyName,
+              phone: formatting_phone_number(v.user.advertisementTel),
+              location: v.loan_available_location?.join(', ') ?? '전체',
+              img_url: v.image_url ?? v.cover_img,
+            })
+          })
+          return res
+        }
+      }
+    }
+  )
 
   return (
     <Section>
@@ -28,11 +58,7 @@ export default function RegisteredCompanyCardSection({
           </span>
         등록업체
       </Typo.Body>
-      {is_loading ? (
-        <Row width={'fill'} justifyContents={'center'}>
-          <Player src={load} autoplay loop style={{height: 24}}/>
-        </Row>
-      ) : (
+      {status === 'success' && (
         <CompanyCardGrid>
           {data !== null && (
             data.map((v, i) => (
@@ -43,6 +69,11 @@ export default function RegisteredCompanyCardSection({
             ))
           )}
         </CompanyCardGrid>
+      )}
+      {status === 'pending' && (
+        <Row width={'fill'} justifyContents={'center'}>
+          <Player src={load} autoplay loop style={{height: 24}}/>
+        </Row>
       )}
     </Section>
   );
