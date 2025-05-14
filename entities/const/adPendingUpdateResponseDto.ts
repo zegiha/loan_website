@@ -6,7 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdsPublicControllerRequestCountExtendParams = {
-  deposit_name?: string;
-  deposit_fee: string;
+export type AdPendingUpdateResponseDto = {
+  /** 광고 그룹 UUID */
+  id: string;
+  /** 사용자 ID */
+  user_id?: string;
+  /** 등록 회사 ID */
+  company_id: string;
+  /** 광고 타입 */
+  ad_types?: string[];
 };

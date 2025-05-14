@@ -28,6 +28,7 @@ import type {
   AdsPublicControllerRequestDateExtendParams,
   AdsPublicControllerSearchAdsParams,
   CreateAdvertisementDto,
+  ScrollAdResponseDto,
   UpdateAdvertisementDto,
 } from "../../const";
 
@@ -133,6 +134,7 @@ export const useAdsPublicControllerCreate = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
+ * 줄광고는 조회가 불가합니다. type에는 all 또는 AdType enum에 있는 값을 사용해주세요.
  * @summary Search advertisements by type
  */
 export const adsPublicControllerSearchAds = (
@@ -316,6 +318,7 @@ export function useAdsPublicControllerSearchAds<
 }
 
 /**
+ * 줄광고는 조회가 불가합니다.
  * @summary Get all advertisements
  */
 export const adsPublicControllerFindAll = (
@@ -471,6 +474,7 @@ export function useAdsPublicControllerFindAll<
 }
 
 /**
+ * 줄광고는 조회가 불가합니다.
  * @summary Get all of my advertisements
  */
 export const adsPublicControllerFindAllofMyAds = (
@@ -629,6 +633,7 @@ export function useAdsPublicControllerFindAllofMyAds<
 }
 
 /**
+ * 줄광고도 조회 가능하며, id는 UUID 형식이여야 합니다.
  * @summary Get advertisement by ID
  */
 export const adsPublicControllerFindOne = (
@@ -798,7 +803,7 @@ export function useAdsPublicControllerFindOne<
 }
 
 /**
- * ad_type: (main, location, product)
+ * ad_type: (all, main, location, product)
  * @summary Get line advertisements
  */
 export const adsPublicControllerFindLineAds = (
@@ -808,7 +813,7 @@ export const adsPublicControllerFindLineAds = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<AdResponseDto[]>(
+  return customInstance<ScrollAdResponseDto[]>(
     { url: `/ads/line-ads/${adType}/${limit}`, method: "GET", params, signal },
     options,
   );
@@ -827,7 +832,7 @@ export const getAdsPublicControllerFindLineAdsQueryKey = (
 
 export const getAdsPublicControllerFindLineAdsQueryOptions = <
   TData = Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<ScrollAdResponseDto[]>,
 >(
   adType: string,
   limit: string,
@@ -876,12 +881,12 @@ export type AdsPublicControllerFindLineAdsQueryResult = NonNullable<
   Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>
 >;
 export type AdsPublicControllerFindLineAdsQueryError = ErrorType<
-  AdResponseDto[]
+  ScrollAdResponseDto[]
 >;
 
 export function useAdsPublicControllerFindLineAds<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<ScrollAdResponseDto[]>,
 >(
   adType: string,
   limit: string,
@@ -910,7 +915,7 @@ export function useAdsPublicControllerFindLineAds<
 };
 export function useAdsPublicControllerFindLineAds<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<ScrollAdResponseDto[]>,
 >(
   adType: string,
   limit: string,
@@ -939,7 +944,7 @@ export function useAdsPublicControllerFindLineAds<
 };
 export function useAdsPublicControllerFindLineAds<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<ScrollAdResponseDto[]>,
 >(
   adType: string,
   limit: string,
@@ -964,7 +969,7 @@ export function useAdsPublicControllerFindLineAds<
 
 export function useAdsPublicControllerFindLineAds<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindLineAds>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<ScrollAdResponseDto[]>,
 >(
   adType: string,
   limit: string,
@@ -1184,7 +1189,7 @@ export const adsPublicControllerFindAdCountByLocation = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<AdResponseDto[]>(
+  return customInstance<unknown>(
     { url: `/ads/ad-count/location`, method: "GET", signal },
     options,
   );
@@ -1196,7 +1201,7 @@ export const getAdsPublicControllerFindAdCountByLocationQueryKey = () => {
 
 export const getAdsPublicControllerFindAdCountByLocationQueryOptions = <
   TData = Awaited<ReturnType<typeof adsPublicControllerFindAdCountByLocation>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<
@@ -1228,13 +1233,12 @@ export const getAdsPublicControllerFindAdCountByLocationQueryOptions = <
 export type AdsPublicControllerFindAdCountByLocationQueryResult = NonNullable<
   Awaited<ReturnType<typeof adsPublicControllerFindAdCountByLocation>>
 >;
-export type AdsPublicControllerFindAdCountByLocationQueryError = ErrorType<
-  AdResponseDto[]
->;
+export type AdsPublicControllerFindAdCountByLocationQueryError =
+  ErrorType<unknown>;
 
 export function useAdsPublicControllerFindAdCountByLocation<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindAdCountByLocation>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options: {
     query: Partial<
@@ -1260,7 +1264,7 @@ export function useAdsPublicControllerFindAdCountByLocation<
 };
 export function useAdsPublicControllerFindAdCountByLocation<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindAdCountByLocation>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
@@ -1286,7 +1290,7 @@ export function useAdsPublicControllerFindAdCountByLocation<
 };
 export function useAdsPublicControllerFindAdCountByLocation<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindAdCountByLocation>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
@@ -1308,7 +1312,7 @@ export function useAdsPublicControllerFindAdCountByLocation<
 
 export function useAdsPublicControllerFindAdCountByLocation<
   TData = Awaited<ReturnType<typeof adsPublicControllerFindAdCountByLocation>>,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
@@ -1344,7 +1348,7 @@ export const adsPublicControllerFindAdCountByProductType = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<AdResponseDto[]>(
+  return customInstance<unknown>(
     { url: `/ads/ad-count/product`, method: "GET", signal },
     options,
   );
@@ -1358,7 +1362,7 @@ export const getAdsPublicControllerFindAdCountByProductTypeQueryOptions = <
   TData = Awaited<
     ReturnType<typeof adsPublicControllerFindAdCountByProductType>
   >,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<
@@ -1391,15 +1395,14 @@ export type AdsPublicControllerFindAdCountByProductTypeQueryResult =
   NonNullable<
     Awaited<ReturnType<typeof adsPublicControllerFindAdCountByProductType>>
   >;
-export type AdsPublicControllerFindAdCountByProductTypeQueryError = ErrorType<
-  AdResponseDto[]
->;
+export type AdsPublicControllerFindAdCountByProductTypeQueryError =
+  ErrorType<unknown>;
 
 export function useAdsPublicControllerFindAdCountByProductType<
   TData = Awaited<
     ReturnType<typeof adsPublicControllerFindAdCountByProductType>
   >,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options: {
     query: Partial<
@@ -1431,7 +1434,7 @@ export function useAdsPublicControllerFindAdCountByProductType<
   TData = Awaited<
     ReturnType<typeof adsPublicControllerFindAdCountByProductType>
   >,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
@@ -1463,7 +1466,7 @@ export function useAdsPublicControllerFindAdCountByProductType<
   TData = Awaited<
     ReturnType<typeof adsPublicControllerFindAdCountByProductType>
   >,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
@@ -1487,7 +1490,7 @@ export function useAdsPublicControllerFindAdCountByProductType<
   TData = Awaited<
     ReturnType<typeof adsPublicControllerFindAdCountByProductType>
   >,
-  TError = ErrorType<AdResponseDto[]>,
+  TError = ErrorType<unknown>,
 >(
   options?: {
     query?: Partial<
@@ -1523,14 +1526,14 @@ export const adsPublicControllerJump = (
   id: string,
   options?: SecondParameter<typeof customInstance>,
 ) => {
-  return customInstance<AdResponseDto>(
+  return customInstance<ScrollAdResponseDto>(
     { url: `/ads/jump/${id}`, method: "PATCH" },
     options,
   );
 };
 
 export const getAdsPublicControllerJumpMutationOptions = <
-  TError = ErrorType<AdResponseDto>,
+  TError = ErrorType<ScrollAdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1571,13 +1574,14 @@ export type AdsPublicControllerJumpMutationResult = NonNullable<
   Awaited<ReturnType<typeof adsPublicControllerJump>>
 >;
 
-export type AdsPublicControllerJumpMutationError = ErrorType<AdResponseDto>;
+export type AdsPublicControllerJumpMutationError =
+  ErrorType<ScrollAdResponseDto>;
 
 /**
  * @summary Jump advertisement
  */
 export const useAdsPublicControllerJump = <
-  TError = ErrorType<AdResponseDto>,
+  TError = ErrorType<ScrollAdResponseDto>,
   TContext = unknown,
 >(
   options?: {

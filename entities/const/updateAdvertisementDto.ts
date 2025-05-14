@@ -26,5 +26,7 @@ export type UpdateAdvertisementDto = {
   /** 상품 타입 목록 */
   product_type?: UpdateAdvertisementDtoProductTypeItem[];
   /** 입금자명 */
-  deposit_name?: string;
+  deposit_name: string;
+  /** 입금 가격 */
+  deposit_fee: number;
 };

@@ -7,9 +7,57 @@ import Link from "next/link";
 import {useFetch} from "@/shared/hooks";
 import {ILoan_inquiry_data} from "@/shared/type";
 import {get_loan_inquiry} from "@/shared/api";
+import {useEffect, useState} from "react";
+import {loanboardControllerFindAll} from "@/entities/api/loanboard/loanboard";
+import {LoanboardResponseDto} from "@/entities/const";
+import get_YYYYMMDD from "@/shared/helper/get_YYYYMMDD";
 
 export default function RealTimeLoanTable() {
-  const {data} = useFetch(()=> get_loan_inquiry())
+  const [page, setPage] = useState<number>(1)
+  const [data, setData] = useState<Array<ILoan_inquiry_data> | null>(null)
+
+  const loanboardResponseDtoToILoan_inquiry_data = (v: Array<LoanboardResponseDto>): Array<ILoan_inquiry_data> => {
+    const res: Array<ILoan_inquiry_data> = []
+    v.forEach(v => {
+      res.push({
+        ...v,
+        category: v.type,
+        desired_amount: v.desired_amount.toString(),
+        createdAt: get_YYYYMMDD(new Date(v.updatedAt)),
+        location: v.available_location
+      })
+    })
+    return [...res]
+  }
+
+  const handleFetching = async () => {
+    try {
+      const res = await loanboardControllerFindAll({
+        page: page,
+        limit: 20,
+        type: '전체',
+        location: ['전체'],
+      })
+      setData(p => {
+        if(p === null) return [...loanboardResponseDtoToILoan_inquiry_data(res.data)]
+        return [...p, ...loanboardResponseDtoToILoan_inquiry_data(res.data)]
+      })
+      setPage(p => p + 1)
+    } catch(e) {
+      console.error('RealTimeLoanTable: ', e)
+    }
+  }
+
+  useEffect(() => {
+    console.log(data)
+    handleFetching()
+    return () => {
+      console.log('??')
+      setData(null)
+      console.log(data)
+    }
+  }, []);
+
   return (
     <Table
       head={<RealTimeLoanTableHead/>}
@@ -32,7 +80,7 @@ function RealTimeLoanTableHead() {
     <Typo.Contents width={'fill'}>
       제목
     </Typo.Contents>
-    <Typo.Contents width={60}>
+    <Typo.Contents width={90}>
       작성시간
     </Typo.Contents>
   </TableHead>
@@ -52,7 +100,7 @@ function RealTimeLoanTableRow({
       <Typo.Contents width={'fill'} textOverflowLine={1}>
         {title}
       </Typo.Contents>
-      <Typo.Contents width={60} color={'dim'}>
+      <Typo.Contents width={90} color={'dim'}>
         {createdAt}
       </Typo.Contents>
     </TableRow>

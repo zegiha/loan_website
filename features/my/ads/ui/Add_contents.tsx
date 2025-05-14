@@ -21,39 +21,33 @@ import Prolongation_ad from "@/features/my/ads/ui/prolongation_ad/Prolongation_a
 
 export interface IMy_ads {
 	ad_name: TAds_name
-	ad_type: TAds_type
-	title: string
-	views: number
-	end_date: Date
-}
-
-function get_dummies(): Array<IMy_ads> {
-	const res: Array<IMy_ads> = []
-	ad_list.forEach((v) => {
-		res.push({
-			ad_type: v.type_name,
-			ad_name: v.name,
-			title: '전라 지역 당일 대출',
-			views: 139,
-			end_date: new Date()
-		})
-	})
-	return res
+	title?: string
+	end_date?: Date
 }
 
 export default function Add_contents() {
 	const [is_edit_open, set_is_edit_open] = useState(false);
 	const [is_prolongation_open, set_is_prolongation_open] = useState(false);
-	const [ad_info, set_ad_info] = useState<{name: TAds_name, type: TAds_type} | null>(null)
+	const [ad_info, set_ad_info] = useState<TAds_name | null>(null)
 
 	const {
 		data,
 		status,
-	} = useAdsPublicControllerFindAllofMyAds()
-
-	useEffect(() => {
-		console.log(data)
-	}, [data])
+	} = useAdsPublicControllerFindAllofMyAds({
+    query: {
+      select: v => {
+        const res: Array<IMy_ads> = []
+        v.forEach(v => {
+          res.push({
+            ad_name: v.ad_name === '메인 배너광고' ? '메인 베너광고' : v.ad_name,
+            title: v.title ?? '',
+            end_date: new Date(v.ad_present_expire_date ?? '')
+          })
+        })
+        return res
+      }
+    }
+  })
 
 	return (
 		<>
@@ -66,24 +60,28 @@ export default function Add_contents() {
 						className={style.table}
 						head={<My_ads_table_head/>}
 					>
-						{get_dummies().map((v, i) => (
-							<My_ads_table_row
-								key={i}
-								{...v}
-								option={v.ad_type !== 'no_data_req' ?
-									{off_edit: false, off_prolongation: false}:
-									{off_edit: true, off_prolongation: true}
-								}
-								edit_action={() => {
-									set_ad_info({name: v.ad_name, type: v.ad_type})
-									set_is_edit_open(true)
-								}}
-								prolongation_action={() => {
-									set_ad_info({name: v.ad_name, type: v.ad_type})
-									set_is_prolongation_open(true)
-								}}
-							/>
-						))}
+            {status === 'success' && (
+              data.map((v, i) => (
+                <My_ads_table_row
+                  key={i}
+                  {...v}
+                  option={v.ad_name === '줄광고' ?
+                    {off_edit: false, off_prolongation: true}:
+                    v.ad_name === '실시간 대출문의 업체 등록' || v.ad_name === '줄광고 점프 추가 사용' ?
+                    {off_edit: true, off_prolongation: true}:
+                    {off_edit: false, off_prolongation: false}
+                  }
+                  edit_action={() => {
+                    set_ad_info(v.ad_name)
+                    set_is_edit_open(true)
+                  }}
+                  prolongation_action={() => {
+                    set_ad_info(v.ad_name)
+                    set_is_prolongation_open(true)
+                  }}
+                />
+              ))
+            )}
 					</Table>
 				</Col>
 			</Col>
@@ -91,8 +89,7 @@ export default function Add_contents() {
 				<Modal_wrapper close_func={() => set_is_edit_open(false)}>
 					{ad_info !== null && (
 						<Edit_ad
-							ad_type={ad_info.type}
-							ad_name={ad_info.name}
+							ad_name={ad_info}
 						/>
 					)}
 				</Modal_wrapper>

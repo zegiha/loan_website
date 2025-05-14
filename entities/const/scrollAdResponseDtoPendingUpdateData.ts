@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdsPublicControllerRequestCountExtendParams = {
-  deposit_name?: string;
-  deposit_fee: string;
-};
+/**
+ * 대기 중인 업데이트 데이터
+ */
+export type ScrollAdResponseDtoPendingUpdateData = { [key: string]: unknown };

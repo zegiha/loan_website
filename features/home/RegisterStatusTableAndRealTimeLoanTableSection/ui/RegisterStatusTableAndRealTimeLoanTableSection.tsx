@@ -1,4 +1,4 @@
-'use server'
+'use client'
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import RegisterStatusTable from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTable";
@@ -7,7 +7,7 @@ import {Section} from "@/components/molecules";
 import style from './style.module.scss';
 import {Article_icon, CompanyIcon} from "@/components/atoms/icons";
 
-export default async function RegisterStatusTableAndRealTimeLoanTableSection() {
+export default function RegisterStatusTableAndRealTimeLoanTableSection() {
   return (
     <>
       <Section backgroundColor={'surface'}>

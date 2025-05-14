@@ -7,28 +7,57 @@ import {Table} from "@/components/organisms";
 import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
 import {Row} from "@/components/atoms/layout";
-import {useFetch} from "@/shared/hooks";
-import {get_company_row} from "@/shared/api";
+import {adsPublicControllerFindLineAds} from "@/entities/api/advertisement-public/advertisement-public";
+import {ScrollAdResponseDto} from "@/entities/const";
 
 export default function RegisterStatusTable() {
   const [visible_company_name, set_visible_company_name] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null);
-  const {data} = useFetch(() => get_company_row())
+  // const {data} = useFetch(() => get_company_row())
+  const [data, setData] = useState<Array<ICompany_row_having_is_visible_company_name> | null>(null)
+
+  const scrollAdDtoToICompanyRow = (v: Array<ScrollAdResponseDto>): Array<ICompany_row_having_is_visible_company_name> => {
+    const res: Array<ICompany_row_having_is_visible_company_name> = []
+    v.forEach(v => {
+      res.push({
+        id: v.company_id,
+        location: v.loan_available_location?.join(', ') ?? '전체',
+        loan_limit: v.loan_limit.toString(),
+        title: v.title,
+        name: v.company_name ?? '',
+        is_visible_company_name: true
+      })
+    })
+    return res
+  }
+
+  const handleFetchingData = async () => {
+    try {
+      const res = await adsPublicControllerFindLineAds('main', '25')
+      setData(p => {
+        if(p === null) return [...scrollAdDtoToICompanyRow(res)]
+        return [...p, ...scrollAdDtoToICompanyRow(res)]
+      })
+    } catch(e) {
+      console.error('registerStatusTable1: ', e)
+    }
+  }
+
 
   const handleResize = () => {
     if(ref.current) set_visible_company_name(ref.current.offsetWidth > 600);
   }
-
   useEffect(() => {
-    handleResize();
+    handleFetchingData()
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, []);
-  useEffect(() => {
-    if(data !== null) handleResize()
-  }, [data]);
+  }, [])
+  // useEffect(() => {
+  //   if(data !== null) handleResize()
+  // }, [data]);
 
   return (
     <Row width={'fill'} ref={ref}>
@@ -83,7 +112,7 @@ function RegisterStatusTableRow({
         {title}
       </Typo.Contents>
       {is_visible_company_name && (
-        <Typo.Contents width={100} color={'dim'} textOverflowLine={1}>
+        <Typo.Contents width={100} color={'dim'} textOverflowLine={1} isPre={'nowrap'}>
           {name}
         </Typo.Contents>
       )}

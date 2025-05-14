@@ -6,4 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type GetLendersLendersGet200 = { [key: string]: unknown };
+/**
+ * 소재지(도로명)
+ */
+export type LenderDTOAddress = string | null;
