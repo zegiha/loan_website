@@ -1,41 +1,50 @@
+"use client";
 import Typo from "@/components/atoms/typo/Typo";
 import style from "./display.module.scss";
 import Image from "next/image";
-import {Col, Row} from "@/components/atoms/layout";
-import {semantic_object} from "@/shared/color";
+import { Col, Row } from "@/components/atoms/layout";
+import { semantic_object } from "@/shared/color";
 // import {LocationIcon} from "@/components/atoms/icons";
 // import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
-import getWebStatus from "@/features/home/displaySection/api/getWebStatus";
-import getTopAds, {ITopAd} from "@/features/home/displaySection/api/getTopAds";
+import { ITopAd } from "@/features/home/displaySection/api/getTopAds";
+import { useAdsPublicControllerSearchAds } from "@/entities/api/advertisement-public/advertisement-public";
 
-export default async function DisplaySection() {
-  const {totalLoanCompany, cumulativeVisiter, realTimeLoan} = await getWebStatus();
+export default function DisplaySection() {
+  const { totalLoanCompany, cumulativeVisiter, realTimeLoan } = {
+    totalLoanCompany: 100,
+    cumulativeVisiter: 100,
+    realTimeLoan: 100,
+  };
 
   // const
 
-  const topAds = await getTopAds();
+  const { data: topAds } = useAdsPublicControllerSearchAds("메인 TOP 배너광고");
   return (
     <Col className={style.displaySectionContainer} alignItems="center">
-      <div className={style.displaySectionBackgroundBlur}/>
-      <div className={style.displaySectionBackground}/>
+      <div className={style.displaySectionBackgroundBlur} />
+      <div className={style.displaySectionBackground} />
       <Col className={style.displaySectionWrapper} gap={24}>
         <Row
-          justifyContents={'space-between'}
-          alignItems={'center'}
+          justifyContents={"space-between"}
+          alignItems={"center"}
           gap={24}
-          width={'fill'}
+          width={"fill"}
           className={style.topSection}
         >
-          <Col style={{gap: 4}}>
-            <Typo.Header isPre emphasize color={'variable'}>
-              {'정식 등록 '}
-              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
-              대부업체
-            </span>
-              {'가 '}
-              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
-              한 곳
-            </span>
+          <Col style={{ gap: 4 }}>
+            <Typo.Header isPre emphasize color={"variable"}>
+              {"정식 등록 "}
+              <span
+                style={{ color: semantic_object.onGeneric.onGenericPrimary }}
+              >
+                대부업체
+              </span>
+              {"가 "}
+              <span
+                style={{ color: semantic_object.onGeneric.onGenericPrimary }}
+              >
+                한 곳
+              </span>
               에!
             </Typo.Header>
             <Typo.SubBody>
@@ -49,25 +58,28 @@ export default async function DisplaySection() {
             {/*<LoanQuestionButton/>*/}
             <Row gap={24}>
               <RealTime
-                label={'총 등록 업체'}
+                label={"총 등록 업체"}
                 contents={`${totalLoanCompany}개`}
               />
               <RealTime
-                label={'누적 방문자'}
+                label={"누적 방문자"}
                 contents={`${cumulativeVisiter}명`}
               />
               <RealTime
-                label={'실시간 대출 문의'}
+                label={"실시간 대출 문의"}
                 contents={`${realTimeLoan}개`}
               />
             </Row>
           </Col>
         </Row>
         <div className={style.test}>
-          {topAds.map((v, i) => (
+          {topAds?.map((v, i) => (
             <TopADCard
               key={i}
-              {...v}
+              title={v.title ?? ""}
+              contents={v.contents ?? ""}
+              name={v.user.companyName ?? ""}
+              imgUrl={v.image_url ?? ""}
             />
           ))}
         </div>
@@ -76,48 +88,32 @@ export default async function DisplaySection() {
   );
 }
 
-async function RealTime({contents, label}: { contents: string, label: string }) {
+function RealTime({ contents, label }: { contents: string; label: string }) {
   return (
-    <Col gap={4} alignItems={'center'}>
+    <Col gap={4} alignItems={"center"}>
       <Typo.Body emphasize>{contents}</Typo.Body>
       <Typo.SubBody>{label}</Typo.SubBody>
     </Col>
   );
 }
 
-async function TopADCard({
-  title,
-  contents,
-  name,
-  imgUrl
-}: ITopAd) {
+function TopADCard({ title, contents, name, imgUrl }: ITopAd) {
   return (
     <Col gap={12} className={style.topAdCardContainer}>
-      <Row gap={16} width={'fill'} className={style.topAdTitleSection}>
+      <Row gap={16} width={"fill"} className={style.topAdTitleSection}>
         <Col gap={12}>
           <Col gap={4}>
-            <Typo.SubBody color={'variable'} emphasize>
-              {title.map((v, i) => {
-                if(v.type === 'primary') {
-                  return <span key={i} style={{color: semantic_object.onGeneric.onGenericPrimary}}>
-                    {v.contents}
-                  </span>
-                }
-                return v.contents
-              })}
+            <Typo.SubBody color={"variable"} emphasize>
+              {title}
             </Typo.SubBody>
-            <Typo.Contents color={'dim'}>
-              {contents}
-            </Typo.Contents>
+            <Typo.Contents color={"dim"}>{contents}</Typo.Contents>
           </Col>
-          <Typo.Contents emphasize>
-            {name}
-          </Typo.Contents>
+          <Typo.Contents emphasize>{name}</Typo.Contents>
         </Col>
         <div className={style.topAdCardImageContainer}>
           <Image
             src={imgUrl}
-            alt={'TOP AD Card 이미지'}
+            alt={"TOP AD Card 이미지"}
             fill={true}
             className={style.topAdCardImage}
           />
