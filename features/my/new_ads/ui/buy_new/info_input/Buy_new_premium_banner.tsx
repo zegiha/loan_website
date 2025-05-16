@@ -21,7 +21,8 @@ export default function Buy_new_premium_banner({
 			const new_state = prev.filter(v => v.name !== name)
 			new_state.push({
 				name,
-				req_data: props.banner_info
+				req_data: props.banner_info,
+				price: 1500000
 			})
 			return [...new_state]
 		})

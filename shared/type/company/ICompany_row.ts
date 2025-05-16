@@ -1,7 +1,7 @@
 export interface ICompany_row {
 	id: string;
 	location: string;
-	category: string;
+	category?: string;
 	loan_limit: string;
 	title: string;
 	name: string;

@@ -93,7 +93,6 @@ export default function Register_page() {
           }
         }).then(res => res.json())
         if(res.success && res.score > 0.5) {
-          console.log('replace')
           // router.push('/login')
         }
       } catch (e) {

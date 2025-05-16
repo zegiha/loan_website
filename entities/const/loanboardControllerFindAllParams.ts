@@ -13,4 +13,5 @@ export type LoanboardControllerFindAllParams = {
   location?: string[];
   search_type?: string;
   search?: string;
+  onlyToday?: boolean;
 };

@@ -8,7 +8,6 @@ export default function use_main_banner_info(): IMain_banner_info_input {
 	const [banner_info, set_banner_info] = useState<IBanner_req>({
 		title: '',
 		subtitle: '',
-		phone: '',
 		loan_available_location: undefined,
 		banner_cover_img: undefined,
 	})

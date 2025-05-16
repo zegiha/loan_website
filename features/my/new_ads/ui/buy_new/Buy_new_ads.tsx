@@ -38,6 +38,7 @@ export default function Buy_new_ads({
   const [ad_req_data, set_ad_req_data] = useState<Array<{
     name: TAds_name
     req_data: TAll_req
+    price: number
   }>>([])
   const default_value = {
     ad_req_data,
@@ -53,7 +54,7 @@ export default function Buy_new_ads({
       totalPrice: total_price,
     },
     ad_req_data,
-    new Set(select.map(v => v.name))
+    new Set(select.map(v => ({name: v.name, price: v.price})))
   )
 
   const handleSubmit = () => {

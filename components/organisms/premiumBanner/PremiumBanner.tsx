@@ -1,7 +1,7 @@
 'use client'
 
 import Typo from '@/components/atoms/typo/Typo'
-import {useAdsPublicControllerSearchAds} from '@/entities/api/advertisement-public/advertisement-public'
+import {useAdSearchInfiniteQuery} from '@/shared/hooks'
 import {IPremium_banner_data} from '@/shared/type'
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
@@ -12,8 +12,6 @@ import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
 import {PremiumCard} from "@/components/molecules";
 import Link from "next/link";
-import {useFetch} from "@/shared/hooks";
-import {get_premium_banner} from "@/shared/api";
 import dynamic from "next/dynamic";
 import load from '@/public/assets/load_dot_120.json';
 
@@ -36,21 +34,27 @@ export default function PremiumBanner({
   const {
     data,
     status,
-  } = useAdsPublicControllerSearchAds('프리미엄 배너광고', {}, {
-    query: {
-      select: v => {
-        const res: Array<IPremium_banner_data> = []
-        v.forEach(v => {
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useAdSearchInfiniteQuery({
+    queryKey: 'premiumBanner',
+    adType: '프리미엄 배너광고',
+    limit: 20,
+    select: v => {
+      const res: Array<IPremium_banner_data> = []
+      v.pages.forEach(v1 => {
+        v1.data.forEach(v2 => {
           res.push({
-            ...v,
-            id: v.company_id,
-            title: v.title ?? '',
-            location: v.loan_available_location?.join(', ') ?? '',
-            name: v.user.companyName,
+            ...v2,
+            id: v2.company_id,
+            title: v2.title ?? '',
+            location: v2.loan_available_location?.join(', ') ?? '',
+            name: v2.user.companyName,
           })
         })
-        return res
-      }
+      })
+      return res
     }
   })
 
@@ -98,7 +102,7 @@ export default function PremiumBanner({
           modules={[Autoplay]}
           loop
           autoplay={{
-            delay: 2000,
+            delay: 20000,
             pauseOnMouseEnter: true,
           }}
           spaceBetween={24}
@@ -106,8 +110,16 @@ export default function PremiumBanner({
           style={{
             paddingLeft: 1,
           }}
+          onSlideChange={swiper => {
+            if(
+              swiper.activeIndex === swiper.slides.length-1 &&
+              hasNextPage &&
+              !isFetchingNextPage
+            )
+              fetchNextPage()
+          }}
         >
-          {data !== null && data.map((v, i) => (
+          {data.map((v, i) => (
             <SwiperSlide key={i}>
               <Link href={`/loan/${v.id}`}>
                 <PremiumCard {...v}/>

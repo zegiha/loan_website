@@ -3,12 +3,12 @@
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {ArrowIcon} from "@/components/atoms/icons";
-import {useEffect, useRef, useState} from "react";
+import {ReactNode, useRef, useState} from "react";
 import style from './accordionSectionTitle.module.scss';
 import CheckIcon from "@/components/atoms/icons/CheckIcon";
 
 interface IAccordionSectionTitle {
-  title: React.ReactNode | string;
+  title: ReactNode | string;
   accordionData: Array<string>;
   activeAccordion: string;
   measurement: string;
@@ -26,10 +26,6 @@ export default function AccordionSectionTitle({
 }: IAccordionSectionTitle) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log('mount')
-  }, []);
 
   return (
     <Row

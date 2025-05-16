@@ -47,7 +47,6 @@ export default function PostTable({
     {
       query: {
         select: data => {
-          console.log(data)
           const res: Array<ILoan_inquiry_data> = []
           data.data.forEach(v => {
             res.push({
@@ -97,10 +96,6 @@ export default function PostTable({
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-
-  useEffect(() => {
-    console.log(status, error)
-  }, [status]);
 
   return (
     <Row width={'fill'} ref={ref}>

@@ -21,7 +21,8 @@ export default function Buy_new_line({
 			const new_state = prev.filter(v => v.name !== name)
 			new_state.push({
 				name,
-				req_data: props.banner_info
+				req_data: props.banner_info,
+				price: 0
 			})
 			return [...new_state]
 		})

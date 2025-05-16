@@ -6,9 +6,9 @@ import ad_list from "@/shared/constants/ad_list";
 import Edited from "@/features/my/ads/ui/edit_ad/Edited";
 
 export default function Edit_ad({
-	ad_name,
+	id,
 }: {
-	ad_name: TAds_name
+	id: TAds_name
 }) {
 	const get_price = (name: TAds_name): number => {
 		let price = 0

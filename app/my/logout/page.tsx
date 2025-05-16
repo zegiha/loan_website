@@ -22,8 +22,7 @@ export default function Logout_page() {
   const router = useRouter()
   const logout = async () => {
    try {
-     const res = await authControllerLogout()
-     console.log(res)
+     await authControllerLogout()
      return true
    } catch (e) {
      console.error(e)
@@ -37,9 +36,7 @@ export default function Logout_page() {
          if(res)
            setTimeout(() => {
              const test = async () => {
-               console.log('tlqkfaksdoaisjfoiwef')
                // const res = await userControllerProfile()
-               console.log(res)
                setIsLogin(false)
                router.replace('/')
              }
