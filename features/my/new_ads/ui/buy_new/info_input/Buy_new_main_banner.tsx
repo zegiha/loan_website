@@ -17,7 +17,8 @@ export default function Buy_new_main_banner({name}: {name: TAds_name}) {
 			const new_state = prev.filter(v => v.name != name)
 			new_state.push({
 				name,
-				req_data: default_value.banner_info
+				req_data: default_value.banner_info,
+				price: 2000000
 			})
 			return [...new_state]
 		})

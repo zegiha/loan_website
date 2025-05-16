@@ -1,22 +1,19 @@
 "use client";
 import Typo from "@/components/atoms/typo/Typo";
+import {useCommonControllerCommonInfos} from '@/entities/api/common/common'
+import {useRandomImage} from '@/shared/hooks'
 import style from "./display.module.scss";
 import Image from "next/image";
 import { Col, Row } from "@/components/atoms/layout";
 import { semantic_object } from "@/shared/color";
-// import {LocationIcon} from "@/components/atoms/icons";
-// import LoanQuestionButton from "@/features/home/displaySection/LoanQuestionButton";
 import { ITopAd } from "@/features/home/displaySection/api/getTopAds";
 import { useAdsPublicControllerSearchAds } from "@/entities/api/advertisement-public/advertisement-public";
 
 export default function DisplaySection() {
-  const { totalLoanCompany, cumulativeVisiter, realTimeLoan } = {
-    totalLoanCompany: 100,
-    cumulativeVisiter: 100,
-    realTimeLoan: 100,
-  };
-
-  // const
+  const {
+    status,
+    data
+  } = useCommonControllerCommonInfos()
 
   const { data: topAds } = useAdsPublicControllerSearchAds("메인 TOP 배너광고");
   return (
@@ -56,20 +53,22 @@ export default function DisplaySection() {
           </Col>
           <Col gap={12} className={style.buttonSection}>
             {/*<LoanQuestionButton/>*/}
-            <Row gap={24}>
-              <RealTime
-                label={"총 등록 업체"}
-                contents={`${totalLoanCompany}개`}
-              />
-              <RealTime
-                label={"누적 방문자"}
-                contents={`${cumulativeVisiter}명`}
-              />
-              <RealTime
-                label={"실시간 대출 문의"}
-                contents={`${realTimeLoan}개`}
-              />
-            </Row>
+            {status === 'success' && (
+              <Row gap={24}>
+                <RealTime
+                  label={"총 등록 업체"}
+                  contents={`${data.totalCompany}개`}
+                />
+                <RealTime
+                  label={"누적 방문자"}
+                  contents={`${data.totalVisitor}명`}
+                />
+                <RealTime
+                  label={"실시간 대출 문의"}
+                  contents={`${data.totalLoanboard}개`}
+                />
+              </Row>
+            )}
           </Col>
         </Row>
         <div className={style.test}>
@@ -98,10 +97,12 @@ function RealTime({ contents, label }: { contents: string; label: string }) {
 }
 
 function TopADCard({ title, contents, name, imgUrl }: ITopAd) {
+  const {img} = useRandomImage(imgUrl)
+
   return (
     <Col gap={12} className={style.topAdCardContainer}>
       <Row gap={16} width={"fill"} className={style.topAdTitleSection}>
-        <Col gap={12}>
+        <Col gap={12} width={'fill'}>
           <Col gap={4}>
             <Typo.SubBody color={"variable"} emphasize>
               {title}
@@ -111,12 +112,14 @@ function TopADCard({ title, contents, name, imgUrl }: ITopAd) {
           <Typo.Contents emphasize>{name}</Typo.Contents>
         </Col>
         <div className={style.topAdCardImageContainer}>
-          <Image
-            src={imgUrl}
-            alt={"TOP AD Card 이미지"}
-            fill={true}
-            className={style.topAdCardImage}
-          />
+          {img !== undefined && img.length > 0 && (
+            <Image
+              src={img}
+              alt={"TOP AD Card 이미지"}
+              fill={true}
+              className={style.topAdCardImage}
+            />
+          )}
         </div>
       </Row>
     </Col>

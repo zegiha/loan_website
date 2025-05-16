@@ -90,7 +90,7 @@ export default function Login() {
             <Typo.SubBody emphasize color={'onPrimary'}>완료</Typo.SubBody>
           </BaseButton>
           <Row width={'fill'} justifyContents={'center'}>
-            <Link href={'/register'} onClick={() => console.log('무우빙')}>
+            <Link href={'/register'}>
               <Typo.Caption color={'dim'} underline>아직 계정이 없으신가요? 회원가입하기</Typo.Caption>
             </Link>
           </Row>

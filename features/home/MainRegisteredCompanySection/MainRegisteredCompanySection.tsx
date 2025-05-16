@@ -8,9 +8,11 @@ import {
 } from '@/entities/api/advertisement-public/advertisement-public'
 import {userControllerProfileById} from '@/entities/api/user/user'
 import {AdResponseDto, UserResponseDto} from '@/entities/const'
-import {useFetch} from "@/shared/hooks";
+import {formatting_phone_number} from '@/shared/helper'
+import {useAdSearchInfiniteQuery, useFetch, useInfiniteScroll} from "@/shared/hooks";
 import {get_company_banner} from "@/shared/api";
 import {Banner} from "@/components/molecules";
+import {useInfiniteQuery} from '@tanstack/react-query'
 import {useEffect, useState} from "react";
 import {ICompany_banner_data} from "@/shared/type";
 import dynamic from "next/dynamic";
@@ -22,74 +24,54 @@ const Player = dynamic(
 )
 
 export default function MainRegisteredCompanySection() {
-  const [target, set_target] = useState<HTMLDivElement | null>(null)
-  const [ads, setAds] = useState<Array<AdResponseDto> | null>(null)
-  const [data, setData] = useState<Array<ICompany_banner_data> | null>(null)
-
-  const handleAds = async () => {
-    try {
-      const res = await adsPublicControllerSearchAds('메인 배너광고',)
-      setAds(res)
-    } catch(e) {
-      console.error('search ads error: ', e)
-    }
-  }
-
-  useEffect(() => {
-    handleAds()
-  }, [])
-
-  useEffect(() => {
-    if(ads) {
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useAdSearchInfiniteQuery({
+    queryKey: 'mainBanner',
+    adType: '메인 배너광고',
+    limit: 20,
+    select: v => {
       const res: Array<ICompany_banner_data> = []
-      ads.forEach(v => {
-        let bannerImage = v.cover_img ?? v.image_url
-        if(bannerImage?.includes('example') || !bannerImage)
-          bannerImage = "https://d3b0fhpuvmp33e.cloudfront.net/96737f14-e2ac-4ae7-ac7c-04146a4be6bd.png"
-        res.push({
-          id: v.id,
-          title: v.title ?? '',
-          subtitle: v.sub_title ?? '',
-          name: 'dummy',
-          img_url: bannerImage,
-          // phone: user.advertisementTel,
-          phone: 'dummy',
-          location: v.loan_available_location ?
-            v.loan_available_location.join(', ') :
-            '전체'
+      v.pages.forEach((v) => {
+        v.data.forEach((v) => {
+          res.push({
+            id: v.id,
+            title: v.title ?? '',
+            subtitle: v.sub_title ?? '',
+            name: v.user.companyName,
+            img_url: v.cover_img ?? v.image_url,
+            phone: formatting_phone_number(v.user.advertisementTel),
+            location: v.loan_available_location ?
+              v.loan_available_location.join(', ') :
+              '전체'
+          })
         })
       })
-      setData(p => {
-        if(p) return [...p, ...res]
-        return [...res]
-      })
+      return res
     }
-  }, [ads]);
+  })
 
-  // const observer = new IntersectionObserver((entries) => {
-  //   entries.forEach((entry) => {
-  //     if(entry.isIntersecting) {
-  //       // refetch()
-  //     }
-  //   })
-  // }, {
-  //   root: document.querySelector('#scrollArea'),
-  //   rootMargin: '0px',
-  //   threshold: 0.3,
-  // })
+  const {setTarget} = useInfiniteScroll(
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  )
 
   return (
     <Section backgroundColor={'surfaceDim'}>
       <CompanyCardGrid>
-        {data !== null && data.map((v, i) => (
+        {data && data.map((v, i) => (
           <Banner
             key={i}
             {...v}
           />
         ))}
       </CompanyCardGrid>
-      <div ref={set_target} style={{width: '100%'}}>
-        {/*{is_loading && <Player src={load} autoplay loop style={{height: 24}} />}*/}
+      <div ref={setTarget} style={{width: '100%'}}>
+        {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
       </div>
     </Section>
   );

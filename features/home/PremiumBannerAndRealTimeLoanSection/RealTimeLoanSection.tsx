@@ -2,31 +2,102 @@
 
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
+import {loanboardControllerFindAll} from '@/entities/api/loanboard/loanboard'
+import {PaginationResponseDto} from '@/entities/const'
+import load from '@/public/assets/load_dot_120.json'
 import {semantic_object} from "@/shared/color";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import style from "@/features/home/PremiumBannerAndRealTimeLoanSection/premiumBannerAndRealTimeLoanSection.module.scss";
+import {useInfiniteScroll} from '@/shared/hooks'
+import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query'
+import dynamic from 'next/dynamic'
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
-import React from "react";
-import {PlusIcon} from "@/components/atoms/icons";
+import React, {Ref, useEffect, useState} from "react";
+import {PlusIcon, SearchIcon} from "@/components/atoms/icons";
 import {useRouter} from "next/navigation";
-import {useFetch} from "@/shared/hooks";
 import {ILoan_inquiry_data} from "@/shared/type";
-import {get_loan_inquiry} from "@/shared/api";
 import Link from "next/link";
+
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
+  {ssr: false}
+)
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   const router = useRouter()
-  const {data, is_loading, error, refetch} = useFetch(() => get_loan_inquiry())
-  if(data) return (
+  const [total, setTotal] = useState<number>(-1)
+
+  const parseApiToArrayILoanInquiryData = (v: InfiniteData<PaginationResponseDto, unknown>) => {
+    const res: Array<ILoan_inquiry_data> = []
+    v.pages.forEach(v => {
+      v.data.forEach(v => {
+        res.push({
+          id: v.id,
+          category: v.type,
+          location: v.available_location,
+          title: v.title,
+          createdAt: v.writed_date,
+          desired_amount: v.desired_amount.toLocaleString()
+        })
+      })
+    })
+    return res
+  }
+
+  const {
+    data,
+    status,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['todayLoanboard'],
+    queryFn: async ({pageParam}) => {
+      return await loanboardControllerFindAll({
+        page: pageParam,
+        limit: 20,
+        onlyToday: true
+      })
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if(lastPage.page === lastPage.totalPages)
+        return undefined
+      return lastPage.page + 1
+    },
+  })
+
+  const {setTarget} = useInfiniteScroll(
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  )
+
+  useEffect(() => {
+    if(data) {
+      if(total === -1 || total !== data.pages[data.pages.length - 1].total)
+        setTotal(data.pages[data.pages.length - 1].total)
+    }
+  }, [data])
+
+  return (
     <>
       <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
         <Typo.SubBody emphasize color={'variable'}>
           실시간 대출 문의
-          <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
-                  {` 18`}
-                </span>
-          건
+          {total !== -1 ? (
+            <>
+              <span style={{color: semantic_object.onGeneric.onGenericPrimary}}>
+                {` ${total}`}
+              </span>
+              건
+            </>
+          ):(
+            <span style={{color: semantic_object.onGeneric.onGenericDim}}>
+              로딩중
+            </span>
+          )}
         </Typo.SubBody>
         <BaseButton
           className={`${iconButton.iconButton40}`}
@@ -36,37 +107,71 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
         </BaseButton>
       </Row>
       <Col width={'fill'} className={style.realTimeLoanContainer}>
-        <Swiper
-          modules={[Autoplay]}
-          direction={'vertical'}
-          spaceBetween={12}
-          slidesPerView={bannerHeight ? Math.floor((bannerHeight - 112) / 48) : 0}
-          loop={true}
-          autoplay={{
-            delay: 2000,
-            pauseOnMouseEnter: true,
-          }}
-        >
-          {data.map((v, i) => (
-            <SwiperSlide key={i}>
-              <RealTimeLoan {...v}/>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {status === 'success' && (
+          parseApiToArrayILoanInquiryData(data).length > 0 ? (
+            <Swiper
+              modules={[Autoplay]}
+              direction={'vertical'}
+              spaceBetween={12}
+              slidesPerView={bannerHeight ? Math.floor((bannerHeight - 112) / 48) : 0}
+              loop={true}
+              autoplay={{
+                delay: 2000,
+                pauseOnMouseEnter: true,
+              }}
+            >
+              {parseApiToArrayILoanInquiryData(data).map((v, i) => (
+                i !== parseApiToArrayILoanInquiryData(data).length-1 ? (
+                  <SwiperSlide key={i}>
+                    <RealTimeLoan {...v}/>
+                  </SwiperSlide>
+                ) : (
+                  <SwiperSlide key={i}>
+                    <RealTimeLoan
+                      ref={setTarget}
+                      {...v}
+                    />
+                  </SwiperSlide>
+                )
+              ))}
+            </Swiper>
+          ) : (
+            <Col
+              width={'fill'}
+              style={{paddingTop: 24}}
+              justifyContents={'center'}
+              alignItems={'center'}
+              gap={12}
+            >
+              <SearchIcon
+                size={48}
+                color={'dim'}
+              />
+              <Typo.SubBody color={'dim'} emphasize>
+                아직 등록된 대출 문의가 없어요
+              </Typo.SubBody>
+            </Col>
+          )
+        )}
+        {status === 'pending' && (
+          <Player src={load} autoplay loop style={{height: 24}}/>
+        )}
       </Col>
     </>
   );
 }
 
 function RealTimeLoan({
+  ref,
   id,
   title,
   location,
   createdAt
-}: ILoan_inquiry_data) {
+}: {ref?: Ref<HTMLDivElement>} & ILoan_inquiry_data) {
   return (
     <Link href={`/post/${id}`} style={{width: '100%'}}>
       <Row
+        ref={ref}
         gap={12}
         alignItems={'center'}
         width={'fill'}

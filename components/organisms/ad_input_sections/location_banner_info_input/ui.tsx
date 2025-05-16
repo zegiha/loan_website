@@ -47,7 +47,6 @@ export default function Location_banner_info_input({
 
 	const handle_location_selection = (selected_option_idx: number | null, i: number) => {
 		if(selected_option_idx === null) return
-		console.log('haha')
 		if(available_locations[i] === selected_option_idx) return
 
 		if(check_available_locations.has(selected_option_idx)) {

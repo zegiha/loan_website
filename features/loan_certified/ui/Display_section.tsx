@@ -21,7 +21,7 @@ export default function Display_section({
       if (prev !== search) {
         set_search(prev);
       }
-    }, 250); // 500ms 동안 입력이 없으면 set_search 호출
+    }, 250)
 
     return () => clearTimeout(timeout); // 입력 중이면 타이머 초기화
   }, [prev]);

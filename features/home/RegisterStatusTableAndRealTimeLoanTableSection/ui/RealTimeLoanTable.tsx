@@ -3,19 +3,16 @@
 import Typo from "@/components/atoms/typo/Typo";
 import {Table} from "@/components/organisms";
 import {TableHead, TableRow} from "@/components/molecules";
+import {useInfiniteQuery} from '@tanstack/react-query'
 import Link from "next/link";
-import {useFetch} from "@/shared/hooks";
+import {useInfiniteScroll} from "@/shared/hooks";
 import {ILoan_inquiry_data} from "@/shared/type";
-import {get_loan_inquiry} from "@/shared/api";
-import {useEffect, useState} from "react";
+import {Fragment} from "react";
 import {loanboardControllerFindAll} from "@/entities/api/loanboard/loanboard";
 import {LoanboardResponseDto} from "@/entities/const";
 import get_YYYYMMDD from "@/shared/helper/get_YYYYMMDD";
 
 export default function RealTimeLoanTable() {
-  const [page, setPage] = useState<number>(1)
-  const [data, setData] = useState<Array<ILoan_inquiry_data> | null>(null)
-
   const loanboardResponseDtoToILoan_inquiry_data = (v: Array<LoanboardResponseDto>): Array<ILoan_inquiry_data> => {
     const res: Array<ILoan_inquiry_data> = []
     v.forEach(v => {
@@ -30,44 +27,68 @@ export default function RealTimeLoanTable() {
     return [...res]
   }
 
-  const handleFetching = async () => {
-    try {
-      const res = await loanboardControllerFindAll({
-        page: page,
-        limit: 20,
+  const {
+    data,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['loanInquiryFromMain'],
+    queryFn: async ({pageParam}) => {
+      const data = await loanboardControllerFindAll({
+        page: pageParam,
+        limit: 10,
         type: '전체',
         location: ['전체'],
       })
-      setData(p => {
-        if(p === null) return [...loanboardResponseDtoToILoan_inquiry_data(res.data)]
-        return [...p, ...loanboardResponseDtoToILoan_inquiry_data(res.data)]
-      })
-      setPage(p => p + 1)
-    } catch(e) {
-      console.error('RealTimeLoanTable: ', e)
+      return {
+        currentPage: data.page,
+        totalPages: data.totalPages,
+        data: loanboardResponseDtoToILoan_inquiry_data(data.data)
+      }
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      if(lastPage.currentPage === lastPage.totalPages) {
+        return undefined
+      }
+      return lastPage.currentPage + 1
     }
-  }
+  })
 
-  useEffect(() => {
-    console.log(data)
-    handleFetching()
-    return () => {
-      console.log('??')
-      setData(null)
-      console.log(data)
-    }
-  }, []);
+  const {setTarget} = useInfiniteScroll(
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  )
 
   return (
     <Table
       head={<RealTimeLoanTableHead/>}
     >
-      {data && data.map((v, i) => (
-        <RealTimeLoanTableRow
-          key={i}
-          {...v}
-        />
-      ))}
+      {(
+        data?.pages.map((v, i) => {
+          return (
+            v.currentPage !== data.pages.length ? (
+              v.data.map((v, i) => (
+                <RealTimeLoanTableRow
+                  key={i}
+                  {...v}
+                />
+              ))
+            ):(
+              v.data.map((v, i) => (
+                <Fragment key={i}>
+                  <div ref={setTarget}/>
+                  <RealTimeLoanTableRow
+                    {...v}
+                  />
+                </Fragment>
+              ))
+            )
+          )
+        })
+      )}
     </Table>
   );
 }

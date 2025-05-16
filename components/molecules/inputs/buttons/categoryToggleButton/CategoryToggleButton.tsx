@@ -31,7 +31,12 @@ function handleCategoryButton({
 }: IHandleCategoryButton) {
   if(i === 0) {
     if(!v.active) {
-      setCategories([...defaultValue]);
+      setCategories(p => {
+        return [...p.map((v, i) => {
+          if(i === 0) return {...v, active: true}
+          else return {...v, active: false}
+        })]
+      });
     }
   } else {
     setCategories(prev => {

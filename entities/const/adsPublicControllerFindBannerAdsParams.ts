@@ -6,8 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdsPublicControllerFindLineAdsParams = {
-  location?: string;
-  product?: string;
-  search: string;
+export type AdsPublicControllerFindBannerAdsParams = {
+  product_type: string;
 };

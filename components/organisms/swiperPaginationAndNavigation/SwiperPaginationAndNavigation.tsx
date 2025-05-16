@@ -4,6 +4,7 @@ import {Col, Row} from "@/components/atoms/layout";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {ArrowIcon} from "@/components/atoms/icons";
 import {ReactNode} from 'react'
+import type {Swiper as TSwiper} from 'swiper'
 import {Swiper, SwiperSlide} from "swiper/react";
 import Typo from "@/components/atoms/typo/Typo";
 import {usePaginationSwiper} from "@/shared/hooks";
@@ -16,12 +17,14 @@ export default function SwiperPaginationAndNavigation({
   setActiveSlides,
   maxSlideLength,
   height,
+  onSlideChangeCallback,
 }: {
   children: Array<ReactNode> | ReactNode,
   activeSlides: number
   setActiveSlides: react_state_action<number>
   maxSlideLength?: number
   height?: Property.Height,
+  onSlideChangeCallback?: (swiper: TSwiper) => void
 }) {
   const {
     swiperRef,
@@ -41,6 +44,7 @@ export default function SwiperPaginationAndNavigation({
         }}
         onSlideChange={(swiper) => {
           setActiveSlides(swiper.activeIndex+1)
+          onSlideChangeCallback && onSlideChangeCallback(swiper)
         }}
         spaceBetween={40}
         style={{

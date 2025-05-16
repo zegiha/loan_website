@@ -18,26 +18,25 @@ export default function useBuyNewAds(
   },
   adData: Array<{
     name: TAds_name,
-    req_data: TAll_req
+    req_data: TAll_req,
+    price: number
   }>,
-  selectedAds: Set<TAds_name>
+  selectedAds: Set<{
+    name: TAds_name,
+    price: number
+  }>
 ) {
   const mutation = useAdsPublicControllerCreate()
 
   const addAds = async () => {
-    // 선택된 광고와 실제 데이터가 있는 광고를 비교
-    const notIncludeReqAd: Array<TAds_name> = []
-    const selectedAdsSet = new Set(selectedAds); // 원본 세트를 보존하기 위해 복사
+    const notIncludeReqAd: Array<{ name: TAds_name; price: number }> = []
 
-    // adData에 있는 항목들을 selectedAds에서 제거
-    adData.forEach((ad) => {
-      if(selectedAdsSet.has(ad.name))
-        selectedAdsSet.delete(ad.name)
-    })
+    const adNamesInData = new Set(adData.map(ad => ad.name))
 
-    // 남은 항목들을 notIncludeReqAd에 추가
-    selectedAdsSet.forEach((ad) => {
-      notIncludeReqAd.push(ad)
+    selectedAds.forEach((ad) => {
+      if (!adNamesInData.has(ad.name)) {
+        notIncludeReqAd.push({ name: ad.name, price: ad.price })
+      }
     })
 
 
@@ -47,9 +46,9 @@ export default function useBuyNewAds(
         ...parsedData,
         ...notIncludeReqAd.map(v => {
           const res: CreateAdvertisementDto = {
-            ad_name: v,
+            ad_name: v.name,
             deposit_name: parentData.depositor,
-            deposit_fee: parentData.totalPrice
+            deposit_fee: v.price
           }
           return res
         })
@@ -95,22 +94,21 @@ async function rawDataParseToCreateAdvertisementDto(
   },
   adData: Array<{
     name: TAds_name,
-    req_data: TAll_req
+    req_data: TAll_req,
+    price: number
   }>
 ): Promise<Array<CreateAdvertisementDto>> {
   const res: Array<CreateAdvertisementDto> = []
-  const defaultValue = {
-    deposit_fee: parentData.totalPrice,
-    deposit_name: parentData.depositor,
-  }
 
   for(let i = 0; i < adData.length; i++) {
-    if(adData[i].name === '메인 TOP 배너광고') {
-    }
 
     const v = adData[i]
     const adName = v.name; // 광고의 실제 이름을 사용
     const reqData = v.req_data
+    const defaultValue = {
+      deposit_fee: v.price,
+      deposit_name: parentData.depositor,
+    }
 
     // 광고 이름에 따라 적절한 처리를 수행
     switch(adName) {
@@ -139,7 +137,7 @@ async function rawDataParseToCreateAdvertisementDto(
             title: reqData.title,
             sub_title: reqData.subtitle,
             image_url: imageUrl,
-            loan_available_location: [reqData.loan_available_location ?? '전체']
+            loan_available_location: [reqData.loan_available_location ?? '전체'],
           });
         }
         break;
@@ -155,7 +153,7 @@ async function rawDataParseToCreateAdvertisementDto(
             ad_name: '메인 TOP 배너광고',
             title: reqData.title,
             contents: reqData.contents,
-            image_url: img
+            image_url: img,
           });
         }
         break;
@@ -168,7 +166,7 @@ async function rawDataParseToCreateAdvertisementDto(
           res.push({
             ...defaultValue,
             ad_name: '스폰서 링크',
-            contents: reqData.contents
+            contents: reqData.contents,
           });
         }
         break;
@@ -185,7 +183,7 @@ async function rawDataParseToCreateAdvertisementDto(
             title: reqData.title,
             sub_title: reqData.subtitle,
             image_url: imageUrl,
-            loan_available_location: reqData.location ?? ['전체']
+            loan_available_location: reqData.location ?? ['전체'],
           });
         }
         break;
@@ -203,7 +201,7 @@ async function rawDataParseToCreateAdvertisementDto(
             sub_title: reqData.subtitle,
             image_url: imageUrl,
             product_type: reqData.product ?? ['전체'],
-            loan_available_location: [reqData.loan_available_location ?? '전체']
+            loan_available_location: [reqData.loan_available_location ?? '전체'],
           });
         }
         break;
@@ -217,7 +215,7 @@ async function rawDataParseToCreateAdvertisementDto(
             ...defaultValue,
             ad_name: '줄광고',
             title: reqData.title,
-            loan_limit: Number(reqData.loan_limit.replaceAll(',', '')) ?? 0
+            loan_limit: Number(reqData.loan_limit.replaceAll(',', '')) ?? 0,
           });
         }
         break;

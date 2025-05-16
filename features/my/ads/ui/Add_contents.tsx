@@ -20,6 +20,7 @@ import {CloseIcon} from "@/components/atoms/icons";
 import Prolongation_ad from "@/features/my/ads/ui/prolongation_ad/Prolongation_ad";
 
 export interface IMy_ads {
+	id: string
 	ad_name: TAds_name
 	title?: string
 	end_date?: Date
@@ -28,7 +29,7 @@ export interface IMy_ads {
 export default function Add_contents() {
 	const [is_edit_open, set_is_edit_open] = useState(false);
 	const [is_prolongation_open, set_is_prolongation_open] = useState(false);
-	const [ad_info, set_ad_info] = useState<TAds_name | null>(null)
+	const [ad_info, set_ad_info] = useState<string | null>(null)
 
 	const {
 		data,
@@ -39,6 +40,7 @@ export default function Add_contents() {
         const res: Array<IMy_ads> = []
         v.forEach(v => {
           res.push({
+						id: v.id,
             ad_name: v.ad_name === '메인 배너광고' ? '메인 베너광고' : v.ad_name,
             title: v.title ?? '',
             end_date: new Date(v.ad_present_expire_date ?? '')
@@ -72,7 +74,7 @@ export default function Add_contents() {
                     {off_edit: false, off_prolongation: false}
                   }
                   edit_action={() => {
-                    set_ad_info(v.ad_name)
+                    set_ad_info(v.id)
                     set_is_edit_open(true)
                   }}
                   prolongation_action={() => {
@@ -89,7 +91,7 @@ export default function Add_contents() {
 				<Modal_wrapper close_func={() => set_is_edit_open(false)}>
 					{ad_info !== null && (
 						<Edit_ad
-							ad_name={ad_info}
+							id={ad_info}
 						/>
 					)}
 				</Modal_wrapper>

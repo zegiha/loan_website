@@ -64,10 +64,6 @@ export default function Register_company_page_info({
     }
   }
 
-  useEffect(() => {
-    console.log(status)
-  }, [status]);
-
   return (
     <InputSection title={'회원가입 - 업체상세 페이지 정보'}>
       <Col gap={32} width={'fill'}>

@@ -24,7 +24,11 @@ export default function Buy_new_top_banner({
           sw = false
         }
       if(sw) {
-        data.push({name, req_data: props.banner_info})
+        data.push({
+					name,
+					req_data: props.banner_info,
+					price: 2500000
+				})
       }
 			return [...data]
 		})

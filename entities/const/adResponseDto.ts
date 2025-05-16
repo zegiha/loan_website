@@ -73,6 +73,8 @@ export type AdResponseDto = {
   company_id: string;
   /** 줄광고 ID */
   scroll_ad_id?: string;
+  /** 총 페이지 수 */
+  totalPage?: number;
   /** 등록한 회사 정보 */
   company: CompanyResponseDto;
   /** 등록한 사용자 정보 */

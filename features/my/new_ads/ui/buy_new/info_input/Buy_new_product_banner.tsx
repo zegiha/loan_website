@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {TAds_name} from "@/shared/type";
 import {use_banner_info_context} from "@/features/my/new_ads/context/banner_info_context";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
@@ -17,12 +17,14 @@ export default function Buy_new_product_banner({
 	const {setSelect} = useSelect_context()
 	const {set_ad_req_data} = use_banner_info_context()
 	const props = use_product_banner_info()
+	const [price, setPrice] = useState<number>(300000)
 
 	useEffect(() => {
 		const get_price = (): number => {
 			if(props.production_num === 3) return 300000
 			else return 300000 + (props.production_num-3) * 100000
 		}
+		setPrice(get_price())
 		setSelect(prev => {
 			const new_data = [...prev]
 			for(let i = 0; i < new_data.length; i++)
@@ -36,11 +38,12 @@ export default function Buy_new_product_banner({
 			const new_state = prev.filter(v => v.name != name)
 			new_state.push({
 				name,
-				req_data: props.banner_info
+				req_data: props.banner_info,
+				price: price,
 			})
 			return [...new_state]
 		})
-	}, [props.banner_info]);
+	}, [props.banner_info, price]);
 
 	useEffect(() => {
 		if(props.banner_info && props.production_num && set_validate_list) {

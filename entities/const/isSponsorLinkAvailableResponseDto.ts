@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdsPublicControllerFindLineAdsParams = {
-  location?: string;
-  product?: string;
-  search: string;
+export type IsSponsorLinkAvailableResponseDto = {
+  /** 스폰서 링크 등록 가능 여부 */
+  is_available: boolean;
 };

@@ -6,8 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdsPublicControllerFindLineAdsParams = {
-  location?: string;
-  product?: string;
-  search: string;
+export type ProductTypeAdCountRespDto = {
+  /** 광고 타입 */
+  product_type: string;
+  /** 광고 개수 */
+  count: number;
 };

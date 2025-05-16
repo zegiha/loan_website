@@ -1,7 +1,7 @@
 'use client'
 
 import {TAds_name} from "@/shared/type";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
 import {use_banner_info_context} from "@/features/my/new_ads/context/banner_info_context";
 import {is_typed} from "@/shared/helper";
@@ -15,6 +15,17 @@ export default function Buy_new_location_banner({name}: {name: TAds_name}) {
 
 	const default_value = use_location_banner_info()
 
+	const [price, setPrice] = useState<number>(200000)
+
+	const get_price = (): number => {
+		switch (default_value.location_num) {
+			case 1: return 200000
+			case 2: return 400000
+			case 3: return 500000
+			default: return 500000 + (default_value.location_num-3)*100000
+		}
+	}
+
 	useEffect(() => {
 		if(default_value.banner_info && default_value.location_num && set_validate_list) {
 			set_validate_list(prev => {
@@ -27,7 +38,6 @@ export default function Buy_new_location_banner({name}: {name: TAds_name}) {
 
 				return [...data]
 			})
-			console.log(default_value.banner_info)
 		}
 	}, [default_value.banner_info, default_value.location_num]);
 
@@ -36,25 +46,21 @@ export default function Buy_new_location_banner({name}: {name: TAds_name}) {
 			const new_state = prev.filter(v => v.name != name)
 			new_state.push({
 				name,
-				req_data: default_value.banner_info
+				req_data: default_value.banner_info,
+				price: price
 			})
 			return [...new_state]
 		})
 	}, [default_value.banner_info])
 
 	useEffect(() => {
-		const get_price = (): number => {
-			switch (default_value.location_num) {
-				case 1: return 200000
-				case 2: return 400000
-				case 3: return 500000
-				default: return 500000 + (default_value.location_num-3)*100000
-			}
-		}
 		setSelect(prev => {
 			const new_data = [...prev]
 			for(let i = 0; i < new_data.length; i++)
-				if(new_data[i].name === name) new_data[i].price = get_price()
+				if(new_data[i].name === name) {
+					new_data[i].price = get_price()
+					setPrice(get_price())
+				}
 			return [...new_data]
 		})
 	}, [default_value.location_num])

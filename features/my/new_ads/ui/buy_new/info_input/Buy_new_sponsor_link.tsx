@@ -19,7 +19,8 @@ export default function Buy_new_sponsor_link({
 			const new_state = prev.filter(v => v.name !== name)
 			new_state.push({
 				name,
-				req_data: props.banner_info
+				req_data: props.banner_info,
+				price: 1000000,
 			})
 			return [...new_state]
 		})
