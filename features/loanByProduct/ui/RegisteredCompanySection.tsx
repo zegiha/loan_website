@@ -30,7 +30,7 @@ export default function RegisteredCompanySection({
   } = useAdSearchInfiniteQuery({
     queryKey: 'productionBanner',
     adType: '상품 배너 광고',
-    limit: 25,
+    limit: 20,
     option: {
       product: !activeCategories.has('전체') ?
         Array.from(activeCategories).join(', ') :

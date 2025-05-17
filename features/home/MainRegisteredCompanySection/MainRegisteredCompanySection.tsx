@@ -8,6 +8,7 @@ import {
 } from '@/entities/api/advertisement-public/advertisement-public'
 import {userControllerProfileById} from '@/entities/api/user/user'
 import {AdResponseDto, UserResponseDto} from '@/entities/const'
+import {formatActiveCategories} from '@/features/loanByLocation/helper'
 import {formatting_phone_number} from '@/shared/helper'
 import {useAdSearchInfiniteQuery, useFetch, useInfiniteScroll} from "@/shared/hooks";
 import {get_company_banner} from "@/shared/api";
@@ -26,6 +27,9 @@ const Player = dynamic(
 export default function MainRegisteredCompanySection() {
   const {
     data,
+    status,
+    error,
+    refetch,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -62,17 +66,21 @@ export default function MainRegisteredCompanySection() {
 
   return (
     <Section backgroundColor={'surfaceDim'}>
-      <CompanyCardGrid>
-        {data && data.map((v, i) => (
-          <Banner
-            key={i}
-            {...v}
-          />
-        ))}
-      </CompanyCardGrid>
-      <div ref={setTarget} style={{width: '100%'}}>
-        {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
-      </div>
+      {status === 'success' && (
+        <>
+          <CompanyCardGrid>
+            {data && data.map((v, i) => (
+              <Banner
+                key={i}
+                {...v}
+              />
+            ))}
+          </CompanyCardGrid>
+          <div ref={setTarget} style={{width: '100%'}}>
+            {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
+          </div>
+        </>
+      )}
     </Section>
   );
 }

@@ -4,6 +4,7 @@ import {adsPublicControllerSearchAds} from '@/entities/api/advertisement-public/
 import {AdResponseDto, AdsPublicControllerSearchAdsParams} from '@/entities/const'
 import {IInfiniteQueryRes as DefaultIInfiniteQueryRes} from '@/shared/constants'
 import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query'
+import {AxiosError} from 'axios'
 
 type IInfiniteQueryRes = DefaultIInfiniteQueryRes<Omit<AdResponseDto, 'totalPage'>>
 
@@ -27,6 +28,14 @@ export default function useAdSearchInfiniteQuery<S>({
         `${pageParam}`,
         `${limit}`,
       )
+
+      if(data.ads.length === 0 && data.totalPage === 0) {
+        return {
+          currentPage: 0,
+          totalPage: 0,
+          data: []
+        }
+      }
 
       const res: IInfiniteQueryRes = {
         currentPage: pageParam,

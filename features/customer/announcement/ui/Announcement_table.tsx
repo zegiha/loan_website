@@ -6,7 +6,6 @@ import Typo from "@/components/atoms/typo/Typo";
 import style from "./style.module.scss";
 import Link from "next/link";
 import { Col, Row } from "@/components/atoms/layout";
-import get_announcement from "@/features/customer/announcement/api/get_announcement";
 import { useNoticeControllerGetNotices } from "@/entities/api/notice/notice";
 
 export default function Announcement_table() {

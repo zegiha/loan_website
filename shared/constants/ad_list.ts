@@ -21,7 +21,7 @@ const ad_list: Array<IAd> = [
   },
   {
     type_name: 'banner',
-    name: '메인 베너광고',
+    name: '메인 배너광고',
     default_price: 2000000,
     price_desc: [
       {
