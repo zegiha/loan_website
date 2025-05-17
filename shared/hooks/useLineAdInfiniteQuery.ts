@@ -4,6 +4,7 @@ import {adsPublicControllerFindLineAds} from '@/entities/api/advertisement-publi
 import type {AdsPublicControllerFindLineAdsParams, ScrollAdResponseDto} from '@/entities/const'
 import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query'
 import {IInfiniteQueryRes as DefaultIInfiniteQueryRes} from '@/shared/constants'
+import {useEffect, useState} from 'react'
 
 interface IUseLineAdInfiniteQuery<S> {
   queryKey: string
@@ -22,6 +23,11 @@ export default function useLineAdInfiniteQuery<S>({
   option,
   select,
 }: IUseLineAdInfiniteQuery<S>) {
+  const [fetchQueue, setFetchQueue] = useState<number>(0)
+  const [fetchedPage, setFetchedPage] = useState<number>(1)
+  const [maxPage, setMaxPage] = useState<number>(1)
+  const [fetchQueueFlag, setFetchQueueFlag] = useState<boolean>(false)
+
   const queryRes = useInfiniteQuery({
     queryKey: [queryKey],
     queryFn: async ({pageParam}) => {
@@ -34,6 +40,10 @@ export default function useLineAdInfiniteQuery<S>({
           search: option?.search ?? '',
         }
       )
+
+      setMaxPage(data.totalPage)
+
+      setFetchedPage(pageParam)
 
       const res: IInfiniteQueryRes = {
         currentPage: pageParam,
@@ -52,7 +62,38 @@ export default function useLineAdInfiniteQuery<S>({
     select
   })
 
+  const initStates = () => {
+    setMaxPage(1)
+    setFetchedPage(1)
+    if(!queryRes.isFetchingNextPage)
+      setFetchQueue(0)
+    else
+      setFetchQueueFlag(true)
+  }
+
+  useEffect(() => {
+    if(
+      !queryRes.isFetchingNextPage &&
+      queryRes.hasNextPage &&
+      fetchQueue > 0
+    ) {
+      queryRes.fetchNextPage()
+        .then(() => {
+          if(!fetchQueueFlag)
+            setFetchQueue(p => p-1)
+          else {
+            setFetchQueueFlag(false)
+            initStates()
+          }
+        })
+    }
+  }, [fetchQueue])
+
   return {
-    ...queryRes
+    ...queryRes,
+    maxPage, setMaxPage,
+    fetchedPage, setFetchedPage,
+    setFetchQueue,
+    initStates
   }
 }

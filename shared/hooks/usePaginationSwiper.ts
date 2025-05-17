@@ -1,6 +1,6 @@
 'use client'
 
-import {SetStateAction, useEffect, useRef, useState} from "react";
+import {SetStateAction, useCallback, useEffect, useRef, useState} from "react";
 import {Swiper as SwiperType} from 'swiper'
 import react_state_action from "@/shared/type/react_state_action";
 
@@ -9,10 +9,10 @@ export default function usePaginationSwiper(
   setActiveSlides: react_state_action<number>,
   maxSlideLength?: number
 ) {
-  const swiperRef = useRef<SwiperType>()
+  const swiperRef = useRef<SwiperType>(null)
   const [pagination, setPagination] = useState<Array<number>>([]);
 
-  const handlePaginationRender = () => {
+  const handlePaginationRender = useCallback(() => {
     if (swiperRef.current) {
       const slideLength = maxSlideLength ?? swiperRef.current.slides.length;
       const newPagination: Array<number> = []
@@ -24,7 +24,8 @@ export default function usePaginationSwiper(
 
       setPagination(newPagination)
     }
-  }
+  }, [maxSlideLength])
+
   const handleNextSlide = () => {
     if (swiperRef.current) {
       if (swiperRef.current.allowSlideNext) {
@@ -55,7 +56,7 @@ export default function usePaginationSwiper(
 
   useEffect(() => {
     handlePaginationRender()
-  }, [activeSlides])
+  }, [activeSlides, maxSlideLength])
 
   return {
     swiperRef,

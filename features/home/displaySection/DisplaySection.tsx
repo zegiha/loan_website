@@ -14,12 +14,16 @@ export default function DisplaySection() {
   const {
     status,
     data
-  } = useCommonControllerCommonInfos()
+  } = useCommonControllerCommonInfos<{
+    totalCompany: number
+    totalVisitor: number
+    totalLoanboard: number
+  }>()
 
   const { data: topAds } = useAdsPublicControllerSearchAds(
     "메인 TOP 배너광고",
     '1',
-    '4'
+    '3'
   )
   
   return (
@@ -89,7 +93,7 @@ export default function DisplaySection() {
               />
             ))
           ):(
-            Array.from({length: 4}).map((_, i) => (
+            Array.from({length: 3}).map((_, i) => (
               <TopAdCardSkeleton key={i}/>
             ))
           )}

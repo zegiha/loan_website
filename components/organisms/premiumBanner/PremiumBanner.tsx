@@ -27,7 +27,7 @@ export default function PremiumBanner({
   defaultCardNumber: number,
   update_height?: () => void,
 }) {
-  const swiperRef = useRef<SwiperType>();
+  const swiperRef = useRef<SwiperType>(null);
   const [cardNumber, setCardNumber] = useState(defaultCardNumber);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 

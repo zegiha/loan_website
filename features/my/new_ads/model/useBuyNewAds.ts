@@ -65,7 +65,7 @@ export default function useBuyNewAds(
 // 각 광고 유형별 인터페이스 정의 매핑
 const adsNameToInterfaceMap = {
   '프리미엄 배너광고': { location: undefined, title: '' } as IPremium_banner_req,
-  '메인 베너광고': { title: '', subtitle: '', banner_cover_img: undefined, loan_available_location: undefined } as IBanner_req,
+  '메인 배너광고': { title: '', subtitle: '', banner_cover_img: undefined, loan_available_location: undefined } as IBanner_req,
   '메인 TOP 배너광고': { title: '', contents: '', banner_cover_img: undefined } as ITop_banner_req,
   '스폰서 링크': { contents: '' } as ISponsor_link_req,
   '지역 배너광고': { title: '', subtitle: '', phone: '', location: [], banner_cover_img: undefined } as ILocation_banner_req,
@@ -77,7 +77,7 @@ const adsNameToInterfaceMap = {
 
 interface typeByAdName {
   '프리미엄 배너광고': IPremium_banner_req
-  '메인 베너광고': IBanner_req
+  '메인 배너광고': IBanner_req
   '메인 TOP 배너광고': ITop_banner_req
   '스폰서 링크': ISponsor_link_req
   '지역 배너광고': ILocation_banner_req
@@ -125,9 +125,9 @@ async function rawDataParseToCreateAdvertisementDto(
           });
         }
         break;
-      case "메인 베너광고":
-        if(guard<typeByAdName["메인 베너광고"]>(
-          getReqKeys<typeByAdName["메인 베너광고"]>(adsNameToInterfaceMap["메인 베너광고"]),
+      case "메인 배너광고":
+        if(guard<typeByAdName["메인 배너광고"]>(
+          getReqKeys<typeByAdName["메인 배너광고"]>(adsNameToInterfaceMap["메인 배너광고"]),
           reqData
         )) {
           const imageUrl = await getImg(reqData.banner_cover_img);

@@ -1,4 +1,4 @@
-import {CSSProperties, LegacyRef, TransitionEventHandler} from "react";
+import {CSSProperties, LegacyRef, MouseEventHandler, TransitionEventHandler} from "react";
 
 export type flexDir =
   'row' |
@@ -27,7 +27,7 @@ export interface IRowAndCol {
   style?: CSSProperties;
   children: React.ReactNode;
   ref?: React.MutableRefObject<HTMLDivElement | null> | LegacyRef<HTMLDivElement>;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: MouseEventHandler<HTMLDivElement>;
   onTransitionEnd?: TransitionEventHandler<HTMLDivElement>;
   onTransitionRun?: TransitionEventHandler<HTMLDivElement>;
 }

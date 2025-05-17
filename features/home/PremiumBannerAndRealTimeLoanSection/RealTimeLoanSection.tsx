@@ -130,8 +130,8 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
         </BaseButton>
       </Row>
       <Col width={'fill'} className={style.realTimeLoanContainer}>
-        {status === 'success' && (
-          parseApiToArrayILoanInquiryData(data).length > 0 ? (
+        {status === 'success' && data && (
+          data.pages[0].data.length > 0 ? (
             <Swiper
               modules={[Autoplay]}
               direction={'vertical'}
@@ -162,7 +162,6 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
           ) : (
             <Col
               width={'fill'}
-              style={{paddingTop: 24}}
               justifyContents={'center'}
               alignItems={'center'}
               gap={12}

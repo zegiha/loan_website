@@ -13,43 +13,30 @@ import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import {SwiperSlide} from "swiper/react";
 import {
   RegisteredCompanyTableHead,
-  RegisteredCompanyTableRow
+  RegisteredCompanyTableRow, RegisteredCompanyTableRowSkeleton
 } from "@/features/loanByLocation/ui/RegisteredCompanyTable";
 import {useLineAdInfiniteQuery, useSearch} from "@/shared/hooks";
 
-const contentsNumberData = ['5', '10', '15', '20']
+const contentsNumberData = ['1', '5', '10', '15', '20']
 
 export default function RegisteredCompanyTableSection({
   activeCategories
 }: {activeCategories: Set<string>}) {
   const [activeContentsNumber, setActiveContentsNumber] = useState('5')
   const [page, setPage] = useState<number>(1)
-  const [maxPage, setMaxPage] = useState<number>(1)
-
-  const formatRegisteredCompany = (rawData: Array<ICompany_row>): Array<Array<ICompany_row_having_is_visible_company_name>> => {
-    const data: Array<ICompany_row_having_is_visible_company_name> = [];
-    rawData.forEach((item) => {data.push({...item, is_visible_company_name: visible_company_name})})
-    const res: Array<Array<ICompany_row_having_is_visible_company_name>> = [];
-    for(let i = 0; i < rawData.length; i++) {
-      if(i % Number(activeContentsNumber) === 0) res.push([]);
-      res[res.length-1].push(data[i]);
-    }
-    return res;
-  }
 
   const {
     prevSearch, setPrevSearch,
     search
   } = useSearch()
 
-  const [fetchQueue, setFetchQueue] = useState<number>(0)
-
   const {
     data,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
     refetch,
+    initStates,
+    maxPage,
+    fetchedPage,
+    setFetchQueue,
   } = useLineAdInfiniteQuery({
     queryKey: 'locationLine',
     adType: 'location',
@@ -61,51 +48,39 @@ export default function RegisteredCompanyTableSection({
       search: search,
     },
     select: v => {
-      const res: Array<ICompany_row> = []
+      const res: Array<Array<ICompany_row> | null> = []
       v.pages.forEach(v => {
-        v.data.forEach(v => {
-          res.push({
-            id: v.company_id,
-            location: v.loan_available_location !== undefined && v.loan_available_location.length > 0 ?
-              v.loan_available_location.join(', '):
-              '전체',
-            loan_limit: v.loan_limit.toLocaleString('ko-KR'),
-            title: v.title ?? '',
-            name: v.company_name,
-          })
-        })
+        res.push([...v.data.map(v => ({
+          id: v.company_id,
+          location: v.loan_available_location !== undefined && v.loan_available_location.length > 0 ?
+            v.loan_available_location.join(', '):
+            '전체',
+          loan_limit: v.loan_limit.toLocaleString('ko-KR'),
+          title: v.title ?? '',
+          name: v.company_name,
+        }))])
       })
-      return res
+      for(let i = v.pages.length + 1; i <= v.pages[0].totalPage; i++)
+        res.push(null)
+      return [...res]
     }
   })
 
   useEffect(() => {
-    if(hasNextPage && fetchQueue > 0) {
-      if(!isFetchingNextPage)
-        fetchNextPage()
-          .then(() => {
-            setFetchQueue(p => p-1)
-          })
-    }
-  }, [fetchQueue])
-
-  useEffect(() => {
+    initStates()
     setPage(1)
-    setMaxPage(1)
-    setFetchQueue(0)
     refetch()
-  }, [search, activeCategories, activeContentsNumber]);
+  }, [activeCategories, activeContentsNumber, search])
 
   const [visible_company_name, set_visible_company_name] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const handleResize = () => {
-    if(ref.current) {
-      set_visible_company_name(ref.current.offsetWidth > 600);
-    }
-  }
-
   useEffect(() => {
+    const handleResize = () => {
+      if(ref.current) {
+        set_visible_company_name(ref.current.offsetWidth > 600);
+      }
+    }
     if(data) {
       handleResize();
       window.addEventListener('resize', handleResize)
@@ -155,22 +130,33 @@ export default function RegisteredCompanyTableSection({
         <SwiperPaginationAndNavigation
           activeSlides={page}
           setActiveSlides={setPage}
+          maxSlideLength={maxPage}
           onSlideChangeCallback={swiper => {
-            if(swiper.activeIndex + 1 >= maxPage)
-              setFetchQueue(swiper.activeIndex + 1 - maxPage)
+            if(swiper.activeIndex + 1 > fetchedPage)
+              setFetchQueue(p => p + swiper.activeIndex + 1 - fetchedPage)
           }}
         >
-          {data && formatRegisteredCompany(data).map((v, i) => (
-            <SwiperSlide key={`${i}-slide`}>
+          {data && data.map((v, i) => (
+            <SwiperSlide key={i}>
               <Table
                 head={<RegisteredCompanyTableHead visible_company_name={visible_company_name}/>}
               >
-                {v.map((contents, index) => (
-                  <RegisteredCompanyTableRow
-                    key={`${index}-tableItem`}
-                    {...contents}
-                  />
-                ))}
+                {v ? (
+                  v.map((v, i) => (
+                    <RegisteredCompanyTableRow
+                      key={`${i}-tableItem`}
+                      {...v}
+                      is_visible_company_name={visible_company_name}
+                    />
+                  ))
+                ):(
+                  Array.from({length: Number(activeContentsNumber)}).map((_, i) => (
+                    <RegisteredCompanyTableRowSkeleton
+                      key={i}
+                      is_visible_company_name={visible_company_name}
+                    />
+                  ))
+                )}
               </Table>
             </SwiperSlide>
           ))}
