@@ -9,7 +9,7 @@ export function RegisteredCompanyTableHead({
   visible_company_name: boolean;
 }) {
   return <TableHead>
-    <Typo.Contents width={60}>
+    <Typo.Contents width={120}>
       지역
     </Typo.Contents>
     <Typo.Contents width={80}>
@@ -36,7 +36,7 @@ export function RegisteredCompanyTableRow({
 }: ICompany_row_having_is_visible_company_name) {
   return <Link href={`/loan/${id}`} style={{width: '100%'}}>
     <TableRow>
-      <Typo.Contents width={60}>
+      <Typo.Contents width={120} textOverflowLine={1}>
         {location}
       </Typo.Contents>
       <Typo.Contents width={80}>
