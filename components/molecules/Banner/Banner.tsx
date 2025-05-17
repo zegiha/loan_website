@@ -93,7 +93,9 @@ export default function Banner({
           </Row>
           <Row
             width={'fill'}
+            justifyContents={'space-between'}
             gap={12}
+            wrap
           >
             <Row gap={4}>
               <LocationIcon
@@ -104,7 +106,11 @@ export default function Banner({
                 {location}
               </Typo.Contents>
             </Row>
-            <Typo.Contents width={'fill'} color={'dim'} textAlign={'end'}>
+            <Typo.Contents
+              className={style.companyName}
+              color={'dim'}
+              // textAlign={'end'}
+            >
               {name}
             </Typo.Contents>
           </Row>

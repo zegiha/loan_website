@@ -83,7 +83,7 @@ export default function PremiumBanner({
   }, [defaultCardNumber, cardNumber]);
 
   useEffect(() => {
-    if(data && update_height) update_height();
+    update_height && update_height();
     handleResize()
   }, [data]);
 

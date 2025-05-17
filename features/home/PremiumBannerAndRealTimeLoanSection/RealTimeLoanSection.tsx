@@ -18,11 +18,31 @@ import {PlusIcon, SearchIcon} from "@/components/atoms/icons";
 import {useRouter} from "next/navigation";
 import {ILoan_inquiry_data} from "@/shared/type";
 import Link from "next/link";
+import {DateTime} from "luxon";
+import get_YYYYMMDD from "@/shared/helper/get_YYYYMMDD";
 
 const Player = dynamic(
   () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
   {ssr: false}
 )
+
+
+function getTimeAgo(date: string | Date): string {
+  const now = DateTime.now();
+  const target = DateTime.fromISO(typeof date === "string" ? date : new Date(date).toISOString());
+
+  const diff = now.diff(target, ["days", "hours", "minutes", "seconds"]).toObject();
+
+  if (diff.days && diff.days >= 1) {
+    return `${Math.floor(diff.days)}일 전`;
+  } else if (diff.hours && diff.hours >= 1) {
+    return `${Math.floor(diff.hours)}시간 전`;
+  } else if (diff.minutes && diff.minutes >= 1) {
+    return `${Math.floor(diff.minutes)}분 전`;
+  } else {
+    return "방금 전";
+  }
+}
 
 export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: number}) {
   const router = useRouter()
@@ -37,7 +57,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
           category: v.type,
           location: v.available_location,
           title: v.title,
-          createdAt: v.writed_date,
+          createdAt: getTimeAgo(v.writed_date),
           desired_amount: v.desired_amount.toLocaleString()
         })
       })
@@ -57,7 +77,10 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
       return await loanboardControllerFindAll({
         page: pageParam,
         limit: 20,
-        onlyToday: true
+        onlyToday: true,
+        type: '전체',
+        location: ['전체'],
+        search_type: 'title',
       })
     },
     initialPageParam: 1,
@@ -112,21 +135,22 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
             <Swiper
               modules={[Autoplay]}
               direction={'vertical'}
-              spaceBetween={12}
+              spaceBetween={4}
               slidesPerView={bannerHeight ? Math.floor((bannerHeight - 112) / 48) : 0}
               loop={true}
               autoplay={{
                 delay: 2000,
                 pauseOnMouseEnter: true,
               }}
+              style={{height: '100%'}}
             >
               {parseApiToArrayILoanInquiryData(data).map((v, i) => (
                 i !== parseApiToArrayILoanInquiryData(data).length-1 ? (
-                  <SwiperSlide key={i}>
+                  <SwiperSlide key={i} style={{height: 'max-content'}}>
                     <RealTimeLoan {...v}/>
                   </SwiperSlide>
                 ) : (
-                  <SwiperSlide key={i}>
+                  <SwiperSlide key={i} style={{height: 'max-content'}}>
                     <RealTimeLoan
                       ref={setTarget}
                       {...v}

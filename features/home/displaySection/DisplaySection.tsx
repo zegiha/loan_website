@@ -8,6 +8,7 @@ import { Col, Row } from "@/components/atoms/layout";
 import { semantic_object } from "@/shared/color";
 import { ITopAd } from "@/features/home/displaySection/api/getTopAds";
 import { useAdsPublicControllerSearchAds } from "@/entities/api/advertisement-public/advertisement-public";
+import skeleton from '@/shared/constants/skeleton.module.scss'
 
 export default function DisplaySection() {
   const {
@@ -15,7 +16,12 @@ export default function DisplaySection() {
     data
   } = useCommonControllerCommonInfos()
 
-  const { data: topAds } = useAdsPublicControllerSearchAds("메인 TOP 배너광고");
+  const { data: topAds } = useAdsPublicControllerSearchAds(
+    "메인 TOP 배너광고",
+    '1',
+    '4'
+  )
+  
   return (
     <Col className={style.displaySectionContainer} alignItems="center">
       <div className={style.displaySectionBackgroundBlur} />
@@ -72,15 +78,21 @@ export default function DisplaySection() {
           </Col>
         </Row>
         <div className={style.test}>
-          {topAds?.map((v, i) => (
-            <TopADCard
-              key={i}
-              title={v.title ?? ""}
-              contents={v.contents ?? ""}
-              name={v.user.companyName ?? ""}
-              imgUrl={v.image_url ?? ""}
-            />
-          ))}
+          {topAds ? (
+            topAds.ads.map((v, i) => (
+              <TopADCard
+                key={i}
+                title={v.title ?? ""}
+                contents={v.contents ?? ""}
+                name={v.user.companyName ?? ""}
+                imgUrl={v.image_url ?? ""}
+              />
+            ))
+          ):(
+            Array.from({length: 4}).map((_, i) => (
+              <TopAdCardSkeleton key={i}/>
+            ))
+          )}
         </div>
       </Col>
     </Col>
@@ -103,7 +115,7 @@ function TopADCard({ title, contents, name, imgUrl }: ITopAd) {
     <Col gap={12} className={style.topAdCardContainer}>
       <Row gap={16} width={"fill"} className={style.topAdTitleSection}>
         <Col gap={12} width={'fill'}>
-          <Col gap={4}>
+          <Col gap={4} width={'fill'}>
             <Typo.SubBody color={"variable"} emphasize>
               {title}
             </Typo.SubBody>
@@ -124,4 +136,23 @@ function TopADCard({ title, contents, name, imgUrl }: ITopAd) {
       </Row>
     </Col>
   );
+}
+
+function TopAdCardSkeleton() {
+  return (
+    <Col gap={12} className={style.topAdCardContainer}>
+      <Row gap={16} width={"fill"} className={style.topAdTitleSection}>
+        <Col gap={12} width={'fill'}>
+          <Col gap={4} width={'fill'}>
+            <div className={skeleton.skeleton} style={{width: '60%', height: 28}}/>
+            <div className={skeleton.skeleton} style={{width: '40%', height: 20}}/>
+          </Col>
+          <div className={skeleton.skeleton} style={{width: 80, height: 20}}/>
+        </Col>
+        <div className={style.topAdCardImageContainer}>
+          <div className={skeleton.skeleton} style={{width: '100%', height: '100%', borderRadius: 12}}/>
+        </div>
+      </Row>
+    </Col>
+  )
 }
