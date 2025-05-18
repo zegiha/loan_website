@@ -3,7 +3,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import {useAdsPublicControllerSearchAds} from '@/entities/api/advertisement-public/advertisement-public'
 import {semantic_object} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
-import {CompanyCardGrid} from "@/components/organisms";
+import {CompanyCardGrid, DataProvider} from "@/components/organisms";
 import {formatting_phone_number} from '@/shared/helper'
 import {useAdSearchInfiniteQuery, useInfiniteScroll} from '@/shared/hooks'
 import {ICompany_banner_data} from '@/shared/type'
@@ -76,7 +76,12 @@ export default function RegisteredCompanySection({
         등록업체
       </Typo.Body>
       {status === 'success' && (
-        <>
+        <DataProvider
+          available={{
+            isAvailable: data && data.length > 0,
+            notAvailableContents: '아직 등록된 배너가 없어요'
+          }}
+        >
           <CompanyCardGrid>
             {data && (
               data.map((v, i) => (
@@ -90,7 +95,7 @@ export default function RegisteredCompanySection({
           <div ref={setTarget} style={{width: '100%'}}>
             {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
           </div>
-        </>
+        </DataProvider>
       )}
       {status === 'pending' && (
         <Row width={'fill'} justifyContents={'center'}>

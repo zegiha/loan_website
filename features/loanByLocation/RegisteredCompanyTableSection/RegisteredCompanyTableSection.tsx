@@ -6,7 +6,7 @@ import {CloseIcon} from "@/components/atoms/icons";
 import Typo from "@/components/atoms/typo/Typo";
 import {Section, AccordionSectionTitle} from "@/components/molecules";
 import {BaseTextInput} from "@/components/molecules/inputs";
-import {SwiperPaginationAndNavigation, Table} from "@/components/organisms";
+import {DataProvider, SwiperPaginationAndNavigation, Table} from "@/components/organisms";
 import {ICompany_row, ICompany_row_having_is_visible_company_name, TLocation} from "@/shared/type";
 import {semantic_object} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
@@ -127,40 +127,47 @@ export default function RegisteredCompanyTableSection({
             onChangeAction={(v) => setPrevSearch(v)}
           />
         </Row>
-        <SwiperPaginationAndNavigation
-          activeSlides={page}
-          setActiveSlides={setPage}
-          maxSlideLength={maxPage}
-          onSlideChangeCallback={swiper => {
-            if(swiper.activeIndex + 1 > fetchedPage)
-              setFetchQueue(p => p + swiper.activeIndex + 1 - fetchedPage)
+        <DataProvider
+          available={{
+            isAvailable: data && !!data[0] && data[0]?.length > 0,
+            notAvailableContents: '아직 등록된 업체가 없어요'
           }}
         >
-          {data && data.map((v, i) => (
-            <SwiperSlide key={i}>
-              <Table
-                head={<RegisteredCompanyTableHead visible_company_name={visible_company_name}/>}
-              >
-                {v ? (
-                  v.map((v, i) => (
-                    <RegisteredCompanyTableRow
-                      key={`${i}-tableItem`}
-                      {...v}
-                      is_visible_company_name={visible_company_name}
-                    />
-                  ))
-                ):(
-                  Array.from({length: Number(activeContentsNumber)}).map((_, i) => (
-                    <RegisteredCompanyTableRowSkeleton
-                      key={i}
-                      is_visible_company_name={visible_company_name}
-                    />
-                  ))
-                )}
-              </Table>
-            </SwiperSlide>
-          ))}
-        </SwiperPaginationAndNavigation>
+          <SwiperPaginationAndNavigation
+            activeSlides={page}
+            setActiveSlides={setPage}
+            maxSlideLength={maxPage}
+            onSlideChangeCallback={swiper => {
+              if(swiper.activeIndex + 1 > fetchedPage)
+                setFetchQueue(p => p + swiper.activeIndex + 1 - fetchedPage)
+            }}
+          >
+            {data && data.map((v, i) => (
+              <SwiperSlide key={i}>
+                <Table
+                  head={<RegisteredCompanyTableHead visible_company_name={visible_company_name}/>}
+                >
+                  {v ? (
+                    v.map((v, i) => (
+                      <RegisteredCompanyTableRow
+                        key={`${i}-tableItem`}
+                        {...v}
+                        is_visible_company_name={visible_company_name}
+                      />
+                    ))
+                  ):(
+                    Array.from({length: Number(activeContentsNumber)}).map((_, i) => (
+                      <RegisteredCompanyTableRowSkeleton
+                        key={i}
+                        is_visible_company_name={visible_company_name}
+                      />
+                    ))
+                  )}
+                </Table>
+              </SwiperSlide>
+            ))}
+          </SwiperPaginationAndNavigation>
+        </DataProvider>
       </Col>
     </Section>
   )

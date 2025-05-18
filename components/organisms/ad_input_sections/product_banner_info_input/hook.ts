@@ -3,15 +3,23 @@ import {useEffect, useState} from "react";
 import {IProduct_banner_req} from "@/shared/type";
 import TLoan_production_type from "@/shared/type/TLoan_production_type";
 import {loan_production_list} from "@/shared/constants";
+import {AdResponseDto} from "@/entities/const";
+import {formatting_phone_number} from "@/shared/helper";
 
-export default function use_product_banner_info(): IProduct_banner_info_input {
+export default function use_product_banner_info(
+  defaultValue?: AdResponseDto
+): IProduct_banner_info_input {
 	const [banner_info, set_banner_info] = useState<IProduct_banner_req>({
-		title: '',
-		subtitle: '',
-		phone: '',
+		title: defaultValue?.title ?? '',
+		subtitle: defaultValue?.sub_title ?? '',
+		phone: defaultValue?.user.advertisementTel ?
+      formatting_phone_number(defaultValue.user.advertisementTel) : '',
 		banner_cover_img: undefined,
+    // TODO Array로 오는 상품 대응
 		product: undefined,
+    // TODO Array로 오는 지역 대응
 		loan_available_location: undefined,
+    loan_limit: defaultValue?.loan_limit?.toLocaleString('ko-KR') ?? '',
 	})
 	const [available_productions, set_available_productions] = useState<Array<number | null>>([])
 	const [check_available_productions, set_check_available_productions] = useState<Set<number>>(new Set())
@@ -43,5 +51,6 @@ export default function use_product_banner_info(): IProduct_banner_info_input {
 		available_location, set_available_location,
 		production_num, set_production_num,
 		production_num_string, set_production_num_string,
+    prevImg: defaultValue?.image_url ?? defaultValue?.cover_img
 	}
 }

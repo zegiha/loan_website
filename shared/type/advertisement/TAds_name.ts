@@ -1,12 +1,5 @@
-type TAds_name =
-	'프리미엄 배너광고' |
-	'메인 배너광고' |
-	'메인 TOP 배너광고' |
-	'스폰서 링크' |
-	'지역 배너광고' |
-	'상품 배너 광고' |
-	'실시간 대출문의 업체 등록' |
-	'줄광고' |
-	'줄광고 점프 추가 사용'
+import {typeByAdName} from "@/shared/type/advertisement/adTypeGuard";
+
+type TAds_name = keyof typeByAdName
 
 export default TAds_name

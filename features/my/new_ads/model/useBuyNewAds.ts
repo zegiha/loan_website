@@ -65,11 +65,11 @@ export default function useBuyNewAds(
 // 각 광고 유형별 인터페이스 정의 매핑
 const adsNameToInterfaceMap = {
   '프리미엄 배너광고': { location: undefined, title: '' } as IPremium_banner_req,
-  '메인 배너광고': { title: '', subtitle: '', banner_cover_img: undefined, loan_available_location: undefined } as IBanner_req,
-  '메인 TOP 배너광고': { title: '', contents: '', banner_cover_img: undefined } as ITop_banner_req,
+  '메인 배너광고': { title: '', subtitle: '', banner_cover_img: undefined, loan_available_location: undefined, loan_limit: '' } as IBanner_req,
+  '메인 TOP 배너광고': { title: '', contents: '', banner_cover_img: undefined, loan_limit: '' } as ITop_banner_req,
   '스폰서 링크': { contents: '' } as ISponsor_link_req,
-  '지역 배너광고': { title: '', subtitle: '', phone: '', location: [], banner_cover_img: undefined } as ILocation_banner_req,
-  '상품 배너 광고': { title: '', subtitle: '', phone: '', product: [], banner_cover_img: undefined, loan_available_location: undefined } as IProduct_banner_req,
+  '지역 배너광고': { title: '', subtitle: '', phone: '', location: [], banner_cover_img: undefined, loan_limit: '' } as ILocation_banner_req,
+  '상품 배너 광고': { title: '', subtitle: '', phone: '', product: [], banner_cover_img: undefined, loan_available_location: undefined, loan_limit: '' } as IProduct_banner_req,
   '실시간 대출문의 업체 등록': undefined,
   '줄광고': { title: '', loan_limit: '' } as ILine_req,
   '줄광고 점프 추가 사용': undefined

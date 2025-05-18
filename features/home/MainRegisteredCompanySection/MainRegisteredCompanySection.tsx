@@ -12,7 +12,7 @@ import {formatActiveCategories} from '@/features/loanByLocation/helper'
 import {formatting_phone_number} from '@/shared/helper'
 import {useAdSearchInfiniteQuery, useFetch, useInfiniteScroll} from "@/shared/hooks";
 import {get_company_banner} from "@/shared/api";
-import {Banner} from "@/components/molecules";
+import {Banner, NoData} from "@/components/molecules";
 import {useInfiniteQuery} from '@tanstack/react-query'
 import {useEffect, useState} from "react";
 import {ICompany_banner_data} from "@/shared/type";
@@ -68,14 +68,18 @@ export default function MainRegisteredCompanySection() {
     <Section backgroundColor={'surfaceDim'}>
       {status === 'success' && (
         <>
-          <CompanyCardGrid>
-            {data && data.map((v, i) => (
-              <Banner
-                key={i}
-                {...v}
-              />
-            ))}
-          </CompanyCardGrid>
+          {data.length > 0 ? (
+            <CompanyCardGrid>
+              {data && data.map((v, i) => (
+                <Banner
+                  key={i}
+                  {...v}
+                />
+              ))}
+            </CompanyCardGrid>
+          ):(
+            <NoData contents={'아직 등록된 배너가 없어요'}/>
+          )}
           <div ref={setTarget} style={{width: '100%'}}>
             {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
           </div>

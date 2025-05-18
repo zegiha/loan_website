@@ -29,7 +29,7 @@ export default function Buy_new_line({
 		set_validate_list(prev => {
 			const new_data = [...prev.filter(v => v.name !== name)]
 			new_data.push({name, status: is_typed(props.banner_info.title) === null, error_message: '줄광고의 제목이 비어있습니다'})
-			new_data.push({name, status: is_typed(props.banner_info.loan_limit) === null, error_message: '줄광고에 대출한도가 비어있습니다'})
+      new_data.push({name, status: is_typed(props.banner_info.loan_limit) === null, error_message: '줄광고에 대출한도가 비어있습니다'})
 			return [...new_data]
 		})
 	}, [props.banner_info])

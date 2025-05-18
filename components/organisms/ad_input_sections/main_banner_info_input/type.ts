@@ -7,4 +7,6 @@ export default interface IMain_banner_info_input {
 
 	selected_available_location_idx: number | null
 	set_selected_available_location_idx: react_state_action<number | null>
+
+  prevImg?: string | File
 }

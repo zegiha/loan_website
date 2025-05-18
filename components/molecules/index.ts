@@ -10,6 +10,7 @@ import Show_or_hidden_with_fade from "@/components/molecules/Show_or_hidden_with
 import Show_or_hidden_with_fade_container
   from "@/components/molecules/Show_or_hidden_with_fade/Show_or_hidden_with_fade_container";
 import Banner from "@/components/molecules/Banner/Banner";
+import NoData from "@/components/molecules/noData/NoData";
 
 export {
   PremiumCard,
@@ -22,6 +23,7 @@ export {
   Show_or_hidden_with_fade_container,
   Show_or_hidden_with_fade,
   Banner,
+  NoData,
 }
 
 export type {

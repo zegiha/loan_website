@@ -3,9 +3,14 @@ import {use_context_with_check} from "@/shared/hooks";
 import Edit_data_context from "@/features/my/ads/context/edit_data_context";
 import {useEffect} from "react";
 import {is_typed} from "@/shared/helper";
+import {AdResponseDto} from "@/entities/const";
 
-export default function Edit_sponsor_link() {
-	const props = use_sponsor_link_info()
+export default function Edit_sponsor_link({
+  adData
+}: {
+  adData?: AdResponseDto
+}) {
+	const props = use_sponsor_link_info(adData)
 	const {set_edit_data, set_validates} = use_context_with_check(Edit_data_context)
 
 	useEffect(() => {
