@@ -92,11 +92,11 @@ export default function Buy_new_ads({
     select.forEach(v => new_total_price += v.price)
     set_total_price(new_total_price)
   }, [select])
-  useEffect(() => {
-    const has_line_ad = select.findIndex(v => v.name === '줄광고') !== -1
-    if(has_line_ad && total_price < 500000) setSelect(prev => [...prev.filter(v => v.name !== '줄광고')])
-    else if(!has_line_ad && total_price >= 500000) setSelect(prev => [...prev, {name: '줄광고', price: 0, type_name: 'line'}])
-  }, [total_price])
+  // useEffect(() => {
+  //   const has_line_ad = select.findIndex(v => v.name === '줄광고') !== -1
+  //   if(has_line_ad && total_price < 500000) setSelect(prev => [...prev.filter(v => v.name !== '줄광고')])
+  //   else if(!has_line_ad && total_price >= 500000) setSelect(prev => [...prev, {name: '줄광고', price: 0, type_name: 'line'}])
+  // }, [total_price])
 
   return (
     <Info_validate_context.Provider value={{validate_list, set_validate_list}}>

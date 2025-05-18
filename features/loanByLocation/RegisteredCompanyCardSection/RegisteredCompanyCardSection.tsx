@@ -1,7 +1,7 @@
 import {Banner} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
 import {semantic_object} from "@/shared/color";
-import {CompanyCardGrid} from "@/components/organisms";
+import {CompanyCardGrid, DataProvider} from "@/components/organisms";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import Section from "@/components/molecules/Layout/section/Section";
 import {formatting_phone_number} from '@/shared/helper'
@@ -74,7 +74,12 @@ export default function RegisteredCompanyCardSection({
         등록업체
       </Typo.Body>
       {status === 'success' && (
-        <>
+        <DataProvider
+          available={{
+            isAvailable: data && data.length > 0,
+            notAvailableContents: '아직 등록된 배너가 없어요'
+          }}
+        >
           <CompanyCardGrid>
             {data && (
               data.map((v, i) => (
@@ -90,7 +95,7 @@ export default function RegisteredCompanyCardSection({
               {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
             </div>
           )}
-        </>
+        </DataProvider>
       )}
       {status === 'pending' && (
         <Row width={'fill'} justifyContents={'center'}>

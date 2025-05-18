@@ -10,7 +10,7 @@ import type { Swiper as SwiperType } from "swiper";
 import {BaseButton, iconButton} from "@/components/molecules/inputs";
 import {Col, Row} from "@/components/atoms/layout";
 import {ArrowIcon} from "@/components/atoms/icons";
-import {PremiumCard} from "@/components/molecules";
+import {NoData, PremiumCard} from "@/components/molecules";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import load from '@/public/assets/load_dot_120.json';
@@ -119,13 +119,19 @@ export default function PremiumBanner({
               fetchNextPage()
           }}
         >
-          {data.map((v, i) => (
-            <SwiperSlide key={i}>
-              <Link href={`/loan/${v.id}`}>
-                <PremiumCard {...v}/>
-              </Link>
-            </SwiperSlide>
-          ))}
+          {data && (
+            data.length > 0 ? (
+              data.map((v, i) => (
+                <SwiperSlide key={i}>
+                  <Link href={`/loan/${v.id}`}>
+                    <PremiumCard {...v}/>
+                  </Link>
+                </SwiperSlide>
+              ))
+            ):(
+              <NoData contents={'아직 등록된 프리미엄 배너가 없어요'}/>
+            )
+          )}
         </Swiper>
       )}
       {status === 'pending' && (
@@ -148,27 +154,29 @@ export default function PremiumBanner({
           </Typo.Body>
         </Row>
       )}
-      <Row gap={8}>
-        <BaseButton
-          className={`${iconButton.iconButton28}`}
-          onClick={() => {swiperRef.current?.slidePrev(240)}}
-        >
-          <ArrowIcon
-            size={20}
-            color={'dim'}
-            deg={180}
-          />
-        </BaseButton>
-        <BaseButton
-          className={`${iconButton.iconButton28}`}
-          onClick={() => {swiperRef.current?.slideNext(240)}}
-        >
-          <ArrowIcon
-            size={20}
-            color={'dim'}
-          />
-        </BaseButton>
-      </Row>
+      {status === 'success' && data.length > 0 && (
+        <Row gap={8}>
+          <BaseButton
+            className={`${iconButton.iconButton28}`}
+            onClick={() => {swiperRef.current?.slidePrev(240)}}
+          >
+            <ArrowIcon
+              size={20}
+              color={'dim'}
+              deg={180}
+            />
+          </BaseButton>
+          <BaseButton
+            className={`${iconButton.iconButton28}`}
+            onClick={() => {swiperRef.current?.slideNext(240)}}
+          >
+            <ArrowIcon
+              size={20}
+              color={'dim'}
+            />
+          </BaseButton>
+        </Row>
+      )}
     </Col>
   );
 }

@@ -11,24 +11,24 @@ export default function Modal({
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>,
   children: ReactNode
 }) {
-  const lockScroll = () => {
-    const currentScrollY = window.scrollY
-    const bodyStyle = document.body.style
-    bodyStyle.position = 'fixed'
-    bodyStyle.width = '100%'
-    bodyStyle.top = `-${currentScrollY}px`
-    bodyStyle.overflowY = 'scroll';
-    return currentScrollY;
-  }
-  const unlockScroll = (prevScrollY: number) => {
-    const bodyStyle = document.body.style
-    bodyStyle.position = ''
-    bodyStyle.width = ''
-    bodyStyle.top = ''
-    bodyStyle.overflowY = ''
-    window.scrollTo(0, prevScrollY)
-  }
   useEffect(() => {
+    const lockScroll = () => {
+      const currentScrollY = window.scrollY
+      const bodyStyle = document.body.style
+      bodyStyle.position = 'fixed'
+      bodyStyle.width = '100%'
+      bodyStyle.top = `-${currentScrollY}px`
+      bodyStyle.overflowY = 'scroll';
+      return currentScrollY;
+    }
+    const unlockScroll = (prevScrollY: number) => {
+      const bodyStyle = document.body.style
+      bodyStyle.position = ''
+      bodyStyle.width = ''
+      bodyStyle.top = ''
+      bodyStyle.overflowY = ''
+      window.scrollTo(0, prevScrollY)
+    }
     if(isOpen) {
       const prevScrollY = lockScroll();
       return () => unlockScroll(prevScrollY);

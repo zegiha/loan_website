@@ -20,6 +20,7 @@ import {ILoan_inquiry_data} from "@/shared/type";
 import Link from "next/link";
 import {DateTime} from "luxon";
 import get_YYYYMMDD from "@/shared/helper/get_YYYYMMDD";
+import {NoData} from "@/components/molecules";
 
 const Player = dynamic(
   () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
@@ -160,20 +161,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
               ))}
             </Swiper>
           ) : (
-            <Col
-              width={'fill'}
-              justifyContents={'center'}
-              alignItems={'center'}
-              gap={12}
-            >
-              <SearchIcon
-                size={48}
-                color={'dim'}
-              />
-              <Typo.SubBody color={'dim'} emphasize>
-                아직 등록된 대출 문의가 없어요
-              </Typo.SubBody>
-            </Col>
+            <NoData contents={'아직 등록된 대출 문의가 없어요'}/>
           )
         )}
         {status === 'pending' && (

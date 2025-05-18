@@ -1,7 +1,7 @@
 'use client'
 
 import Typo from "@/components/atoms/typo/Typo";
-import {TableHead, TableRow} from "@/components/molecules";
+import {NoData, TableHead, TableRow} from "@/components/molecules";
 import {useInfiniteScroll, useLineAdInfiniteQuery} from '@/shared/hooks'
 import {ICompany_row, ICompany_row_having_is_visible_company_name} from "@/shared/type";
 import {Table} from "@/components/organisms";
@@ -15,6 +15,7 @@ export default function RegisterStatusTable() {
 
   const {
     data,
+    status,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -61,32 +62,36 @@ export default function RegisterStatusTable() {
     }
   }, [])
 
-  return (
-    <Row width={'fill'} ref={ref}>
-      <Table
-        className={'scrollArea'}
-        head={<RegisterStatusTableHead visible_company_name={visible_company_name}/>}
-      >
-        {data && data.map((v, i) => (
-          i !== data.length-1 ? (
-            <RegisterStatusTableRow
-              key={i}
-              {...v}
-              is_visible_company_name={visible_company_name}
-            />
-          ):(
-            <Fragment key={i}>
-              <RegisterStatusTableRow
-                {...v}
-                is_visible_company_name={visible_company_name}
-              />
-              <div ref={setTarget}/>
-            </Fragment>
-          )
-        ))}
-      </Table>
-    </Row>
-  );
+  if(status === 'success') {
+    if(data.length > 0) {
+      return (
+        <Row width={'fill'} ref={ref}>
+          <Table
+            className={'scrollArea'}
+            head={<RegisterStatusTableHead visible_company_name={visible_company_name}/>}
+          >
+            {data && data.map((v, i) => (
+              i !== data.length-1 ? (
+                <RegisterStatusTableRow
+                  key={i}
+                  {...v}
+                  is_visible_company_name={visible_company_name}
+                />
+              ):(
+                <Fragment key={i}>
+                  <RegisterStatusTableRow
+                    {...v}
+                    is_visible_company_name={visible_company_name}
+                  />
+                  <div ref={setTarget}/>
+                </Fragment>
+              )
+            ))}
+          </Table>
+        </Row>
+      )
+    } else return <NoData contents={'아직 등록된 업체가 없어요'}/>
+  }
 }
 
 function RegisterStatusTableHead({

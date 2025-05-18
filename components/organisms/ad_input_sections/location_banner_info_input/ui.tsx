@@ -2,7 +2,7 @@ import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import Select from "@/components/molecules/inputs/select/Select";
 import {BaseButton, BaseTextInput, button, File_input} from "@/components/molecules/inputs";
-import {is_typed} from "@/shared/helper";
+import {is_typed, to_won} from "@/shared/helper";
 import {location_list} from "@/shared/constants";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
@@ -27,6 +27,7 @@ export default function Location_banner_info_input({
 	set_location_num_string,
 	selected_option_idx,
 	set_selected_option_idx,
+  prevImg,
 }: ILocation_banner_info_input) {
 	const handle_submit_location_num_string = () => {
 		const pd = Number(location_num_string)
@@ -154,8 +155,20 @@ export default function Location_banner_info_input({
 					set_data={(v) => set_banner_info(prev => ({...prev, banner_cover_img: v}))}
 					placeholder={`배너 이미지를 끌어올리거나\n이 박스를 눌러 선택해주세요`}
 					placeholder_icon={<Upload_icon color={'dim'} size={64}/>}
+          prev_img={prevImg}
 				/>
 			</Col>
+      <Col gap={4} width={'fill'}>
+        <Typo.Caption color={'dim'}>대출한도</Typo.Caption>
+        <BaseTextInput
+          width={'fill'}
+          size={'normal'}
+          value={banner_info.loan_limit}
+          onChangeAction={(v) => set_banner_info(prev => ({...prev, loan_limit: to_won(v)}))}
+          placeholder={'대출한도를 입력해주세요'}
+          TypingIcon={<Typo.Contents color={'dim'}>₩</Typo.Contents>}
+        />
+      </Col>
 		</>
 	)
 }

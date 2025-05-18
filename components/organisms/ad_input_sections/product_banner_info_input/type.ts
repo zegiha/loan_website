@@ -5,6 +5,8 @@ export default interface IProduct_banner_info_input {
 	banner_info: IProduct_banner_req
 	set_banner_info: react_state_action<IProduct_banner_req>
 
+  prevImg?: string | File
+
 	available_productions: Array<number | null>
 	set_available_productions: react_state_action<Array<number | null>>
 

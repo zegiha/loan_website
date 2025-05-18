@@ -2,7 +2,7 @@
 
 import Typo from "@/components/atoms/typo/Typo";
 import {Table} from "@/components/organisms";
-import {TableHead, TableRow} from "@/components/molecules";
+import {NoData, TableHead, TableRow} from "@/components/molecules";
 import {useInfiniteQuery} from '@tanstack/react-query'
 import Link from "next/link";
 import {useInfiniteScroll} from "@/shared/hooks";
@@ -32,6 +32,7 @@ export default function RealTimeLoanTable() {
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
+    status,
   } = useInfiniteQuery({
     queryKey: ['loanInquiryFromMain'],
     queryFn: async ({pageParam}) => {
@@ -62,35 +63,39 @@ export default function RealTimeLoanTable() {
     hasNextPage,
   )
 
-  return (
-    <Table
-      head={<RealTimeLoanTableHead/>}
-    >
-      {(
-        data?.pages.map((v, i) => {
-          return (
-            v.currentPage !== data.pages.length ? (
-              v.data.map((v, i) => (
-                <RealTimeLoanTableRow
-                  key={i}
-                  {...v}
-                />
-              ))
-            ):(
-              v.data.map((v, i) => (
-                <Fragment key={i}>
-                  <div ref={setTarget}/>
-                  <RealTimeLoanTableRow
-                    {...v}
-                  />
-                </Fragment>
-              ))
-            )
-          )
-        })
-      )}
-    </Table>
-  );
+  if(status === 'success') {
+    if(data?.pages[0].data.length > 0) {
+      return (
+        <Table
+          head={<RealTimeLoanTableHead/>}
+        >
+          {(
+            data?.pages.map((v, i) => {
+              return (
+                v.currentPage !== data.pages.length ? (
+                  v.data.map((v, i) => (
+                    <RealTimeLoanTableRow
+                      key={i}
+                      {...v}
+                    />
+                  ))
+                ):(
+                  v.data.map((v, i) => (
+                    <Fragment key={i}>
+                      <div ref={setTarget}/>
+                      <RealTimeLoanTableRow
+                        {...v}
+                      />
+                    </Fragment>
+                  ))
+                )
+              )
+            })
+          )}
+        </Table>
+      )
+    } else return <NoData contents={'아직 등록된 대출 문의가 없어요'}/>
+  }
 }
 
 function RealTimeLoanTableHead() {

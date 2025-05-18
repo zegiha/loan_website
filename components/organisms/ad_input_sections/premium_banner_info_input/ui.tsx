@@ -9,7 +9,7 @@ import {IPremium_banner_info_input} from "@/components/organisms/ad_input_sectio
 
 export default function Premium_banner_info_input({
 	banner_info, set_banner_info,
-	selected_available_location_idx, set_selected_available_location_idx
+	selected_available_location_idx, set_selected_available_location_idx,
 }: IPremium_banner_info_input) {
 	return (
 		<>

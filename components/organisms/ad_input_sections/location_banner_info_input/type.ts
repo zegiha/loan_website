@@ -5,6 +5,8 @@ export default interface ILocation_banner_info_input {
 	banner_info: ILocation_banner_req
 	set_banner_info: react_state_action<ILocation_banner_req>
 
+  prevImg?: string | File | undefined
+
 	available_locations: Array<number | null>
 	set_available_locations: react_state_action<Array<number | null>>
 

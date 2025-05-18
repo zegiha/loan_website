@@ -3,9 +3,14 @@ import {use_context_with_check} from "@/shared/hooks";
 import {Top_banner_info_input, use_top_banner_info} from "@/components/organisms/ad_input_sections";
 import {useEffect} from "react";
 import {is_typed} from "@/shared/helper";
+import {AdResponseDto} from "@/entities/const";
 
-export default function Edit_top_banner() {
-	const props = use_top_banner_info()
+export default function Edit_top_banner({
+  adData,
+}: {
+  adData?: AdResponseDto
+}) {
+	const props = use_top_banner_info(adData)
 
 	const {set_edit_data, set_validates} = use_context_with_check(Edit_data_context)
 

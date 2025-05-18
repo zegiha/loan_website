@@ -6,5 +6,6 @@ export default interface ILocation_banner_req {
 	phone: string
 	location?: Array<TLocation>
 	banner_cover_img?: File
+  loan_limit: string
 	// company_name: string;
 }

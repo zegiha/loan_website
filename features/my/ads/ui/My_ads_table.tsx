@@ -3,7 +3,7 @@ import Typo from "@/components/atoms/typo/Typo";
 import style from './style.module.scss'
 import React from "react";
 import {Col} from "@/components/atoms/layout";
-import {IMy_ads} from "@/features/my/ads/ui/Add_contents";
+import {IMy_ads} from "@/features/my/ads/ui/Ad_contents";
 
 interface IMy_ads_table_row extends IMy_ads{
 	edit_action: () => void

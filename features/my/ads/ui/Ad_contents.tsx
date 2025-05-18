@@ -4,11 +4,11 @@ import {Col, Row} from "@/components/atoms/layout";
 import {useAdsPublicControllerFindAllofMyAds} from '@/entities/api/advertisement-public/advertisement-public'
 import style from './style.module.scss';
 import Typo from "@/components/atoms/typo/Typo";
-import {Table} from "@/components/organisms";
+import {DataProvider, Table} from "@/components/organisms";
 import {
 	My_ads_table_head,
 	My_ads_table_row
-} from "@/features/my/ads/ui/My_adds_table";
+} from "@/features/my/ads/ui/My_ads_table";
 import Modal from "@/components/molecules/modal/Modal";
 import {ReactNode, useEffect, useState} from "react";
 import Edit_ad from "@/features/my/ads/ui/edit_ad/Edit_ad";
@@ -26,7 +26,7 @@ export interface IMy_ads {
 	end_date?: Date
 }
 
-export default function Add_contents() {
+export default function Ad_contents() {
 	const [is_edit_open, set_is_edit_open] = useState(false);
 	const [is_prolongation_open, set_is_prolongation_open] = useState(false);
 	const [ad_info, set_ad_info] = useState<string | null>(null)
@@ -41,7 +41,7 @@ export default function Add_contents() {
         v.forEach(v => {
           res.push({
 						id: v.id,
-            ad_name: v.ad_name === '메인 배너광고' ? '메인 베너광고' : v.ad_name,
+            ad_name: v.ad_name,
             title: v.title ?? '',
             end_date: new Date(v.ad_present_expire_date ?? '')
           })
@@ -58,33 +58,40 @@ export default function Add_contents() {
 					나의 광고
 				</Typo.Body>
 				<Col width={'fill'} gap={4}>
-					<Table
-						className={style.table}
-						head={<My_ads_table_head/>}
-					>
-            {status === 'success' && (
-              data.map((v, i) => (
-                <My_ads_table_row
-                  key={i}
-                  {...v}
-                  option={v.ad_name === '줄광고' ?
-                    {off_edit: false, off_prolongation: true}:
-                    v.ad_name === '실시간 대출문의 업체 등록' || v.ad_name === '줄광고 점프 추가 사용' ?
-                    {off_edit: true, off_prolongation: true}:
-                    {off_edit: false, off_prolongation: false}
-                  }
-                  edit_action={() => {
-                    set_ad_info(v.id)
-                    set_is_edit_open(true)
-                  }}
-                  prolongation_action={() => {
-                    set_ad_info(v.ad_name)
-                    set_is_prolongation_open(true)
-                  }}
-                />
-              ))
-            )}
-					</Table>
+            <Table
+              className={style.table}
+              head={<My_ads_table_head/>}
+            >
+              <DataProvider
+                available={{
+                  isAvailable: status === 'success' && data?.length > 0,
+                  notAvailableContents: '아직 등록된 광고가 없어요'
+                }}
+              >
+                {status === 'success' && (
+                  data.map((v, i) => (
+                    <My_ads_table_row
+                      key={i}
+                      {...v}
+                      option={v.ad_name === '줄광고' ?
+                        {off_edit: false, off_prolongation: true}:
+                        v.ad_name === '실시간 대출문의 업체 등록' || v.ad_name === '줄광고 점프 추가 사용' ?
+                          {off_edit: true, off_prolongation: true}:
+                          {off_edit: false, off_prolongation: false}
+                      }
+                      edit_action={() => {
+                        set_ad_info(v.id)
+                        set_is_edit_open(true)
+                      }}
+                      prolongation_action={() => {
+                        set_ad_info(v.ad_name)
+                        set_is_prolongation_open(true)
+                      }}
+                    />
+                  ))
+                )}
+              </DataProvider>
+            </Table>
 				</Col>
 			</Col>
 			<Modal isOpen={is_edit_open} setIsOpen={set_is_edit_open}>

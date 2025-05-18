@@ -4,12 +4,14 @@ import {Col} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import React, {useState} from "react";
 import test from './file_input_style.module.scss'
+import {reader} from "next/dist/experimental/testmode/fetch";
 
 export default function File_input({
 	className,
 	set_data,
 	placeholder,
 	placeholder_icon,
+  prev_img: defaultImg,
 }: {
 	className?: string
 	set_data:
@@ -17,9 +19,18 @@ export default function File_input({
 		React.Dispatch<React.SetStateAction<File | null>> |
 		React.Dispatch<React.SetStateAction<File | undefined>>
 	placeholder?: string
-	placeholder_icon?: React.ReactNode
+	placeholder_icon?: React.ReactNode,
+  prev_img?: string | File,
 }) {
-	const [prev_img, set_prev_img] = useState<string | ArrayBuffer | null>(null)
+  const parseDefaultImg = (img: string | File | undefined) => {
+    if(img === undefined) return null
+    if(typeof img === 'string') return img
+    const reader = new FileReader()
+    reader.readAsDataURL(img)
+    return reader.onload = () => reader.result
+  }
+
+	const [prev_img, set_prev_img] = useState<string | ArrayBuffer | null>(parseDefaultImg(defaultImg))
 	return (
 		<div className={`${className && className} ${test.input_file_container}`}>
 			<input
