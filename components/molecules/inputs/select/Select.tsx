@@ -39,8 +39,6 @@ export default function Select({
 			<button
 				className={`${style.selection_container} ${is_open && style.selection_container_active}`}
 				onClick={(e) => {
-					e.stopPropagation()
-					console.log('hoho')
 					set_is_open(p => !p)
 				}}>
 				<Typo.Contents
@@ -87,23 +85,41 @@ function Option_container({
 	selectNumber: number
 }) {
 	const ref = useRef<HTMLDivElement | null>(null)
+  const [isMouseLeave, setIsMouseLeave] = useState<boolean>(true)
 
 	const checkSelected: (idx: number) => boolean = (idx) => {
 		return selected_idx.findIndex(v => v === idx) !== -1
 	}
 
-	useEffect(() => {
-		const handleClick = () => {
-			console.log('hahah')
-			set_is_open(false)
-		}
+  useEffect(() => {
+    const handleMouseUp = () => {
+      if(isMouseLeave)
+        set_is_open(false)
+    }
+    window.addEventListener('mouseup', handleMouseUp)
+    return () => {
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [isMouseLeave]);
 
-		document.body.addEventListener('mouseup', handleClick)
-
-		return () => {
-			document.body.removeEventListener('mouseup', handleClick)
-		}
-	}, []);
+  useEffect(() => {
+    const handleEnter = () => {
+      setIsMouseLeave(false)
+    }
+    const handleLeave = () => {
+      setIsMouseLeave(true)
+    }
+    if(ref && ref.current) {
+      ref.current.addEventListener('mouseenter', handleEnter)
+      ref.current.addEventListener('mouseleave', handleLeave)
+    }
+    return () => {
+      if(ref && ref.current) {
+        ref.current.removeEventListener('mouseenter', handleEnter)
+        ref.current.removeEventListener('mouseleave', handleLeave)
+      }
+    }
+  }, []);
 
 	return (
 		<Col
@@ -123,7 +139,6 @@ function Option_container({
 					width={'fill'}
 					className={checkSelected(i) ? style.option_item_active : style.option_item}
 					onClick={e => {
-						e.stopPropagation()
 						set_selected_idx(p => {
 							if(p.findIndex(v => v === i) === -1) {
 								if(p.length + 1 > selectNumber)

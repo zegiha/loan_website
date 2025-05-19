@@ -7,7 +7,7 @@ import Select from "@/components/molecules/inputs/select/Select";
 import {loan_production_list, location_list} from "@/shared/constants";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
-import React from "react";
+import React, {useEffect} from "react";
 
 export default function Product_banner_info_input({
 	banner_info,
@@ -41,26 +41,14 @@ export default function Product_banner_info_input({
 			}
 		}
 	}
-	const handle_product_selection = (idx: number | null, i: number) => {
-		if(idx === null) return
-		if(available_productions[i] === idx) return
 
-		if(check_available_productions.has(idx)) {
-			alert('이미 선택된 지역입니다')
-			return
-		}
+  useEffect(() => {
+    set_banner_info(p => ({
+      ...p,
+      loan_available_location: available_location.map(v => location_list[v])
+    }))
+  }, [available_location]);
 
-		const new_selected_product = new Set(check_available_productions)
-		if(available_productions[i] !== null) new_selected_product.delete(available_productions[i])
-		new_selected_product.add(idx)
-
-		set_check_available_productions(new_selected_product)
-		set_available_productions(prev => {
-			const new_data = [...prev]
-			new_data[i] = idx
-			return [...new_data]
-		})
-	}
 	return (
 		<>
 			<Col gap={4} width={'fill'}>
@@ -110,27 +98,22 @@ export default function Product_banner_info_input({
 					placeholder={'대출 가능 지역을 선택해주세요'}
 					option={location_list}
 					selected_idx={available_location}
-					set_selected_idx={(idx) => {
-						if(idx !== null) {
-							set_available_location(idx)
-							set_banner_info(prev => ({...prev, loan_available_location: location_list[idx]}))
-						}
-					}}
+					set_selected_idx={set_available_location}
 					max_option_item_show={5}
+          selectNumber={location_list.length}
 				/>
 			</Col>
-			{Array.from({length: production_num}).map((_, i) => (
-				<Col gap={4} width={'fill'} key={i}>
-					<Typo.Caption color={'dim'}>상품 카테고리 {i+1}</Typo.Caption>
-					<Select
-						placeholder={`상품 카테고리를 선택해주세요`}
-						option={loan_production_list}
-						selected_idx={available_productions[i]}
-						set_selected_idx={(idx) => handle_product_selection(idx, i)}
-						max_option_item_show={5}
-					/>
-				</Col>
-			))}
+      <Col gap={4} width={'fill'}>
+        <Typo.Caption color={'dim'}>{`상품 카테고리, ${production_num}개`}</Typo.Caption>
+        <Select
+          placeholder={`상품 카테고리 ${production_num}개를 선택해주세요`}
+          option={loan_production_list}
+          selected_idx={available_productions}
+          set_selected_idx={set_available_productions}
+          max_option_item_show={5}
+          selectNumber={production_num}
+        />
+      </Col>
 			<Col gap={4} width={'fill'}>
 				<Typo.Contents color={'dim'}>배너 이미지, 필수가 아닙니다</Typo.Contents>
 				<File_input

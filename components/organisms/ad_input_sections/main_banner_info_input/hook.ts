@@ -5,6 +5,7 @@ import {IBanner_req} from "@/shared/type";
 import {IMain_banner_info_input} from "@/components/organisms/ad_input_sections";
 import {AdResponseDto, AdResponseDtoAdName} from "@/entities/const";
 import defaultLoader from "next/dist/shared/lib/image-loader";
+import {location_list} from "@/shared/constants";
 
 export default function use_main_banner_info(
   defaultValue?: AdResponseDto
@@ -12,13 +13,14 @@ export default function use_main_banner_info(
 	const [banner_info, set_banner_info] = useState<IBanner_req>({
 		title: defaultValue?.title ?? '',
 		subtitle: defaultValue?.sub_title ?? '',
-    // TODO Array로 오는 지역 대응
-		loan_available_location: undefined,
+		loan_available_location: defaultValue?.loan_available_location,
 		banner_cover_img: undefined,
     loan_limit: defaultValue?.loan_limit?.toLocaleString('ko-KR') ?? ''
 	})
-	const [selected_available_location_idx, set_selected_available_location_idx] = useState<Array<number>>([])
-
+  const [selected_available_location_idx, set_selected_available_location_idx] = useState<Array<number>>(defaultValue?.loan_available_location ?
+    defaultValue.loan_available_location.map(v => location_list.findIndex(frontValue => frontValue === v)):
+    []
+  )
 
 	return {
 		banner_info,

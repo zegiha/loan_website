@@ -7,7 +7,7 @@ export default interface IProduct_banner_req {
 	phone: string
 	product?: Array<TLoan_production_type>
 	banner_cover_img?: File
-	loan_available_location?: TLocation
+	loan_available_location?: Array<TLocation>
   loan_limit: string
 	// company_name: string;
 }

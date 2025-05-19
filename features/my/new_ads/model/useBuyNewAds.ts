@@ -11,24 +11,24 @@ import {
 } from '@/shared/type'
 import {uploadControllerUploadFile} from "@/entities/api/upload/upload";
 
-export default function useBuyNewAds(
-  parentData: {
-    depositor: string,
-    totalPrice: number,
-  },
-  adData: Array<{
-    name: TAds_name,
-    req_data: TAll_req,
-    price: number
-  }>,
-  selectedAds: Set<{
-    name: TAds_name,
-    price: number
-  }>
-) {
+export default function useBuyNewAds() {
   const mutation = useAdsPublicControllerCreate()
 
-  const addAds = async () => {
+  const addAds = async (
+    parentData: {
+      depositor: string,
+      totalPrice: number,
+    },
+    adData: Array<{
+      name: TAds_name,
+      req_data: TAll_req,
+      price: number
+    }>,
+    selectedAds: Set<{
+      name: TAds_name,
+      price: number
+    }>
+  ) => {
     const notIncludeReqAd: Array<{ name: TAds_name; price: number }> = []
 
     const adNamesInData = new Set(adData.map(ad => ad.name))
@@ -204,7 +204,7 @@ async function rawDataParseToCreateAdvertisementDto(
             sub_title: reqData.subtitle,
             image_url: imageUrl,
             product_type: reqData.product ?? ['전체'],
-            loan_available_location: [reqData.loan_available_location ?? '전체'],
+            loan_available_location: reqData.loan_available_location ?? ['전체'],
             loan_limit: Number(reqData.loan_limit.replaceAll(',', ''))
           });
         }

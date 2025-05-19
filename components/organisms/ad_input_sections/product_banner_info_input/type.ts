@@ -7,8 +7,8 @@ export default interface IProduct_banner_info_input {
 
   prevImg?: string | File
 
-	available_productions: Array<number | null>
-	set_available_productions: react_state_action<Array<number | null>>
+	available_productions: Array<number>
+	set_available_productions: react_state_action<Array<number>>
 
 	check_available_productions: Set<number>
 	set_check_available_productions: react_state_action<Set<number>>
@@ -19,6 +19,6 @@ export default interface IProduct_banner_info_input {
 	production_num_string: string
 	set_production_num_string: react_state_action<string>
 
-	available_location: number | null
-	set_available_location: react_state_action<number | null>
+	available_location: Array<number>
+	set_available_location: react_state_action<Array<number>>
 }

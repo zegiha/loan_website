@@ -2,9 +2,10 @@ import {IProduct_banner_info_input} from "@/components/organisms/ad_input_sectio
 import {useEffect, useState} from "react";
 import {IProduct_banner_req} from "@/shared/type";
 import TLoan_production_type from "@/shared/type/TLoan_production_type";
-import {loan_production_list} from "@/shared/constants";
+import {loan_production_list, location_list} from "@/shared/constants";
 import {AdResponseDto} from "@/entities/const";
 import {formatting_phone_number} from "@/shared/helper";
+import defaultLoader from "next/dist/shared/lib/image-loader";
 
 export default function use_product_banner_info(
   defaultValue?: AdResponseDto
@@ -15,20 +16,24 @@ export default function use_product_banner_info(
 		phone: defaultValue?.user.advertisementTel ?
       formatting_phone_number(defaultValue.user.advertisementTel) : '',
 		banner_cover_img: undefined,
-    // TODO Array로 오는 상품 대응
-		product: undefined,
-    // TODO Array로 오는 지역 대응
-		loan_available_location: undefined,
+		product: defaultValue?.product_type,
+		loan_available_location: defaultValue?.loan_available_location,
     loan_limit: defaultValue?.loan_limit?.toLocaleString('ko-KR') ?? '',
 	})
-	const [available_productions, set_available_productions] = useState<Array<number | null>>([])
+	const [available_productions, set_available_productions] = useState<Array<number>>(defaultValue?.product_type ?
+    defaultValue.product_type.map(v => loan_production_list.findIndex(frontValue => frontValue === v)):
+    []
+  )
 	const [check_available_productions, set_check_available_productions] = useState<Set<number>>(new Set())
-	const [available_location, set_available_location] = useState<number | null>(null)
-	const [production_num, set_production_num] = useState<number>(3)
-	const [production_num_string, set_production_num_string] = useState<string>('3')
+	const [available_location, set_available_location] = useState<Array<number>>(defaultValue?.loan_available_location ?
+    defaultValue.loan_available_location.map(v => location_list.findIndex(frontValue => frontValue === v)):
+    []
+  )
+	const [production_num, set_production_num] = useState<number>(defaultValue?.product_type?.length ?? 3)
+	const [production_num_string, set_production_num_string] = useState<string>(`${defaultValue?.product_type?.length ?? 3}`)
 
 	useEffect(() => {
-		set_available_productions(Array.from({length: production_num}).map(() => null))
+		// set_available_productions(Array.from({length: production_num}).map(() => null))
 		set_check_available_productions(new Set())
 	}, [production_num])
 
