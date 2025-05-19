@@ -6,7 +6,7 @@ import Select from "@/components/molecules/inputs/select/Select";
 import {location_list} from "@/shared/constants";
 import style from "@/features/my/new_ads/ui/buy_new/buy_new_ads.module.scss";
 import {Upload_icon} from "@/components/atoms/icons";
-import React from "react";
+import React, {useEffect} from "react";
 import {IMain_banner_info_input} from "@/components/organisms/ad_input_sections";
 
 export default function Main_banner_info_input({
@@ -16,6 +16,14 @@ export default function Main_banner_info_input({
 	set_selected_available_location_idx,
   prevImg
 }: IMain_banner_info_input) {
+
+	useEffect(() => {
+		set_banner_info(prev => ({
+			...prev,
+			loan_available_location: selected_available_location_idx.map(v => location_list[v])
+		}))
+	}, [selected_available_location_idx]);
+
 	return (
 		<>
 			<Col gap={4} width={'fill'}>
@@ -46,13 +54,9 @@ export default function Main_banner_info_input({
 					placeholder={'대출 가능 지역을 선택해주세요'}
 					option={location_list}
 					selected_idx={selected_available_location_idx}
-					set_selected_idx={(idx) => {
-						if(idx !== null) {
-							set_selected_available_location_idx(idx)
-							set_banner_info(prev => ({...prev, loan_available_location:location_list[idx]}))
-						}
-					}}
+					set_selected_idx={set_selected_available_location_idx}
 					max_option_item_show={5}
+					selectNumber={location_list.length}
 				/>
 			</Col>
 			<Col gap={4} width={'fill'}>

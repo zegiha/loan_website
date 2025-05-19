@@ -13,7 +13,7 @@ export default function use_premium_banner_info(
     // TODO Array로 된 지역 대응
 		location: undefined,
 	})
-	const [selected_available_location_idx, set_selected_available_location_idx] = useState<number | null>(null)
+	const [selected_available_location_idx, set_selected_available_location_idx] = useState<Array<number>>([])
 
 	useEffect(() => {
 		console.log(banner_info)

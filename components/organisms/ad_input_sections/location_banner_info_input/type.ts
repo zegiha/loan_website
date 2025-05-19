@@ -7,14 +7,14 @@ export default interface ILocation_banner_info_input {
 
   prevImg?: string | File | undefined
 
-	available_locations: Array<number | null>
-	set_available_locations: react_state_action<Array<number | null>>
+	available_locations: Array<number>
+	set_available_locations: react_state_action<Array<number>>
 
 	check_available_locations: Set<number>
 	set_check_available_locations: react_state_action<Set<number>>
 
-	selected_option_idx: number | null
-	set_selected_option_idx: react_state_action<number | null>
+	selected_option_idx: Array<number>
+	set_selected_option_idx: react_state_action<Array<number>>
 
 	location_num: number
 	set_location_num: react_state_action<number>

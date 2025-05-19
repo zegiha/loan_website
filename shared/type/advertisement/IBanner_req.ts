@@ -5,7 +5,7 @@ export default interface IBanner_req {
 	subtitle: string
 	// phone: string
 	banner_cover_img?: File
-	loan_available_location?: TLocation
+	loan_available_location?: Array<TLocation>
   loan_limit: string
 	// company_name: string;
 }

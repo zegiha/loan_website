@@ -46,27 +46,6 @@ export default function Location_banner_info_input({
 		}
 	}
 
-	const handle_location_selection = (selected_option_idx: number | null, i: number) => {
-		if(selected_option_idx === null) return
-		if(available_locations[i] === selected_option_idx) return
-
-		if(check_available_locations.has(selected_option_idx)) {
-			alert('이미 선택된 지역입니다')
-			return
-		}
-
-		const newSelectedLocation = new Set(check_available_locations)
-		if(available_locations[i] !== null) newSelectedLocation.delete(available_locations[i])
-		newSelectedLocation.add(selected_option_idx)
-
-		set_check_available_locations(newSelectedLocation)
-		set_available_locations(prev => {
-			const newSelectedIdx = [...prev]
-			newSelectedIdx[i] = selected_option_idx
-			return newSelectedIdx
-		})
-	}
-
 	useEffect(() => {
 		set_banner_info(prev => {
 			const data = {...prev}
@@ -77,12 +56,21 @@ export default function Location_banner_info_input({
 			return {...data}
 		})
 	}, [available_locations])
+
 	useEffect(() => {
-		if(selected_option_idx === null) return
-		if(selected_option_idx >= 3) return
-		set_location_num(selected_option_idx + 1)
-		set_location_num_string(`${selected_option_idx + 1}`)
+		console.log(selected_option_idx[0])
+		if(selected_option_idx[0] < 3) {
+			set_location_num(selected_option_idx[0] + 1)
+			set_location_num_string(`${selected_option_idx[0] + 1}`)
+			return
+		}
+		set_location_num(4)
+		set_location_num_string(`${4}`)
 	}, [selected_option_idx]);
+
+	useEffect(() => {
+		set_selected_option_idx([0])
+	}, []);
 
 	return (
 		<>
@@ -95,7 +83,7 @@ export default function Location_banner_info_input({
 						selected_idx={selected_option_idx}
 						set_selected_idx={(v) => set_selected_option_idx(v)}
 					/>
-					{selected_option_idx === 3 && (
+					{selected_option_idx[0] === 3 && (
 						<Row width={'fill'} gap={8}>
 							<BaseTextInput
 								width={'fill'}
@@ -136,18 +124,17 @@ export default function Location_banner_info_input({
 					placeholder={'소제목을 입력해주세요'}
 				/>
 			</Col>
-			{Array.from({length: location_num}).map((_, i) => (
-				<Col gap={4} width={'fill'} key={i}>
-					<Typo.Caption color={'dim'}>지역{location_num !== 1 ? i+1 : ''}</Typo.Caption>
-					<Select
-						placeholder={`지역${location_num !== 1 ? i+1 : ''}을 선택해주세요`}
-						option={location_list}
-						selected_idx={available_locations[i]}
-						set_selected_idx={(idx) => handle_location_selection(idx, i)}
-						max_option_item_show={5}
-					/>
-				</Col>
-			))}
+			<Col gap={4} width={'fill'}>
+				<Typo.Caption color={'dim'}>{`지역, ${location_num}개`}</Typo.Caption>
+				<Select
+					placeholder={`지역을 ${location_num}개 선택해주세요`}
+					option={location_list}
+					selected_idx={available_locations}
+					set_selected_idx={set_available_locations}
+					max_option_item_show={5}
+					selectNumber={location_num}
+				/>
+			</Col>
 			<Col gap={4} width={'fill'}>
 				<Typo.Contents color={'dim'}>배너 이미지, 필수가 아닙니다</Typo.Contents>
 				<File_input
