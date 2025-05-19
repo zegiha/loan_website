@@ -138,6 +138,7 @@ async function rawDataParseToCreateAdvertisementDto(
             sub_title: reqData.subtitle,
             image_url: imageUrl,
             loan_available_location: [reqData.loan_available_location ?? '전체'],
+            loan_limit: Number(reqData.loan_limit.replaceAll(',', ''))
           });
         }
         break;
@@ -154,6 +155,7 @@ async function rawDataParseToCreateAdvertisementDto(
             title: reqData.title,
             contents: reqData.contents,
             image_url: img,
+            loan_limit: Number(reqData.loan_limit.replaceAll(',', ''))
           });
         }
         break;
@@ -184,6 +186,7 @@ async function rawDataParseToCreateAdvertisementDto(
             sub_title: reqData.subtitle,
             image_url: imageUrl,
             loan_available_location: reqData.location ?? ['전체'],
+            loan_limit: Number(reqData.loan_limit.replaceAll(',', ''))
           });
         }
         break;
@@ -202,6 +205,7 @@ async function rawDataParseToCreateAdvertisementDto(
             image_url: imageUrl,
             product_type: reqData.product ?? ['전체'],
             loan_available_location: [reqData.loan_available_location ?? '전체'],
+            loan_limit: Number(reqData.loan_limit.replaceAll(',', ''))
           });
         }
         break;

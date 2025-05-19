@@ -1,5 +1,5 @@
 import {TAds_name, TAds_type} from "@/shared/type";
-import React from "react";
+import React, {useEffect} from "react";
 import Edit_main_banner from "@/features/my/ads/ui/edit_ad/info_input/Edit_main_banner";
 import {Col} from "@/components/atoms/layout";
 import {Info_input_section} from "@/components/organisms/ad_input_sections";
@@ -36,6 +36,10 @@ export default function Editing({
 		}
 		set_step(1)
 	}
+
+	useEffect(() => {
+		console.log(adData)
+	}, []);
 
 	return (
 		<Col width={'fill'} gap={24}>

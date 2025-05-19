@@ -30,6 +30,9 @@ export default function Ad({
 }: IAd_prop) {
   const [is_modal_open, set_is_modal_open] = useState<boolean>(false);
   const [modal_contents, set_modal_contents] = useState<'pc' | 'mobile' | null>(null);
+
+  const [page, setPage] = useState(1)
+
   return (
     <>
       <Col gap={24} width={'fill'}>
@@ -119,12 +122,19 @@ export default function Ad({
           </BaseButton>
         )}
       </Col>
-      <Modal isOpen={is_modal_open} setIsOpen={set_is_modal_open}>
+      <Modal isOpen={is_modal_open} setIsOpen={() => {
+        set_is_modal_open(false)
+        setPage(1)
+      }}>
         <div
           className={style.modal_wrapper}
           onClick={e => e.stopPropagation()}
         >
-          <SwiperPaginationAndNavigation height={'100%'}>
+          <SwiperPaginationAndNavigation
+            activeSlides={page}
+            setActiveSlides={setPage}
+            height={'100%'}
+          >
             {modal_contents === 'pc' ? pc_preview_img.map((v, i) => (
               <SwiperSlide key={`${i}-slide`} style={{width: '100%', height: '100%'}}>
                 <Image

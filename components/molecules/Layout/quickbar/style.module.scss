@@ -54,10 +54,11 @@
   pointer-events: auto;
   transition: a.$leaveTransition;
   cursor: pointer;
+  background-color: s.$container-containerNormal;
 
   &:hover {
     transition: a.$onTransition;
-    background-color: s.$container-containerHighest;
+    transform: scale(1.02);
   }
 }
 .blur {

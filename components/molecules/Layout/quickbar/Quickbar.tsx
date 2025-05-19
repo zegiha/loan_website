@@ -1,12 +1,13 @@
 'use client'
 
 import {Col, Row} from "@/components/atoms/layout";
+import {useAdsPublicControllerSearchAds} from '@/entities/api/advertisement-public/advertisement-public'
+import {useRandomImage} from '@/shared/hooks'
 import style from './style.module.scss'
 import Typo from "@/components/atoms/typo/Typo";
 import {Calculate_icon, Search_people_icon} from "@/components/atoms/icons";
 import Link from "next/link";
 import Image from "next/image";
-import get_temp_image from "@/shared/api/get_temp_image";
 
 export default function Quickbar() {
 	return (
@@ -39,16 +40,67 @@ export default function Quickbar() {
 					{'한국 대부 금융협회\n조회하러가기'}
 				</Typo.Contents>
 			</Link>
-			<Sponsor_link/>
-			<Sponsor_link/>
+			<SponsorLinkSection/>
 		</Row>
 	)
 }
 
-function Sponsor_link() {
+function SponsorLinkSection() {
+	const {
+		data,
+		status,
+		error,
+	} = useAdsPublicControllerSearchAds(
+		'스폰서 링크',
+		'1',
+		'2',
+		{},
+		{
+			query: {
+				select: v => {
+					const res: Array<ISponsorLink> = []
+					v.ads.forEach(v => {
+						res.push({
+							title: v.title ?? v.sub_title ?? v.contents ?? '',
+							companyId: v.company_id,
+							companyName: v.user.companyName,
+							img: v.image_url ?? v.cover_img ?? '',
+						})
+					})
+					return res
+				}
+			}
+		}
+	)
+
+	if(status === 'success' && data?.length > 0) {
+		return data?.map((v, i) => (
+			<Sponsor_link
+				key={i}
+				{...v}
+			/>
+		))
+	}
+}
+
+interface ISponsorLink {
+	title: string
+	companyId: string
+	companyName: string
+	img: string
+}
+
+function Sponsor_link({
+	title,
+	companyId,
+	companyName,
+	img: defaultImg
+}: ISponsorLink) {
+	const {img} = useRandomImage(defaultImg)
+
 	return (
 		<Link
-			href={'/loan/id'}
+			href={`/loan/${companyId}`}
 			className={style.sponsor_link}
 			onClick={e => {
 				e.stopPropagation()
@@ -62,19 +114,19 @@ function Sponsor_link() {
 					emphasize
 					color={'variable'}
 				>
-					{'지금 이 사진을 눌러 어떤 업체보다\n 빠르게 대출받으세요!'}
+					{title}
 				</Typo.Contents>
 				<Row width={'fill'} justifyContents={'center'}>
 					<Typo.Contents
 						className={style.sponsor_link_contents}
 						isPre={'wrap'}
 					>
-						{'대부중개'}
+						{companyName}
 					</Typo.Contents>
 				</Row>
 			</Col>
 			<div className={style.blur}/>
-			<Image src={get_temp_image(2)} alt={'sponsor_img'} fill/>
+			{img && <Image src={img} alt={'sponsor_img'} fill/>}
 		</Link>
 	)
 }
