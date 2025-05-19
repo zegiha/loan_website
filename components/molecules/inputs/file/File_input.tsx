@@ -22,8 +22,8 @@ export default function File_input({
 	placeholder_icon?: React.ReactNode,
   prev_img?: string | File,
 }) {
-  const parseDefaultImg = (img: string | File | undefined) => {
-    if(img === undefined) return null
+  const parseDefaultImg = (img: string | File | undefined | null) => {
+    if(img === undefined || img === null) return null
     if(typeof img === 'string') return img
     const reader = new FileReader()
     reader.readAsDataURL(img)

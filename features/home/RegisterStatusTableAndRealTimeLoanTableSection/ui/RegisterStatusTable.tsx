@@ -16,6 +16,7 @@ export default function RegisterStatusTable() {
   const {
     data,
     status,
+    error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -32,7 +33,7 @@ export default function RegisterStatusTable() {
             location: v.loan_available_location !== undefined && v.loan_available_location.length > 0 ?
               v.loan_available_location.join(', '):
               '전체',
-            loan_limit: v.loan_limit.toLocaleString('ko-KR'),
+            loan_limit: v.loan_limit?.toLocaleString('ko-KR') ?? '상담 후 결정',
             title: v.title,
             name: v.company_name,
           })
@@ -61,6 +62,11 @@ export default function RegisterStatusTable() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
+
+  useEffect(() => {
+    if(status === 'error')
+      console.error(error)
+  }, [status]);
 
   if(status === 'success') {
     if(data.length > 0) {
