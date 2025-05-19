@@ -1,10 +1,9 @@
 import {TAll_req} from "@/shared/type";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Editing from "@/features/my/ads/ui/edit_ad/Editing";
 import Edit_data_context from "@/features/my/ads/context/edit_data_context";
 import Edited from "@/features/my/ads/ui/edit_ad/Edited";
 import {useAdsPublicControllerFindOne} from "@/entities/api/advertisement-public/advertisement-public";
-import {AdResponseDto} from "@/entities/const";
 
 export default function Edit_ad({
 	id,

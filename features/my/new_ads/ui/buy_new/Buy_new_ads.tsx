@@ -48,14 +48,7 @@ export default function Buy_new_ads({
   const {
     status,
     addAds
-  } = useBuyNewAds(
-    {
-      depositor,
-      totalPrice: total_price,
-    },
-    ad_req_data,
-    new Set(select.map(v => ({name: v.name, price: v.price})))
-  )
+  } = useBuyNewAds()
 
   const handleSubmit = () => {
     let sw = true
@@ -73,7 +66,14 @@ export default function Buy_new_ads({
     }
 
     if(sw) {
-      addAds()
+      addAds(
+        {
+          depositor,
+          totalPrice: total_price,
+        },
+        ad_req_data,
+        new Set(select.map(v => ({name: v.name, price: v.price})))
+      )
     }
   }
 
@@ -89,7 +89,23 @@ export default function Buy_new_ads({
       setStepAction('get')
     }
     let new_total_price = 0
-    select.forEach(v => new_total_price += v.price)
+    select.forEach(v => {
+      new_total_price += v.price
+    })
+    set_ad_req_data(p => {
+      const newData: Array<{
+        name: TAds_name
+        req_data: TAll_req
+        price: number
+      }> = []
+
+      p.forEach(v => {
+        const idx = select.findIndex(v2 => v2.name === v.name)
+        if(idx !== -1)
+          newData.push({...p[idx]})
+      })
+      return [...newData]
+    })
     set_total_price(new_total_price)
   }, [select])
   // useEffect(() => {
