@@ -120,7 +120,7 @@ async function rawDataParseToCreateAdvertisementDto(
           res.push({
             ...defaultValue,
             ad_name: '프리미엄 배너광고',
-            loan_available_location: [reqData.location ?? '전체'],
+            loan_available_location: reqData.location ?? ['전체'],
             title: reqData.title,
           });
         }
@@ -137,7 +137,7 @@ async function rawDataParseToCreateAdvertisementDto(
             title: reqData.title,
             sub_title: reqData.subtitle,
             image_url: imageUrl,
-            loan_available_location: [reqData.loan_available_location ?? '전체'],
+            loan_available_location: reqData.loan_available_location ?? ['전체'],
             loan_limit: Number(reqData.loan_limit.replaceAll(',', ''))
           });
         }

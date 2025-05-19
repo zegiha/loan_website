@@ -19,14 +19,14 @@ export default function use_location_banner_info(
 		location: undefined,
     loan_limit: defaultValue?.loan_limit?.toLocaleString('ko-KR') ?? ''
 	})
-	const [available_locations, set_available_locations] = useState<Array<number | null>>([])
+	const [available_locations, set_available_locations] = useState<Array<number>>([])
 	const [check_available_locations, set_check_available_locations] = useState<Set<number>>(new Set())
-	const [selected_option_idx, set_selected_option_idx] = useState<number | null>(0)
+	const [selected_option_idx, set_selected_option_idx] = useState<Array<number>>([0])
 	const [location_num, set_location_num] = useState<number>(1)
 	const [location_num_string, set_location_num_string] = useState<string>('4')
 
 	useEffect(() => {
-		set_available_locations(Array.from({length: location_num}).map(() => null))
+		// set_available_locations(Array.from({length: location_num}).map(() => null))
 		set_check_available_locations(new Set())
 	}, [location_num])
 

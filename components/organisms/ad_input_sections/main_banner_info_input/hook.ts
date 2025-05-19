@@ -17,7 +17,7 @@ export default function use_main_banner_info(
 		banner_cover_img: undefined,
     loan_limit: defaultValue?.loan_limit?.toLocaleString('ko-KR') ?? ''
 	})
-	const [selected_available_location_idx, set_selected_available_location_idx] = useState<number | null>(null)
+	const [selected_available_location_idx, set_selected_available_location_idx] = useState<Array<number>>([])
 
 
 	return {

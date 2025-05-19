@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Typo from "@/components/atoms/typo/Typo";
 import style from './style.module.scss'
 import {Chevron_icon} from "@/components/atoms/icons";
@@ -12,37 +12,37 @@ export default function Select({
   selected_idx,
 	set_selected_idx,
 	max_option_item_show,
+	selectNumber=1,
 }: {
 	placeholder: string
 	option: Array<string>
-	selected_idx: number | null | Array<number>
+	selected_idx: Array<number>
 	set_selected_idx:
-		(data: number | null) => void |
-		React.Dispatch<React.SetStateAction<number | null>>
+		React.Dispatch<React.SetStateAction<Array<number>>>
 	max_option_item_show?: number
+	selectNumber?: number
 }) {
 	const [is_open, set_is_open] = useState<boolean>(false)
 
 	const getSelectContents: () => string = () => {
-		if(selected_idx === null || selected_idx === undefined) return placeholder
-		if(typeof selected_idx === 'number' || selected_idx.length === 1) {
-			return option[typeof selected_idx === 'number' ? selected_idx : selected_idx[0]]
-		} else {
-			let res = '';
-			selected_idx.forEach((v, i) => {
-				res += option[v]
-				if(i < selected_idx.length-1) res += ', '
-			})
-			if(res === '') return placeholder
-			return res
-		}
+		let res = '';
+		selected_idx.forEach((v, i) => {
+			res += option[v]
+			if(i < selected_idx.length-1) res += ', '
+		})
+		if(res === '') return placeholder
+		return res
 	}
 
 	return (
 		<div className={style.wrapper}>
 			<button
 				className={`${style.selection_container} ${is_open && style.selection_container_active}`}
-				onClick={() => {set_is_open(prev => !prev)}}>
+				onClick={(e) => {
+					e.stopPropagation()
+					console.log('hoho')
+					set_is_open(p => !p)
+				}}>
 				<Typo.Contents
 					width={'fill'}
 					textAlign={'start'}
@@ -56,47 +56,56 @@ export default function Select({
 					deg={is_open ? -90 : 90}
 				/>
 			</button>
-			<Option_container
-				is_open={is_open}
-				set_is_open={set_is_open}
-				option={option}
-				set_selected_idx={set_selected_idx}
-				max_option_item_show={max_option_item_show}
-				selected_idx={selected_idx}
-			/>
+			{is_open && (
+				<Option_container
+					set_is_open={set_is_open}
+					option={option}
+					set_selected_idx={set_selected_idx}
+					max_option_item_show={max_option_item_show}
+					selected_idx={selected_idx}
+					selectNumber={selectNumber}
+				/>
+			)}
 		</div>
 	)
 }
 
 function Option_container({
-	is_open,
 	set_is_open,
 	option,
 	set_selected_idx,
 	max_option_item_show,
 	selected_idx,
+	selectNumber,
 }:{
-	is_open: boolean
 	set_is_open: React.Dispatch<React.SetStateAction<boolean>>
 	option: Array<string>
 	set_selected_idx:
-		(data: number | null) => void |
-		React.Dispatch<React.SetStateAction<number | null>>
+		React.Dispatch<React.SetStateAction<Array<number>>>
 	max_option_item_show?: number
-	selected_idx: number | null | Array<number>
+	selected_idx: Array<number>
+	selectNumber: number
 }) {
 	const ref = useRef<HTMLDivElement | null>(null)
 
 	const checkSelected: (idx: number) => boolean = (idx) => {
-		if(selected_idx === null) return false
-		if(typeof selected_idx === 'number') {
-			return idx === selected_idx
-		} else {
-			return selected_idx.findIndex(v => v === idx) !== -1
-		}
+		return selected_idx.findIndex(v => v === idx) !== -1
 	}
 
-	if(is_open)return (
+	useEffect(() => {
+		const handleClick = () => {
+			console.log('hahah')
+			set_is_open(false)
+		}
+
+		document.body.addEventListener('mouseup', handleClick)
+
+		return () => {
+			document.body.removeEventListener('mouseup', handleClick)
+		}
+	}, []);
+
+	return (
 		<Col
 			ref={ref}
 			width={'fill'}
@@ -113,9 +122,19 @@ function Option_container({
 					key={i}
 					width={'fill'}
 					className={checkSelected(i) ? style.option_item_active : style.option_item}
-					onClick={() => {
-						set_selected_idx(i)
-						set_is_open(false)
+					onClick={e => {
+						e.stopPropagation()
+						set_selected_idx(p => {
+							if(p.findIndex(v => v === i) === -1) {
+								if(p.length + 1 > selectNumber)
+									p = p.slice(1, p.length)
+								p.push(i)
+								return [...p]
+							}
+							return [...p.filter(v => v !== i)]
+						})
+						if(selectNumber === selected_idx.length)
+							set_is_open(false)
 					}}
 					onTransitionEnd={e => e.stopPropagation()}
 				>
