@@ -1,7 +1,7 @@
 'use client'
 
 import useBuyNewAds from '@/features/my/new_ads/model/useBuyNewAds'
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {TStep} from "@/features/my/new_ads/type";
 import {Col} from "@/components/atoms/layout";
 import {Banner_info_context} from "@/features/my/new_ads/context/banner_info_context";
@@ -50,7 +50,7 @@ export default function Buy_new_ads({
     addAds
   } = useBuyNewAds()
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     let sw = true
 
     for(let i = 0; i < validate_list.length; i++) {
@@ -75,7 +75,7 @@ export default function Buy_new_ads({
         new Set(select.map(v => ({name: v.name, price: v.price})))
       )
     }
-  }
+  }, [depositor, total_price, ad_req_data, select])
 
   useEffect(() => {
     if(status === 'success') {
@@ -100,13 +100,15 @@ export default function Buy_new_ads({
       }> = []
 
       p.forEach(v => {
-        const idx = select.findIndex(v2 => v2.name === v.name)
-        if(idx !== -1)
-          newData.push({...p[idx]})
+        if(select.find(v2 => v2.name === v.name)) {
+          newData.push({...v})
+        }
       })
       return [...newData]
     })
     set_total_price(new_total_price)
+
+    console.log(select, ad_req_data)
   }, [select])
   // useEffect(() => {
   //   const has_line_ad = select.findIndex(v => v.name === '줄광고') !== -1

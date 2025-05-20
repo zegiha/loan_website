@@ -6,6 +6,7 @@ import is_typed from "@/shared/helper/is_typed";
 import is_min_length from "@/shared/helper/is_over_min_length";
 import error_checker from "@/shared/helper/error_checker";
 import to_won from "@/shared/helper/to_won";
+import rawTAll_reqDataParseToCreateAdvertisementDto from '@/shared/helper/rawTAll_reqDataParseToCreateAdvertisementDto'
 
 
 export {
@@ -17,4 +18,5 @@ export {
   is_typed,
   error_checker,
   to_won,
+  rawTAll_reqDataParseToCreateAdvertisementDto
 }

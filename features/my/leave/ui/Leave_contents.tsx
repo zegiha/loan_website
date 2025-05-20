@@ -13,7 +13,6 @@ import {use_auth_store} from "@/shared/store/authStore";
 import {useRouter} from "next/navigation";
 import dynamic from "next/dynamic";
 import load from '@/public/assets/load_dot_32.json';
-import {leave_action} from "@/shared/api";
 
 const Player = dynamic(
   () => import('@lottiefiles/react-lottie-player').then(m => m.Player),

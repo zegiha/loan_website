@@ -22,6 +22,17 @@ export default function ConsultationAvailableCompaniesSection({
 }: {
   id: string
 }) {
+  // const {
+  //
+  // } = useLoanboardControllerGetRegisterAvailableCompany(id, {
+  //   query: {
+  //     select: v => {
+  //       console.log(v)
+  //       return v
+  //     }
+  //   }
+  // })
+
   const {data, is_loading} = useFetch(() => get_loan_inquiry_consultation_available_companies(id))
   return <DetailsContentsSection subTitle={'상담 가능 업체'}>
     {is_loading && (
