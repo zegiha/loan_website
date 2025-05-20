@@ -22,7 +22,7 @@ export default function Flex({
   const genericStyle: CSSProperties = {
     display: 'flex',
     width: processWidth(width),
-    flexDirection: flexDir === 'row' ? 'row' : 'column',
+    flexDirection: flexDir === 'row' ? 'row' : flexDir !== undefined ? 'column' : undefined,
     justifyContent: processSortingProp(justifyContents),
     alignItems: processSortingProp(alignItems),
     flexWrap: wrap ? 'wrap' : undefined,

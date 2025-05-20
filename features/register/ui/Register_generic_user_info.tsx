@@ -33,12 +33,13 @@ export default function Register_generic_user_info({
       is_correct_phone_number(phone) === null &&
       is_typed(exponent_name) === null
     ) {
+      window.scrollTo({top: 0})
       setStep(prev => prev + 1);
     }
   }
 
   return (
-    <InputSection title={'회원가입 - 기본정보'}>
+    <InputSection title={'회원가입 - 기본정보'} isForm>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>
@@ -59,6 +60,7 @@ export default function Register_generic_user_info({
               비밀번호
             </Typo.Caption>
             <BaseTextInput
+              inputType={'password'}
               width={'fill'}
               size={'normal'}
               value={password}
@@ -95,6 +97,7 @@ export default function Register_generic_user_info({
           </Col>
         </Col>
         <BaseButton
+          type={'submit'}
           className={button.primary_button36}
           onClick={() => handleNext()}
         >

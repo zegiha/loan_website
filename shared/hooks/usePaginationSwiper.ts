@@ -17,14 +17,24 @@ export default function usePaginationSwiper(
       const slideLength = maxSlideLength ?? swiperRef.current.slides.length;
       const newPagination: Array<number> = []
 
-      const start = Math.max(activeSlides - 2, 1)
-      const end = Math.min(start + 5, slideLength + 1)
+      let start = Math.max(activeSlides - 2, 1)
+      let end = Math.min(activeSlides + 2, slideLength)
 
-      for(let i = start; i < end; i++) newPagination.push(i)
+      if(slideLength < 5) {
+        start = 1
+        end = slideLength
+      } else if(end - start < 4) {
+        if(end === slideLength)
+          start = end - 4
+        else
+          end = start + 4
+      }
+
+      for(let i = start; i <= end; i++) newPagination.push(i)
 
       setPagination(newPagination)
     }
-  }, [maxSlideLength])
+  }, [maxSlideLength, activeSlides])
 
   const handleNextSlide = () => {
     if (swiperRef.current) {

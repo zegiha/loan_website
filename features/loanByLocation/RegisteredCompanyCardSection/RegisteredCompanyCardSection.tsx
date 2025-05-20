@@ -28,7 +28,7 @@ export default function RegisteredCompanyCardSection({
     fetchNextPage,
     refetch,
   } = useAdSearchInfiniteQuery({
-    queryKey: 'locationBanner',
+    queryKey: ['locationBanner'],
     adType: '지역 배너광고',
     limit: 20,
     option: {
@@ -90,11 +90,9 @@ export default function RegisteredCompanyCardSection({
               ))
             )}
           </CompanyCardGrid>
-          {isFetchingNextPage && (
-            <div ref={setTarget} style={{width: '100%'}}>
-              {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
-            </div>
-          )}
+          <div ref={setTarget} style={{width: '100%'}}>
+            {isFetchingNextPage && <Player src={load} autoplay loop style={{height: 24}} />}
+          </div>
         </DataProvider>
       )}
       {status === 'pending' && (

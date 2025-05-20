@@ -13,7 +13,7 @@ import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
-import React, {Ref, useEffect, useState} from "react";
+import React, {Ref, useCallback, useEffect, useState} from "react";
 import {PlusIcon, SearchIcon} from "@/components/atoms/icons";
 import {useRouter} from "next/navigation";
 import {ILoan_inquiry_data} from "@/shared/type";
@@ -105,6 +105,11 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
     }
   }, [data])
 
+  const getSlidePerView = useCallback(() => {
+    console.log(bannerHeight, data)
+    return bannerHeight ? Math.floor((bannerHeight - 112) / 48) : 0
+  }, [bannerHeight, data])
+
   return (
     <>
       <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
@@ -137,7 +142,7 @@ export default function RealTimeLoanSection({bannerHeight}: {bannerHeight: numbe
               modules={[Autoplay]}
               direction={'vertical'}
               spaceBetween={4}
-              slidesPerView={bannerHeight ? Math.floor((bannerHeight - 112) / 48) : 0}
+              slidesPerView={getSlidePerView()}
               loop={true}
               autoplay={{
                 delay: 2000,

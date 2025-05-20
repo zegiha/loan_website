@@ -2,7 +2,7 @@ import {Col} from "@/components/atoms/layout";
 import {
   DisplaySection,
   PremiumBannerAndRealTimeLoanSection,
-  MainRegisteredCompanySection,
+  MainRegisteredCompanySection, PopUp,
 } from "@/features/home";
 import RegisterStatusTableAndRealTimeLoanTableSection
   from "@/features/home/RegisterStatusTableAndRealTimeLoanTableSection/ui/RegisterStatusTableAndRealTimeLoanTableSection";
@@ -18,6 +18,7 @@ export default function Home() {
         <MainRegisteredCompanySection/>
         <div className={style.divide_design_img}/>
         <RegisterStatusTableAndRealTimeLoanTableSection/>
+        <PopUp/>
       </Col>
     </Quickbar_layout>
   );

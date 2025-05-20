@@ -5,17 +5,37 @@ import {CSSProperties} from "react";
 export default function InputSection({
   title,
   style,
-  children
+  children,
+  isForm,
 }: {
   title?: string,
   style?: CSSProperties,
   children: React.ReactNode
+  isForm?: boolean
 }) {
   const actual_style_parents: CSSProperties = style ?
     style : {flex: 1, width: '100%', padding: '64px 20px'}
   const actual_style_children: CSSProperties | undefined = !style ? {maxWidth: 320} : undefined
 
-  return (
+  if(isForm) return (
+    <form action="" style={{width: '100%'}}>
+      <Col
+        justifyContents={'center'}
+        alignItems={'center'}
+        style={actual_style_parents}
+      >
+        <Col gap={16} width={'fill'} style={actual_style_children}>
+          {title && (
+            <Typo.Body emphasize color={'variable'}>{title}</Typo.Body>
+          )}
+          <Col gap={16} width={'fill'}>
+            {children}
+          </Col>
+        </Col>
+      </Col>
+    </form>
+  )
+  else return (
     <Col
       justifyContents={'center'}
       alignItems={'center'}
@@ -30,5 +50,6 @@ export default function InputSection({
         </Col>
       </Col>
     </Col>
-  );
+  )
 }
+

@@ -43,8 +43,7 @@ export default function PremiumBannerAndCategoriesSelectionSection({
   const {
     data,
     status,
-    refetch,
-    isSuccess
+    isSuccess,
   } = useAdsPublicControllerFindAdCountByLocation({
     query: {
       select: v => {
@@ -84,10 +83,6 @@ export default function PremiumBannerAndCategoriesSelectionSection({
       })
     }
   }, [isSuccess])
-
-  useEffect(() => {
-    refetch()
-  }, [categories]);
 
   return (
     <Section>

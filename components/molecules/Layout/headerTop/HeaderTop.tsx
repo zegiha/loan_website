@@ -84,8 +84,8 @@ export default function HeaderTop() {
           <Image
             src={LogoImage}
             alt={'로고 이미지'}
-            width={213}
-            height={45}
+            width={142}
+            height={36}
           />
         </Link>
         {/*<Row*/}

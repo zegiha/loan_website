@@ -2,7 +2,7 @@
 
 import {useAdsPublicControllerRequestUpdate} from '@/entities/api/advertisement-public/advertisement-public'
 import {uploadControllerUploadFile} from '@/entities/api/upload/upload'
-import {AdResponseDto, UpdateAdvertisementDto} from '@/entities/const'
+import {AdResponseDto, ScrollAdResponseDto, UpdateAdvertisementDto} from '@/entities/const'
 import {adsNameToInterfaceMap, getReqKeys, guard, typeByAdName} from '@/shared/constants'
 import {TAds_name, TAll_req} from '@/shared/type'
 
@@ -14,7 +14,6 @@ export default function useEditing(id: string) {
       prevData.ad_name,
       newData
     ).then(res => {
-      console.log(res)
       const mergeWithPrev: UpdateAdvertisementDto = {
         title: prevData?.title,
         sub_title: prevData?.sub_title,
@@ -34,9 +33,29 @@ export default function useEditing(id: string) {
     })
   }
 
+  const handleEditScrollAd = async (prevData: ScrollAdResponseDto, newData: TAll_req) => {
+    const data = await getUpdateAdvertisementDto(
+      '줄광고',
+      newData
+    ).then(res => {
+      const mergeWithPrev: UpdateAdvertisementDto = {
+        title: prevData?.title,
+        loan_available_location: prevData?.loan_available_location,
+        loan_limit: prevData?.loan_limit,
+        ...res,
+      }
+      return mergeWithPrev
+    })
+    mutation.mutate({
+      id,
+      data: data
+    })
+  }
+
   return {
     ...mutation,
-    handleEdit
+    handleEdit,
+    handleEditScrollAd
   }
 }
 

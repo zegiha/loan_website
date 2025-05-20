@@ -10,10 +10,10 @@ export default function PostList() {
   const [activeLocationCategories, setActiveLocationCategories] = useState<Set<string>>(new Set);
   return (
     <Col width={'fill'}>
-      <CategorySelectionSection
-        setActiveLocationCategories={setActiveLocationCategories}
-        setActiveLoanTypeCategories={setActiveLoanTypeCategories}
-      />
+      {/*<CategorySelectionSection*/}
+      {/*  setActiveLocationCategories={setActiveLocationCategories}*/}
+      {/*  setActiveLoanTypeCategories={setActiveLoanTypeCategories}*/}
+      {/*/>*/}
       <LoanPostTableSection
         activeLoanTypeCategories={activeLoanTypeCategories}
         activeLocationCategories={activeLocationCategories}

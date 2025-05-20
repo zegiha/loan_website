@@ -12,6 +12,7 @@ import Certified_company_card from "@/features/loan_certified/ui/Certified_compa
 import Certified_company_modal from "@/features/loan_certified/ui/Certified_company_modal";
 import {ICertified_company} from "@/shared/type";
 import load from '@/public/assets/load_dot_120.json';
+import {SearchIcon} from "@/components/atoms/icons";
 const Player = dynamic(
   () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
   {ssr: false}
@@ -93,9 +94,7 @@ export default function Companies_section({
             <Typo.Body emphasize color={'variable'}>{`${data[search].maxCompany}개`}</Typo.Body>
             <Typo.Body color={'variable'}>의 업체</Typo.Body>
           </Row>
-        ) : (
-          <Typo.Body color={'dim'}>로딩중</Typo.Body>
-        )}
+        ):(<></>)}
         <SwiperPaginationAndNavigation
           activeSlides={page}
           setActiveSlides={setPage}
@@ -125,11 +124,10 @@ export default function Companies_section({
                   justifyContents={'center'}
                   alignItems={'center'}
                 >
-                  <Player
-                    src={load}
-                    loop
-                    autoplay
-                  />
+                  <SearchIcon size={40}/>
+                  <Typo.Body emphasize color={'dim'}>
+                    업체를 찾지 못했어요
+                  </Typo.Body>
                 </Col>
               )}
             </SwiperSlide>

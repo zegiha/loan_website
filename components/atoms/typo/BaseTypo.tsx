@@ -15,6 +15,7 @@ export default function BaseTypo({
   userSelect='none',
   underline,
   className,
+  onClick
 }:IBaseTypo) {
   return createElement(
     isPre ? 'pre' : getElementType(textSize),
@@ -30,6 +31,7 @@ export default function BaseTypo({
         ...getWidthByStyle(width),
         whiteSpace: isPre === undefined ? undefined : typeof isPre === "boolean" || isPre === 'wrap' ? 'pre-wrap' : 'pre',
         textDecoration: underline ? 'underline' : undefined,
+        cursor: onClick !== undefined ? 'pointer' : undefined
       },
       className: `
       ${className}
@@ -40,6 +42,7 @@ export default function BaseTypo({
         textOverflowLine === 2 ?
           style.overflowLine2 : ''}
       `,
+      onClick,
     },
     children,
   );

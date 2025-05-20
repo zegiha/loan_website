@@ -1,14 +1,15 @@
 'use client'
 
 import {Col} from "@/components/atoms/layout";
-import React from "react";
-import {TStep} from "@/features/my/new_ads/type";
+import React, {useEffect, useState} from "react";
+import {IAd, TStep} from "@/features/my/new_ads/type";
 import {useSelect_context} from "@/features/my/new_ads/context/select_context";
 import Subject_section from "@/features/my/new_ads/ui/Subject_section";
 import Ad from "@/features/my/new_ads/ui/get_new/Ad";
 import Bottom_bar from "@/features/my/new_ads/ui/get_new/Bottom_bar";
-import ad_list from "@/shared/constants/ad_list";
+import  defaultAdList from "@/shared/constants/ad_list";
 import {TAds_name, TAds_type} from "@/shared/type";
+import {adsPublicControllerIsSponsorLinkAvailable} from "@/entities/api/advertisement-public/advertisement-public";
 
 export default function Get_new_ads({
   setStepAction
@@ -16,6 +17,7 @@ export default function Get_new_ads({
   setStepAction: React.Dispatch<React.SetStateAction<TStep>>
 }) {
   const {select, setSelect} = useSelect_context();
+  const [ad_list, set_ad_list] = useState<Array<IAd>>(defaultAdList)
 
   const handle_ad_click = (type_name: TAds_type, name: TAds_name, price: number) => {
     setSelect(prev => {
@@ -30,6 +32,20 @@ export default function Get_new_ads({
       }
     })
   }
+
+  useEffect(() => {
+    const handleSponsorLink = async () => {
+      try {
+        const isPossibleToMakeSponsorLink = await adsPublicControllerIsSponsorLinkAvailable()
+        if(!isPossibleToMakeSponsorLink.is_available)
+          set_ad_list(p => [...p.filter(v => v.name !== '스폰서 링크')])
+      } catch(e) {
+        console.error(e)
+        set_ad_list(p => [...p.filter(v => v.name !== '스폰서 링크')])
+      }
+    }
+    handleSponsorLink()
+  }, [])
 
   return (
     <Col width={'fill'} gap={16}>

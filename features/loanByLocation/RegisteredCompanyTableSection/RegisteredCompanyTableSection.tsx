@@ -16,6 +16,7 @@ import {
   RegisteredCompanyTableRow, RegisteredCompanyTableRowSkeleton
 } from "@/features/loanByLocation/ui/RegisteredCompanyTable";
 import {useLineAdInfiniteQuery, useSearch} from "@/shared/hooks";
+import {setMaxIdleHTTPParsers} from "node:http";
 
 const contentsNumberData = ['1', '5', '10', '15', '20']
 
@@ -55,7 +56,7 @@ export default function RegisteredCompanyTableSection({
           id: v.company_id,
           location: v.loan_available_location !== undefined && v.loan_available_location.length > 0 ?
             v.loan_available_location.join(', '):
-            '전체',
+            '',
           loan_limit: v?.loan_limit?.toLocaleString('ko-KR') ?? '상담 후 결정',
           title: v.title ?? '',
           name: v.company_name,

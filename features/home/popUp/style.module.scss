@@ -1,0 +1,36 @@
+@use "shared/color/semanticPalette.module" as s;
+@use 'shared/constants/animation.module' as a;
+
+.popupContainer {
+  position: absolute;
+  top: 20%;
+  left: 24px;
+  padding: 24px;
+  border-radius: 24px;
+  background-color: s.$container-containerLow;
+  border: s.$outline-default 2px solid;
+  box-shadow: 0 0 16px 12px rgba(0, 0, 0, 0.16);
+  z-index: 2;
+}
+
+.popupContainerSecond {
+  top: 24%;
+  left: 24px;
+  z-index: 1;
+}
+
+.headerContainer {
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+}
+
+.closeBox {
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: a.$onTransition;
+  &:hover {
+    background-color: s.$container-containerNormal;
+  }
+}

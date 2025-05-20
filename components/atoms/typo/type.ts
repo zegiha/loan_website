@@ -33,6 +33,7 @@ export interface ITypo {
   userSelect?: 'none' | 'auto';
   underline?: boolean;
   className?: string;
+  onClick?: (e: MouseEvent) => void
 }
 
 export interface IBaseTypo extends ITypo{

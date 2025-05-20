@@ -25,6 +25,7 @@ export default function useRegister() {
 
   useEffect(() => {
     if(status === 'success') {
+      window.scrollTo({top: 0})
       router.replace('/login')
     }
     if(status === 'error') {

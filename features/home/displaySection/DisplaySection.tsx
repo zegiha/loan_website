@@ -9,6 +9,7 @@ import { semantic_object } from "@/shared/color";
 import { ITopAd } from "@/features/home/displaySection/api/getTopAds";
 import { useAdsPublicControllerSearchAds } from "@/entities/api/advertisement-public/advertisement-public";
 import skeleton from '@/shared/constants/skeleton.module.scss'
+import {useRouter} from "next/navigation";
 
 export default function DisplaySection() {
   const {
@@ -25,7 +26,7 @@ export default function DisplaySection() {
     '1',
     '3'
   )
-  
+
   return (
     <Col className={style.displaySectionContainer} alignItems="center">
       <div className={style.displaySectionBackgroundBlur} />
@@ -86,6 +87,7 @@ export default function DisplaySection() {
             topAds.ads.map((v, i) => (
               <TopADCard
                 key={i}
+                id={v.company_id}
                 title={v.title ?? ""}
                 contents={v.contents ?? ""}
                 name={v.user.companyName ?? ""}
@@ -112,11 +114,12 @@ function RealTime({ contents, label }: { contents: string; label: string }) {
   );
 }
 
-function TopADCard({ title, contents, name, imgUrl }: ITopAd) {
+function TopADCard({ id, title, contents, name, imgUrl }: ITopAd) {
   const {img} = useRandomImage(imgUrl)
+  const router = useRouter()
 
   return (
-    <Col gap={12} className={style.topAdCardContainer}>
+    <Col onClick={() => router.push(`/loan/${id}`)} gap={12} className={style.topAdCardContainer}>
       <Row gap={16} width={"fill"} className={style.topAdTitleSection}>
         <Col gap={12} width={'fill'}>
           <Col gap={4} width={'fill'}>

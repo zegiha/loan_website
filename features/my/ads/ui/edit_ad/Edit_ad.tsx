@@ -3,7 +3,11 @@ import {useState} from "react";
 import Editing from "@/features/my/ads/ui/edit_ad/Editing";
 import Edit_data_context from "@/features/my/ads/context/edit_data_context";
 import Edited from "@/features/my/ads/ui/edit_ad/Edited";
-import {useAdsPublicControllerFindOne} from "@/entities/api/advertisement-public/advertisement-public";
+import {
+  useAdsPublicControllerFindLineOne,
+  useAdsPublicControllerFindOne
+} from "@/entities/api/advertisement-public/advertisement-public";
+import EditingLine from "@/features/my/ads/ui/edit_ad/EditingLine";
 
 export default function Edit_ad({
 	id,
@@ -13,10 +17,14 @@ export default function Edit_ad({
 	const [step, set_step] = useState<0 | 1>(0)
 
   const {
-    data,
-    status,
-    error,
+    data: commonData,
+    status: commonStatus,
   } = useAdsPublicControllerFindOne(id)
+
+  const {
+    data: lineData,
+    status: lineStatus,
+  } = useAdsPublicControllerFindLineOne(id)
 
 	const [edit_data, set_edit_data] = useState<TAll_req | null>(null)
 	const [validates, set_validates] = useState<Array<{status: boolean, errormessage: string}>>([])
@@ -32,10 +40,16 @@ export default function Edit_ad({
 		case 0:
 			return (
 				<Edit_data_context.Provider value={default_value}>
-          {status === 'success' && data && (
+          {commonStatus === 'success' && commonData && (
             <Editing
-              adData={data}
-              ad_name={data.ad_name}
+              adData={commonData}
+              ad_name={commonData.ad_name}
+              set_step={set_step}
+            />
+          )}
+          {lineStatus === 'success' && lineData && (
+            <EditingLine
+              adData={lineData}
               set_step={set_step}
             />
           )}

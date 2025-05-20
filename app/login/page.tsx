@@ -60,7 +60,7 @@ export default function Login() {
   }
 
   return (
-    <InputSection title={'로그인'}>
+    <InputSection title={'로그인'} isForm>
       <Col width={'fill'} gap={32}>
         <Col width={'fill'} gap={16}>
           <Col gap={4} width={'fill'}>
@@ -86,7 +86,7 @@ export default function Login() {
           </Col>
         </Col>
         <Col width={'fill'} gap={8}>
-          <BaseButton className={button.primary_button36} onClick={() => loginAction()}>
+          <BaseButton type={'submit'} className={button.primary_button36} onClick={() => loginAction()}>
             <Typo.SubBody emphasize color={'onPrimary'}>완료</Typo.SubBody>
           </BaseButton>
           <Row width={'fill'} justifyContents={'center'}>
