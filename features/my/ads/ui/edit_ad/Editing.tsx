@@ -1,5 +1,6 @@
-import {TAds_name, TAds_type} from "@/shared/type";
-import React, {useEffect} from "react";
+import useEditing from '@/features/my/ads/model/useEditing'
+import {TAds_name} from "@/shared/type";
+import React, {useCallback} from "react";
 import Edit_main_banner from "@/features/my/ads/ui/edit_ad/info_input/Edit_main_banner";
 import {Col} from "@/components/atoms/layout";
 import {Info_input_section} from "@/components/organisms/ad_input_sections";
@@ -10,11 +11,9 @@ import Edit_data_context from "@/features/my/ads/context/edit_data_context";
 import Edit_top_banner from "@/features/my/ads/ui/edit_ad/info_input/Edit_top_banner";
 import Edit_product_banner from "@/features/my/ads/ui/edit_ad/info_input/Edit_product_banner";
 import Edit_location_banner from "@/features/my/ads/ui/edit_ad/info_input/Edit_location_banner";
-import Edit_line from "@/features/my/ads/ui/edit_ad/info_input/Edit_line";
 import react_state_action from "@/shared/type/react_state_action";
 import Edit_premium_banner from "@/features/my/ads/ui/edit_ad/info_input/Edit_premium_banner";
 import Edit_sponsor_link from "@/features/my/ads/ui/edit_ad/info_input/Edit_sponsor_link";
-import {useAdsPublicControllerFindOne} from "@/entities/api/advertisement-public/advertisement-public";
 import {AdResponseDto} from "@/entities/const";
 
 export default function Editing({
@@ -26,20 +25,25 @@ export default function Editing({
 	ad_name: TAds_name
 	set_step: react_state_action<0 | 1>
 }) {
-	const {validates} = use_context_with_check(Edit_data_context);
-	const handle_submit = () => {
+	const {
+		handleEdit
+	} = useEditing(adData.id)
+	const {validates, edit_data} = use_context_with_check(Edit_data_context);
+
+	const handle_submit = useCallback(() => {
 		for(let i = 0; i < validates.length; i++) {
 			if(!validates[i].status) {
 				alert(validates[i].errormessage)
 				return
 			}
 		}
-		set_step(1)
-	}
 
-	useEffect(() => {
-		console.log(adData)
-	}, []);
+		if(edit_data)
+			handleEdit(adData, edit_data)
+				.then(() => {
+					set_step(1)
+				})
+	}, [adData, edit_data, validates])
 
 	return (
 		<Col width={'fill'} gap={24}>
@@ -62,12 +66,13 @@ function Edit_field({
 	ad_name: TAds_name
   adData: AdResponseDto
 }) {
+	console.log(ad_name)
 	switch(ad_name) {
 		case '메인 배너광고': return <Edit_main_banner adData={adData}/>
 		case '메인 TOP 배너광고': return <Edit_top_banner adData={adData}/>
 		case '상품 배너 광고': return <Edit_product_banner adData={adData}/>
 		case '지역 배너광고': return <Edit_location_banner adData={adData}/>
-		// case '줄광고': return <Edit_line/>
+		// case '줄광고': return <Edit_line adData={adData}/>
 		case '프리미엄 배너광고': return <Edit_premium_banner adData={adData}/>
 		case '스폰서 링크': return <Edit_sponsor_link adData={adData}/>
     default: return <></>

@@ -7,5 +7,5 @@
  */
 
 export type AdsPublicControllerFindBannerAdsParams = {
-  product_type: string;
+  product_type?: string;
 };

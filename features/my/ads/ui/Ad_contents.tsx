@@ -10,11 +10,9 @@ import {
 	My_ads_table_row
 } from "@/features/my/ads/ui/My_ads_table";
 import Modal from "@/components/molecules/modal/Modal";
-import {ReactNode, useEffect, useState} from "react";
+import {ReactNode, useState} from "react";
 import Edit_ad from "@/features/my/ads/ui/edit_ad/Edit_ad";
 import {TAds_name} from "@/shared/type";
-import ad_list from "@/shared/constants/ad_list";
-import TAds_type from "@/shared/type/advertisement/TAds_type";
 import {BaseButton} from "@/components/molecules/inputs";
 import {CloseIcon} from "@/components/atoms/icons";
 import Prolongation_ad from "@/features/my/ads/ui/prolongation_ad/Prolongation_ad";
@@ -84,7 +82,7 @@ export default function Ad_contents() {
                         set_is_edit_open(true)
                       }}
                       prolongation_action={() => {
-                        set_ad_info(v.ad_name)
+												set_ad_info(v.id)
                         set_is_prolongation_open(true)
                       }}
                     />
@@ -105,12 +103,12 @@ export default function Ad_contents() {
 			</Modal>
 			<Modal isOpen={is_prolongation_open} setIsOpen={set_is_prolongation_open}>
 				<Modal_wrapper close_func={() => set_is_prolongation_open(false)}>
-					<Prolongation_ad
-						name={'메인 베너광고'}
-						price={1000000}
-						end_date={new Date()}
-						close_func={() => set_is_prolongation_open(false)}
-					/>
+					{ad_info !== null && (
+						<Prolongation_ad
+							id={ad_info}
+							close_func={() => set_is_prolongation_open(false)}
+						/>
+					)}
 				</Modal_wrapper>
 			</Modal>
 		</>

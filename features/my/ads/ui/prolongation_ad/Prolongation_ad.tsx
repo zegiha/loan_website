@@ -1,6 +1,9 @@
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
-import {TAds_name} from "@/shared/type";
+import {
+	adsPublicControllerRequestDateExtend,
+	useAdsPublicControllerFindOne
+} from '@/entities/api/advertisement-public/advertisement-public'
 import {Table} from "@/components/organisms";
 import style from '../style.module.scss'
 import {BaseButton, button} from "@/components/molecules/inputs";
@@ -10,22 +13,41 @@ import {useState} from "react";
 import {is_typed} from "@/shared/helper";
 
 export default function Prolongation_ad({
-	name,
-	price,
-	end_date,
+	id,
 	close_func,
 }: {
-	name: TAds_name,
-	price: number,
-	end_date: Date,
+	id: string
 	close_func: () => void,
 }) {
 	const [depositor, set_depositor] = useState<string>('')
 
+	const {
+		data,
+		status,
+	} = useAdsPublicControllerFindOne(id, {
+		query: {
+			select: v => {
+				return {
+					name: v.ad_name ?? '',
+					price: v.deposit_fee ?? '',
+					end_date: new Date(v.ad_present_expire_date ?? '')
+				}
+			}
+		}
+	})
+
 	const handle_submit = () => {
-		if(is_typed(depositor) === null) {
-			alert('연장요청 되었습니다')
-			close_func()
+		if(is_typed(depositor) === null && data?.price) {
+			adsPublicControllerRequestDateExtend(
+				id,
+				{
+					deposit_name: depositor,
+					deposit_fee: data.price.toString(),
+				}
+			)
+				.then(() => {
+					close_func()
+				})
 		} else {
 			alert('입금자명을 입력해주세요')
 		}
@@ -41,12 +63,14 @@ export default function Prolongation_ad({
 					className={style.table}
 					head={<Desc_table_head/>}
 				>
-					<Desc_table_row
-						ad_name={name}
-						price={price}
-						current_end_date={end_date}
-						new_end_date={new Date()}
-					/>
+					{status === 'success' && (
+						<Desc_table_row
+							ad_name={data.name}
+							price={Number(data.price)}
+							current_end_date={data.end_date}
+							new_end_date={new Date()}
+						/>
+					)}
 				</Table>
 				<Buy_info_table
 					depositor={depositor}

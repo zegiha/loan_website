@@ -20,7 +20,7 @@ export type ScrollAdResponseDto = {
   /** 대출 가능 지역 */
   loan_available_location?: ScrollAdResponseDtoLoanAvailableLocationItem[];
   /** 대출 한도 */
-  loan_limit?: number;
+  loan_limit: number;
   /** 광고 만료일 */
   ad_present_expire_date: string;
   /** 입금자명 */

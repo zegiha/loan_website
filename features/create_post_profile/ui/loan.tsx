@@ -4,7 +4,7 @@ import InputSection from "@/components/molecules/Layout/inputSection/InputSectio
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {TLocation} from '@/shared/type'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BaseButton, BaseTextInput, Radio} from "@/components/molecules/inputs";
 import {usePost_data} from "@/features/create_post_profile/context/post_data_context";
 import style from './style.module.scss'
@@ -24,8 +24,15 @@ export default function Create_post_loan({
     set_loan_type
   } = usePost_data()
 
-  const [location_selected, set_location_selected] = useState<number | null>(null)
-  const [loan_type_selected, set_loan_type_selected] = useState<number | null>(null)
+  const [location_selected, set_location_selected] = useState<Array<number>>([])
+  const [loan_type_selected, set_loan_type_selected] = useState<Array<number>>([])
+
+  useEffect(() => {
+    set_location(location_list[location_selected[0]])
+  }, [location_selected])
+  useEffect(() => {
+    set_loan_type(loan_type_list[loan_type_selected[0]])
+  }, [loan_type_selected])
 
   return (
     <InputSection title={'원하는 대출 정보를 입력해주세요'}>
@@ -33,10 +40,7 @@ export default function Create_post_loan({
         <Typo.Caption color={'dim'}>대출 지역</Typo.Caption>
         <Select
           selected_idx={location_selected}
-          set_selected_idx={idx => {
-            set_location_selected(idx)
-            if(idx !== null) set_location(location_list[idx])
-          }}
+          set_selected_idx={set_location_selected}
           placeholder={'대출 지역을 선택해주세요'}
           option={location_list}
           max_option_item_show={4}
@@ -62,10 +66,7 @@ export default function Create_post_loan({
         <Typo.Caption color={'dim'}>대출 종류</Typo.Caption>
         <Select
           selected_idx={loan_type_selected}
-          set_selected_idx={idx => {
-            set_loan_type_selected(idx)
-            if(idx !== null) set_loan_type(loan_type_list[idx])
-          }}
+          set_selected_idx={set_loan_type_selected}
           placeholder={'대출 종류를 선택해주세요'}
           option={loan_type_list}
         />

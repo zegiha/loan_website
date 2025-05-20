@@ -145,22 +145,22 @@ export default function Companies_section({
   )
 }
 
-function parse_certified_company_summary_data
-(data: Array<ICertified_company>): Array<Array<ICertified_company>> {
-  const res: Array<Array<ICertified_company>> = []
-  let temp: Array<ICertified_company> = []
-  data.forEach(v => {
-    if(temp.length != 0 && temp.length % 25 === 0) {
-      res.push(temp)
-      temp = [v]
-    } else {
-      temp.push(v)
-    }
-  })
-  if(temp.length > 0) res.push(temp)
-
-  return res;
-}
+// function parse_certified_company_summary_data
+// (data: Array<ICertified_company>): Array<Array<ICertified_company>> {
+//   const res: Array<Array<ICertified_company>> = []
+//   let temp: Array<ICertified_company> = []
+//   data.forEach(v => {
+//     if(temp.length != 0 && temp.length % 25 === 0) {
+//       res.push(temp)
+//       temp = [v]
+//     } else {
+//       temp.push(v)
+//     }
+//   })
+//   if(temp.length > 0) res.push(temp)
+//
+//   return res;
+// }
 
 function parseLenderDtoToCertificatedCompay
 (v: LenderDTO): ICertified_company {
@@ -168,7 +168,7 @@ function parseLenderDtoToCertificatedCompay
     id: v.id.toString(),
     registration_number: v.registration_number,
     company_name: v.name,
-    company_location: v.address,
+    company_location: v.address ?? '주소를 불러오지 못했어요',
     company_owner: v.ceo,
     advertising_phone: v.phone ?? '전화번호를 불러오지 못했어요',
     registrar: v.registrar,
