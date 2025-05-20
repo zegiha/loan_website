@@ -8,7 +8,6 @@
 import type { LoanboardResponseDtoType } from "./loanboardResponseDtoType";
 import type { LoanboardResponseDtoAvailableLocation } from "./loanboardResponseDtoAvailableLocation";
 import type { LoanboardResponseDtoGender } from "./loanboardResponseDtoGender";
-import type { AdResponseDto } from "./adResponseDto";
 
 export type LoanboardResponseDto = {
   /** Unique identifier of the loan board */
@@ -42,6 +41,4 @@ export type LoanboardResponseDto = {
   createdAt: string;
   /** Last update date of the loan board */
   updatedAt: string;
-  /** Advertisement information */
-  advertisements: AdResponseDto;
 };

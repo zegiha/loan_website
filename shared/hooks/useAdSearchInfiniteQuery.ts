@@ -13,20 +13,22 @@ export default function useAdSearchInfiniteQuery<S>({
   adType,
   limit,
   select,
+  option,
 }:{
-  queryKey: string,
+  queryKey: string | Array<string>,
   adType: string,
   limit: number,
   select?: (v: InfiniteData<IInfiniteQueryRes, number>) => S,
   option?: AdsPublicControllerSearchAdsParams,
 }) {
   const queryRes = useInfiniteQuery({
-    queryKey: [queryKey],
+    queryKey: typeof queryKey === 'string' ? [queryKey] : [...queryKey],
     queryFn: async ({pageParam}) => {
       const data = await adsPublicControllerSearchAds(
         adType,
         `${pageParam}`,
         `${limit}`,
+        option,
       )
 
       if(data.ads.length === 0 && data.totalPage === 0) {

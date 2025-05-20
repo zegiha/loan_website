@@ -42,7 +42,7 @@ instance.interceptors.response.use(
         reqConfig._isRetry = true
         return instance(reqConfig)
       }
-      if(res === 'loggedOut') {
+      if(res === 'loggedOut' && reqConfig?.url?.includes('my')) {
         globalRouter?.push('/login')
       }
     }

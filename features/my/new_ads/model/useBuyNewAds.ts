@@ -43,7 +43,7 @@ export default function useBuyNewAds() {
           const res: CreateAdvertisementDto = {
             ad_name: v.name,
             deposit_name: parentData.depositor,
-            deposit_fee: v.price
+            deposit_fee: v.price,
           }
           return res
         })

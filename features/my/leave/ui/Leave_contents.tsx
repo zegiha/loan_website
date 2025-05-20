@@ -46,7 +46,7 @@ export default function Leave_contents() {
   }
 
   return (
-    <InputSection title={'회원탈퇴'}>
+    <InputSection title={'회원탈퇴'} isForm>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>

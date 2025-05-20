@@ -74,38 +74,39 @@ export default function Register_page() {
   const site_key = process.env.NEXT_PUBLIC_SITE_KEY ?? '';
 
   const router = useRouter()
-  // TODO 도메인 없어서 리캡챠 테스트 못함
-  const {executeRecaptcha, loaded} = useReCaptcha()
-  const handleSubmit = async (): Promise<void> => {
-    router.push('/login')
-    if(loaded) {
-      const token = await executeRecaptcha('form_submit')
-      try {
-        const body: test_captcha = {
-          test_data: 'oh ho ho',
-          recaptcha_token: token,
-        }
-        const res = await fetch('/shared/api/recaptcha', {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }).then(res => res.json())
-        if(res.success && res.score > 0.5) {
-          // router.push('/login')
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    } else {
-      console.log('아직 executeRecaptcha가 로드되지 않음')
-    }
-  }
+  // // TODO 도메인 없어서 리캡챠 테스트 못함
+  // const {executeRecaptcha, loaded} = useReCaptcha()
+  // const handleSubmit = async (): Promise<void> => {
+  //   router.push('/login')
+  //   if(loaded) {
+  //     const token = await executeRecaptcha('form_submit')
+  //     try {
+  //       const body: test_captcha = {
+  //         test_data: 'oh ho ho',
+  //         recaptcha_token: token,
+  //       }
+  //       const res = await fetch('/shared/api/recaptcha', {
+  //         method: 'POST',
+  //         body: JSON.stringify(body),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         }
+  //       }).then(res => res.json())
+  //       if(res.success && res.score > 0.5) {
+  //         // router.push('/login')
+  //       }
+  //     } catch (e) {
+  //       console.error(e)
+  //     }
+  //   } else {
+  //     console.log('아직 executeRecaptcha가 로드되지 않음')
+  //   }
+  // }
 
   useEffect(() => {
     if(step == 4) {
-      handleSubmit()
+      router.push('/login')
+      // handleSubmit()
     }
   }, [step]);
 
@@ -113,7 +114,6 @@ export default function Register_page() {
     <ReCaptchaProvider reCaptchaKey={site_key}>
       <Register_data_context.Provider value={default_value}>
         <Switcher step={step} setStep={setStep}/>
-        {/*<button onClick={() => handleSubmit()}>haha</button>*/}
       </Register_data_context.Provider>
     </ReCaptchaProvider>
   );

@@ -65,7 +65,7 @@ export default function Register_company_page_info({
   }
 
   return (
-    <InputSection title={'회원가입 - 업체상세 페이지 정보'}>
+    <InputSection title={'회원가입 - 업체상세 페이지 정보'} isForm>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           {/* 월금리 */}
@@ -227,27 +227,7 @@ export default function Register_company_page_info({
               placeholder={'지역을 선택해주세요'}
               option={location_list}
               selected_idx={locationIdx}
-              set_selected_idx={(v) => {
-                if(v !== null) {
-                  setLocationIdx(prev => {
-                    const data = [...prev]
-                    const isSelected = data.findIndex(stateValue => stateValue === v) !== -1
-                    if(isSelected) {
-                      const newData = [...data.filter(stateValue => stateValue !== v)]
-                      if(newData.length === 0) return [0]
-                      return [...newData]
-                    }
-                    else {
-                      if(v == 0) {
-                        return [0]
-                      } else {
-                        data.push(v)
-                        return [...data.filter(stateValue => stateValue !== 0)]
-                      }
-                    }
-                  })
-                }
-              }}
+              set_selected_idx={setLocationIdx}
               max_option_item_show={5}
             />
           </Col>
@@ -297,7 +277,10 @@ export default function Register_company_page_info({
         <Row width={'fill'} gap={12}>
           <BaseButton
             className={`${button.grayButton36} ${button.one_third_width}`}
-            onClick={() => setStep(prev => prev - 1)}
+            onClick={() => {
+              window.scrollTo({top: 0})
+              setStep(prev => prev - 1)
+            }}
           >
             <Row gap={4} alignItems={'center'}>
               <Typo.Contents color={'dim'}>
@@ -307,7 +290,7 @@ export default function Register_company_page_info({
           </BaseButton>
           <BaseButton
             className={`${button.primary_button36} ${button.two_third_width}`}
-            onClick={() => handleNext()}
+            onClick={() => {handleNext()}}
             disabled={status === 'pending' || status === 'error'}
           >
             <Row gap={4} alignItems={'center'}>

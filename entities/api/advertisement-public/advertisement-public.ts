@@ -38,11 +38,11 @@ import type {
   WrappedScrollAdResponseDto,
 } from "../../const";
 
-import { customInstance } from "@/shared/axios/lib/customInstance";
+import { customInstance } from "../../../shared/axios/lib/customInstance";
 import type {
   ErrorType,
   BodyType,
-} from "@/shared/axios/lib/customInstance";
+} from "../../../shared/axios/lib/customInstance";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
@@ -421,7 +421,7 @@ export function useAdsPublicControllerSearchAds<
 };
 export function useAdsPublicControllerSearchAds<
   TData = Awaited<ReturnType<typeof adsPublicControllerSearchAds>>,
-  TError = ErrorType<WrappedAdResponseDto[]>,
+  TError = ErrorType<WrappedAdResponseDto>,
 >(
   type: string,
   page: string,
@@ -840,13 +840,13 @@ export const adsPublicControllerFindOne = (
   signal?: AbortSignal,
 ) => {
   return customInstance<AdResponseDto>(
-    { url: `/ads/id/${id}`, method: "GET", signal },
+    { url: `/ads/id/common/${id}`, method: "GET", signal },
     options,
   );
 };
 
 export const getAdsPublicControllerFindOneQueryKey = (id: string) => {
-  return [`/ads/id/${id}`] as const;
+  return [`/ads/id/common/${id}`] as const;
 };
 
 export const getAdsPublicControllerFindOneQueryOptions = <
@@ -989,6 +989,180 @@ export function useAdsPublicControllerFindOne<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getAdsPublicControllerFindOneQueryOptions(id, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * 줄광고도 조회 가능하며, id는 UUID 형식이여야 합니다.
+ * @summary Get line advertisement by ID
+ */
+export const adsPublicControllerFindLineOne = (
+  id: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<ScrollAdResponseDto>(
+    { url: `/ads/id/line/${id}`, method: "GET", signal },
+    options,
+  );
+};
+
+export const getAdsPublicControllerFindLineOneQueryKey = (id: string) => {
+  return [`/ads/id/line/${id}`] as const;
+};
+
+export const getAdsPublicControllerFindLineOneQueryOptions = <
+  TData = Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+  TError = ErrorType<void | ScrollAdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getAdsPublicControllerFindLineOneQueryKey(id);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>
+  > = ({ signal }) =>
+    adsPublicControllerFindLineOne(id, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type AdsPublicControllerFindLineOneQueryResult = NonNullable<
+  Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>
+>;
+export type AdsPublicControllerFindLineOneQueryError =
+  ErrorType<void | ScrollAdResponseDto>;
+
+export function useAdsPublicControllerFindLineOne<
+  TData = Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+  TError = ErrorType<void | ScrollAdResponseDto>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+          TError,
+          Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useAdsPublicControllerFindLineOne<
+  TData = Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+  TError = ErrorType<void | ScrollAdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+          TError,
+          Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useAdsPublicControllerFindLineOne<
+  TData = Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+  TError = ErrorType<void | ScrollAdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Get line advertisement by ID
+ */
+
+export function useAdsPublicControllerFindLineOne<
+  TData = Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+  TError = ErrorType<void | ScrollAdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof adsPublicControllerFindLineOne>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getAdsPublicControllerFindLineOneQueryOptions(
+    id,
+    options,
+  );
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,

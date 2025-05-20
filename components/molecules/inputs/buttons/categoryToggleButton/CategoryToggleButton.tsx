@@ -55,7 +55,8 @@ function handleCategoryButton({
         }
       })
       if(cnt === 0) {
-        return [...defaultValue]
+
+        return [...prev.map((v, i) => i === 0 ? {...v, active: true} : {...v, active: false})]
       }
       else return [...newState]
     })

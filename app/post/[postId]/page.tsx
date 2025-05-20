@@ -10,12 +10,13 @@ import ConsultationAvailableCompaniesSection
 import {useLoanboardControllerFindOne} from "@/entities/api/loanboard/loanboard";
 import {useParams} from "next/navigation";
 import {ILoan_inquiry_detail} from "@/shared/type";
+import {use_auth_store} from "@/shared/store/authStore";
+import {useEffect} from "react";
 
 export default function PostDetail() {
   const {postId} = useParams<{postId: string}>()
   const {
     data,
-    status,
   } = useLoanboardControllerFindOne(postId, {
     query: {
       select: data => {
@@ -37,6 +38,14 @@ export default function PostDetail() {
       }
     }
   })
+
+  const {
+    checkLogin,
+  } = use_auth_store()
+
+  useEffect(() => {
+    checkLogin()
+  }, []);
 
   if(data) return (
     <Col width={'fill'}>

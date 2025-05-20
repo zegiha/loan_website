@@ -41,4 +41,6 @@ export type UserResponseDto = {
   isBlacklist: boolean;
   /** 탈퇴 요청 여부 */
   isWithdrawalRequested: boolean;
+  remainRealTimeLoanInquiryCompanyRegistration?: number;
+  remainScrollAdJumpCount?: number;
 };

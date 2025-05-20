@@ -45,8 +45,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
           }} />
         </Box>
         <Box className={style.smallBox} inlineStyle={{
-          // TODO 이거 premiumBanner 있을 때 없으면 안되는지 체크
-          // height: `${bannerHeight}px`,
+          height: `${bannerHeight}px`,
         }}>
           <RealTimeLoanSection bannerHeight={bannerHeight ?? 0}/>
         </Box>

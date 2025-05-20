@@ -33,5 +33,5 @@ export interface IRowAndCol {
 }
 
 export interface IFlex extends IRowAndCol {
-  flexDir: flexDir;
+  flexDir?: flexDir;
 }

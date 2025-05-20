@@ -8,8 +8,8 @@ import type {Swiper as TSwiper} from 'swiper'
 import {Swiper, SwiperSlide} from "swiper/react";
 import Typo from "@/components/atoms/typo/Typo";
 import {usePaginationSwiper} from "@/shared/hooks";
-import {Property} from "csstype";
 import react_state_action from "@/shared/type/react_state_action";
+import {Property} from "csstype";
 
 export default function SwiperPaginationAndNavigation({
   children,

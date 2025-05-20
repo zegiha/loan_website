@@ -68,7 +68,7 @@ export default function Prolongation_ad({
 							ad_name={data.name}
 							price={Number(data.price)}
 							current_end_date={data.end_date}
-							new_end_date={new Date()}
+							new_end_date={new Date(new Date(data.end_date).setDate(new Date(data.end_date).getDate() + 30))}
 						/>
 					)}
 				</Table>

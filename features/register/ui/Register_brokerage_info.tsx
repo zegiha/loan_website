@@ -51,6 +51,7 @@ export default function Register_brokerage_info({
       business_registration_certificate !== null
     ) {
       if(periodChecker(brokerage_period.start!, brokerage_period.end!) === null) {
+        window.scrollTo({top: 0})
         setStep(prev => prev + 1)
       } else {
         alert(periodChecker(brokerage_period.start!, brokerage_period.end!))
@@ -61,7 +62,7 @@ export default function Register_brokerage_info({
   }
 
   return (
-    <InputSection title={'회원가입 - 대부업정보'}>
+    <InputSection title={'회원가입 - 대부업정보'} isForm>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>
@@ -142,7 +143,10 @@ export default function Register_brokerage_info({
         <Row width={'fill'} gap={12}>
           <BaseButton
             className={`${button.grayButton36} ${button.one_third_width}`}
-            onClick={() => setStep(prev => prev - 1)}
+            onClick={() => {
+              window.scrollTo({top: 0})
+              setStep(prev => prev - 1)
+            }}
           >
             <Row gap={4} alignItems={'center'}>
               <Typo.Contents color={'dim'}>

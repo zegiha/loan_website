@@ -10,14 +10,13 @@ import PostTable from "@/features/postList/ui/loanPostTableSection/PostTable";
 import {useRouter} from "next/navigation";
 import {semantic_object} from "@/shared/color";
 import react_state_action from "@/shared/type/react_state_action";
+import {useSearch} from "@/shared/hooks";
 
 const accordionData = ['10', '15', '20', '30']
-const SEARCHTYPE = ['제목 및 내용', '제목', '내용', '금액']
 
 const PaginationProvider = createContext<{
   limit: number
   page: number, setPage: react_state_action<number>
-  searchType: string
   search: string
 } | null>(null)
 
@@ -38,9 +37,10 @@ export default function LoanPostTableSection({
 }) {
   const [activeAccordionNumber, setActiveAccordionNumber] = useState<string>(!is_display ? '15' : '5')
 
-  const [search, setSearch] = useState<string>('')
-
-  const [activeSearchType, setActiveSearchType] = useState<string>('제목 및 내용')
+  const {
+    search,
+    prevSearch, setPrevSearch,
+  } = useSearch()
 
   const [limit, setLimit] = useState<number>(!is_display ? 15 : 5)
   const [page, setPage] = useState<number>(1)
@@ -49,7 +49,6 @@ export default function LoanPostTableSection({
     limit,
     page, setPage,
     search,
-    searchType: activeSearchType
   }
 
   useEffect(() => {
@@ -105,16 +104,10 @@ export default function LoanPostTableSection({
         <Row width={'fill'} gap={16} className={style.topTableControlSection}>
           <Row width={'fill'}>
             <BaseTextInput
-              placeholder={'검색어를 입력해주세요'}
+              placeholder={'제목으로 검색해주세요'}
               size={'normal'}
-              value={search}
-              onChangeAction={(v) => setSearch(v)}
-              SelectType={<SearchTypeTextInput
-                size={'normal'}
-                active={activeSearchType}
-                setActiveType={setActiveSearchType}
-                searchType={SEARCHTYPE}
-              />}
+              value={prevSearch}
+              onChangeAction={(v) => setPrevSearch(v)}
             />
           </Row>
           <BaseButton

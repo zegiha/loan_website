@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 
 export default function useCategoryToggleButtons(
   defaultValue: Array<TCategory>,
-  setActiveCategories: React.Dispatch<React.SetStateAction<Set<string>>>
+  setActiveCategories: React.Dispatch<React.SetStateAction<Set<string>>>,
 ):[Array<TCategory>, React.Dispatch<React.SetStateAction<Array<TCategory>>>] {
   const [categories, setCategories] = useState<Array<TCategory>>([...defaultValue]);
 
@@ -17,7 +17,7 @@ export default function useCategoryToggleButtons(
       }
     })
     if(cnt === defaultValue.length - 1) {
-      setCategories([...defaultValue])
+      setCategories(p => p.map((v, i) => i === 0 ? {...v, active: true} : {...v, active: false}))
       setActiveCategories(new Set(['전체']))
     } else {
       setActiveCategories(new Set(newActiveCategories));

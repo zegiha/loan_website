@@ -25,6 +25,7 @@ export default function Register_company_info({
       error_checker([is_typed, is_correct_phone_number], company_phone) === null &&
       error_checker([is_typed], company_location) === null
     ) {
+      window.scrollTo({top: 0})
       setStep(prev => prev + 1)
     } else {
       alert('잘못된 입력 값이 존재합니다')
@@ -32,7 +33,7 @@ export default function Register_company_info({
   }
 
   return (
-    <InputSection title={'회원가입 - 업체정보'}>
+    <InputSection title={'회원가입 - 업체정보'} isForm>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>
@@ -78,7 +79,10 @@ export default function Register_company_info({
         <Row width={'fill'} gap={12}>
           <BaseButton
             className={`${button.grayButton36} ${button.one_third_width}`}
-            onClick={() => setStep(prev => prev - 1)}
+            onClick={() => {
+              window.scrollTo({top: 0})
+              setStep(prev => prev - 1)
+            }}
           >
             <Row gap={4} alignItems={'center'}>
               <Typo.Contents color={'dim'}>

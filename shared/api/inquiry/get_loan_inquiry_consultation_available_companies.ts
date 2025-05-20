@@ -7,6 +7,6 @@ export default async function get_loan_inquiry_consultation_available_companies(
 		phone: '010-1234-5678',
 	}
 	const res: Array<ILoan_inquiry_consultation_available_companies> = []
-	for(let i = 0; i < 10; i++) res.push(dummy);
+	for(let i = 0; i < 9; i++) res.push(dummy);
 	return res;
 }

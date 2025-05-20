@@ -22,6 +22,7 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
+  CompanyResponseDto,
   CreateLoanboardDto,
   LoanboardControllerFindAllParams,
   LoanboardResponseDto,
@@ -33,6 +34,8 @@ import type {
   ErrorType,
   BodyType,
 } from "../../../shared/axios/lib/customInstance";
+import LoanboardRegisterAvailableCompanyResponseDto
+  from "@/entities/const/loanboardRegisterAvailableCompanyResponseDto";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
@@ -557,7 +560,7 @@ export const loanboardControllerGetRegisterAvailableCompany = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>(
+  return customInstance<LoanboardRegisterAvailableCompanyResponseDto>(
     { url: `/loanboard/available-company/${boardId}`, method: "GET", signal },
     options,
   );
