@@ -1,6 +1,8 @@
 'use client'
 
+import {NoData} from '@/components/molecules'
 import {CompanyCardGrid, DetailsContentsSection} from "@/components/organisms";
+import {formatting_phone_number} from '@/shared/helper'
 import Link from "next/link";
 import {Col, Divider, Row} from "@/components/atoms/layout";
 import style from './consultation_available_companies.module.scss'
@@ -30,21 +32,47 @@ export default function ConsultationAvailableCompaniesSection({
 }) {
   const {isLogin} = use_auth_store()
 
-  const {data, is_loading} = useFetch(() => get_loan_inquiry_consultation_available_companies(id))
+  const {
+    data,
+    status,
+  } = useLoanboardControllerGetRegisterAvailableCompany(id, {
+    query: {
+      select: v => {
+        const res: Array<ILoan_inquiry_consultation_available_companies> = []
+
+        v.companies.map(v => {
+          res.push({
+            name: v.user.companyName,
+            phone: formatting_phone_number(v.user.advertisementTel),
+            location: v.location.join(', ')
+          })
+        })
+
+        return res
+      }
+    }
+  })
+
   return <DetailsContentsSection subTitle={'상담 가능 업체'}>
-    {is_loading && (
+    {status === 'pending' && (
       <Row width={'fill'} justifyContents={'center'}>
         <Player src={load} autoplay loop style={{height: 32}} />
       </Row>
     )}
-    <CompanyCardGrid>
-      {data && data.map((v, i) => (
-        <Available_company_banner
-          key={i}
-          {...v}
-        />
-      ))}
-    </CompanyCardGrid>
+    {status === 'success' && data &&
+      data.length > 0 ? (
+        data.map((v, i) => (
+          <CompanyCardGrid>
+            <Available_company_banner
+              key={i}
+              {...v}
+            />
+          </CompanyCardGrid>
+        ))
+      ):(
+        <NoData contents={'등록된 상담 가능한 업체가 없습니다'}/>
+      )
+    }
     <Row width={'fill'} justifyContents={'center'}>
       {isLogin && data && data.length < 10 && (
         <AddAvailableCompanyBanner id={id}/>

@@ -51,8 +51,8 @@ export interface IRegister_data {
   set_repayment_method: react_state_action<string>
 	loan_period: string;
   set_loan_period: react_state_action<string>
-	available_location: string;
-  set_available_location: react_state_action<string>
+	available_location: Array<string>;
+  set_available_location: react_state_action<Array<string>>
   title: string,
   set_title: react_state_action<string>
 	contents: string;

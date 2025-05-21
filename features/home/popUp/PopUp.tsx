@@ -100,6 +100,8 @@ export default function PopUp() {
     }
   }, []);
 
+  if (!initialized) return null
+
   return (
     <>
       {p1 && (

@@ -16,6 +16,9 @@
   height: 100%;
   padding: 40px;
   background-color: semantic.$layer-modalBackground;
+  @media (max-width: 720px) {
+    padding: 24px 12px;
+  }
 }
 .modalWrapper {
   animation: openModal 0.2s ease-in-out;

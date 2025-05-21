@@ -39,12 +39,7 @@ export default function Register_company_page_info({
   } = data
   const [locationIdx, setLocationIdx] = useState<Array<number>>([0])
   useEffect(() => {
-    let sum = ''
-    locationIdx.forEach((v, i) => {
-      sum += `${v}`
-      if(i < locationIdx.length-1) sum += ','
-    })
-    set_available_location(sum)
+    set_available_location(locationIdx.map(v => location_list[v]))
   }, [locationIdx])
 
   const {
@@ -229,7 +224,11 @@ export default function Register_company_page_info({
               selected_idx={locationIdx}
               set_selected_idx={setLocationIdx}
               max_option_item_show={5}
+              selectNumber={location_list.length}
             />
+            <Typo.Caption color={'dim'}>
+              여러개 선택 가능합니다
+            </Typo.Caption>
           </Col>
 
           {/* 제목 */}

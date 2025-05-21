@@ -86,8 +86,7 @@ export default function useRegister() {
           earlyRepaymentFee: data.early_repayment_fee,
           repaymentMethod: data.repayment_method,
           loanPeriod: data.loan_period,
-          // TODO 대출 가능 지역 여러개로 수정
-          location: [location_list[Number(data.available_location)]]
+          location: data.available_location
         }
       }
     } catch (e) {
