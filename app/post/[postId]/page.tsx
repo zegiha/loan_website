@@ -61,7 +61,7 @@ export default function PostDetail() {
       <Divider height={8}/>
       <ContentsSection contents={data.post.contents}/>
       <Divider height={8}/>
-      <ConsultationAvailableCompaniesSection id={data.id}/>
+      {/*<ConsultationAvailableCompaniesSection id={data.id}/>*/}
     </Col>
   );
 }
