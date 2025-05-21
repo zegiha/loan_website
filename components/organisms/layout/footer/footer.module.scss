@@ -1,3 +1,7 @@
+@use 'shared/color/semanticPalette.module' as semantic;
+@use 'shared/color/palette.module' as palette;
+@use 'shared/constants/animation.module' as animation;
+
 .footerContainer {
   padding: 40px;
   max-width: 1440px;
@@ -14,5 +18,45 @@
   width: 100%;
   @media (max-width: 540px) {
     flex-direction: column !important;
+  }
+}
+
+.midSectionContainer {
+  padding: 40px 24px;
+  background-color: palette.$gray700;
+  @media (max-width: 840px) {
+    padding: 20px 16px;
+    flex-direction: column;
+  }
+}
+
+.minTextButton {
+  cursor: pointer;
+}
+
+.modalContainer {
+  position: relative;
+  height: 100%;
+  padding: 32px;
+  border-radius: 24px;
+  background-color: semantic.$container-containerLow;
+  box-shadow: 0 0 16px 12px rgba(0, 0, 0, 0.32);
+  overflow: hidden;
+}
+
+.modalWrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.closeButton {
+  padding: 6px;
+  border-radius: 4px;
+  transition: animation.$leaveTransition;
+  background-color: semantic.$container-containerLow;
+  cursor: pointer;
+  &:hover {
+    transition: animation.$onTransition;
+    background-color: semantic.$container-containerNormal;
   }
 }

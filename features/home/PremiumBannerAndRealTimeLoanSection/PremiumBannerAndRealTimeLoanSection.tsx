@@ -45,7 +45,7 @@ export default function PremiumBannerAndRealTimeLoanSection() {
           }} />
         </Box>
         <Box className={style.smallBox} inlineStyle={{
-          height: `${bannerHeight}px`,
+          height: `${Math.max(bannerHeight ?? 0, 190.1)}px`,
         }}>
           <RealTimeLoanSection bannerHeight={bannerHeight ?? 0}/>
         </Box>

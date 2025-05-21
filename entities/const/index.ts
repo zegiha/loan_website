@@ -81,3 +81,7 @@ export * from "./validationError";
 export * from "./validationErrorLocItem";
 export * from "./wrappedAdResponseDto";
 export * from "./wrappedScrollAdResponseDto";
+export * from "./loanboardRelationResponseDto";
+export * from "./loanboardRelationResponseDtoAvailableLocation";
+export * from "./loanboardRelationResponseDtoGender";
+export * from "./loanboardRelationResponseDtoType";

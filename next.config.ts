@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // assetPrefix: process.env.NEXT_PUBLIC_CLOUDFRONT_URL,
   images: {
     formats: [
       'image/avif',
@@ -9,22 +10,28 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: process.env.NEXT_PUBLIC_CLOUDFRONT_HOSTNAME ?? '',
+        port: '',
+        pathname: '/*',
+      },
+      {
+        protocol: 'http',
+        hostname: process.env.NEXT_PUBLIC_BASE_HOSTNAME ?? '',
+        port: '',
+        pathname: '/*',
+      },
+      {
+        protocol: 'https',
+        hostname: process.env.NEXT_PUBLIC_LENDERS_BASE_HOSTNAME ?? '',
+        port: '',
+        pathname: '/*',
+      },
+      {
+        protocol: 'https',
         hostname: 'encrypted-tbn0.gstatic.com',
         port: '',
         pathname: '/*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'loan.apne2a.algorix.cloud/',
-        port: '',
-        pathname: '/*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'd3b0fhpuvmp33e.cloudfront.net',
-        port: '',
-        pathname: '/*',
-      },
+      }
     ]
   },
   typescript: {

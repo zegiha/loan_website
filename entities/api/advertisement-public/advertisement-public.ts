@@ -310,7 +310,7 @@ export const adsPublicControllerSearchAds = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<WrappedAdResponseDto>(
+  return customInstance<WrappedAdResponseDto[]>(
     {
       url: `/ads/search/${type}/${page}/${limit}`,
       method: "GET",
@@ -421,7 +421,7 @@ export function useAdsPublicControllerSearchAds<
 };
 export function useAdsPublicControllerSearchAds<
   TData = Awaited<ReturnType<typeof adsPublicControllerSearchAds>>,
-  TError = ErrorType<WrappedAdResponseDto>,
+  TError = ErrorType<WrappedAdResponseDto[]>,
 >(
   type: string,
   page: string,

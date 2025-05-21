@@ -37,6 +37,7 @@ export default function Select({
 	return (
 		<div className={style.wrapper}>
 			<button
+				type="button"
 				className={`${style.selection_container} ${is_open && style.selection_container_active}`}
 				onClick={(e) => {
 					set_is_open(p => !p)
