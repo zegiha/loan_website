@@ -60,7 +60,7 @@ export default function Register_company_page_info({
   }
 
   return (
-    <InputSection title={'회원가입 - 업체상세 페이지 정보'} isForm>
+    <InputSection title={'회원가입 - 업체상세 페이지 정보'} isForm formAction={handleNext}>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           {/* 월금리 */}

@@ -60,7 +60,7 @@ export default function Login() {
   }
 
   return (
-    <InputSection title={'로그인'} isForm>
+    <InputSection title={'로그인'} isForm formAction={loginAction}>
       <Col width={'fill'} gap={32}>
         <Col width={'fill'} gap={16}>
           <Col gap={4} width={'fill'}>

@@ -36,7 +36,7 @@ export default function Register_page() {
   const [early_repayment_fee, set_early_repayment_fee] = useState<string>('');
   const [repayment_method, set_repayment_method] = useState<string>('');
   const [loan_period, set_loan_period] = useState<string>('');
-  const [available_location, set_available_location] = useState<string>('');
+  const [available_location, set_available_location] = useState<Array<string>>([]);
   const [title, set_title] = useState<string>('')
   const [contents, set_contents] = useState<string>('');
 

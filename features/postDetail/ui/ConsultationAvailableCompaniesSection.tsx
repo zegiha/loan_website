@@ -61,14 +61,14 @@ export default function ConsultationAvailableCompaniesSection({
     )}
     {status === 'success' && data &&
       data.length > 0 ? (
-        data.map((v, i) => (
-          <CompanyCardGrid>
-            <Available_company_banner
-              key={i}
-              {...v}
-            />
-          </CompanyCardGrid>
-        ))
+        <CompanyCardGrid>
+          {data.map((v, i) => (
+              <Available_company_banner
+                key={i}
+                {...v}
+              />
+          ))}
+        </CompanyCardGrid>
       ):(
         <NoData contents={'등록된 상담 가능한 업체가 없습니다'}/>
       )

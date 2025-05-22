@@ -33,7 +33,7 @@ export default function Register_company_info({
   }
 
   return (
-    <InputSection title={'회원가입 - 업체정보'} isForm>
+    <InputSection title={'회원가입 - 업체정보'} isForm formAction={handleNext}>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>

@@ -64,38 +64,40 @@ export default function SwiperPaginationAndNavigation({
           </SwiperSlide>
         )}
       </Swiper>
-      <Row gap={8} width={'fill'} justifyContents={'center'}>
-        <BaseButton
-          className={`${iconButton.iconButton28}`}
-          onClick={() => handlePrevSlide()}
-        >
-          <ArrowIcon
-            size={20}
-            color={'dim'}
-            deg={180}
-          />
-        </BaseButton>
-        {pagination.map((v, i) => (
+      {Array.isArray(children) && (
+        <Row gap={8} width={'fill'} justifyContents={'center'}>
           <BaseButton
-            key={i}
-            className={`${v === activeSlides ? iconButton.iconButton28Active : iconButton.iconButton28}`}
-            onClick={() => handleToSlide(v)}
+            className={`${iconButton.iconButton28}`}
+            onClick={() => handlePrevSlide()}
           >
-            <Typo.Contents color={activeSlides === v ? 'generic' : 'dim'}>
-              {v}
-            </Typo.Contents>
+            <ArrowIcon
+              size={20}
+              color={'dim'}
+              deg={180}
+            />
           </BaseButton>
-        ))}
-        <BaseButton
-          className={`${iconButton.iconButton28}`}
-          onClick={() => handleNextSlide()}
-        >
-          <ArrowIcon
-            size={20}
-            color={'dim'}
-          />
-        </BaseButton>
-      </Row>
+          {pagination.map((v, i) => (
+            <BaseButton
+              key={i}
+              className={`${v === activeSlides ? iconButton.iconButton28Active : iconButton.iconButton28}`}
+              onClick={() => handleToSlide(v)}
+            >
+              <Typo.Contents color={activeSlides === v ? 'generic' : 'dim'}>
+                {v}
+              </Typo.Contents>
+            </BaseButton>
+          ))}
+          <BaseButton
+            className={`${iconButton.iconButton28}`}
+            onClick={() => handleNextSlide()}
+          >
+            <ArrowIcon
+              size={20}
+              color={'dim'}
+            />
+          </BaseButton>
+        </Row>
+      )}
     </Col>
   );
 }

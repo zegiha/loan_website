@@ -81,9 +81,11 @@ export default function CategoryToggleButton({
       <Typo.Contents emphasize color={active ? 'onPrimary' : 'variable'}>
         {contents}
       </Typo.Contents>
-      <Typo.Caption color={active ? 'onPrimaryDim' : 'dim'}>
-        {subContents}
-      </Typo.Caption>
+      {!subContents.includes('-10') && (
+        <Typo.Caption color={active ? 'onPrimaryDim' : 'dim'}>
+          {subContents}
+        </Typo.Caption>
+      )}
     </Col>
   </BaseButton>;
 }

@@ -62,7 +62,7 @@ export default function Register_brokerage_info({
   }
 
   return (
-    <InputSection title={'회원가입 - 대부업정보'} isForm>
+    <InputSection title={'회원가입 - 대부업정보'} isForm formAction={handleNext}>
       <Col gap={32} width={'fill'}>
         <Col gap={16} width={'fill'}>
           <Col gap={4} width={'fill'}>

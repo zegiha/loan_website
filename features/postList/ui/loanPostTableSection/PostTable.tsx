@@ -18,10 +18,14 @@ interface ILoan_inquiry_row {
 
 export default function PostTable({
   dataNumber,
-  is_display
+  is_display,
+  activeLoanTypeCategories,
+  activeLocationCategories,
 }: {
   dataNumber: number
   is_display?: boolean
+  activeLoanTypeCategories: Set<string>
+  activeLocationCategories: Set<string>
 }) {
   const [show_sub_status, set_show_sub_status] = useState(true)
   const ref = useRef<HTMLDivElement | null>(null)
@@ -47,8 +51,8 @@ export default function PostTable({
     queryFn: async ({pageParam}) => {
       return await loanboardControllerFindAll({
         page: pageParam,
-        type: '전체',
-        location: ['전체'],
+        type: activeLoanTypeCategories.size > 0 ? Array.from(activeLoanTypeCategories)[0] : '전체',
+        location: activeLocationCategories.size > 0 ? Array.from(activeLocationCategories): ['전체'],
         limit: limit,
         search_type: 'title',
         search,
@@ -105,7 +109,7 @@ export default function PostTable({
     setFetchedPage(1)
     setFetchMemo(0)
     refetch()
-  }, [search, limit]);
+  }, [search, limit, activeLoanTypeCategories, activeLocationCategories]);
 
   useEffect(() => {
     if(!isFetchingNextPage) {

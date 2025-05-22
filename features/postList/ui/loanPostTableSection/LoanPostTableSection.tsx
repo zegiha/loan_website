@@ -132,6 +132,8 @@ export default function LoanPostTableSection({
             key={`${activeAccordionNumber}`}
             dataNumber={Number(activeAccordionNumber)}
             is_display={is_display}
+            activeLoanTypeCategories={activeLoanTypeCategories}
+            activeLocationCategories={activeLocationCategories}
           />
         </PaginationProvider>
       </Col>

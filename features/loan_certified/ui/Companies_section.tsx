@@ -1,22 +1,16 @@
+import {SearchIcon} from '@/components/atoms/icons'
 import {Section} from "@/components/molecules";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {getLendersLendersGet} from '@/entities/api/default/default'
 import {LenderDTO} from '@/entities/const'
-import dynamic from 'next/dynamic'
+import {Certified_company_card} from '@/features/loan_certified/ui/Certified_company_card'
 import style from './style.module.scss'
 import {useEffect, useState} from "react";
 import {SwiperPaginationAndNavigation} from "@/components/organisms";
 import {SwiperSlide} from "swiper/react";
-import Certified_company_card from "@/features/loan_certified/ui/Certified_company_card";
 import Certified_company_modal from "@/features/loan_certified/ui/Certified_company_modal";
 import {ICertified_company} from "@/shared/type";
-import load from '@/public/assets/load_dot_120.json';
-import {SearchIcon} from "@/components/atoms/icons";
-const Player = dynamic(
-  () => import('@lottiefiles/react-lottie-player').then(m => m.Player),
-  {ssr: false}
-)
 
 export default function Companies_section({
   search
@@ -142,23 +136,6 @@ export default function Companies_section({
     </Section>
   )
 }
-
-// function parse_certified_company_summary_data
-// (data: Array<ICertified_company>): Array<Array<ICertified_company>> {
-//   const res: Array<Array<ICertified_company>> = []
-//   let temp: Array<ICertified_company> = []
-//   data.forEach(v => {
-//     if(temp.length != 0 && temp.length % 25 === 0) {
-//       res.push(temp)
-//       temp = [v]
-//     } else {
-//       temp.push(v)
-//     }
-//   })
-//   if(temp.length > 0) res.push(temp)
-//
-//   return res;
-// }
 
 function parseLenderDtoToCertificatedCompay
 (v: LenderDTO): ICertified_company {

@@ -38,7 +38,7 @@ export default function RealTimeLoanTable() {
     queryFn: async ({pageParam}) => {
       const data = await loanboardControllerFindAll({
         page: pageParam,
-        limit: 10,
+        limit: 20,
         type: '전체',
         location: ['전체'],
       })

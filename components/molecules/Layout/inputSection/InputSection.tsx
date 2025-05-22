@@ -7,18 +7,19 @@ export default function InputSection({
   style,
   children,
   isForm,
+  formAction,
 }: {
   title?: string,
   style?: CSSProperties,
   children: React.ReactNode
   isForm?: boolean
+  formAction?: () => void
 }) {
   const actual_style_parents: CSSProperties = style ?
     style : {flex: 1, width: '100%', padding: '64px 20px'}
   const actual_style_children: CSSProperties | undefined = !style ? {maxWidth: 320} : undefined
 
   if(isForm) return (
-    <form action="" style={{width: '100%'}}>
       <Col
         justifyContents={'center'}
         alignItems={'center'}
@@ -33,7 +34,6 @@ export default function InputSection({
           </Col>
         </Col>
       </Col>
-    </form>
   )
   else return (
     <Col
