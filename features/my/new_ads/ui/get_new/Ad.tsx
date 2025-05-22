@@ -5,12 +5,14 @@ import Image from "next/image";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton} from "@/components/molecules/inputs";
 import CheckIcon from "@/components/atoms/icons/CheckIcon";
-import {IAd} from "@/features/my/new_ads/type";
 import style from "@/features/my/new_ads/ui/style.module.scss";
 import {useState} from "react";
 import Modal from "@/components/molecules/modal/Modal";
 import {SwiperPaginationAndNavigation} from "@/components/organisms";
 import {SwiperSlide} from "swiper/react";
+import {IAd} from "@/features/my/new_ads/type";
+import {CloseIcon} from "@/components/atoms/icons";
+import skeleton from '@/shared/constants/skeleton.module.scss'
 
 interface IAd_prop extends IAd {
   onClick: () => void
@@ -30,6 +32,7 @@ export default function Ad({
 }: IAd_prop) {
   const [is_modal_open, set_is_modal_open] = useState<boolean>(false);
   const [modal_contents, set_modal_contents] = useState<'pc' | 'mobile' | null>(null);
+  const [load, setLoad] = useState<boolean>(false)
 
   const [page, setPage] = useState(1)
 
@@ -78,38 +81,44 @@ export default function Ad({
               )}
             </Col>
           </Col>
-          <div className={style.img_container}>
-            <Image
-              src={pc_preview_img[0]}
-              alt={'광고 예시 이미지'}
-              fill
-              style={{borderRadius: 12}}
-            />
-          </div>
+          {pc_preview_img && (
+            <div className={`${style.img_container} ${skeleton.skeleton}`} style={{borderRadius: 12,}}>
+              <Image
+                src={pc_preview_img[0]}
+                alt={'광고 예시 이미지'}
+                fill
+                style={{borderRadius: 12}}
+              />
+            </div>
+          )}
         </div>
         <Row width={'fill'} gap={16} className={style.ad_more_button_container}>
-          <BaseButton
-            className={style.outline_fill_button_44}
-            onClick={() => {
-              set_modal_contents('pc')
-              set_is_modal_open(true);
-            }}
-          >
-            <Typo.Contents>
-              PC 광고 위치 크게 보기
-            </Typo.Contents>
-          </BaseButton>
-          <BaseButton
-            className={style.outline_fill_button_44}
-            onClick={() => {
-              set_modal_contents('mobile')
-              set_is_modal_open(true);
-            }}
-          >
-            <Typo.Contents>
-              모바일 광고 위치 크게 보기
-            </Typo.Contents>
-          </BaseButton>
+          {pc_preview_img && (
+            <BaseButton
+              className={style.outline_fill_button_44}
+              onClick={() => {
+                set_modal_contents('pc')
+                set_is_modal_open(true);
+              }}
+            >
+              <Typo.Contents>
+                PC 광고 위치 크게 보기
+              </Typo.Contents>
+            </BaseButton>
+          )}
+          {mobile_preview_img && (
+            <BaseButton
+              className={style.outline_fill_button_44}
+              onClick={() => {
+                set_modal_contents('mobile')
+                set_is_modal_open(true);
+              }}
+            >
+              <Typo.Contents>
+                모바일 광고 위치 크게 보기
+              </Typo.Contents>
+            </BaseButton>
+          )}
         </Row>
         {name !== '줄광고' && (
           <BaseButton
@@ -122,41 +131,74 @@ export default function Ad({
           </BaseButton>
         )}
       </Col>
-      <Modal isOpen={is_modal_open} setIsOpen={() => {
-        set_is_modal_open(false)
-        setPage(1)
-      }}>
-        <div
-          className={style.modal_wrapper}
-          onClick={e => e.stopPropagation()}
-        >
-          <SwiperPaginationAndNavigation
-            activeSlides={page}
-            setActiveSlides={setPage}
-            height={'100%'}
+      {pc_preview_img && (
+        <Modal isOpen={is_modal_open} setIsOpen={() => {
+          set_is_modal_open(false)
+          setPage(1)
+        }}>
+          <div
+            className={style.modal_wrapper}
+            onClick={e => e.stopPropagation()}
           >
-            {modal_contents === 'pc' ? pc_preview_img.map((v, i) => (
-              <SwiperSlide key={`${i}-slide`} style={{width: '100%', height: '100%'}}>
-                <Image
-                  src={v}
-                  alt={'pc_preview_img'}
-                  fill
-                  objectFit={'contain'}
-                />
-              </SwiperSlide>
-            )) : mobile_preview_img.map((v, i) => (
-              <SwiperSlide key={`${i}-slide`} style={{width: '100%', height: '100%'}}>
-                <Image
-                  src={v}
-                  alt={'mobile_preview_img'}
-                  fill
-                  objectFit={'contain'}
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperPaginationAndNavigation>
-        </div>
-      </Modal>
+            <Row
+              className={style.modalClose}
+              gap={4}
+              alignItems={'center'}
+              onClick={() => set_is_modal_open(false)}
+            >
+              <CloseIcon color={'dim'}/>
+              <Typo.Contents color={'dim'}>닫기</Typo.Contents>
+            </Row>
+            <SwiperPaginationAndNavigation
+              activeSlides={page}
+              setActiveSlides={setPage}
+              height={'90%'}
+            >
+              {modal_contents === 'pc' ? pc_preview_img.map((v, i) => (
+                <SwiperSlide key={`${i}-slide`} style={{width: '100%', height: '100%'}}>
+                  <Row width={'fill'} style={{height: '100%', position: 'relative', borderRadius: 24, overflow: 'hidden'}}>
+                    {load && (
+                      <div
+                        className={skeleton.skeleton}
+                        style={{width: '100%', height: '100%', position: 'absolute'}}
+                      />
+                    )}
+                    <Image
+                      src={v}
+                      alt={'pc_preview_img'}
+                      fill
+                      objectFit={'contain'}
+                      style={{visibility: load ? 'hidden' : 'visible'}}
+                      onLoadStart={() => setLoad(true)}
+                      onLoad={() => setLoad(false)}
+                    />
+                  </Row>
+                </SwiperSlide>
+              )) : mobile_preview_img?.map((v, i) => (
+                <SwiperSlide key={`${i}-slide`} style={{width: '100%', height: '100%'}}>
+                  <Row width={'fill'} style={{height: '100%', position: 'relative', borderRadius: 24, overflow: 'hidden'}}>
+                    {load && (
+                      <div
+                        className={skeleton.skeleton}
+                        style={{width: '100%', height: '100%', position: 'absolute'}}
+                      />
+                    )}
+                    <Image
+                      src={v}
+                      alt={'mobile_preview_img'}
+                      fill
+                      objectFit={'contain'}
+                      style={{visibility: load ? 'hidden' : 'visible'}}
+                      onLoadStart={() => setLoad(true)}
+                      onLoad={() => setLoad(false)}
+                    />
+                  </Row>
+                </SwiperSlide>
+              ))}
+            </SwiperPaginationAndNavigation>
+          </div>
+        </Modal>
+      )}
     </>
   );
 }

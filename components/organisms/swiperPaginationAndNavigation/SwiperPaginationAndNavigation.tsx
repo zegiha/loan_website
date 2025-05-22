@@ -36,7 +36,7 @@ export default function SwiperPaginationAndNavigation({
   } = usePaginationSwiper(activeSlides, setActiveSlides, maxSlideLength);
 
   return (
-    <Col gap={12} width={'fill'} style={{height: height}}>
+    <Col gap={12} width={'fill'} style={{height: height, position: 'relative'}}>
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper
@@ -50,6 +50,7 @@ export default function SwiperPaginationAndNavigation({
         style={{
           height,
           paddingLeft: 1,
+          position: 'relative'
         }}
       >
         {Array.isArray(children) ? (

@@ -17,11 +17,11 @@ export default function Guide_introduce() {
 							어느 곳보다 빠르고, 안전한 대출 플랫폼
 						</Typo.Header>
 						<Typo.Header color={'primary'} emphasize>
-							~에 오신걸 환영해요!
+							대출센터에 오신걸 환영해요!
 						</Typo.Header>
 					</Col>
 					<Typo.SubBody isPre={'wrap'}>
-						{'는 정부에서 사업자 인증을 받은 안전한 대부중개 업체에요\n또한 사용자 분들께 신뢰를 드리기 위해 온라인 대부중개 플랫폼 협의회에서 활동하고있어요'}
+						{'대출센터는 정부에서 사업자 인증을 받은 안전한 대부중개 업체에요\n또한 사용자 분들께 신뢰를 드리기 위해 온라인 대부중개 플랫폼 협의회에서 활동하고있어요'}
 					</Typo.SubBody>
 					<div className={style.introduce_image_container}>
 						<Image
@@ -37,13 +37,13 @@ export default function Guide_introduce() {
 						<Col gap={24} width={'fill'}>
 							<Col>
 								<Typo.Header color={'variable'} emphasize>
-									이름은 고객님의 편안한 사용을 위해 힘쓰고 있어요
+									대출센터는 고객님의 편안한 사용을 위해 힘쓰고 있어요
 								</Typo.Header>
 							</Col>
 							<Col>
 								<Row>
 									<Typo.SubBody isPre={'wrap'}>
-										{'이름은 고객님이 서비스를 더욱 편안하게 활용하실 수 있도록 상세한 '}
+										{'대출센터는 고객님이 서비스를 더욱 편안하게 활용하실 수 있도록 상세한 '}
 									</Typo.SubBody>
 									<Link href={'/guide'}>
 										<Typo.SubBody isPre={'wrap'} color={'primary'} underline>{'이용안내,\n'}</Typo.SubBody>

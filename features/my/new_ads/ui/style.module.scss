@@ -154,3 +154,16 @@
   padding: 24px;
   position: relative;
 }
+
+.modalClose {
+  width: fit-content;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: transparent;
+  transition: ani.$leaveTransition;
+  cursor: pointer;
+  &:hover {
+    background-color: semantic.$container-containerNormal;
+    transition: ani.$onTransition;
+  }
+}

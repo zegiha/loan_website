@@ -12,8 +12,8 @@ export interface IAd {
 	sub_price_desc: TPrice_desc | null
 	desc: string
 	sub_desc: string | null
-	pc_preview_img: Array<StaticImageData | string>
-	mobile_preview_img: Array<StaticImageData | string>
+	pc_preview_img?: Array<StaticImageData | string>
+	mobile_preview_img?: Array<StaticImageData | string>
 	option?: Array<TOption>
 	duration?: number
 }

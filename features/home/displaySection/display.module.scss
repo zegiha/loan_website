@@ -73,6 +73,10 @@
   width: 45%;
   aspect-ratio: 4/3;
   min-width: 120px;
+  @media (max-width: 440px) {
+    width:  100%;
+    aspect-ratio: 3/1;
+  }
 }
 .topAdCardImage {
   border-radius: 12px;

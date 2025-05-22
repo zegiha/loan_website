@@ -64,7 +64,7 @@ function SponsorLinkSection() {
 							title: v.title ?? v.sub_title ?? v.contents ?? '',
 							companyId: v.company_id,
 							companyName: v.user.companyName,
-							img: v.image_url ?? v.cover_img ?? '',
+							img: v.image_url ?? v.cover_img,
 						})
 					})
 					return res
@@ -87,7 +87,7 @@ interface ISponsorLink {
 	title: string
 	companyId: string
 	companyName: string
-	img: string
+	img?: string
 }
 
 function Sponsor_link({
