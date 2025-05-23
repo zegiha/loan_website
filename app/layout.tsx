@@ -14,7 +14,7 @@ import Auth_provider from "@/components/organisms/layout/Auth_provider";
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2', display: 'swap'});
 
 export const metadata: Metadata = {
-  title: '대출 정보',
+  title: '대출센터',
   description: '인터넷 대출 중개 직거래 전문 사이트',
 };
 

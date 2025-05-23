@@ -72,7 +72,7 @@ export default function HeaderTop() {
   }, []);
 
   return (
-    <div className={style.bigContainer}>
+    <Col className={style.bigContainer} gap={8}>
       <Row
         width={'fill'}
         justifyContents={'space-between'}
@@ -135,7 +135,7 @@ export default function HeaderTop() {
           <ModalHeader/>
         )}
       </Row>
-    </div>
+    </Col>
   );
 }
 

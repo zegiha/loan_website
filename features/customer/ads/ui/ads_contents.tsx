@@ -43,7 +43,7 @@ export default function Ads_contents() {
         >
           <Col gap={12} width={'fill'}>
             <Typo.Title emphasize color={'variable'}>
-              아직 ~의 회원이 아니신가요?
+              아직 대출센터의 회원이 아니신가요?
             </Typo.Title>
             <Typo.Contents isPre={'wrap'}>
               {'저렴한 비용으로 엄청난 광고효과를 누릴 수 있어요!\n회원 가입을 통해 달라지는 콜 수로 광고효과를 직접 체감해보세요!'}

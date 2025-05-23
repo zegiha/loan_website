@@ -2,7 +2,7 @@ import {CSSProperties} from "react"
 import {semantic_object} from "@/shared/color";
 import transitionStyle from './baseIcon.module.scss';
 
-type color = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white';
+type color = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white' | 'red';
 interface IBaseIcon extends IIcon{
   iconKey: string;
 }
@@ -43,6 +43,7 @@ function getColor(color: color): string {
     case 'variable': return semantic_object.onGeneric.onGenericVariable;
     case 'normal': return semantic_object.onGeneric.onGeneric;
     case 'white': return semantic_object.primary.onPrimary;
+    case 'red': return semantic_object.errorContainer.onErrorContainer;
     default: return semantic_object.onGeneric.onGenericDim;
   }
 }

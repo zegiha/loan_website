@@ -23,9 +23,9 @@ const p1List = [
 ]
 
 const p2List = [
-  '대출 상담시 본인이 대출한 업체를 잊지않기 위해 정확히 해당업체 상호명, 연락처 등 꼭 메모·저장 하시기 바랍니다.\n(업체상호명, 연락처 등 대출나라 홈페이지에서 검색 가능)',
+  '대출 상담시 본인이 대출한 업체를 잊지않기 위해 정확히 해당업체 상호명, 연락처 등 꼭 메모·저장 하시기 바랍니다.\n(업체상호명, 연락처 등 대출센터 홈페이지에서 검색 가능)',
   '대출을 목적으로 첫거래 고금리 대출(급전)을 강요하고 기타 수수료를 입금 후 월변등으로 한도를 높여주는 조건은 사기행위입니다.',
-  '대출나라 담당자를 사칭하여 대출상담 및 대출을 권유하는 경우 절대 거래 응하지 마시기 바랍니다.\n(대출나라는 직접적인 대출 및 알선/중개를 하지 않습니다.)',
+  '대출나라 담당자를 사칭하여 대출상담 및 대출을 권유하는 경우 절대 거래 응하지 마시기 바랍니다.\n(대출센터는 직접적인 대출 및 알선/중개를 하지 않습니다.)',
   '대면 미팅 명목으로 고객에게 출장비(거마비) 요구는 사기행위입니다.',
   '대출 알선 또는 대출 처리 비용 (공증비) 명목으로 고객에게 수수료, 선이자, 선입금 요구는 사기행위입니다.',
   '법적 최대 연 이자율은 20% 입니다. (추가, 수수료 비용 포함) 이자율 초과하여 수취 및 요구는 사기행위입니다.',
@@ -58,29 +58,34 @@ export default function PopUp() {
   const { p1, setP1, p2, setP2, initialized, setInitialized } = usePopup()
   const [isMobile, setIsMobile] = useState<boolean>(false)
 
+  const getTodayKey = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0]; // YYYY-MM-DD
+  }
+
   useEffect(() => {
-    // localStorage에서 초기값 가져오기
+    const today = getTodayKey();
+
     const storedP1 = localStorage.getItem('popup-p1');
     const storedP2 = localStorage.getItem('popup-p2');
 
-    const parsedP1 = storedP1 !== null ? JSON.parse(storedP1) : true;
-    const parsedP2 = storedP2 !== null ? JSON.parse(storedP2) : true;
+    const parsedP1 = storedP1 !== today;
+    const parsedP2 = storedP2 !== today;
 
-    // zustand 상태 업데이트
     setP1(parsedP1);
     setP2(parsedP2);
     setInitialized(true);
   }, [setP1, setP2, setInitialized]);
-  // if (!initialized) return null
-  const handleCloseP1 = () => {
-    setP1(false);
-    localStorage.setItem('popup-p1', JSON.stringify(false));
-  };
 
-  const handleCloseP2 = () => {
-    setP2(false);
-    localStorage.setItem('popup-p2', JSON.stringify(false));
-  };
+const handleCloseP1 = () => {
+  setP1(false);
+  localStorage.setItem('popup-p1', getTodayKey());
+};
+
+const handleCloseP2 = () => {
+  setP2(false);
+  localStorage.setItem('popup-p2', getTodayKey());
+};
 
   useEffect(() => {
     const handleMobile = () => {
@@ -134,8 +139,12 @@ export default function PopUp() {
             ))}
           </Col>
           <Divider/>
-          <Row width={'fill'} justifyContents={'end'}>
+          <Row width={'fill'} justifyContents={'space-between'}>
             <Row className={style.closeBox} gap={4} alignItems={'center'} onClick={handleCloseP1}>
+              <Typo.Contents color={'red'}>오늘 하루 닫기</Typo.Contents>
+              <CloseIcon size={20} color={'red'} />
+            </Row>
+            <Row className={style.closeBox} gap={4} alignItems={'center'} onClick={() => setP1(false)}>
               <Typo.Contents color={'dim'}>닫기</Typo.Contents>
               <CloseIcon size={20} color={'dim'} />
             </Row>
@@ -172,8 +181,12 @@ export default function PopUp() {
             ))}
           </Col>
           <Divider/>
-          <Row width={'fill'} justifyContents={'end'}>
+          <Row width={'fill'} justifyContents={'space-between'}>
             <Row className={style.closeBox} gap={4} alignItems={'center'} onClick={handleCloseP2}>
+              <Typo.Contents color={'red'}>오늘 하루 닫기</Typo.Contents>
+              <CloseIcon size={20} color={'red'} />
+            </Row>
+            <Row className={style.closeBox} gap={4} alignItems={'center'} onClick={() => setP2(false)}>
               <Typo.Contents color={'dim'}>닫기</Typo.Contents>
               <CloseIcon size={20} color={'dim'} />
             </Row>

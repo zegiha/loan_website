@@ -1,4 +1,4 @@
-//@use '/shared/color/semanticPalette.module' as semantic;
+@use '/shared/color/semanticPalette.module' as semantic;
 @use '/shared/constants/animation.module' as ani;
 
 .allContainer {
@@ -11,5 +11,13 @@
 
 .translate {
   transition: ani.$onTransition;
-  top: calc(-138px);
+  top: calc(-139.4px);
+}
+
+.loanNumberSection {
+  background-color: semantic.$container-containerLow;
+  padding: 12px 40px;
+  @media (max-width: 840px) {
+    padding: 20px;
+  }
 }
