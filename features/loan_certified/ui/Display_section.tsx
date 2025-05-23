@@ -32,7 +32,7 @@ export default function Display_section({
         <Col>
           <Row>
             <Typo.Body isPre={'nowrap'} color={'primary'} emphasize>
-              {'~~에서 '}
+              {'대출센터에서 '}
             </Typo.Body>
             <Typo.Body isPre={'nowrap'} color={'variable'} emphasize>
               {'금감원 인증 '}

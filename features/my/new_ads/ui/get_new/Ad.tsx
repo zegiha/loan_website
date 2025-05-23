@@ -106,7 +106,7 @@ export default function Ad({
               </Typo.Contents>
             </BaseButton>
           )}
-          {mobile_preview_img && (
+          {mobile_preview_img && mobile_preview_img.length > 0 && (
             <BaseButton
               className={style.outline_fill_button_44}
               onClick={() => {

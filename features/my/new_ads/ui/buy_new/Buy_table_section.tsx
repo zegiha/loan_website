@@ -39,7 +39,7 @@ export default function Buy_table_section({
           alignItems={'center'}
           gap={4}
           onClick={() => {
-            window.navigator.clipboard.writeText('국민은행 77390101562750').then(() => {
+            window.navigator.clipboard.writeText('농협은행 351-1306-9323-03').then(() => {
               alert('복사되었습니다')
             })
           }}
@@ -50,7 +50,7 @@ export default function Buy_table_section({
             isPre={'wrap'}
             className={style.account_number}
           >
-            국민은행 773901-01-562750 강진우
+            농협은행 351-1306-9323-03 옹양훈(MNG)대부중개
           </Typo.Contents>
           <ContentCopy color={'normal'} fill={false} size={16}/>
         </Row>
