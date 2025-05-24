@@ -21,10 +21,11 @@ const imgs = [
 
 export default function TopSection() {
   return (
-    <Col width={'fill'}>
+    <Col width={'fill'} alignItems={'center'}>
       <Row
         width={'fill'}
         className={style.footerContainer}
+        alignItems={'center'}
         gap={16}
       >
         <div className={style.section}>
@@ -64,7 +65,7 @@ export default function TopSection() {
             </Col>
           </Col>
         </div>
-        <Col gap={12} width={'fill'}>
+        <Col gap={12} width={'fill'} >
           <Row gap={32} width={'fill'} className={style.section}>
             <Typo.Contents width={'fill'} color={'variable'} isPre>
               사이트명 : 대출센터{'\n'}

@@ -72,7 +72,7 @@ export default function HeaderTop() {
   }, []);
 
   return (
-    <Col className={style.bigContainer} gap={8}>
+    <Col className={style.bigContainer} alignItems={'center'} gap={8}>
       <Row
         width={'fill'}
         justifyContents={'space-between'}

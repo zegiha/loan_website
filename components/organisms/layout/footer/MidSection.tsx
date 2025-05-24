@@ -106,6 +106,7 @@ export default function MidSection() {
         className={style.midSectionContainer}
         gap={12}
         width={'fill'}
+        alignItems={'center'}
       >
         {data.map((v, i) => (
           <Row

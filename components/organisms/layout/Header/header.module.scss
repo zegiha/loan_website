@@ -7,17 +7,22 @@
   left: 0;
   z-index: 100;
   transition: ani.$leaveTransition;
+  background-color: semantic.$container-containerLow;
 }
 
 .translate {
   transition: ani.$onTransition;
-  top: calc(-139.4px);
+  top: calc(-140.39px);
 }
 
-.loanNumberSection {
+.loanNumberSectionContainer {
   background-color: semantic.$container-containerLow;
   padding: 12px 40px;
   @media (max-width: 840px) {
-    padding: 20px;
+    padding: 12px 20px;
   }
+}
+
+.loanNumberSectionWrapper {
+  max-width: 1440px;
 }

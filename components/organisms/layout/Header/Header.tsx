@@ -12,11 +12,13 @@ export default function Header() {
   return (
     <Col width={'fill'} className={`${style.allContainer} ${isVisible ? '' : style.translate}`}>
       <Col width={'fill'}>
-        <Row width={'fill'} className={style.loanNumberSection}>
-          <Typo.SubBody color={'dim'}>
-            2024-경기광주-0002
-          </Typo.SubBody>
-        </Row>
+        <Col width={'fill'} alignItems={'center'} className={style.loanNumberSectionContainer}>
+          <Row width={'fill'} className={style.loanNumberSectionWrapper}>
+            <Typo.SubBody color={'dim'}>
+              2024-경기광주-0002
+            </Typo.SubBody>
+          </Row>
+        </Col>
         <Divider/>
         <HeaderTop/>
       </Col>
