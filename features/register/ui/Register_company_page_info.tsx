@@ -249,6 +249,9 @@ export default function Register_company_page_info({
               checkError={[is_typed]}
               placeholder={'제목을 입력해주세요'}
             />
+            <Typo.Caption color={'dim'}>
+              "대출업체 등록 현황"에 제목으로 뜨는 란 입니다
+            </Typo.Caption>
           </Col>
 
           {/* 부가설명 */}
@@ -271,6 +274,9 @@ export default function Register_company_page_info({
               checkError={[is_typed]}
               placeholder={'부가설명을 입력해주세요'}
             />
+            <Typo.Caption color={'dim'}>
+              대출업체 상세 설명글 입니다
+            </Typo.Caption>
           </Col>
         </Col>
         <Row width={'fill'} gap={12}>
