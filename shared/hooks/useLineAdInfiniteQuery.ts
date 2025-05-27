@@ -48,7 +48,7 @@ export default function useLineAdInfiniteQuery<S>({
             }
           )
         ):(
-          await commonControllerPaginatedCompany(pageParam-adsTotalPage, 10)
+          await commonControllerPaginatedCompany(pageParam-adsTotalPage, limit)
         )
 
         if(!isCommon) setAdsTotalPage(data.totalPage)
