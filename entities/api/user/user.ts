@@ -25,7 +25,15 @@ import type {
   Object,
   UserControllerApproveWithdrawal200,
   UserControllerDeleteProfile200,
+  UserControllerJumpCount200,
+  UserControllerJumpCountDown200,
+  UserControllerJumpCountUp200,
+  UserControllerRegAvailableCompany200,
+  UserControllerRegAvailableCompanyDown200,
+  UserControllerRegAvailableCompanySet200,
+  UserControllerRegAvailableCompanyUp200,
   UserControllerRequestWithdrawal200,
+  UserControllerSetJumpCount200,
   UserResponseDto,
 } from "../../const";
 
@@ -2089,3 +2097,881 @@ export function useUserControllerSearch<
 
   return _query;
 }
+
+/**
+ * 사용자의 점프 카운트를 조회합니다.
+ * @summary 점프 카운트 조회
+ */
+export const userControllerJumpCount = (
+  userId: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<UserControllerJumpCount200>(
+    { url: `/user/jump_count/${userId}`, method: "GET", signal },
+    options,
+  );
+};
+
+export const getUserControllerJumpCountQueryKey = (userId: string) => {
+  return [`/user/jump_count/${userId}`] as const;
+};
+
+export const getUserControllerJumpCountQueryOptions = <
+  TData = Awaited<ReturnType<typeof userControllerJumpCount>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerJumpCount>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getUserControllerJumpCountQueryKey(userId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof userControllerJumpCount>>
+  > = ({ signal }) => userControllerJumpCount(userId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!userId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof userControllerJumpCount>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type UserControllerJumpCountQueryResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerJumpCount>>
+>;
+export type UserControllerJumpCountQueryError = ErrorType<unknown>;
+
+export function useUserControllerJumpCount<
+  TData = Awaited<ReturnType<typeof userControllerJumpCount>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerJumpCount>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerJumpCount>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerJumpCount>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useUserControllerJumpCount<
+  TData = Awaited<ReturnType<typeof userControllerJumpCount>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerJumpCount>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerJumpCount>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerJumpCount>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useUserControllerJumpCount<
+  TData = Awaited<ReturnType<typeof userControllerJumpCount>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerJumpCount>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary 점프 카운트 조회
+ */
+
+export function useUserControllerJumpCount<
+  TData = Awaited<ReturnType<typeof userControllerJumpCount>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerJumpCount>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getUserControllerJumpCountQueryOptions(userId, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * 사용자의 점프 카운트를 증가시킵니다.
+ * @summary 점프 카운트 증가
+ */
+export const userControllerJumpCountUp = (
+  userId: string,
+  count: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<UserControllerJumpCountUp200>(
+    { url: `/user/jump_count/up/${userId}/${count}`, method: "PATCH" },
+    options,
+  );
+};
+
+export const getUserControllerJumpCountUpMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerJumpCountUp>>,
+    TError,
+    { userId: string; count: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerJumpCountUp>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationKey = ["userControllerJumpCountUp"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerJumpCountUp>>,
+    { userId: string; count: number }
+  > = (props) => {
+    const { userId, count } = props ?? {};
+
+    return userControllerJumpCountUp(userId, count, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UserControllerJumpCountUpMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerJumpCountUp>>
+>;
+
+export type UserControllerJumpCountUpMutationError = ErrorType<unknown>;
+
+/**
+ * @summary 점프 카운트 증가
+ */
+export const useUserControllerJumpCountUp = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerJumpCountUp>>,
+      TError,
+      { userId: string; count: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerJumpCountUp>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationOptions = getUserControllerJumpCountUpMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * 사용자의 점프 카운트를 감소시킵니다.
+ * @summary 점프 카운트 감소
+ */
+export const userControllerJumpCountDown = (
+  userId: string,
+  count: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<UserControllerJumpCountDown200>(
+    { url: `/user/jump_count/down/${userId}/${count}`, method: "PATCH" },
+    options,
+  );
+};
+
+export const getUserControllerJumpCountDownMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerJumpCountDown>>,
+    TError,
+    { userId: string; count: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerJumpCountDown>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationKey = ["userControllerJumpCountDown"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerJumpCountDown>>,
+    { userId: string; count: number }
+  > = (props) => {
+    const { userId, count } = props ?? {};
+
+    return userControllerJumpCountDown(userId, count, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UserControllerJumpCountDownMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerJumpCountDown>>
+>;
+
+export type UserControllerJumpCountDownMutationError = ErrorType<unknown>;
+
+/**
+ * @summary 점프 카운트 감소
+ */
+export const useUserControllerJumpCountDown = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerJumpCountDown>>,
+      TError,
+      { userId: string; count: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerJumpCountDown>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationOptions =
+    getUserControllerJumpCountDownMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * 사용자의 점프 카운트를 설정합니다.
+ * @summary 점프 카운트 설정
+ */
+export const userControllerSetJumpCount = (
+  userId: string,
+  count: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<UserControllerSetJumpCount200>(
+    { url: `/user/jump_count/set/${userId}/${count}`, method: "PATCH" },
+    options,
+  );
+};
+
+export const getUserControllerSetJumpCountMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerSetJumpCount>>,
+    TError,
+    { userId: string; count: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerSetJumpCount>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationKey = ["userControllerSetJumpCount"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerSetJumpCount>>,
+    { userId: string; count: number }
+  > = (props) => {
+    const { userId, count } = props ?? {};
+
+    return userControllerSetJumpCount(userId, count, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UserControllerSetJumpCountMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerSetJumpCount>>
+>;
+
+export type UserControllerSetJumpCountMutationError = ErrorType<unknown>;
+
+/**
+ * @summary 점프 카운트 설정
+ */
+export const useUserControllerSetJumpCount = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerSetJumpCount>>,
+      TError,
+      { userId: string; count: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerSetJumpCount>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationOptions = getUserControllerSetJumpCountMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * 사용자의 실시간 대출문의 업체 등록 카운트를 조회합니다.
+ * @summary 실시간 대출문의 업체 등록 카운트 조회
+ */
+export const userControllerRegAvailableCompany = (
+  userId: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<UserControllerRegAvailableCompany200>(
+    { url: `/user/reg-available-company/${userId}`, method: "GET", signal },
+    options,
+  );
+};
+
+export const getUserControllerRegAvailableCompanyQueryKey = (
+  userId: string,
+) => {
+  return [`/user/reg-available-company/${userId}`] as const;
+};
+
+export const getUserControllerRegAvailableCompanyQueryOptions = <
+  TData = Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getUserControllerRegAvailableCompanyQueryKey(userId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompany>>
+  > = ({ signal }) =>
+    userControllerRegAvailableCompany(userId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!userId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type UserControllerRegAvailableCompanyQueryResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompany>>
+>;
+export type UserControllerRegAvailableCompanyQueryError = ErrorType<unknown>;
+
+export function useUserControllerRegAvailableCompany<
+  TData = Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerRegAvailableCompany>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useUserControllerRegAvailableCompany<
+  TData = Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerRegAvailableCompany>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useUserControllerRegAvailableCompany<
+  TData = Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary 실시간 대출문의 업체 등록 카운트 조회
+ */
+
+export function useUserControllerRegAvailableCompany<
+  TData = Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  userId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerRegAvailableCompany>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getUserControllerRegAvailableCompanyQueryOptions(
+    userId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * 사용자의 실시간 대출문의 업체 등록 카운트를 증가시킵니다.
+ * @summary 실시간 대출문의 업체 등록 카운트 증가
+ */
+export const userControllerRegAvailableCompanyUp = (
+  userId: string,
+  count: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<UserControllerRegAvailableCompanyUp200>(
+    {
+      url: `/user/reg-available-company/up/${userId}/${count}`,
+      method: "PATCH",
+    },
+    options,
+  );
+};
+
+export const getUserControllerRegAvailableCompanyUpMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompanyUp>>,
+    TError,
+    { userId: string; count: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanyUp>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationKey = ["userControllerRegAvailableCompanyUp"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompanyUp>>,
+    { userId: string; count: number }
+  > = (props) => {
+    const { userId, count } = props ?? {};
+
+    return userControllerRegAvailableCompanyUp(userId, count, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UserControllerRegAvailableCompanyUpMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanyUp>>
+>;
+
+export type UserControllerRegAvailableCompanyUpMutationError =
+  ErrorType<unknown>;
+
+/**
+ * @summary 실시간 대출문의 업체 등록 카운트 증가
+ */
+export const useUserControllerRegAvailableCompanyUp = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerRegAvailableCompanyUp>>,
+      TError,
+      { userId: string; count: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanyUp>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationOptions =
+    getUserControllerRegAvailableCompanyUpMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * 사용자의 실시간 대출문의 업체 등록 카운트를 감소시킵니다.
+ * @summary 실시간 대출문의 업체 등록 카운트 감소
+ */
+export const userControllerRegAvailableCompanyDown = (
+  userId: string,
+  count: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<UserControllerRegAvailableCompanyDown200>(
+    {
+      url: `/user/reg-available-company/down/${userId}/${count}`,
+      method: "PATCH",
+    },
+    options,
+  );
+};
+
+export const getUserControllerRegAvailableCompanyDownMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompanyDown>>,
+    TError,
+    { userId: string; count: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanyDown>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationKey = ["userControllerRegAvailableCompanyDown"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompanyDown>>,
+    { userId: string; count: number }
+  > = (props) => {
+    const { userId, count } = props ?? {};
+
+    return userControllerRegAvailableCompanyDown(userId, count, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UserControllerRegAvailableCompanyDownMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanyDown>>
+>;
+
+export type UserControllerRegAvailableCompanyDownMutationError =
+  ErrorType<unknown>;
+
+/**
+ * @summary 실시간 대출문의 업체 등록 카운트 감소
+ */
+export const useUserControllerRegAvailableCompanyDown = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerRegAvailableCompanyDown>>,
+      TError,
+      { userId: string; count: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanyDown>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationOptions =
+    getUserControllerRegAvailableCompanyDownMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * 사용자의 실시간 대출문의 업체 등록 카운트를 설정합니다.
+ * @summary 실시간 대출문의 업체 등록 카운트 설정
+ */
+export const userControllerRegAvailableCompanySet = (
+  userId: string,
+  count: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<UserControllerRegAvailableCompanySet200>(
+    {
+      url: `/user/reg-available-company/set/${userId}/${count}`,
+      method: "PATCH",
+    },
+    options,
+  );
+};
+
+export const getUserControllerRegAvailableCompanySetMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompanySet>>,
+    TError,
+    { userId: string; count: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanySet>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationKey = ["userControllerRegAvailableCompanySet"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerRegAvailableCompanySet>>,
+    { userId: string; count: number }
+  > = (props) => {
+    const { userId, count } = props ?? {};
+
+    return userControllerRegAvailableCompanySet(userId, count, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UserControllerRegAvailableCompanySetMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanySet>>
+>;
+
+export type UserControllerRegAvailableCompanySetMutationError =
+  ErrorType<unknown>;
+
+/**
+ * @summary 실시간 대출문의 업체 등록 카운트 설정
+ */
+export const useUserControllerRegAvailableCompanySet = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerRegAvailableCompanySet>>,
+      TError,
+      { userId: string; count: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerRegAvailableCompanySet>>,
+  TError,
+  { userId: string; count: number },
+  TContext
+> => {
+  const mutationOptions =
+    getUserControllerRegAvailableCompanySetMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};

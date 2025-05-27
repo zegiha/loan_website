@@ -2,7 +2,7 @@ import { defineConfig } from 'orval';
 
 export default defineConfig({
   petstore: {
-    input: (process.env.NEXT_PUBLIC_BASE_URL ?? '') + '/api-docs-json',
+    input: 'https://loan.apne2a.algorix.cloud/api-docs-json',
     // input: (process.env.NEXT_PUBLIC_LENDERS_BASE_URL ?? '') + '/openapi.json',
     output: {
       mode: 'tags-split',

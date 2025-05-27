@@ -6,9 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 
-export type WrappedAdResponseDto = {
-  /** 광고 목록 */
-  ads: string[];
-  /** 총 페이지 수 */
-  totalPage: number;
+export type UserControllerRegAvailableCompanyUp200 = {
+  message?: string;
 };

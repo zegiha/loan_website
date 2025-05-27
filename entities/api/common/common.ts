@@ -21,6 +21,8 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
+import type { WrappedScrollAdResponseDto } from "../../const";
+
 import { customInstance } from "../../../shared/axios/lib/customInstance";
 import type { ErrorType } from "../../../shared/axios/lib/customInstance";
 
@@ -400,3 +402,185 @@ export const useCommonControllerLogVisitor = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary 페이지네이트드 회사 조회
+ */
+export const commonControllerPaginatedCompany = (
+  page: number,
+  limit: number,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<WrappedScrollAdResponseDto>(
+    { url: `/paginated-company/${page}/${limit}`, method: "GET", signal },
+    options,
+  );
+};
+
+export const getCommonControllerPaginatedCompanyQueryKey = (
+  page: number,
+  limit: number,
+) => {
+  return [`/paginated-company/${page}/${limit}`] as const;
+};
+
+export const getCommonControllerPaginatedCompanyQueryOptions = <
+  TData = Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  page: number,
+  limit: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getCommonControllerPaginatedCompanyQueryKey(page, limit);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof commonControllerPaginatedCompany>>
+  > = ({ signal }) =>
+    commonControllerPaginatedCompany(page, limit, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type CommonControllerPaginatedCompanyQueryResult = NonNullable<
+  Awaited<ReturnType<typeof commonControllerPaginatedCompany>>
+>;
+export type CommonControllerPaginatedCompanyQueryError = ErrorType<unknown>;
+
+export function useCommonControllerPaginatedCompany<
+  TData = Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  page: number,
+  limit: number,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+          TError,
+          Awaited<ReturnType<typeof commonControllerPaginatedCompany>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useCommonControllerPaginatedCompany<
+  TData = Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  page: number,
+  limit: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+          TError,
+          Awaited<ReturnType<typeof commonControllerPaginatedCompany>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useCommonControllerPaginatedCompany<
+  TData = Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  page: number,
+  limit: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary 페이지네이트드 회사 조회
+ */
+
+export function useCommonControllerPaginatedCompany<
+  TData = Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+  TError = ErrorType<unknown>,
+>(
+  page: number,
+  limit: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof commonControllerPaginatedCompany>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getCommonControllerPaginatedCompanyQueryOptions(
+    page,
+    limit,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}

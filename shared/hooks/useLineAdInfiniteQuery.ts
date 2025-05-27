@@ -5,6 +5,7 @@ import type {AdsPublicControllerFindLineAdsParams, ScrollAdResponseDto} from '@/
 import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query'
 import {IInfiniteQueryRes as DefaultIInfiniteQueryRes} from '@/shared/constants'
 import {useEffect, useState} from 'react'
+import {commonControllerPaginatedCompany} from "@/entities/api/common/common";
 
 interface IUseLineAdInfiniteQuery<S> {
   queryKey: string
@@ -28,30 +29,66 @@ export default function useLineAdInfiniteQuery<S>({
   const [maxPage, setMaxPage] = useState<number>(1)
   const [fetchQueueFlag, setFetchQueueFlag] = useState<boolean>(false)
 
+  const [adsTotalPage, setAdsTotalPage] = useState<number>(1)
+  const [commonTotalPage, setCommonTotalPage] = useState<number>(1)
+
   const queryRes = useInfiniteQuery({
     queryKey: [queryKey],
     queryFn: async ({pageParam}) => {
-      const data = await adsPublicControllerFindLineAds(
-        adType,
-        `${limit}`,
-        `${pageParam}`,
-        {
-          ...option,
-          search: option?.search ?? '',
+      if(adType === 'main') {
+        const isCommon = pageParam > adsTotalPage
+        const data = !isCommon ? (
+          await adsPublicControllerFindLineAds(
+            adType,
+            `${limit}`,
+            `${pageParam}`,
+            {
+              ...option,
+              search: option?.search ?? '',
+            }
+          )
+        ):(
+          await commonControllerPaginatedCompany(pageParam-adsTotalPage, 10)
+        )
+
+        if(!isCommon) setAdsTotalPage(data.totalPage)
+        else setCommonTotalPage(data.totalPage)
+
+        const newMaxPage = !isCommon ? data.totalPage + 1 : adsTotalPage + data.totalPage
+
+        setMaxPage(newMaxPage)
+        setFetchedPage(pageParam)
+
+        const res: IInfiniteQueryRes = {
+          currentPage: pageParam,
+          totalPage: newMaxPage,
+          data: [...data.scroll_ads]
         }
-      )
 
-      setMaxPage(data.totalPage)
+        return res
+      } else {
+        const data = await adsPublicControllerFindLineAds(
+          adType,
+          `${limit}`,
+          `${pageParam}`,
+          {
+            ...option,
+            search: option?.search ?? '',
+          }
+        )
 
-      setFetchedPage(pageParam)
+        setMaxPage(data.totalPage)
 
-      const res: IInfiniteQueryRes = {
-        currentPage: pageParam,
-        totalPage: data.totalPage,
-        data: [...data.scroll_ads]
+        setFetchedPage(pageParam)
+
+        const res: IInfiniteQueryRes = {
+          currentPage: pageParam,
+          totalPage: data.totalPage,
+          data: [...data.scroll_ads]
+        }
+
+        return res
       }
-
-      return res
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -63,6 +100,8 @@ export default function useLineAdInfiniteQuery<S>({
   })
 
   const initStates = () => {
+    setAdsTotalPage(1)
+
     setMaxPage(1)
     setFetchedPage(1)
     if(!queryRes.isFetchingNextPage)

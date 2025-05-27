@@ -5,10 +5,10 @@
  * 지역, 상품 등을 Query를 통해 여러 개를 보낼 때는 콤마(,)로 구분하여 보내주세요. 예시: ?location=서울,부산,대구
  * OpenAPI spec version: 1.0
  */
-import {CompanyWithUserResponseDto} from '@/entities/const/companyWithUserResponseDto'
 import type { LoanboardRelationResponseDtoType } from "./loanboardRelationResponseDtoType";
 import type { LoanboardRelationResponseDtoAvailableLocation } from "./loanboardRelationResponseDtoAvailableLocation";
 import type { LoanboardRelationResponseDtoGender } from "./loanboardRelationResponseDtoGender";
+import type { CompanyResponseDto } from "./companyResponseDto";
 
 export type LoanboardRelationResponseDto = {
   /** Unique identifier of the loan board */
@@ -43,5 +43,5 @@ export type LoanboardRelationResponseDto = {
   /** Last update date of the loan board */
   updatedAt: string;
   /** Company information */
-  companies: CompanyWithUserResponseDto[];
+  companies: CompanyResponseDto[];
 };
