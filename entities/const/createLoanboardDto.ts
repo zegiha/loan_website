@@ -24,7 +24,7 @@ export type CreateLoanboardDto = {
   /** Monthly income of the applicant */
   monthly_income: string;
   /** Job status of the applicant */
-  job_status: boolean;
+  job_status: '직장인' | '사업자' | '소상공인' | '프리랜서' | '무직';
   /** Title of the loan board */
   title: string;
   /** Content of the loan board */

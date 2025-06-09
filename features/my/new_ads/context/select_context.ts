@@ -1,4 +1,3 @@
-'use client'
 
 import React, {createContext, useContext} from "react";
 import {TAds_name, TAds_type} from "@/shared/type";

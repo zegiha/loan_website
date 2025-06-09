@@ -2,19 +2,9 @@
 
 import {CompanyCardGrid} from "@/components/organisms";
 import Section from "@/components/molecules/Layout/section/Section";
-import {
-  adsPublicControllerSearchAds,
-  useAdsPublicControllerSearchAds
-} from '@/entities/api/advertisement-public/advertisement-public'
-import {userControllerProfileById} from '@/entities/api/user/user'
-import {AdResponseDto, UserResponseDto} from '@/entities/const'
-import {formatActiveCategories} from '@/features/loanByLocation/helper'
 import {formatting_phone_number} from '@/shared/helper'
-import {useAdSearchInfiniteQuery, useFetch, useInfiniteScroll} from "@/shared/hooks";
-import {get_company_banner} from "@/shared/api";
+import {useAdSearchInfiniteQuery, useInfiniteScroll} from "@/shared/hooks";
 import {Banner, NoData} from "@/components/molecules";
-import {useInfiniteQuery} from '@tanstack/react-query'
-import {useEffect, useState} from "react";
 import {ICompany_banner_data} from "@/shared/type";
 import dynamic from "next/dynamic";
 import load from '@/public/assets/load_dot_120.json'
@@ -28,8 +18,8 @@ export default function MainRegisteredCompanySection() {
   const {
     data,
     status,
-    error,
-    refetch,
+    // error,
+    // refetch,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -49,7 +39,7 @@ export default function MainRegisteredCompanySection() {
             img_url: v.cover_img ?? v.image_url,
             phone: formatting_phone_number(v.user.advertisementTel),
             location: v.loan_available_location ?
-              v.loan_available_location.join(', ') :
+              v.loan_available_location.slice(0, 2).join(', ') :
               '전체'
           })
         })

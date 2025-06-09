@@ -27,8 +27,10 @@ export default function Buy_new_location_banner({name}: {name: TAds_name}) {
 	}
 
 	useEffect(() => {
+		console.log('hoho')
 		if(default_value.banner_info && default_value.location_num && set_validate_list) {
 			set_validate_list(prev => {
+				console.log('haha', default_value.banner_info.location, default_value.location_num)
 				const data = [...prev.filter(v => v.name !== name)]
 
 				data.push({name, status: is_typed(default_value.banner_info.title) === null, error_message: '지역 배너광고의 제목이 비어있습니다'})

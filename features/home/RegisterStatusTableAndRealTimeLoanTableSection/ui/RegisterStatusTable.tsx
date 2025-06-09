@@ -31,7 +31,7 @@ export default function RegisterStatusTable() {
           res.push({
             id: v.company_id,
             location: v.loan_available_location !== undefined && v.loan_available_location.length > 0 ?
-              v.loan_available_location.join(', '):
+              v.loan_available_location.slice(0, 2).join(', '):
               '전체',
             loan_limit: v.loan_limit?.toLocaleString('ko-KR') ?? '상담 후 결정',
             title: v.title,

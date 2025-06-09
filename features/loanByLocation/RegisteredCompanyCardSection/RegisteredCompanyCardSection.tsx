@@ -46,7 +46,7 @@ export default function RegisteredCompanyCardSection({
             subtitle: v.sub_title ?? '',
             name: v.user.companyName,
             phone: formatting_phone_number(v.user.advertisementTel),
-            location: v.loan_available_location?.join(', ') ?? '전체',
+            location: v.loan_available_location?.slice(0, 2).join(', ') ?? '전체',
             img_url: v.image_url ?? v.cover_img,
           })
         })

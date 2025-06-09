@@ -1,6 +1,8 @@
 import React, {createContext, useContext} from "react";
 import {TLocation} from "@/shared/type";
 
+export type TJobStatus = '직장인' | '사업자' | '소상공인' | '프리랜서' | '무직';
+
 export interface IPost_data {
   gender: 'MALE' | 'FEMALE'
   setGender: React.Dispatch<React.SetStateAction<'MALE' | 'FEMALE'>>
@@ -8,8 +10,8 @@ export interface IPost_data {
   setAge: React.Dispatch<React.SetStateAction<string>>
   phone_number: string
   setPhone_number: React.Dispatch<React.SetStateAction<string>>
-  has_job: boolean
-  setHas_job: React.Dispatch<React.SetStateAction<boolean>>
+  job: TJobStatus
+  setJob: React.Dispatch<React.SetStateAction<TJobStatus>>
   title: string
   setTitle: React.Dispatch<React.SetStateAction<string>>
   contents: string

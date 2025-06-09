@@ -5,10 +5,11 @@
  * 지역, 상품 등을 Query를 통해 여러 개를 보낼 때는 콤마(,)로 구분하여 보내주세요. 예시: ?location=서울,부산,대구
  * OpenAPI spec version: 1.0
  */
+import {AdResponseDto} from '@/entities/const/adResponseDto'
 
 export type WrappedAdResponseDto = {
   /** 광고 목록 */
-  ads: string[];
+  ads: AdResponseDto[];
   /** 총 페이지 수 */
   totalPage: number;
 };

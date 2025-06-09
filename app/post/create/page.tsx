@@ -1,12 +1,11 @@
 'use client'
 
 import React, {useEffect, useState} from "react";
-import {IPost_data, Post_data_context} from "@/features/create_post_profile/context/post_data_context";
+import {IPost_data, Post_data_context, TJobStatus} from "@/features/create_post_profile/context/post_data_context";
 import Create_post_profile from "@/features/create_post_profile/ui/profile";
 import Create_post_post from "@/features/create_post_profile/ui/post";
 import Create_post_loan from "@/features/create_post_profile/ui/loan";
 import {useRouter} from "next/navigation";
-import axios from "axios";
 import TLocation from "@/shared/type/TLocation";
 
 export default function Create_post() {
@@ -14,7 +13,7 @@ export default function Create_post() {
   const [gender, setGender] = useState<'MALE' | 'FEMALE'>("MALE");
   const [age, setAge] = useState<string>('');
   const [phone_number, setPhone_number] = useState<string>('');
-  const [has_job, setHas_job] = useState<boolean>(true);
+  const [job, setJob] = useState<TJobStatus>('무직');
   const [title, setTitle] = useState<string>('')
   const [contents, setContents] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
@@ -26,7 +25,7 @@ export default function Create_post() {
     gender, setGender,
     age, setAge,
     phone_number, setPhone_number,
-    has_job, setHas_job,
+    job, setJob,
     title, setTitle,
     contents, setContents,
     amount, setAmount,

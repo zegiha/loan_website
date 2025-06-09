@@ -1,6 +1,5 @@
 import {Banner, Section} from "@/components/molecules";
 import Typo from "@/components/atoms/typo/Typo";
-import {useAdsPublicControllerSearchAds} from '@/entities/api/advertisement-public/advertisement-public'
 import {semantic_object} from "@/shared/color";
 import {formatActiveCategories} from "@/features/loanByLocation/helper";
 import {CompanyCardGrid, DataProvider} from "@/components/organisms";
@@ -33,7 +32,7 @@ export default function RegisteredCompanySection({
     limit: 20,
     option: {
       product: !activeCategories.has('전체') ?
-        Array.from(activeCategories).join(', ') :
+        Array.from(activeCategories).join(',') :
         undefined
     },
     select: v => {
@@ -47,7 +46,7 @@ export default function RegisteredCompanySection({
             subtitle: v.sub_title ?? '',
             name: v.user.companyName,
             phone: formatting_phone_number(v.user.advertisementTel),
-            location: v.loan_available_location?.join(', ') ?? '전체',
+            location: v.loan_available_location?.slice(0, 2).join(', ') ?? '전체',
             img_url: v.image_url ?? v.cover_img,
           })
         })

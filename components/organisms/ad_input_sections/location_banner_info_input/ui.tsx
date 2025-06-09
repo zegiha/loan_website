@@ -19,8 +19,8 @@ export default function Location_banner_info_input({
 	set_banner_info,
 	available_locations,
 	set_available_locations,
-	check_available_locations,
-	set_check_available_locations,
+	// check_available_locations,
+	// set_check_available_locations,
 	location_num,
 	set_location_num,
 	location_num_string,
@@ -39,9 +39,9 @@ export default function Location_banner_info_input({
 				set_location_num_string('4')
 				set_location_num(4)
 			} else {
-				alert('최댓값은 26입니다')
-				set_location_num_string('26')
-				set_location_num(26)
+				alert('최댓값은 18입니다')
+				set_location_num_string('18')
+				set_location_num(18)
 			}
 		}
 	}
@@ -58,7 +58,6 @@ export default function Location_banner_info_input({
 	}, [available_locations])
 
 	useEffect(() => {
-		console.log(selected_option_idx[0])
 		if(selected_option_idx[0] < 3) {
 			set_location_num(selected_option_idx[0] + 1)
 			set_location_num_string(`${selected_option_idx[0] + 1}`)

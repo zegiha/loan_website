@@ -1,10 +1,11 @@
+import Select from '@/components/molecules/inputs/select/Select'
 import InputSection from "@/components/molecules/Layout/inputSection/InputSection";
 import {Col, Row} from "@/components/atoms/layout";
 import Typo from "@/components/atoms/typo/Typo";
 import {BaseButton, BaseTextInput, Radio} from "@/components/molecules/inputs";
 import {ArrowIcon} from "@/components/atoms/icons";
-import {usePost_data} from "@/features/create_post_profile/context/post_data_context";
-import React, {useState} from "react";
+import {TJobStatus, usePost_data} from "@/features/create_post_profile/context/post_data_context";
+import React, {useEffect, useState} from "react";
 import style from './style.module.scss'
 import {formatting_phone_number} from "@/shared/helper";
 
@@ -17,20 +18,34 @@ export default function Create_post_profile({
 }) {
   const [string_tmp, set_string_tmp] = useState<string>('');
   const [string_with_null_tmp, set_string_with_null_tmp] = useState<string | null>(null);
-  const [_, set_bool_tmp] = useState<boolean>(false);
+  const [_, set_bool_tmp] = useState<TJobStatus>('무직');
   const {
     age, setAge,
     setGender,
     phone_number, setPhone_number,
-    setHas_job,
+    setJob,
     monthly_income, set_monthly_income,
   } = !is_display ? usePost_data() : {
     age: string_tmp, setAge: set_string_tmp,
     setGender: set_string_tmp,
     phone_number: string_tmp, setPhone_number: set_string_tmp,
-    setHas_job: set_bool_tmp,
+    setJob: set_bool_tmp,
     monthly_income: string_with_null_tmp, set_monthly_income: set_string_with_null_tmp
   }
+
+  const jobList: Array<TJobStatus> = [
+    '직장인',
+    '사업자',
+    '소상공인',
+    '프리랜서',
+    '무직',
+  ]
+  const [select, setSelect] = useState<Array<number>>([jobList.length-1])
+
+  useEffect(() => {
+    if(select.length > 0)
+      setJob(jobList[select[0]])
+  }, [select])
 
   return (
     <InputSection title={'신원정보를 입력해주세요'}>
@@ -70,12 +85,14 @@ export default function Create_post_profile({
       </Col>
       <Col gap={4} width={'fill'}>
         <label htmlFor="gender">
-          <Typo.Caption color={'dim'}>직업유무</Typo.Caption>
+          <Typo.Caption color={'dim'}>직업</Typo.Caption>
         </label>
-        <Col width={'fill'} gap={8}>
-          <Radio name={'has_job'} contents={'예'} onFocus={() => !is_display && setHas_job(true)}/>
-          <Radio name={'has_job'} contents={'아니요'} onFocus={() => !is_display && setHas_job(false)}/>
-        </Col>
+        <Select
+          placeholder={'직업을 선택해주세요'}
+          option={jobList}
+          selected_idx={select}
+          set_selected_idx={setSelect}
+        />
       </Col>
       <Col gap={4} width={'fill'}>
         <label htmlFor="gender">

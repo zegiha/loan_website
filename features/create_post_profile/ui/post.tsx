@@ -80,7 +80,7 @@ export default function Create_post_post({
                 gender: data.gender,
                 tel: data.phone_number.replaceAll('-',''),
                 monthly_income: data.monthly_income?.replaceAll(',','') ?? '0',
-                job_status: data.has_job,
+                job_status: data.job,
               },
             })
           }

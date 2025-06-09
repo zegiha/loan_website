@@ -49,7 +49,7 @@ export default function PremiumBanner({
             ...v2,
             id: v2.company_id,
             title: v2.title ?? '',
-            location: v2.loan_available_location?.join(', ') ?? '',
+            location: v2.loan_available_location?.slice(0, 2).join(', ') ?? '',
             name: v2.user.companyName,
           })
         })
