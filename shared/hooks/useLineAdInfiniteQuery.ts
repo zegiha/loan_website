@@ -111,10 +111,6 @@ export default function useLineAdInfiniteQuery<S>({
   }
 
   useEffect(() => {
-    console.log(maxPage)
-  }, [maxPage]);
-
-  useEffect(() => {
     if(
       !queryRes.isFetchingNextPage &&
       queryRes.hasNextPage &&

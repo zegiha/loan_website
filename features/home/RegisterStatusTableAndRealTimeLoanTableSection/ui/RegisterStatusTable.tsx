@@ -63,11 +63,6 @@ export default function RegisterStatusTable() {
     }
   }, [])
 
-  useEffect(() => {
-    if(status === 'error')
-      console.error(error)
-  }, [status]);
-
   if(status === 'success') {
     if(data.length > 0) {
       return (

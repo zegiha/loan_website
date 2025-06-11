@@ -44,7 +44,7 @@ export default function ConsultationAvailableCompaniesSection({
           res.push({
             name: v.user.companyName,
             phone: formatting_phone_number(v.user.advertisementTel),
-            location: v.location.join(', ')
+            location: v.location.slice(0, 2).join(', ')
           })
         })
 
@@ -61,14 +61,14 @@ export default function ConsultationAvailableCompaniesSection({
     )}
     {status === 'success' && data &&
       data.length > 0 ? (
-        <CompanyCardGrid>
+        <Row width={'fill'} alignItems={'center'} gap={16} wrap>
           {data.map((v, i) => (
               <Available_company_banner
                 key={i}
                 {...v}
               />
           ))}
-        </CompanyCardGrid>
+        </Row>
       ):(
         <NoData contents={'등록된 상담 가능한 업체가 없습니다'}/>
       )
@@ -131,7 +131,6 @@ function Available_company_banner({
   return (
     <Link href={`/loan/${name}`}>
       <Col
-        width={'fill'}
         gap={12}
         className={style.container}
       >
@@ -145,7 +144,6 @@ function Available_company_banner({
         </Col>
         <Divider/>
         <Row
-          width={'fill'}
           gap={12}
         >
           <Row gap={4}>

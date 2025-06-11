@@ -26,6 +26,8 @@ export default function BaseIcon({
     transform: `rotate(${deg}deg)`,
     color: color === 'none' ? 'transparent' : getColor(color),
     userSelect: 'none',
+    width: size,
+    height: size,
   }
   return (
     <div
