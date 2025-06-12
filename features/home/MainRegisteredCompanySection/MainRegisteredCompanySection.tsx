@@ -32,7 +32,7 @@ export default function MainRegisteredCompanySection() {
       v.pages.forEach((v) => {
         v.data.forEach((v) => {
           res.push({
-            id: v.id,
+            id: v.company_id,
             title: v.title ?? '',
             subtitle: v.sub_title ?? '',
             name: v.user.companyName,
