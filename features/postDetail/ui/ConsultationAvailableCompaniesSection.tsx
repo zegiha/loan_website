@@ -41,10 +41,12 @@ export default function ConsultationAvailableCompaniesSection({
         const res: Array<ILoan_inquiry_consultation_available_companies> = []
 
         v.companies.map(v => {
+          console.log(v)
           res.push({
             name: v.user.companyName,
             phone: formatting_phone_number(v.user.advertisementTel),
-            location: v.location.slice(0, 2).join(', ')
+            location: v.location.slice(0, 2).join(', '),
+            companyId: v['LoanboardCompanyRelation'].company_id,
           })
         })
 
@@ -126,10 +128,11 @@ function AddAvailableCompanyBanner({
 function Available_company_banner({
   location,
   name,
-  phone
+  phone,
+  companyId,
 }: ILoan_inquiry_consultation_available_companies) {
   return (
-    <Link href={`/loan/${name}`}>
+    <Link href={`/loan/${companyId}`}>
       <Col
         gap={12}
         className={style.container}
