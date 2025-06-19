@@ -16,6 +16,9 @@ const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2', d
 export const metadata: Metadata = {
   title: '대출센터',
   description: '인터넷 대출 중개 직거래 전문 사이트',
+  other: {
+    'google-adsense-account': 'ca-pub-5038497244768898',
+  }
 };
 
 export default function RootLayout({
