@@ -1,24 +1,9 @@
 # 대출센터
 
+![](https://private-user-images.githubusercontent.com/118225985/467877363-ebc2e93b-d00d-466f-961f-822cb21de719.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTI4MTc3MzEsIm5iZiI6MTc1MjgxNzQzMSwicGF0aCI6Ii8xMTgyMjU5ODUvNDY3ODc3MzYzLWViYzJlOTNiLWQwMGQtNDY2Zi05NjFmLTgyMmNiMjFkZTcxOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzE4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcxOFQwNTQzNTFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03ZThlZjhiYWQ1YTE5MTdhNWY2NTkzZjhjZjVjN2NkYTkwNzg0N2NiZGQ3NWRiNTJjMTk2MGVkYjEzMzY0M2ZkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.RDsCQxynPSiLxGiY05jDG9SNRKlH2M2t3kI_iTzywl8)
+
 대부 중개 업체 광고 플랫폼  
 일반 사용자와 대부 중개 업체가 이용하는 웹사이트입니다.
-
-## 주요 기능
-
-### 일반 사용자
-- 대출 상담 문의 등록
-- 지역별/상품별 대부업체 검색
-- 실시간 대출 문의 게시판
-- 인증업체 조회
-- 고객센터 (공지사항, FAQ)
-
-### 대부 중개 업체
-- 회원가입 및 로그인
-- 광고 등록 및 관리
-- 광고 연장 및 수정
-- 대출 상담 문의 조회
-- 계정 관리
-
 
 ## 기술 스택
 
